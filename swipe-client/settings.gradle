@@ -1,1 +1,3 @@
 include 'core', 'lwjgl3', 'android'
+include 'swipe-domain'
+

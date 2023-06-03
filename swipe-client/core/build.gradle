@@ -2,6 +2,9 @@
 eclipse.project.name = appName + '-core'
 
 dependencies {
+  implementation project(':swipe-domain')
+  implementation 'com.google.code.gson:gson:2.10.1'
+  implementation 'space.earlygrey:shapedrawer:2.5.0'
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
   api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
   api "io.github.libktx:ktx-actors:$ktxVersion"
