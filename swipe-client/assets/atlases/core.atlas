@@ -1,0 +1,13 @@
+
+core.png
+size: 1024, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+loading
+  rotate: false
+  xy: 2, 2
+  size: 768, 1536
+  orig: 768, 1536
+  offset: 0, 0
+  index: -1
