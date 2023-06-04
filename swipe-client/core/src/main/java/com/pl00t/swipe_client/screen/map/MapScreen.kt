@@ -1,21 +1,27 @@
 package com.pl00t.swipe_client.screen.map
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.Group
-import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe.model.LevelType
 import com.pl00t.swipe_client.screen.StageScreen
+import com.pl00t.swipe_client.services.FrontLevelModel
 import com.pl00t.swipe_client.services.LevelService
 import com.pl00t.swipe_client.ux.Fonts
+import com.pl00t.swipe_client.ux.hideToBehindAndRemove
+import com.pl00t.swipe_client.ux.raiseFromBehind
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
+import ktx.actors.onClick
 import ktx.async.KtxAsync
 import ktx.log.debug
 import kotlin.math.max
@@ -35,9 +41,11 @@ class MapScreen(
     lateinit var mapImage: Image
     lateinit var linkActor: LinkActor
     lateinit var mapIconsGroup: Group
+    private var levelDetailsActor: LevelDetailsActor? = null
 
     lateinit var actTitle: Label
 
+    private val multiplexer = InputMultiplexer()
     private val gestureDetector = GestureDetector(this)
 
     private val _mapIconSizeSmall = root.height / 15f
@@ -52,11 +60,14 @@ class MapScreen(
             load("atlases/charValerion.atlas", TextureAtlas::class.java)
         }
         loadAm(amMap, this::mapLoaded)
-        Gdx.input.inputProcessor = gestureDetector
+        multiplexer.addProcessor(root)
+        multiplexer.addProcessor(gestureDetector)
+        Gdx.input.inputProcessor = multiplexer
     }
 
     override fun render(delta: Float) {
         super.render(delta)
+        root.act()
     }
 
     private fun mapLoaded() {
@@ -110,9 +121,29 @@ class MapScreen(
                     height = iconSize
                     alpha = if (level.enabled) 1f else 0.5f
                 }
+                icon.onClick {
+                    showLevelDetails(level)
+                }
                 mapIconsGroup.addActor(icon)
             }
         }
+    }
+
+    private fun showLevelDetails(level: FrontLevelModel) {
+        KtxAsync.launch {
+            val details = levelService.getLevelDetails(level.id)
+            if (levelDetailsActor == null) {
+                levelDetailsActor = LevelDetailsActor(details.locationId, details.locationTitle,
+                    root.width, root.width, taCore, taMap).apply {
+                    this.raiseFromBehind(root.width)
+                }
+                root.addActor(levelDetailsActor)
+            } else {
+                levelDetailsActor?.hideToBehindAndRemove(root.width)
+                levelDetailsActor = null
+            }
+        }
+
     }
 
     private fun initMapImage() {
@@ -126,34 +157,32 @@ class MapScreen(
     }
 
     override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
-        return true
+        return false
     }
 
     override fun tap(x: Float, y: Float, count: Int, button: Int): Boolean {
-        return true
+        return false
     }
 
     override fun longPress(x: Float, y: Float): Boolean {
-        return true
+        return false
     }
 
     override fun fling(velocityX: Float, velocityY: Float, button: Int): Boolean {
-        return true
+        return false
     }
 
     override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float): Boolean {
         mapActor.x = max(root.width - mapImage.imageWidth, min(0f, mapActor.x + deltaX))
-        return true
+        return false
     }
 
     override fun panStop(x: Float, y: Float, pointer: Int, button: Int): Boolean {
-        return true
+        return false
     }
 
     override fun zoom(initialDistance: Float, distance: Float): Boolean {
-        val percentage = distance / initialDistance
-
-        return true
+        return false
     }
 
     override fun pinch(

@@ -20,8 +20,11 @@ object Fonts {
     }
 
     fun createWindowTitle(text: String, lineHeight: Float): Label = Label(text, lsWindowTitle).apply {
-        this.width = width
-        this.height = height
+        this.fontScaleX = lineHeight * 0.014f
+        this.fontScaleY = lineHeight * 0.014f
+    }
+
+    fun createCaption(text: String, lineHeight: Float): Label = Label(text, lsDescription).apply {
         this.fontScaleX = lineHeight * 0.014f
         this.fontScaleY = lineHeight * 0.014f
     }

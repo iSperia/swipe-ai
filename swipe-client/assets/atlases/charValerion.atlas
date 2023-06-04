@@ -2,7 +2,7 @@
 charValerion.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
 character_valerian
   rotate: false

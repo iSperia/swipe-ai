@@ -6,6 +6,8 @@ import com.pl00t.swipe.model.LinkModel
 interface LevelService {
 
     suspend fun getAct(actName: String): FrontActModel
+
+    suspend fun getLevelDetails(level: String): FrontLevelDetails
 }
 
 data class FrontActModel(
@@ -19,4 +21,8 @@ data class FrontLevelModel(
     val id: String,
     val type: LevelType,
     val enabled: Boolean,
+)
+data class FrontLevelDetails(
+    val locationId: String,
+    val locationTitle: String,
 )

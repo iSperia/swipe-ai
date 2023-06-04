@@ -6,7 +6,9 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.pl00t.swipe_client.screen.battle.BattleScreen
 import com.pl00t.swipe_client.screen.map.MapScreen
+import com.pl00t.swipe_client.services.FrontLevelDetails
 import com.pl00t.swipe_client.services.LevelService
 import com.pl00t.swipe_client.services.LevelServiceImpl
 import com.pl00t.swipe_client.ux.Colors
@@ -29,8 +31,12 @@ class SwipeGame : Game() {
     }
 
     override fun render() {
-        Gdx.gl.glClearColor(Colors.BG_COLOR.r, Colors.BG_COLOR.g, Colors.BG_COLOR.b, Colors.BG_COLOR.a)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT or GL20.GL_DEPTH_BUFFER_BIT or (if (Gdx.graphics.getBufferFormat().coverageSampling) GL20.GL_COVERAGE_BUFFER_BIT_NV else 0))
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        Gdx.gl.glClear(GL20.GL_ALPHA_BITS)
+
+//        Gdx.gl.glClearColor(Colors.BG_COLOR.r, Colors.BG_COLOR.g, Colors.BG_COLOR.b, Colors.BG_COLOR.a)
+//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         super.render()
 
         if (!coreLoaded) {
@@ -43,7 +49,8 @@ class SwipeGame : Game() {
             coreLoaded = true
             Fonts.init(amCore)
             levelService = LevelServiceImpl()
-            setScreen(MapScreen(amCore, levelService))
+//            setScreen(MapScreen(amCore, levelService))
+            setScreen(BattleScreen(amCore, FrontLevelDetails("location_groves", "The Verdant Grove")))
         }
     }
 }

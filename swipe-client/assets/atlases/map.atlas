@@ -2,32 +2,59 @@
 map.png
 size: 2048, 2048
 format: RGBA8888
-filter: Nearest, Nearest
+filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
-map_act1
+location_crystal_caves
   rotate: false
-  xy: 2, 262
+  xy: 0, 0
   size: 1024, 1024
   orig: 1024, 1024
   offset: 0, 0
   index: -1
+location_groves
+  rotate: false
+  xy: 1024, 0
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+location_harmony_citadel
+  rotate: false
+  xy: 0, 1024
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+map_act1
+  rotate: false
+  xy: 1024, 1024
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+
+map2.png
+size: 512, 128
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: none
 map_icon_boss
   rotate: false
-  xy: 1028, 1162
+  xy: 126, 4
   size: 128, 124
   orig: 128, 124
   offset: 0, 0
   index: -1
 map_icon_farm
   rotate: false
-  xy: 2, 2
+  xy: 254, 0
   size: 115, 128
   orig: 115, 128
   offset: 0, 0
   index: -1
 map_icon_shield
   rotate: false
-  xy: 2, 132
+  xy: 0, 0
   size: 126, 128
   orig: 126, 128
   offset: 0, 0

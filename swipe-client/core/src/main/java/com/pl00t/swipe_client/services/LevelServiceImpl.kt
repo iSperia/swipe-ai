@@ -18,7 +18,7 @@ class LevelServiceImpl : LevelService {
                 FrontLevelModel(
                     x = it.x,
                     y = 1024 - it.y,
-                    enabled = Random.nextBoolean(),
+                    enabled = Random.nextInt(5) > 2,
                     type = it.type,
                     id = it.id
                 )
@@ -26,5 +26,13 @@ class LevelServiceImpl : LevelService {
             links = act1.links,
             background = act1.background
         )
+    }
+
+    override suspend fun getLevelDetails(level: String): FrontLevelDetails {
+        return when(Random.nextInt(3)) {
+            0 -> FrontLevelDetails("location_groves", "The Verdant Grove")
+            1 -> FrontLevelDetails("location_crystal_caves", "The Crystal Caverns")
+            else -> FrontLevelDetails("location_harmony_citadel", "The Sacred Citadel")
+        }
     }
 }
