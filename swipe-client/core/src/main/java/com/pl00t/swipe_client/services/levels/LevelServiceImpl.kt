@@ -1,4 +1,4 @@
-package com.pl00t.swipe_client.services
+package com.pl00t.swipe_client.services.levels
 
 import com.badlogic.gdx.Gdx
 import com.google.gson.Gson

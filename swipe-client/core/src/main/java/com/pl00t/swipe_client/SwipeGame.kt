@@ -7,11 +7,9 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.pl00t.swipe_client.screen.battle.BattleScreen
-import com.pl00t.swipe_client.screen.map.MapScreen
-import com.pl00t.swipe_client.services.FrontLevelDetails
-import com.pl00t.swipe_client.services.LevelService
-import com.pl00t.swipe_client.services.LevelServiceImpl
-import com.pl00t.swipe_client.ux.Colors
+import com.pl00t.swipe_client.services.levels.FrontLevelDetails
+import com.pl00t.swipe_client.services.levels.LevelService
+import com.pl00t.swipe_client.services.levels.LevelServiceImpl
 import com.pl00t.swipe_client.ux.Fonts
 import ktx.async.KtxAsync
 

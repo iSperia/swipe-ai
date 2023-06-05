@@ -3,7 +3,7 @@ package com.pl00t.swipe_client.screen.map
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.pl00t.swipe_client.services.FrontActModel
+import com.pl00t.swipe_client.services.levels.FrontActModel
 import com.pl00t.swipe_client.ux.Colors
 
 class LinkActor(

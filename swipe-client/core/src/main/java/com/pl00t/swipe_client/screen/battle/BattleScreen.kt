@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.ScaleByAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.pl00t.swipe_client.screen.StageScreen
-import com.pl00t.swipe_client.services.FrontLevelDetails
+import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import kotlin.math.max
 import kotlin.random.Random
 
