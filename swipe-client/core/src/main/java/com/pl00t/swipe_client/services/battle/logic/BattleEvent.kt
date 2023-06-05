@@ -13,7 +13,8 @@ sealed interface BattleEvent {
         val health: Int,
         val maxHealth: Int,
         val effects: List<Effect>,
-    )
+        val team: Int,
+    ) : BattleEvent
 
     data class CreateTileEvent(
         val id: Int,
@@ -22,5 +23,5 @@ sealed interface BattleEvent {
         val skin: TileSkin,
         val stack: Int,
         val maxStack: Int,
-    )
+    ) : BattleEvent
 }

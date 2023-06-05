@@ -23,5 +23,6 @@ data class BattleConfiguration(
 )
 
 data class Battle(
+    val maxUnitId: Int,
     val units: List<Unit>
 )

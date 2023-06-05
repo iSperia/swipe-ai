@@ -22,7 +22,6 @@ class UltimateProgressActor(
     lateinit var foreground: Image
 
     var progress: Float = 0f
-    var _p = 0f
 
     init {
         imageBg = Image(taBattle.findRegion("semi_black_pixel")).apply {
@@ -56,17 +55,6 @@ class UltimateProgressActor(
             setScaling(Scaling.stretch)
         }
         addActor(foreground)
-    }
-
-    override fun act(delta: Float) {
-        super.act(delta)
-
-        _p += delta
-        if (_p > 1.5f) {
-            progress = Random.nextInt(100)/100f
-            updateUltimateProgress()
-            _p = 0f
-        }
     }
 
     private fun updateUltimateProgress() {

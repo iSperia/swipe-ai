@@ -9,23 +9,33 @@ import com.badlogic.gdx.scenes.scene2d.actions.ScaleByAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.pl00t.swipe_client.screen.StageScreen
+import com.pl00t.swipe_client.services.battle.BattleDecorations
+import com.pl00t.swipe_client.services.battle.BattleService
+import com.pl00t.swipe_client.services.battle.logic.BattleEvent
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import ktx.async.KtxAsync
 import kotlin.math.max
 import kotlin.random.Random
 
 class BattleScreen(
     amCore: AssetManager,
-    private val levelDetails: FrontLevelDetails,
+    private val battleService: BattleService
 ) : StageScreen(amCore) {
+
+    lateinit var decorations: BattleDecorations
 
     lateinit var amBattle: AssetManager
     lateinit var taBattle: TextureAtlas
     lateinit var taMap: TextureAtlas
-    lateinit var taValerion: TextureAtlas
-    lateinit var taThornstalker: TextureAtlas
+    lateinit var taUnits: TextureAtlas
+    lateinit var taTarot: TextureAtlas
 
     lateinit var gPanel: Group
     lateinit var gLocation: Group
+    lateinit var gUnits: Group
     lateinit var gTileBgs: Group
 
     private val polygonSpriteBatch = PolygonSpriteBatch()
@@ -37,24 +47,32 @@ class BattleScreen(
     private val _tileBottomOffset = _tileSize
     private val _characterWidth = root.width / 3f
 
+    private var leftUnitsCount = 0
+    private var rightUnitsCount = 0
+
     override fun show() {
-        amBattle = AssetManager().apply {
-            load("atlases/battle.atlas", TextureAtlas::class.java)
-            load("atlases/map.atlas", TextureAtlas::class.java)
-            load("atlases/charValerion.atlas", TextureAtlas::class.java)
-            load("atlases/char_thronstalker.atlas", TextureAtlas::class.java)
+        KtxAsync.launch {
+            decorations = battleService.createMockBattle()
+            amBattle = AssetManager().apply {
+                load("atlases/battle.atlas", TextureAtlas::class.java)
+                load("atlases/map.atlas", TextureAtlas::class.java)
+                load("atlases/units.atlas", TextureAtlas::class.java)
+                load("atlases/tarot.atlas", TextureAtlas::class.java)
+            }
+            loadAm(amBattle) { amLoaded() }
         }
-        loadAm(amBattle, this::amLoaded)
     }
 
     private fun amLoaded() {
         taBattle = amBattle.get("atlases/battle.atlas", TextureAtlas::class.java)
         taMap = amBattle.get("atlases/map.atlas", TextureAtlas::class.java)
-        taValerion = amBattle.get("atlases/charValerion.atlas", TextureAtlas::class.java)
-        taThornstalker = amBattle.get("atlases/char_thronstalker.atlas", TextureAtlas::class.java)
+        taUnits = amBattle.get("atlases/units.atlas", TextureAtlas::class.java)
+        taTarot = amBattle.get("atlases/tarot.atlas", TextureAtlas::class.java)
 
         gPanel = Group()
         gLocation = Group()
+        gUnits = Group()
+        gUnits.y = _panelHei * 0.11f
         gLocation.y = _panelHei * 0.9f
 
         val panelImage = Image(taBattle.createPatch("panelBg")).apply {
@@ -79,12 +97,13 @@ class BattleScreen(
         root.addActor(gPanel)
 
         val locationSize = max(root.height - _panelHei * 0.9f, max(root.width, _locationHei))
-        val locationImage = Image(taMap.findRegion(levelDetails.locationId)).apply {
+        val locationImage = Image(taMap.findRegion(decorations.background)).apply {
             width = locationSize
             height = locationSize
             x = - (locationSize - root.width) / 2f
         }
         gLocation.addActor(locationImage)
+        gLocation.addActor(gUnits)
 
         addTileBackgrounds()
 
@@ -94,97 +113,45 @@ class BattleScreen(
         }
         gPanel.addActor(ultimateProgress)
 
-        val texture = taValerion.findRegion("character_valerian")
-        val texture2 = taThornstalker.findRegion("character_thalendros")
-        val texture3 = taThornstalker.findRegion("character_corrupted_dryad")
-        val character = Image(texture).apply {
-            width = _characterWidth
-            height = _characterWidth * texture.originalHeight / texture.originalWidth
-            x = 0f
-            y = _panelHei * 0.1f
-        }
-        val character2 = Image(texture2).apply {
-            width = _characterWidth * 1.7f
-            height = _characterWidth * 1.7f * texture2.originalHeight / texture.originalWidth
-            scaleX = -1f
-            x = root.width
-            y = _panelHei * 0.1f
-        }
-        val character3 = Image(texture3).apply {
-            width = _characterWidth * 0.9f
-            height = _characterWidth * 0.9f * texture2.originalHeight / texture.originalWidth
-            scaleX = -1f
-            x = root.width - _characterWidth * 0.75f
-            y = _panelHei * 0.1f
-        }
-        character.addAction(RepeatAction().apply {
-            this.count = Int.MAX_VALUE
-            this.action = SequenceAction(
-                ScaleByAction().apply {
-                    this.amountX = 0.03f
-                    this.amountY = 0.03f
-                    this.duration = 2.4f
-                },
-                ScaleByAction().apply {
-                    this.amountX = -0.03f
-                    this.amountY = -0.03f
-                    this.duration = 2.4f
-                }
-            )
-        })
-        character2.addAction(RepeatAction().apply {
-            this.count = Int.MAX_VALUE
-            this.action = SequenceAction(
-                ScaleByAction().apply {
-                    this.amountX = 0.03f
-                    this.amountY = 0.03f
-                    this.duration = 2.4f
-                },
-                ScaleByAction().apply {
-                    this.amountX = -0.03f
-                    this.amountY = -0.03f
-                    this.duration = 2.4f
-                }
-            )
-        })
-        character3.addAction(RepeatAction().apply {
-            this.count = Int.MAX_VALUE
-            this.action = SequenceAction(
-                ScaleByAction().apply {
-                    this.amountX = 0.03f
-                    this.amountY = 0.03f
-                    this.duration = 2.4f
-                },
-                ScaleByAction().apply {
-                    this.amountX = -0.03f
-                    this.amountY = -0.03f
-                    this.duration = 2.4f
-                }
-            )
-        })
-        gLocation.addActor(character)
-        gLocation.addActor(character2)
-//        gLocation.addActor(character3)
+        KtxAsync.launch { observeBattleEvents() }
+    }
 
-        val cards = listOf("tarot_valerion_ability_sword", "tarot_valerion_ability_beam", "tarot_valerion_ability_sigil")
-        (0 until 25).shuffled().take(8).forEach { index ->
-            val x = (index % 5) * _tileSize + gTileBgs.x
-            val y = (index / 5) * _tileSize + gTileBgs.y
-            val tileActor = TileActor(
-                sectors = Random.nextInt(0, 5),
-                maxSectors = Random.nextInt(2, 6),
-                size = _tileSize,
-                strokeWidth = _tileSize / 8,
-                taBattle = taBattle,
-                polygonBatch = polygonSpriteBatch,
-                cardTexture = cards.random(),
-                taPersonage = taValerion
-            ).apply {
-                this.x = x
-                this.y = y
+    private suspend fun observeBattleEvents() {
+        battleService.events().collect { event ->
+            println("BE: $event")
+            when (event) {
+                is BattleEvent.CreateUnitEvent -> {
+                    createUnit(event)
+                }
+                else -> Unit
             }
-            gPanel.addActor(tileActor)
         }
+    }
+
+    private fun createUnit(event: BattleEvent.CreateUnitEvent) {
+        val unit = UnitActor(
+            id = event.id,
+            health = event.health,
+            maxHealth = event.maxHealth,
+            effects = event.effects,
+            atlas = taUnits,
+            texture = event.skin.toString(),
+            team = event.team,
+            w = _characterWidth,
+            s = BattleScaleMapper.map(event.skin),
+            position = if (event.team == 0) leftUnitsCount++ else rightUnitsCount++
+        )
+        placeUnit(unit)
+        gUnits.addActor(unit)
+    }
+
+    private fun placeUnit(unit: UnitActor) {
+        unit.x = if (unit.team == 0) {
+            0.6f * _characterWidth * unit.position
+        } else {
+            root.width - 0.6f * _characterWidth * unit.position
+        }
+        println("Placed $unit at [${unit.x}:${unit.y}]")
     }
 
     private fun addTileBackgrounds() {

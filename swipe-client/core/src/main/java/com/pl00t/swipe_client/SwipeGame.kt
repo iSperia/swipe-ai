@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.pl00t.swipe_client.screen.battle.BattleScreen
+import com.pl00t.swipe_client.services.battle.BattleService
+import com.pl00t.swipe_client.services.battle.BattleServiceImpl
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
@@ -19,6 +21,7 @@ class SwipeGame : Game() {
     lateinit var amCore: AssetManager
     var coreLoaded = false
     lateinit var levelService: LevelService
+    lateinit var battleService: BattleService
 
     override fun create() {
         KtxAsync.initiate()
@@ -26,6 +29,7 @@ class SwipeGame : Game() {
         amCore.load("atlases/core.atlas", TextureAtlas::class.java)
         amCore.load("fonts/cinzel.fnt", BitmapFont::class.java)
         amCore.load("fonts/notepad.fnt", BitmapFont::class.java)
+        battleService = BattleServiceImpl()
     }
 
     override fun render() {
@@ -48,7 +52,7 @@ class SwipeGame : Game() {
             Fonts.init(amCore)
             levelService = LevelServiceImpl()
 //            setScreen(MapScreen(amCore, levelService))
-            setScreen(BattleScreen(amCore, FrontLevelDetails("location_groves", "The Verdant Grove")))
+            setScreen(BattleScreen(amCore, battleService))
         }
     }
 }
