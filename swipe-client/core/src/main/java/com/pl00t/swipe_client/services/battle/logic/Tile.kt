@@ -1,10 +1,10 @@
-package com.pl00t.swipe_client.services.battle
+package com.pl00t.swipe_client.services.battle.logic
 
-enum class TileType {
+enum class TileSkin {
     VALERIAN_RADIANT_STRIKE,
     VALERIAN_LUMINOUS_BEAM,
     VALERIAN_SIGIL_OF_RENEWAL,
-    VALRIAN_DIVINE_CONVERGENCE,
+    VALERIAN_DIVINE_CONVERGENCE,
 
 }
 
@@ -15,5 +15,5 @@ data class Tile(
     val x: Int,
     val y: Int,
     val id: Int,
-    val type: TileType
+    val type: TileSkin
 )
