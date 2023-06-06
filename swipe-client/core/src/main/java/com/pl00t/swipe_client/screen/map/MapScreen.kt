@@ -28,8 +28,9 @@ import kotlin.math.min
 
 class MapScreen(
     amCore: AssetManager,
+    inputMultiplexer: InputMultiplexer,
     private val levelService: LevelService,
-) : StageScreen(amCore), GestureDetector.GestureListener {
+) : StageScreen(amCore, inputMultiplexer), GestureDetector.GestureListener {
 
     lateinit var amMap: AssetManager
     lateinit var taMap: TextureAtlas
@@ -43,7 +44,6 @@ class MapScreen(
 
     lateinit var actTitle: Label
 
-    private val multiplexer = InputMultiplexer()
     private val gestureDetector = GestureDetector(this)
 
     private val _mapIconSizeSmall = root.height / 15f

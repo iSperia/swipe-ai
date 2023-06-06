@@ -1,34 +1,12 @@
-
 tarot.png
-size: 2048, 512
-format: RGBA8888
-filter: MipMapLinearLinear, MipMapLinearLinear
-repeat: none
+size:2048,512
+filter:MipMapLinearLinear,MipMapLinearLinear
+repeat:none
 VALERIAN_DIVINE_CONVERGENCE
-  rotate: false
-  xy: 304, 2
-  size: 300, 504
-  orig: 300, 504
-  offset: 0, 0
-  index: -1
+bounds:300,0,300,504
 VALERIAN_LUMINOUS_BEAM
-  rotate: false
-  xy: 606, 2
-  size: 300, 504
-  orig: 300, 504
-  offset: 0, 0
-  index: -1
+bounds:600,0,300,504
 VALERIAN_RADIANT_STRIKE
-  rotate: false
-  xy: 2, 2
-  size: 300, 504
-  orig: 300, 504
-  offset: 0, 0
-  index: -1
+bounds:0,0,300,504
 VALERIAN_SIGIL_OF_RENEWAL
-  rotate: false
-  xy: 908, 2
-  size: 300, 504
-  orig: 300, 504
-  offset: 0, 0
-  index: -1
+bounds:900,0,300,504

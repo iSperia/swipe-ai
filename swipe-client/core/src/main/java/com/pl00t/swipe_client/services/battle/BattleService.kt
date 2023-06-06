@@ -1,9 +1,10 @@
 package com.pl00t.swipe_client.services.battle
 
 import com.pl00t.swipe_client.services.battle.logic.*
+import com.pl00t.swipe_client.services.battle.logic.processor.SwipeProcesor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import ktx.style.skin
+import kotlinx.coroutines.flow.filterNot
 
 interface BattleService {
     suspend fun createMockBattle(): BattleDecorations
@@ -55,7 +56,9 @@ class BattleServiceImpl() : BattleService {
         return BattleDecorations("location_groves")
     }
 
-    override suspend fun events(): Flow<BattleEvent> = events
+    override suspend fun events(): Flow<BattleEvent> = events.filterNot {
+        it is BattleEvent.CreateTileEvent && it.id != 0
+    }
 
     override suspend fun processSwipe(dx: Int, dy: Int) {
         val result = processor.processSwipe(battle, 1, dx, dy)

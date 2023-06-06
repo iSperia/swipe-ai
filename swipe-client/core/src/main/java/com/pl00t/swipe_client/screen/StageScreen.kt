@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.screen
 
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
@@ -10,7 +11,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport
 import ktx.app.KtxScreen
 
 abstract class StageScreen(
-    protected val amCore: AssetManager
+    protected val amCore: AssetManager,
+    protected var multiplexer: InputMultiplexer,
 ) : KtxScreen {
 
     protected val taCore = amCore.get<TextureAtlas>("atlases/core.atlas")
@@ -25,6 +27,7 @@ abstract class StageScreen(
 
     override fun render(delta: Float) {
         super.render(delta)
+        root.act()
         root.draw()
         if (loadingAms.isEmpty()) {
             if (isLoading) {

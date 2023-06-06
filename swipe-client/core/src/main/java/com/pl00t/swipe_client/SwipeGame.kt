@@ -2,6 +2,7 @@ package com.pl00t.swipe_client
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.BitmapFont
@@ -22,9 +23,11 @@ class SwipeGame : Game() {
     var coreLoaded = false
     lateinit var levelService: LevelService
     lateinit var battleService: BattleService
+    lateinit var inputMultiplexer: InputMultiplexer
 
     override fun create() {
         KtxAsync.initiate()
+        inputMultiplexer = InputMultiplexer()
         amCore = AssetManager()
         amCore.load("atlases/core.atlas", TextureAtlas::class.java)
         amCore.load("fonts/cinzel.fnt", BitmapFont::class.java)
@@ -52,7 +55,7 @@ class SwipeGame : Game() {
             Fonts.init(amCore)
             levelService = LevelServiceImpl()
 //            setScreen(MapScreen(amCore, levelService))
-            setScreen(BattleScreen(amCore, battleService))
+            setScreen(BattleScreen(amCore, inputMultiplexer, battleService))
         }
     }
 }

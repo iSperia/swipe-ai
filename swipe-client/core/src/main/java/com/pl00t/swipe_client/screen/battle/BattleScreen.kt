@@ -1,13 +1,17 @@
 package com.pl00t.swipe_client.screen.battle
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleByAction
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.game7th.swipe.gestures.SimpleDirectionGestureDetector
 import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.services.battle.BattleDecorations
 import com.pl00t.swipe_client.services.battle.BattleService
@@ -22,8 +26,9 @@ import kotlin.random.Random
 
 class BattleScreen(
     amCore: AssetManager,
+    inputMultiplexer: InputMultiplexer,
     private val battleService: BattleService
-) : StageScreen(amCore) {
+) : StageScreen(amCore, inputMultiplexer), SimpleDirectionGestureDetector.DirectionListener {
 
     lateinit var decorations: BattleDecorations
 
@@ -37,12 +42,16 @@ class BattleScreen(
     lateinit var gLocation: Group
     lateinit var gUnits: Group
     lateinit var gTileBgs: Group
+    lateinit var gTiles: Group
+
+    lateinit var gestureDetector: SimpleDirectionGestureDetector
 
     private val polygonSpriteBatch = PolygonSpriteBatch()
 
     private val _panelHei = root.width * 1.1f
     private val _locationHei = root.height - _panelHei * 0.9f
     private val _tileSize = root.width * 0.17f
+    private val _tileStrokeWidth = _tileSize * 0.12f
     private val _tileLeftOffset = (root.width - 5 * _tileSize)/2f
     private val _tileBottomOffset = _tileSize
     private val _characterWidth = root.width / 3f
@@ -51,6 +60,10 @@ class BattleScreen(
     private var rightUnitsCount = 0
 
     override fun show() {
+        gestureDetector = SimpleDirectionGestureDetector(this)
+        multiplexer.addProcessor(root)
+        multiplexer.addProcessor(gestureDetector)
+        Gdx.input.inputProcessor = multiplexer
         KtxAsync.launch {
             decorations = battleService.createMockBattle()
             amBattle = AssetManager().apply {
@@ -92,7 +105,12 @@ class BattleScreen(
             x = _tileLeftOffset
             y = _tileBottomOffset
         }
+        gTiles = Group().apply {
+            x = _tileLeftOffset
+            y = _tileBottomOffset
+        }
         gPanel.addActor(gTileBgs)
+        gPanel.addActor(gTiles)
         root.addActor(gLocation)
         root.addActor(gPanel)
 
@@ -123,9 +141,31 @@ class BattleScreen(
                 is BattleEvent.CreateUnitEvent -> {
                     createUnit(event)
                 }
+                is BattleEvent.CreateTileEvent -> {
+                    createTile(event)
+                }
                 else -> Unit
             }
         }
+    }
+
+    private fun createTile(event: BattleEvent.CreateTileEvent) {
+        val tile = TileActor(
+            sectors = event.stack,
+            maxSectors = event.maxStack,
+            size = _tileSize,
+            strokeWidth = _tileStrokeWidth,
+            cardTexture = event.skin.toString(),
+            taBattle = taBattle,
+            taTarot = taTarot,
+            polygonBatch = polygonSpriteBatch,
+            gridX = event.x,
+            gridY = event.y,
+        )
+        tile.name = event.id.toString()
+        placeTile(tile)
+        gTiles.addActor(tile)
+        tile.animateAppear()
     }
 
     private fun createUnit(event: BattleEvent.CreateUnitEvent) {
@@ -141,8 +181,15 @@ class BattleScreen(
             s = BattleScaleMapper.map(event.skin),
             position = if (event.team == 0) leftUnitsCount++ else rightUnitsCount++
         )
+        unit.name = event.id.toString()
         placeUnit(unit)
         gUnits.addActor(unit)
+        unit.animateAppear()
+    }
+
+    private fun placeTile(tile: TileActor) {
+        tile.x = _tileSize * tile.gridX
+        tile.y = _tileSize * tile.gridY
     }
 
     private fun placeUnit(unit: UnitActor) {
@@ -151,7 +198,6 @@ class BattleScreen(
         } else {
             root.width - 0.6f * _characterWidth * unit.position
         }
-        println("Placed $unit at [${unit.x}:${unit.y}]")
     }
 
     private fun addTileBackgrounds() {
@@ -169,9 +215,23 @@ class BattleScreen(
         }
     }
 
-    override fun render(delta: Float) {
-        super.render(delta)
+    override fun dispose() {
+        super.dispose()
+        multiplexer.removeProcessor(gestureDetector)
+        multiplexer.removeProcessor(root)
+        taBattle.dispose()
+        taUnits.dispose()
+        taTarot.dispose()
+        taMap.dispose()
+        taCore.dispose()
+    }
 
-        root.act()
+    override fun onLeft() = processSwipe(-1, 0)
+    override fun onRight() = processSwipe(1, 0)
+    override fun onUp() = processSwipe(0, 1)
+    override fun onDown() = processSwipe(0, -1)
+
+    private fun processSwipe(dx: Int, dy: Int) {
+        println("swipe: $dx:$dy")
     }
 }
