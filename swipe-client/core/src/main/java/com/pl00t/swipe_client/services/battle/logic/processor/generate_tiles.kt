@@ -9,7 +9,7 @@ data class GenerationWeight(
     val weight: Int,
 )
 
-data class TileGenerationConfig(
+data class TileGeneratorConfig(
     val entries: List<GenerationWeight>
 ) {
     val totalWeight = entries.sumOf { it.weight }
@@ -25,21 +25,21 @@ data class TileGenerationConfig(
 }
 
 object TileGeneratorConfigFactory {
-    val CONFIGS = mapOf<UnitSkin, TileGenerationConfig>(
-        UnitSkin.CHARACTER_VALERIAN to TileGenerationConfig(
+    val CONFIGS = mapOf<UnitSkin, TileGeneratorConfig>(
+        UnitSkin.CHARACTER_VALERIAN to TileGeneratorConfig(
             entries = listOf(
                 GenerationWeight(TileSkin.VALERIAN_RADIANT_STRIKE, 3),
                 GenerationWeight(TileSkin.VALERIAN_LUMINOUS_BEAM, 3),
                 GenerationWeight(TileSkin.VALERIAN_SIGIL_OF_RENEWAL, 3))
         ),
-        UnitSkin.MONSTER_THORNSTALKER to TileGenerationConfig(
+        UnitSkin.MONSTER_THORNSTALKER to TileGeneratorConfig(
             entries = listOf(
                 GenerationWeight(TileSkin.THORNSTALKER_PRIMAL_ASSAULT, 5),
                 GenerationWeight(TileSkin.THORNSTALKER_RESILIENT_GROWTH, 3),
                 GenerationWeight(TileSkin.THORNSTALKER_VENOMOUS_BARRAGE, 2),
             )
         ),
-        UnitSkin.MONSTER_CORRUPTED_DRYAD to TileGenerationConfig(
+        UnitSkin.MONSTER_CORRUPTED_DRYAD to TileGeneratorConfig(
             entries = listOf(
                 GenerationWeight(TileSkin.CORRUPTED_DRYAD_ARBOREAL_FANGS, 4),
                 GenerationWeight(TileSkin.CORRUPTED_DRYUAD_VILE_SIPHON, 4),

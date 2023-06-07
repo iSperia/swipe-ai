@@ -2,11 +2,130 @@ package com.pl00t.swipe_client.services.battle.logic.processor
 
 import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.Unit
+import kotlin.math.max
+import kotlin.math.min
 
 class SwipeProcesor {
 
-    fun processSwipe(battle: Battle, unit: Int, dx: Int, dy: Int): ProcessResult {
-        TODO("")
+    private fun inb(x: Int, y: Int) = x > -1 && x < 5 && y > -1 && y < 5
+
+    fun processSwipe(battle: Battle, unitId: Int, dx: Int, dy: Int): ProcessResult {
+        println("process swipe $unitId $dx:$dy")
+        val unit = battle.unitById(unitId)
+        val fo = unit.field
+        var fc = fo.copy(tiles = fo.tiles)
+        val events = mutableListOf<BattleEvent>()
+        val tilesToProcess = when {
+            dx == -1 -> fo.tiles.sortedBy { it.x }
+            dx == 1 -> fo.tiles.sortedByDescending { it.x }
+            dy == -1 -> fo.tiles.sortedBy { it.y }
+            dy == 1 -> fo.tiles.sortedByDescending { it.y }
+            else -> fo.tiles.shuffled()
+        }
+        var tileId = unit.field.maxTileId
+        tilesToProcess.forEach { ttp ->
+            val tile = fc.tileBy(ttp.id) ?: ttp
+            //TODO: check if tile is limited with distance
+            val maxDistance = 5
+            var tx = tile.x
+            var ty = tile.y
+            var merged = false
+            println("step0 $tx:$ty")
+            var dist = 0
+            while (dist < maxDistance) {
+                dist++
+                val nx = tile.x + dist * dx
+                val ny = tile.y + dist * dy
+                //out of bounds, no move
+                if (inb(nx, ny)) {
+                    val t = fc.tileAt(nx, ny)
+                    if (t != null) {
+                        //Simple merge us into another stuff
+                        if (t.skin == tile.skin && TileMerger.SIMPLE.contains(t.skin) && tile.progress < tile.maxProgress && t.progress < t.maxProgress) {
+                            merged = true
+                            val sumStack = t.progress + tile.progress
+                            val stackLeft = 0
+                            val event = BattleEvent.MergeTileEvent(
+                                unitId = unitId,
+                                id = tile.id,
+                                to = t.id,
+                                tox = tx,
+                                toy = ty,
+                                ttox = t.x,
+                                ttoy = t.y,
+                                targetStack = min(t.maxProgress, sumStack),
+                                stackLeft = stackLeft
+                            )
+                            println("====merge====\n$tile\n$t\n=============")
+                            events.add(event)
+                            fc = fc.copy(tiles = fc.tiles.mapNotNull { fct ->
+                                if (fct.id == t.id) {
+                                    fct.copy(progress = min(sumStack, fct.maxProgress))
+                                } else if (fct.id == tile.id) {
+                                    if (stackLeft == 0) null else fct.copy(progress = stackLeft, x = tx, y = ty)
+                                } else {
+                                    fct
+                                }
+                            })
+                        }
+                        break
+                    } else {
+                        tx = nx
+                        ty = ny
+//                        println("tostep: $tx:$ty")
+                    }
+                } else {
+                    break
+                }
+            }
+            if (!merged && tx != tile.x || ty != tile.y) {
+                events.add(BattleEvent.MoveTileEvent(unitId, tile.id, tx, ty))
+                fc = fc.copy(tiles = fc.tiles.map { if (it.id == tile.id) tile.copy(x = tx, y = ty) else it })
+            }
+        }
+        val freePosition = (0 until 25).shuffled().firstOrNull {
+            fc.tileAt(it % 5, it / 5) == null
+        }
+
+        if (freePosition != null) {
+            val tileConfig: TileGeneratorConfig = TileGeneratorConfigFactory.CONFIGS[unit.skin]!!
+            val newTile = generateTile(freePosition, tileConfig, tileId++)
+            fc = fc.copy(tiles = fc.tiles + newTile, maxTileId = tileId)
+            events.add(BattleEvent.CreateTileEvent(
+                unitId = unit.id,
+                id = newTile.id,
+                x = newTile.x,
+                y = newTile.y,
+                skin = newTile.skin,
+                stack = newTile.progress,
+                maxStack = newTile.maxProgress
+            ))
+        } else {
+            //TODO: doom
+        }
+
+        var needCheck = true
+        while (needCheck) {
+            needCheck = false
+            fc.tiles.firstOrNull { it.progress >= it.maxProgress }?.let { tile ->
+                Executors.EXECUTORS[tile.skin]?.let { strategy ->
+                    needCheck = true
+                    fc = fc.copy(tiles = fc.tiles.filterNot { it.id == tile.id })
+                    events.add(BattleEvent.DestroyTileEvent(unitId, tile.id))
+                }
+            }
+        }
+
+        return ProcessResult(
+            events = events,
+            battle = battle.copy(units = battle.units.map { u ->
+                if (u.id == unitId) {
+                    u.copy(field = fc)
+                } else {
+                    u
+                }
+            })
+        )
     }
 
     fun processUltimate(battle: Battle, unit: Int): ProcessResult {
@@ -51,20 +170,10 @@ class SwipeProcesor {
             val tileGeneratorConfig = TileGeneratorConfigFactory.CONFIGS[unit.skin]
             tileGeneratorConfig?.let { tileGenerationConfig ->
                 val tiles = (0 until 25).shuffled().take(numTiles).map { position ->
-                    val x = position % 5
-                    val y = position / 5
-                    val skin = tileGeneratorConfig.generate()
-                    Tile(
-                        skin = skin,
-                        progress = 1,
-                        maxProgress = TileGeneratorConfigFactory.MAX_STACKS[skin] ?: 3,
-                        x = x,
-                        y = y,
-                        id = tileId++
-                    )
+                    generateTile(position, tileGeneratorConfig, tileId++)
                 }
                 tiles.forEach { tile ->
-                    events.add(BattleEvent.CreateTileEvent(unit.id, tile.x, tile.y, tile.skin, tile.progress, tile.maxProgress))
+                    events.add(BattleEvent.CreateTileEvent(unit.id, tile.id, tile.x, tile.y, tile.skin, tile.progress, tile.maxProgress))
                 }
                 unit.copy(field = unit.field.copy(maxTileId = tileId, tiles = tiles))
             } ?: unit
@@ -81,5 +190,23 @@ class SwipeProcesor {
         })
         val newBattle = battle.copy(maxUnitId = unitId, units = unitsWithTiles)
         return ProcessResult(battle = newBattle, events = events)
+    }
+
+    private fun generateTile(
+        position: Int,
+        tileGeneratorConfig: TileGeneratorConfig,
+        tileId: Int
+    ): Tile {
+        val x = position % 5
+        val y = position / 5
+        val skin = tileGeneratorConfig.generate()
+        return Tile(
+            skin = skin,
+            progress = 1,
+            maxProgress = TileGeneratorConfigFactory.MAX_STACKS[skin] ?: 3,
+            x = x,
+            y = y,
+            id = tileId
+        )
     }
 }

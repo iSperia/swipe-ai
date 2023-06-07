@@ -6,10 +6,10 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.input.GestureDetector
+import com.badlogic.gdx.math.Interpolation.ExpIn
+import com.badlogic.gdx.math.Interpolation.SwingOut
 import com.badlogic.gdx.scenes.scene2d.Group
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction
-import com.badlogic.gdx.scenes.scene2d.actions.ScaleByAction
-import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
+import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.game7th.swipe.gestures.SimpleDirectionGestureDetector
 import com.pl00t.swipe_client.screen.StageScreen
@@ -20,6 +20,8 @@ import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ktx.actors.along
+import ktx.actors.then
 import ktx.async.KtxAsync
 import kotlin.math.max
 import kotlin.random.Random
@@ -58,6 +60,7 @@ class BattleScreen(
 
     private var leftUnitsCount = 0
     private var rightUnitsCount = 0
+    private var tilesDirty = false
 
     override fun show() {
         gestureDetector = SimpleDirectionGestureDetector(this)
@@ -144,6 +147,68 @@ class BattleScreen(
                 is BattleEvent.CreateTileEvent -> {
                     createTile(event)
                 }
+                is BattleEvent.MoveTileEvent -> {
+                    gTiles.findActor<TileActor>(event.id.toString())?.let { tileActor ->
+                        val tx = event.tox * _tileSize
+                        val ty = event.toy * _tileSize
+//                        placeTile(tileActor)
+                        tileActor.updateXY(event.tox, event.toy)
+                        tileActor.addAction(
+                            MoveToAction().apply {
+                                duration = 0.3f
+                                interpolation = SwingOut(1.6f)
+                                setPosition(tx, ty)
+                            })
+                    }
+                }
+                is BattleEvent.MergeTileEvent -> {
+                    val tile1 = gTiles.findActor<TileActor>(event.id.toString())
+                    val tile2 = gTiles.findActor<TileActor>(event.to.toString())
+//                    placeTile(tile1)
+                    tile1.updateXY(event.tox, event.toy)
+                    tile1.zIndex = 0
+                    tile1.addAction(
+                        MoveToAction().apply {
+                            duration = 0.25f
+                            setPosition(event.ttox * _tileSize, event.ttoy * _tileSize)
+                            interpolation = SwingOut(1.6f)
+                        }.then(RunnableAction().apply {
+                            setRunnable {
+                                tile2.increaseSectors(event.targetStack)
+                                if (event.stackLeft <= 0) {
+                                    tile1.addAction(Actions.removeActor())
+                                } else {
+                                    tile1.decreaseSectors(event.stackLeft)
+                                    tile1.addAction(MoveToAction().apply {
+                                        duration = 0.05f
+                                        setPosition(event.tox * _tileSize, event.toy * _tileSize)
+                                    })
+                                }
+                            }
+                        })
+                    )
+                }
+                is BattleEvent.DestroyTileEvent -> {
+                    val actor = gTiles.findActor<TileActor>(event.id.toString())
+                    actor?.addAction(
+                        Actions.sequence(
+                            Actions.delay(0.2f),
+                            Actions.run { actor.arcVisible = false },
+                            Actions.parallel(
+                                ScaleByAction().apply {
+                                    setAmount(0.2f)
+                                    duration = 0.1f
+                                },
+                                AlphaAction().apply {
+                                    alpha = 0f
+                                    duration = 0.1f
+                                }
+                            ),
+                            Actions.removeActor()
+                        )
+                    )
+                }
+
                 else -> Unit
             }
         }
@@ -188,6 +253,7 @@ class BattleScreen(
     }
 
     private fun placeTile(tile: TileActor) {
+//        tile.clearActions()
         tile.x = _tileSize * tile.gridX
         tile.y = _tileSize * tile.gridY
     }
@@ -233,5 +299,6 @@ class BattleScreen(
 
     private fun processSwipe(dx: Int, dy: Int) {
         println("swipe: $dx:$dy")
+        KtxAsync.launch { battleService.processSwipe(dx, dy) }
     }
 }

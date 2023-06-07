@@ -25,4 +25,6 @@ data class BattleConfiguration(
 data class Battle(
     val maxUnitId: Int,
     val units: List<Unit>
-)
+) {
+    fun unitById(id: Int) = units.first { it.id == id }
+}

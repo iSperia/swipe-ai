@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.pl00t.swipe_client.screen.battle.BattleScreen
+import com.pl00t.swipe_client.screen.map.MapScreen
 import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.battle.BattleServiceImpl
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
@@ -54,7 +55,7 @@ class SwipeGame : Game() {
             coreLoaded = true
             Fonts.init(amCore)
             levelService = LevelServiceImpl()
-//            setScreen(MapScreen(amCore, levelService))
+//            setScreen(MapScreen(amCore, inputMultiplexer, levelService))
             setScreen(BattleScreen(amCore, inputMultiplexer, battleService))
         }
     }

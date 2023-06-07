@@ -16,10 +16,10 @@ class UltimateProgressActor(
     private val h: Float
 ) : Group() {
 
-    lateinit var imageBg: Image
-    lateinit var iProgress: Image
-    lateinit var description: Label
-    lateinit var foreground: Image
+    var imageBg: Image
+    var iProgress: Image
+    var description: Label
+    var foreground: Image
 
     var progress: Float = 0f
 

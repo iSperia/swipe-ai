@@ -57,11 +57,13 @@ class BattleServiceImpl() : BattleService {
     }
 
     override suspend fun events(): Flow<BattleEvent> = events.filterNot {
-        it is BattleEvent.CreateTileEvent && it.id != 0
+        it is BattleEvent.CreateTileEvent && it.unitId != 0 ||
+            it is BattleEvent.MoveTileEvent && it.unitId != 0 ||
+            it is BattleEvent.MergeTileEvent && it.unitId != 0
     }
 
     override suspend fun processSwipe(dx: Int, dy: Int) {
-        val result = processor.processSwipe(battle, 1, dx, dy)
+        val result = processor.processSwipe(battle, 0, dx, dy)
         result.events.forEach { events.emit(it) }
         battle = result.battle
     }
