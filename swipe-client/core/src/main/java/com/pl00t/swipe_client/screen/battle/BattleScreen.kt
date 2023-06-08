@@ -155,176 +155,210 @@ class BattleScreen(
                     createTile(event)
                 }
                 is BattleEvent.MoveTileEvent -> {
-                    gTiles.findActor<TileActor>(event.id.toString())?.let { tileActor ->
-                        val tx = event.tox * _tileSize
-                        val ty = event.toy * _tileSize
-//                        placeTile(tileActor)
-                        tileActor.updateXY(event.tox, event.toy)
-                        tileActor.addAction(
-                            MoveToAction().apply {
-                                duration = 0.3f
-                                interpolation = SwingOut(1.6f)
-                                setPosition(tx, ty)
-                            })
-                    }
+                    processMoveTileEvent(event)
                 }
                 is BattleEvent.MergeTileEvent -> {
-                    val tile1 = gTiles.findActor<TileActor>(event.id.toString())
-                    val tile2 = gTiles.findActor<TileActor>(event.to.toString())
-//                    placeTile(tile1)
-                    tile1.updateXY(event.tox, event.toy)
-                    tile1.zIndex = 0
-                    tile1.addAction(
-                        MoveToAction().apply {
-                            duration = 0.25f
-                            setPosition(event.ttox * _tileSize, event.ttoy * _tileSize)
-                            interpolation = SwingOut(1.6f)
-                        }.then(RunnableAction().apply {
-                            setRunnable {
-                                tile2.increaseSectors(event.targetStack)
-                                if (event.stackLeft <= 0) {
-                                    tile1.addAction(Actions.removeActor())
-                                } else {
-                                    tile1.decreaseSectors(event.stackLeft)
-                                    tile1.addAction(MoveToAction().apply {
-                                        duration = 0.05f
-                                        setPosition(event.tox * _tileSize, event.toy * _tileSize)
-                                    })
-                                }
-                            }
-                        })
-                    )
+                    processMergeTileEvent(event)
                 }
                 is BattleEvent.DestroyTileEvent -> {
-                    val actor = gTiles.findActor<TileActor>(event.id.toString())
-                    actor?.addAction(
-                        Actions.sequence(
-                            Actions.delay(0.2f),
-                            Actions.run { actor.arcVisible = false },
-                            Actions.parallel(
-                                ScaleByAction().apply {
-                                    setAmount(0.2f)
-                                    duration = 0.1f
-                                },
-                                AlphaAction().apply {
-                                    alpha = 0f
-                                    duration = 0.1f
-                                }
-                            ),
-                            Actions.removeActor()
-                        )
-                    )
+                    proessDestroyEvent(event)
                 }
                 is BattleEvent.AnimateTarotEvent -> {
                     when (event.animation) {
                         is TarotAnimation.TarotFromSourceTargets -> {
-                            val sourceUnit = gUnits.findActor<UnitActor>(event.animation.from.toString())
-                            //ok, we have some crazy tarot stuff
-                            val tarot = Image(taTarot.findRegion(event.animation.skin.toString())).apply {
-                                x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else - _characterWidth * 1.1f
-                                y = sourceUnit.y + _characterWidth * 0.15f
-                                width = _characterWidth * 0.8f
-                                height = _characterWidth * 0.8f * 1.66f
-                                setOrigin(Align.center)
-                            }
-                            tarot.setScale(0.1f)
-                            tarot.rotation = 180f
-                            tarot.alpha = 0f
-                            gTarotEffects.addActor(tarot)
-                            val actions = event.animation.targets.map { targetId ->
-                                gUnits.findActor<UnitActor>(targetId.toString())?.let { targetActor ->
-                                    val rx = targetActor.x + if (targetActor.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
-                                    val ry = targetActor.y + _characterWidth * 0.3f * Random.nextFloat()
-                                    val angle = if (targetActor.team == 0) 30f else -30f
-                                    Actions.sequence(
-                                        Actions.parallel(
-                                            Actions.moveTo(rx, ry, 0.2f, SwingOut(1.6f)),
-                                            Actions.rotateBy(angle, 0.06f, SwingOut(1.6f))
-                                        ),
-                                        Actions.rotateTo(-angle/5f, 0.1f)
-                                    )
-                                }
-                            }
-                            val action = Actions.sequence(
-                                Actions.parallel(
-                                    Actions.rotateTo(0f, 0.2f, SwingOut(1.6f)),
-                                    Actions.alpha(1f, 0.2f),
-                                    Actions.scaleTo(1f, 1f)
-                                ),
-                                SequenceAction().apply { actions.forEach { a -> addAction(a) } },
-                                Actions.alpha(0f, 0.1f),
-                                Actions.removeActor()
-                            )
-                            tarot.addAction(action)
+                            processTargetedAnimation(event.animation, event)
                         }
                         is TarotAnimation.TarotFromSourceDirected -> {
-                            val sourceUnit = gUnits.findActor<UnitActor>(event.animation.from.toString())
-                            val tarot = Image(taTarot.findRegion(event.animation.skin.toString())).apply {
-                                x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else - _characterWidth * 1.1f
-                                y = sourceUnit.y + _characterWidth * 0.35f
-                                width = _characterWidth * 0.8f
-                                height = _characterWidth * 0.8f * 1.66f
-                                setOrigin(Align.center)
-                            }
-                            tarot.alpha = 0f
-                            tarot.rotation = 270f
-                            val action = Actions.sequence(
-                                Actions.parallel(
-                                    Actions.alpha(1f, 0.2f),
-                                    Actions.rotateBy(-270f, 0.2f)
-                                ),
-                                Actions.parallel(
-                                    Actions.rotateBy(if (sourceUnit.team == 0) -90f else 90f, 0.3f),
-                                    Actions.moveBy(if (sourceUnit.team == 0) _characterWidth else -_characterWidth, 0.3f)
-                                ),
-                                Actions.parallel(
-                                    Actions.scaleTo(0.1f, 10f, 0.1f),
-                                    Actions.alpha(0f, 0.2f)
-                                ),
-                                Actions.removeActor()
-                            )
-                            tarot.addAction(action)
-                            gTarotEffects.addActor(tarot)
+                            processDirectedAnimation(event.animation, event)
                         }
                         is TarotAnimation.TarotAtSourceRotate -> {
-                            val sourceUnit = gUnits.findActor<UnitActor>(event.animation.at.toString())
-                            //ok, we have some crazy tarot stuff
-                            val tarot = Image(taTarot.findRegion(event.animation.skin.toString())).apply {
-                                x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else - _characterWidth * 1.1f
-                                y = sourceUnit.y + _characterWidth * 0.35f
-                                width = _characterWidth * 0.8f
-                                height = _characterWidth * 0.8f * 1.66f
-                                setOrigin(Align.center)
-                            }
-                            tarot.scaleX = 0.1f
-                            tarot.scaleY = 0.1f
-                            tarot.alpha = 0f
-                            val action = Actions.sequence(
-                                Actions.parallel(
-                                    Actions.scaleTo(1f, 1f, 0.3f),
-                                    Actions.alpha(0.8f, 0.3f),
-                                    Actions.moveBy(0f, -_characterWidth * 0.2f, 0.3f)
-                                ),
-                                Actions.parallel(
-                                    Actions.repeat(4, Actions.sequence(
-                                        Actions.alpha(0.9f, 0.05f),
-                                        Actions.alpha(1f, 0.05f),
-                                    )),
-                                    Actions.moveBy(0f, _characterWidth / 7f, 0.2f),
-                                    Actions.scaleBy(0.05f, -0.05f, 0.2f)
-                                ),
-                                Actions.alpha(0f, 0.05f),
-                                Actions.removeActor()
-                            )
-                            gTarotEffects.addActor(tarot)
-                            tarot.addAction(action)
+                            processStaticAnimation(event.animation, event)
                         }
                         else -> {}
                     }
                 }
-
                 else -> Unit
             }
+        }
+    }
+
+    private fun processStaticAnimation(
+        animation: TarotAnimation.TarotAtSourceRotate,
+        event: BattleEvent.AnimateTarotEvent
+    ) {
+        val sourceUnit = gUnits.findActor<UnitActor>(animation.at.toString())
+        //ok, we have some crazy tarot stuff
+        val tarot = Image(taTarot.findRegion(event.animation.skin.toString())).apply {
+            x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
+            y = sourceUnit.y + _characterWidth * 0.35f
+            width = _characterWidth * 0.8f
+            height = _characterWidth * 0.8f * 1.66f
+            setOrigin(Align.center)
+        }
+        tarot.scaleX = 0.1f
+        tarot.scaleY = 0.1f
+        tarot.alpha = 0f
+        val action = Actions.sequence(
+            Actions.parallel(
+                Actions.scaleTo(1f, 1f, 0.3f),
+                Actions.alpha(0.8f, 0.3f),
+                Actions.moveBy(0f, -_characterWidth * 0.2f, 0.3f)
+            ),
+            Actions.parallel(
+                Actions.repeat(
+                    4, Actions.sequence(
+                        Actions.alpha(0.9f, 0.05f),
+                        Actions.alpha(1f, 0.05f),
+                    )
+                ),
+                Actions.moveBy(0f, _characterWidth / 7f, 0.2f),
+                Actions.scaleBy(0.05f, -0.05f, 0.2f)
+            ),
+            Actions.alpha(0f, 0.05f),
+            Actions.removeActor()
+        )
+        gTarotEffects.addActor(tarot)
+        tarot.addAction(action)
+    }
+
+    private fun processDirectedAnimation(
+        animation: TarotAnimation.TarotFromSourceDirected,
+        event: BattleEvent.AnimateTarotEvent
+    ) {
+        val sourceUnit = gUnits.findActor<UnitActor>(animation.from.toString())
+        val tarot = Image(taTarot.findRegion(event.animation.skin.toString())).apply {
+            x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
+            y = sourceUnit.y + _characterWidth * 0.35f
+            width = _characterWidth * 0.8f
+            height = _characterWidth * 0.8f * 1.66f
+            setOrigin(Align.center)
+        }
+        tarot.alpha = 0f
+        tarot.rotation = 270f
+        val action = Actions.sequence(
+            Actions.parallel(
+                Actions.alpha(1f, 0.2f),
+                Actions.rotateBy(-270f, 0.2f)
+            ),
+            Actions.parallel(
+                Actions.rotateBy(if (sourceUnit.team == 0) -90f else 90f, 0.3f),
+                Actions.moveBy(if (sourceUnit.team == 0) _characterWidth else -_characterWidth, 0.3f)
+            ),
+            Actions.parallel(
+                Actions.scaleTo(0.1f, 10f, 0.1f),
+                Actions.alpha(0f, 0.2f)
+            ),
+            Actions.removeActor()
+        )
+        tarot.addAction(action)
+        gTarotEffects.addActor(tarot)
+    }
+
+    private fun processTargetedAnimation(
+        animation: TarotAnimation.TarotFromSourceTargets,
+        event: BattleEvent.AnimateTarotEvent
+    ) {
+        val sourceUnit = gUnits.findActor<UnitActor>(animation.from.toString())
+        //ok, we have some crazy tarot stuff
+        val tarot = Image(taTarot.findRegion(event.animation.skin.toString())).apply {
+            x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
+            y = sourceUnit.y + _characterWidth * 0.15f
+            width = _characterWidth * 0.8f
+            height = _characterWidth * 0.8f * 1.66f
+            setOrigin(Align.center)
+        }
+        tarot.setScale(0.1f)
+        tarot.rotation = 180f
+        tarot.alpha = 0f
+        gTarotEffects.addActor(tarot)
+        val actions = animation.targets.map { targetId ->
+            gUnits.findActor<UnitActor>(targetId.toString())?.let { targetActor ->
+                val rx = targetActor.x + if (targetActor.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
+                val ry = targetActor.y + _characterWidth * 0.3f * Random.nextFloat()
+                val angle = if (targetActor.team == 0) 30f else -30f
+                Actions.sequence(
+                    Actions.parallel(
+                        Actions.moveTo(rx, ry, 0.2f, SwingOut(1.6f)),
+                        Actions.rotateBy(angle, 0.06f, SwingOut(1.6f))
+                    ),
+                    Actions.rotateTo(-angle / 5f, 0.1f)
+                )
+            }
+        }
+        val action = Actions.sequence(
+            Actions.parallel(
+                Actions.rotateTo(0f, 0.2f, SwingOut(1.6f)),
+                Actions.alpha(1f, 0.2f),
+                Actions.scaleTo(1f, 1f)
+            ),
+            SequenceAction().apply { actions.forEach { a -> addAction(a) } },
+            Actions.alpha(0f, 0.1f),
+            Actions.removeActor()
+        )
+        tarot.addAction(action)
+    }
+
+    private fun proessDestroyEvent(event: BattleEvent.DestroyTileEvent) {
+        val actor = gTiles.findActor<TileActor>(event.id.toString())
+        actor?.addAction(
+            Actions.sequence(
+                Actions.delay(0.2f),
+                Actions.run { actor.arcVisible = false },
+                Actions.parallel(
+                    ScaleByAction().apply {
+                        setAmount(0.2f)
+                        duration = 0.1f
+                    },
+                    AlphaAction().apply {
+                        alpha = 0f
+                        duration = 0.1f
+                    }
+                ),
+                Actions.removeActor()
+            )
+        )
+    }
+
+    private fun processMergeTileEvent(event: BattleEvent.MergeTileEvent) {
+        val tile1 = gTiles.findActor<TileActor>(event.id.toString())
+        val tile2 = gTiles.findActor<TileActor>(event.to.toString())
+        //                    placeTile(tile1)
+        tile1.updateXY(event.tox, event.toy)
+        tile1.zIndex = 0
+        tile1.addAction(
+            MoveToAction().apply {
+                duration = 0.25f
+                setPosition(event.ttox * _tileSize, event.ttoy * _tileSize)
+                interpolation = SwingOut(1.6f)
+            }.then(RunnableAction().apply {
+                setRunnable {
+                    tile2.increaseSectors(event.targetStack)
+                    if (event.stackLeft <= 0) {
+                        tile1.addAction(Actions.removeActor())
+                    } else {
+                        tile1.decreaseSectors(event.stackLeft)
+                        tile1.addAction(MoveToAction().apply {
+                            duration = 0.05f
+                            setPosition(event.tox * _tileSize, event.toy * _tileSize)
+                        })
+                    }
+                }
+            })
+        )
+    }
+
+    private fun processMoveTileEvent(event: BattleEvent.MoveTileEvent) {
+        gTiles.findActor<TileActor>(event.id.toString())?.let { tileActor ->
+            val tx = event.tox * _tileSize
+            val ty = event.toy * _tileSize
+    //                        placeTile(tileActor)
+            tileActor.updateXY(event.tox, event.toy)
+            tileActor.addAction(
+                MoveToAction().apply {
+                    duration = 0.3f
+                    interpolation = SwingOut(1.6f)
+                    setPosition(tx, ty)
+                })
         }
     }
 
