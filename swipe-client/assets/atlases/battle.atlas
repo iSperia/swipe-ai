@@ -2,6 +2,11 @@ battle.png
 size:2048,512
 filter:MipMapLinearLinear,MipMapLinearLinear
 repeat:none
+healthbar_bg
+bounds:1542,219,128,25
+split:8,8,8,8
+healthbar_fg
+bounds:1747,253,118,15
 panelBg
 bounds:1542,246,203,186
 split:31,33,32,39
@@ -12,7 +17,7 @@ bounds:1028,117,179,161
 progress_inactive
 bounds:1747,270,180,162
 semi_black_pixel
-bounds:1542,243,1,1
+bounds:1929,431,1,1
 tbg
 bounds:1284,176,256,256
 tile_bg

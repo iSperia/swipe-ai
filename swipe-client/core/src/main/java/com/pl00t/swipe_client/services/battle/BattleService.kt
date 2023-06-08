@@ -20,7 +20,7 @@ class BattleServiceImpl() : BattleService {
     val events = MutableSharedFlow<BattleEvent>(200)
 
     override suspend fun createMockBattle(): BattleDecorations {
-        battle = Battle(0, emptyList())
+        battle = Battle(0, emptyList(), 1)
         val configuration = BattleConfiguration(
             humans = listOf(
                 HumanConfiguration(
@@ -59,7 +59,8 @@ class BattleServiceImpl() : BattleService {
     override suspend fun events(): Flow<BattleEvent> = events.filterNot {
         it is BattleEvent.CreateTileEvent && it.unitId != 0 ||
             it is BattleEvent.MoveTileEvent && it.unitId != 0 ||
-            it is BattleEvent.MergeTileEvent && it.unitId != 0
+            it is BattleEvent.MergeTileEvent && it.unitId != 0 ||
+            it is BattleEvent.DestroyTileEvent && it.unitId != 0
     }
 
     override suspend fun processSwipe(dx: Int, dy: Int) {

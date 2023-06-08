@@ -24,7 +24,12 @@ data class BattleConfiguration(
 
 data class Battle(
     val maxUnitId: Int,
-    val units: List<Unit>
+    val units: List<Unit>,
+    val swipeBeforeNpc: Int,
 ) {
-    fun unitById(id: Int) = units.first { it.id == id }
+    fun unitById(id: Int) = units.firstOrNull { it.id == id }
+
+    fun enemies(unit: Unit) = units.filter { it.team != unit.team }
+
+    fun meleeTarget(unit: Unit) = enemies(unit).lastOrNull()
 }

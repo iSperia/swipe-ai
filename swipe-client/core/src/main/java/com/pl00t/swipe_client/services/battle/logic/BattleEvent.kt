@@ -1,5 +1,7 @@
 package com.pl00t.swipe_client.services.battle.logic
 
+import com.pl00t.swipe_client.services.battle.logic.processor.TarotAnimation
+
 data class UnitPopup(
     val icons: List<String>,
     val text: String,
@@ -48,5 +50,9 @@ sealed interface BattleEvent {
     data class DestroyTileEvent(
         val unitId: Int,
         val id: Int
+    ) : BattleEvent
+
+    data class AnimateTarotEvent(
+        val animation: TarotAnimation
     ) : BattleEvent
 }

@@ -2,8 +2,8 @@ package com.pl00t.swipe_client.services.battle.logic.processor
 
 import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.Unit
-import kotlin.math.max
 import kotlin.math.min
+import kotlin.random.Random
 
 class SwipeProcesor {
 
@@ -11,7 +11,7 @@ class SwipeProcesor {
 
     fun processSwipe(battle: Battle, unitId: Int, dx: Int, dy: Int): ProcessResult {
         println("process swipe $unitId $dx:$dy")
-        val unit = battle.unitById(unitId)
+        val unit = battle.unitById(unitId) ?: return ProcessResult(emptyList(), battle)
         val fo = unit.field
         var fc = fo.copy(tiles = fo.tiles)
         val events = mutableListOf<BattleEvent>()
@@ -72,7 +72,6 @@ class SwipeProcesor {
                     } else {
                         tx = nx
                         ty = ny
-//                        println("tostep: $tx:$ty")
                     }
                 } else {
                     break
@@ -104,27 +103,61 @@ class SwipeProcesor {
             //TODO: doom
         }
 
+        var updatedBattle = battle.copy(units = battle.units.map { u ->
+            if (u.id == unitId) {
+                u.copy(field = fc)
+            } else {
+                u
+            }
+        })
+
         var needCheck = true
         while (needCheck) {
             needCheck = false
             fc.tiles.firstOrNull { it.progress >= it.maxProgress }?.let { tile ->
-                Executors.EXECUTORS[tile.skin]?.let { strategy ->
-                    needCheck = true
+                val behavior = BehaviorFactory.behavior(tile.skin)
+                if (behavior.autoDelete()) {
                     fc = fc.copy(tiles = fc.tiles.filterNot { it.id == tile.id })
                     events.add(BattleEvent.DestroyTileEvent(unitId, tile.id))
+                }
+                updatedBattle = battle.copy(units = battle.units.map { u ->
+                    if (u.id == unitId) {
+                        u.copy(field = fc)
+                    } else {
+                        u
+                    }
+                })
+                val animation = behavior.animationStrategy(battle, unitId)
+                events.add(BattleEvent.AnimateTarotEvent(animation))
+                needCheck = true
+            }
+        }
+
+        var swipes = updatedBattle.swipeBeforeNpc
+        if (unit.human) {
+            swipes = updatedBattle.swipeBeforeNpc - 1
+            if (swipes <= 0) {
+                swipes = updatedBattle.units.count { it.human }
+                val bots = updatedBattle.units.filter { !it.human }.toList()
+                bots.forEach { botUnit ->
+                    updatedBattle.unitById(botUnit.id)?.let { bot ->
+                        val directions = when (Random.nextInt(4)) {
+                            0 -> -1 to 0
+                            1 -> 1 to 0
+                            2 -> 0 to 1
+                            else -> 0 to -1
+                        }
+                        val result = processSwipe(updatedBattle, bot.id, directions.first, directions.second)
+                        updatedBattle = result.battle
+                        events.addAll(result.events)
+                    }
                 }
             }
         }
 
         return ProcessResult(
             events = events,
-            battle = battle.copy(units = battle.units.map { u ->
-                if (u.id == unitId) {
-                    u.copy(field = fc)
-                } else {
-                    u
-                }
-            })
+            battle = updatedBattle.copy(swipeBeforeNpc = swipes)
         )
     }
 

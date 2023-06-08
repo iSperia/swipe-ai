@@ -11,16 +11,19 @@ import com.badlogic.gdx.math.Interpolation.SwingOut
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.utils.Align
 import com.game7th.swipe.gestures.SimpleDirectionGestureDetector
 import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.services.battle.BattleDecorations
 import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.battle.logic.BattleEvent
+import com.pl00t.swipe_client.services.battle.logic.processor.TarotAnimation
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ktx.actors.along
+import ktx.actors.alpha
 import ktx.actors.then
 import ktx.async.KtxAsync
 import kotlin.math.max
@@ -43,6 +46,7 @@ class BattleScreen(
     lateinit var gPanel: Group
     lateinit var gLocation: Group
     lateinit var gUnits: Group
+    lateinit var gTarotEffects: Group
     lateinit var gTileBgs: Group
     lateinit var gTiles: Group
 
@@ -88,8 +92,10 @@ class BattleScreen(
         gPanel = Group()
         gLocation = Group()
         gUnits = Group()
+        gTarotEffects = Group()
         gUnits.y = _panelHei * 0.11f
         gLocation.y = _panelHei * 0.9f
+        gTarotEffects.y = _panelHei * 0.11f
 
         val panelImage = Image(taBattle.createPatch("panelBg")).apply {
             x = 0f
@@ -125,6 +131,7 @@ class BattleScreen(
         }
         gLocation.addActor(locationImage)
         gLocation.addActor(gUnits)
+        gLocation.addActor(gTarotEffects)
 
         addTileBackgrounds()
 
@@ -208,6 +215,113 @@ class BattleScreen(
                         )
                     )
                 }
+                is BattleEvent.AnimateTarotEvent -> {
+                    when (event.animation) {
+                        is TarotAnimation.TarotFromSourceTargets -> {
+                            val sourceUnit = gUnits.findActor<UnitActor>(event.animation.from.toString())
+                            //ok, we have some crazy tarot stuff
+                            val tarot = Image(taTarot.findRegion(event.animation.skin.toString())).apply {
+                                x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else - _characterWidth * 1.1f
+                                y = sourceUnit.y + _characterWidth * 0.15f
+                                width = _characterWidth * 0.8f
+                                height = _characterWidth * 0.8f * 1.66f
+                                setOrigin(Align.center)
+                            }
+                            tarot.setScale(0.1f)
+                            tarot.rotation = 180f
+                            tarot.alpha = 0f
+                            gTarotEffects.addActor(tarot)
+                            val actions = event.animation.targets.map { targetId ->
+                                gUnits.findActor<UnitActor>(targetId.toString())?.let { targetActor ->
+                                    val rx = targetActor.x + if (targetActor.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
+                                    val ry = targetActor.y + _characterWidth * 0.3f * Random.nextFloat()
+                                    val angle = if (targetActor.team == 0) 30f else -30f
+                                    Actions.sequence(
+                                        Actions.parallel(
+                                            Actions.moveTo(rx, ry, 0.2f, SwingOut(1.6f)),
+                                            Actions.rotateBy(angle, 0.06f, SwingOut(1.6f))
+                                        ),
+                                        Actions.rotateTo(-angle/5f, 0.1f)
+                                    )
+                                }
+                            }
+                            val action = Actions.sequence(
+                                Actions.parallel(
+                                    Actions.rotateTo(0f, 0.2f, SwingOut(1.6f)),
+                                    Actions.alpha(1f, 0.2f),
+                                    Actions.scaleTo(1f, 1f)
+                                ),
+                                SequenceAction().apply { actions.forEach { a -> addAction(a) } },
+                                Actions.alpha(0f, 0.1f),
+                                Actions.removeActor()
+                            )
+                            tarot.addAction(action)
+                        }
+                        is TarotAnimation.TarotFromSourceDirected -> {
+                            val sourceUnit = gUnits.findActor<UnitActor>(event.animation.from.toString())
+                            val tarot = Image(taTarot.findRegion(event.animation.skin.toString())).apply {
+                                x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else - _characterWidth * 1.1f
+                                y = sourceUnit.y + _characterWidth * 0.35f
+                                width = _characterWidth * 0.8f
+                                height = _characterWidth * 0.8f * 1.66f
+                                setOrigin(Align.center)
+                            }
+                            tarot.alpha = 0f
+                            tarot.rotation = 270f
+                            val action = Actions.sequence(
+                                Actions.parallel(
+                                    Actions.alpha(1f, 0.2f),
+                                    Actions.rotateBy(-270f, 0.2f)
+                                ),
+                                Actions.parallel(
+                                    Actions.rotateBy(if (sourceUnit.team == 0) -90f else 90f, 0.3f),
+                                    Actions.moveBy(if (sourceUnit.team == 0) _characterWidth else -_characterWidth, 0.3f)
+                                ),
+                                Actions.parallel(
+                                    Actions.scaleTo(0.1f, 10f, 0.1f),
+                                    Actions.alpha(0f, 0.2f)
+                                ),
+                                Actions.removeActor()
+                            )
+                            tarot.addAction(action)
+                            gTarotEffects.addActor(tarot)
+                        }
+                        is TarotAnimation.TarotAtSourceRotate -> {
+                            val sourceUnit = gUnits.findActor<UnitActor>(event.animation.at.toString())
+                            //ok, we have some crazy tarot stuff
+                            val tarot = Image(taTarot.findRegion(event.animation.skin.toString())).apply {
+                                x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else - _characterWidth * 1.1f
+                                y = sourceUnit.y + _characterWidth * 0.35f
+                                width = _characterWidth * 0.8f
+                                height = _characterWidth * 0.8f * 1.66f
+                                setOrigin(Align.center)
+                            }
+                            tarot.scaleX = 0.1f
+                            tarot.scaleY = 0.1f
+                            tarot.alpha = 0f
+                            val action = Actions.sequence(
+                                Actions.parallel(
+                                    Actions.scaleTo(1f, 1f, 0.3f),
+                                    Actions.alpha(0.8f, 0.3f),
+                                    Actions.moveBy(0f, -_characterWidth * 0.2f, 0.3f)
+                                ),
+                                Actions.parallel(
+                                    Actions.repeat(4, Actions.sequence(
+                                        Actions.alpha(0.9f, 0.05f),
+                                        Actions.alpha(1f, 0.05f),
+                                    )),
+                                    Actions.moveBy(0f, _characterWidth / 7f, 0.2f),
+                                    Actions.scaleBy(0.05f, -0.05f, 0.2f)
+                                ),
+                                Actions.alpha(0f, 0.05f),
+                                Actions.removeActor()
+                            )
+                            gTarotEffects.addActor(tarot)
+                            tarot.addAction(action)
+                        }
+                        else -> {}
+                    }
+                }
 
                 else -> Unit
             }
@@ -239,6 +353,7 @@ class BattleScreen(
             health = event.health,
             maxHealth = event.maxHealth,
             effects = event.effects,
+            taBattle = taBattle,
             atlas = taUnits,
             texture = event.skin.toString(),
             team = event.team,
