@@ -18,7 +18,6 @@ class UnitHealthBarActor(
 ): Group() {
 
     val background: Image = Image(taBattle.createPatch("healthbar_bg")).apply {
-        println("w=$w")
         width = w
         height = h
         setScaling(Scaling.stretch)

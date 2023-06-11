@@ -1,9 +1,6 @@
 package com.pl00t.swipe_client.services.battle.logic.processor
 
-import com.pl00t.swipe_client.services.battle.logic.Battle
-import com.pl00t.swipe_client.services.battle.logic.Character
-import com.pl00t.swipe_client.services.battle.logic.ProcessResult
-import com.pl00t.swipe_client.services.battle.logic.TileSkin
+import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.characters.*
 
 sealed abstract class TarotAnimation(val skin: TileSkin) {
@@ -36,6 +33,8 @@ abstract class SkillBehavior {
     open fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult = ProcessResult(emptyList(), battle)
 
     open fun getBaseLuck(): Float = 0.05f
+
+    open fun afterTileUsed(battle: Battle, character: Character, self: Tile, target: Tile): ProcessResult = ProcessResult(emptyList(), battle)
 }
 
 object BehaviorFactory {
@@ -46,6 +45,8 @@ object BehaviorFactory {
             TileSkin.VALERIAN_RADIANT_STRIKE -> RadiantStrikeBehaviour()
             TileSkin.VALERIAN_LUMINOUS_BEAM -> LuminousBeamBehaviour()
             TileSkin.VALERIAN_SIGIL_OF_RENEWAL -> SigilOfRenewalBehavior()
+            TileSkin.VALERIAN_SIGIL_OF_RENEWAL_BG -> SigilOfRenewalBackgroundBehavior()
+            TileSkin.VALERIAN_DIVINE_CONVERGENCE -> DivineConvergenceBehavior()
             TileSkin.THORNSTALKER_RESILIENT_GROWTH -> ResilentGrowth()
             TileSkin.THORNSTALKER_VENOMOUS_BARRAGE -> VenomousBarrageBehavior()
             TileSkin.THORNSTALKER_PRIMAL_ASSAULT -> PrimalAssaultBehaviour()

@@ -101,7 +101,6 @@ class MapScreen(
             height = root.height
         }
         mapImage.onClick {
-            println("CLICKED IMAGE")
             levelDetailsActor?.hideToBehindAndRemove(root.width)
             levelDetailsActor = null
         }

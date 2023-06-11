@@ -61,7 +61,8 @@ class BattleServiceImpl() : BattleService {
         it is BattleEvent.CreateTileEvent && it.unitId != 0 ||
             it is BattleEvent.MoveTileEvent && it.unitId != 0 ||
             it is BattleEvent.MergeTileEvent && it.unitId != 0 ||
-            it is BattleEvent.DestroyTileEvent && it.unitId != 0
+            it is BattleEvent.DestroyTileEvent && it.unitId != 0 ||
+            it is BattleEvent.UltimateProgressEvent && it.unitId != 0
     }
 
     override suspend fun processSwipe(dx: Int, dy: Int) {
@@ -71,7 +72,8 @@ class BattleServiceImpl() : BattleService {
     }
 
     override suspend fun processUltimate() {
-        val result = processor.processUltimate(battle, 1)
+        println("Processing ultimate")
+        val result = processor.processUltimate(battle, 0)
         result.events.forEach { events.emit(it) }
         battle = result.battle
     }

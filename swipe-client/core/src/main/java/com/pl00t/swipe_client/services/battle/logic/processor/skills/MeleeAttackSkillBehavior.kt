@@ -35,7 +35,6 @@ class MeleeAttackSkillBehavior(
         }
         val updatedBattle = battle.updateOrRemoveUnit(targetAfterDamage)
 
-        println(updatedBattle.characters.map { it.health })
         return ProcessResult(events, updatedBattle)
     }
 }

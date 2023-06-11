@@ -1,5 +1,7 @@
 package com.pl00t.swipe_client.services.battle.logic
 
+import com.pl00t.swipe_client.services.battle.logic.processor.SkillBehavior
+
 data class Character(
     val id: Int,
     val field: TileField,
@@ -12,7 +14,24 @@ data class Character(
     val human: Boolean,
     val team: Int,
     val attributes: CharacterAttributes,
-)
+    val ultimateProgress: Int,
+    val maxUltimateProgress: Int,
+    val combo: Int,
+    val ultimateBehavior: TileSkin,
+) {
+
+    override fun toString(): String {
+        return "$skin $health/$maxHealth \n$field"
+    }
+
+    fun updateField(field: TileField) = copy(field = field)
+
+    fun addTile(tile: Tile) = copy(field = field.copy(tiles = field.tiles + tile, maxTileId = field.maxTileId + 1))
+
+    fun removeTile(id: Int) = copy(field = field.copy(tiles = field.tiles.filterNot { it.id == id }))
+
+    fun updateUltimateProgress(combo: Int, progress: Int) = copy(combo = combo, ultimateProgress = progress)
+}
 
 enum class UnitSkin {
     CHARACTER_VALERIAN,

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.Interpolation.SwingOut
 import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
@@ -17,8 +18,7 @@ import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.battle.logic.BattleEvent
 import com.pl00t.swipe_client.services.battle.logic.processor.TarotAnimation
 import kotlinx.coroutines.launch
-import ktx.actors.alpha
-import ktx.actors.then
+import ktx.actors.*
 import ktx.async.KtxAsync
 import kotlin.math.max
 import kotlin.random.Random
@@ -41,9 +41,11 @@ class BattleScreen(
     lateinit var locationGroup: Group
     lateinit var unitsGroup: Group
     lateinit var tarotEffectsGroup: Group
+    lateinit var ultimateEffectsGroup: Group
     lateinit var popupsGroup: Group
+    lateinit var ultimateActor: UltimateProgressActor
     lateinit var tileBackgroundsGroup: Group
-    lateinit var tilesGroup: Group
+    lateinit var tilesGroup: MutableList<Group>
 
     lateinit var gestureDetector: SimpleDirectionGestureDetector
 
@@ -88,10 +90,12 @@ class BattleScreen(
         locationGroup = Group()
         unitsGroup = Group()
         tarotEffectsGroup = Group()
+        ultimateEffectsGroup = Group()
         popupsGroup = Group()
         unitsGroup.y = _panelHei * 0.11f
         locationGroup.y = _panelHei * 0.9f
         tarotEffectsGroup.y = _panelHei * 0.11f
+        ultimateEffectsGroup.y = _panelHei * 0.11f
         popupsGroup.y = tarotEffectsGroup.y
 
         val panelImage = Image(battleTextureAtlas.createPatch("panelBg")).apply {
@@ -100,23 +104,21 @@ class BattleScreen(
             width = root.width
             height = _panelHei
         }
-//        val panelImage = Image(taBattle.findRegion("panel_bg")).apply {
-//            x = 0f
-//            y = 0f
-//            width = root.width
-//            height = _panelHei
-//        }
         panelGroup.addActor(panelImage)
         tileBackgroundsGroup = Group().apply {
             x = _tileLeftOffset
             y = _tileBottomOffset
         }
-        tilesGroup = Group().apply {
-            x = _tileLeftOffset
-            y = _tileBottomOffset
-        }
         panelGroup.addActor(tileBackgroundsGroup)
-        panelGroup.addActor(tilesGroup)
+        tilesGroup = mutableListOf()
+        (0..10).forEach { i ->
+            val tilesLayer = Group().apply {
+                x = _tileLeftOffset
+                y = _tileBottomOffset
+            }
+            panelGroup.addActor(tilesLayer)
+            tilesGroup.add(tilesLayer)
+        }
         root.addActor(locationGroup)
         root.addActor(panelGroup)
 
@@ -130,89 +132,166 @@ class BattleScreen(
         locationGroup.addActor(unitsGroup)
         locationGroup.addActor(tarotEffectsGroup)
         locationGroup.addActor(popupsGroup)
+        locationGroup.addActor(ultimateEffectsGroup)
 
         addTileBackgrounds()
 
-        val ultimateProgress = UltimateProgressActor(battleTextureAtlas, _tileSize * 5f, _tileSize * 0.7f).apply {
+        ultimateActor = UltimateProgressActor(battleTextureAtlas, _tileSize * 5f, _tileSize * 0.7f).apply {
             x = (root.width - _tileSize * 5f) / 2f
             y = _tileSize * 0.2f
+            touchable = Touchable.enabled
         }
-        panelGroup.addActor(ultimateProgress)
+        ultimateActor.onClick {
+            println("Ultimate clicked ${ultimateActor.progress}")
+            if (ultimateActor.progress == 1f) {
+                KtxAsync.launch { battleService.processUltimate() }
+            }
+        }
+        panelGroup.addActor(ultimateActor)
 
         KtxAsync.launch { observeBattleEvents() }
     }
 
     private suspend fun observeBattleEvents() {
         battleService.events().collect { event ->
-            println("BE: $event")
-            when (event) {
-                is BattleEvent.CreateUnitEvent -> {
-                    createUnit(event)
-                }
-                is BattleEvent.CreateTileEvent -> {
-                    createTile(event)
-                }
-                is BattleEvent.MoveTileEvent -> {
-                    processMoveTileEvent(event)
-                }
-                is BattleEvent.MergeTileEvent -> {
-                    processMergeTileEvent(event)
-                }
-                is BattleEvent.DestroyTileEvent -> {
-                    proessDestroyEvent(event)
-                }
-                is BattleEvent.AnimateTarotEvent -> {
-                    when (event.animation) {
-                        is TarotAnimation.TarotFromSourceTargets -> {
-                            processTargetedAnimation(event.animation, event)
-                        }
-                        is TarotAnimation.TarotFromSourceDirected -> {
-                            processDirectedAnimation(event.animation, event)
-                        }
-                        is TarotAnimation.TarotAtSourceRotate -> {
-                            processStaticAnimation(event.animation, event)
-                        }
-                        else -> {}
-                    }
-                }
-                is BattleEvent.UnitHealthEvent -> {
-                    unitsGroup.findActor<UnitActor>(event.unitId.toString())?.healthBar?.updateHealth(event.health)
-                }
-                is BattleEvent.UnitDeathEvent -> {
-                    unitsGroup.findActor<UnitActor>(event.unitId.toString())?.let { actor ->
-                        val action = Actions.sequence(
-                            Actions.alpha(0f, 0.4f),
-                            Actions.removeActor()
-                        )
-                        actor.addAction(action)
-                    }
-                }
-                is BattleEvent.UnitPopupEvent -> {
-                    unitsGroup.findActor<UnitActor>(event.unitId.toString())?.let { unitActor ->
-                        val popupActor = PopupActor(
-                            _characterWidth,
-                            _characterWidth / 3f,
-                            event.popup.text,
-                            event.popup.icons,
-                            battleTextureAtlas
-                        ).apply {
-                            x = unitActor.x - if (unitActor.team == 0) 0f else _characterWidth
-                            y = unitActor.y + _characterWidth * 1.66f * unitActor.s * 0.8f
-                        }
-                        popupsGroup.alpha = 0f
-                        popupsGroup.addActor(popupActor)
-                        val action = Actions.sequence(
-                            Actions.delay(0.3f + 0.3f * Random.nextFloat()),
-                            Actions.run { popupsGroup.alpha = 1f },
-                            Actions.moveBy(0f, _characterWidth / 3f, 2f),
-                            Actions.alpha(0f, 0.2f),
-                            Actions.removeActor()
-                        )
-                        popupActor.addAction(action)
-                    }
-                }
-                else -> Unit
+            processEvent(event)
+        }
+    }
+
+    private fun processEvent(event: BattleEvent) {
+        println("BS: $event")
+        when (event) {
+            is BattleEvent.CreateUnitEvent -> {
+                createUnit(event)
             }
+
+            is BattleEvent.CreateTileEvent -> {
+                createTile(event)
+            }
+
+            is BattleEvent.MoveTileEvent -> {
+                processMoveTileEvent(event)
+            }
+
+            is BattleEvent.MergeTileEvent -> {
+                processMergeTileEvent(event)
+            }
+
+            is BattleEvent.DestroyTileEvent -> {
+                proessDestroyEvent(event)
+            }
+
+            is BattleEvent.AnimateTarotEvent -> {
+                when (event.animation) {
+                    is TarotAnimation.TarotFromSourceTargets -> {
+                        processTargetedAnimation(event.animation, event)
+                    }
+
+                    is TarotAnimation.TarotFromSourceDirected -> {
+                        processDirectedAnimation(event.animation, event)
+                    }
+
+                    is TarotAnimation.TarotAtSourceRotate -> {
+                        processStaticAnimation(event.animation, event)
+                    }
+
+                    else -> {}
+                }
+            }
+
+            is BattleEvent.UnitHealthEvent -> {
+                unitsGroup.findActor<UnitActor>(event.unitId.toString())?.healthBar?.updateHealth(event.health)
+            }
+
+            is BattleEvent.UnitDeathEvent -> {
+                unitsGroup.findActor<UnitActor>(event.unitId.toString())?.let { actor ->
+                    val action = Actions.sequence(
+                        Actions.alpha(0f, 0.4f),
+                        Actions.removeActor()
+                    )
+                    actor.addAction(action)
+                }
+            }
+
+            is BattleEvent.UnitPopupEvent -> {
+                unitsGroup.findActor<UnitActor>(event.unitId.toString())?.let { unitActor ->
+                    val popupActor = PopupActor(
+                        _characterWidth,
+                        _characterWidth / 3f,
+                        event.popup.text,
+                        event.popup.icons,
+                        battleTextureAtlas
+                    ).apply {
+                        x = unitActor.x - if (unitActor.team == 0) 0f else _characterWidth
+                        y = unitActor.y + _characterWidth * 1.66f * unitActor.s * 0.8f
+                    }
+                    popupsGroup.alpha = 0f
+                    popupsGroup.addActor(popupActor)
+                    val action = Actions.sequence(
+                        Actions.delay(0.3f + 0.3f * Random.nextFloat()),
+                        Actions.run { popupsGroup.alpha = 1f },
+                        Actions.moveBy(0f, _characterWidth / 3f, 2f),
+                        Actions.alpha(0f, 0.2f),
+                        Actions.removeActor()
+                    )
+                    popupActor.addAction(action)
+                }
+            }
+
+            is BattleEvent.UltimateProgressEvent -> {
+                ultimateActor.updateUltimateProgress(event.progress.toFloat() / event.maxProgress)
+            }
+            is BattleEvent.UltimateEvent -> {
+                val bg = Image(taCore.findRegion("semi_black_pixel")).apply {
+                    width = root.width
+                    height = _locationHei
+                    alpha = 0f
+                }
+                bg.addAction(Actions.sequence(
+                    Actions.alpha(0.8f, 0.5f),
+                    Actions.delay(2f),
+                    Actions.alpha(0f, 0.5f),
+                    Actions.removeActor()
+                ))
+                val tarot = Image(tarotTextureAtlas.findRegion("VALERIAN_DIVINE_CONVERGENCE")).apply {
+                    width = _characterWidth
+                    height = _characterWidth * 1.66f
+                    x = (root.width - this.width) / 2f
+                    y = (_locationHei - this.height) /2f - _locationHei
+                    setOrigin(Align.center)
+                    setScale(5f)
+                    alpha = 0f
+                }
+                tarot.addAction(Actions.sequence(
+                    Actions.delay(0.5f),
+                    Actions.parallel(
+                        Actions.moveBy(0f, _locationHei, 0.8f),
+                        Actions.alpha(1f, 0.6f),
+                        Actions.scaleTo(1f, 1f, 0.8f)
+                    ),
+                    Actions.sequence(
+                        Actions.scaleBy(0.1f, 0.1f, 0.1f),
+                        Actions.scaleBy(-0.1f, -0.1f, 0.1f)
+                    ).repeat(6),
+                    Actions.parallel(
+                        Actions.sequence(
+                            Actions.parallel(
+                                Actions.alpha(0f, 0.5f),
+                                Actions.scaleBy(5f, 5f, 0.5f),
+                                Actions.moveBy(0f, -_locationHei, 0.5f)
+                            ),
+                            Actions.removeActor()
+                        ),
+                        Actions.run {
+                            event.events.forEach { processEvent(it) }
+                        }
+                    ),
+                ))
+                ultimateEffectsGroup.addActor(bg)
+                ultimateEffectsGroup.addActor(tarot)
+            }
+
+            else -> Unit
         }
     }
 
@@ -220,7 +299,7 @@ class BattleScreen(
         animation: TarotAnimation.TarotAtSourceRotate,
         event: BattleEvent.AnimateTarotEvent
     ) {
-        val sourceUnit = unitsGroup.findActor<UnitActor>(animation.at.toString())
+        val sourceUnit = unitsGroup.findActor<UnitActor>(animation.at.toString()) ?: return
         //ok, we have some crazy tarot stuff
         val tarot = Image(tarotTextureAtlas.findRegion(event.animation.skin.toString())).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
@@ -259,7 +338,7 @@ class BattleScreen(
         animation: TarotAnimation.TarotFromSourceDirected,
         event: BattleEvent.AnimateTarotEvent
     ) {
-        val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString())
+        val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString()) ?: return
         val tarot = Image(tarotTextureAtlas.findRegion(event.animation.skin.toString())).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
             y = sourceUnit.y + _characterWidth * 0.35f
@@ -292,7 +371,7 @@ class BattleScreen(
         animation: TarotAnimation.TarotFromSourceTargets,
         event: BattleEvent.AnimateTarotEvent
     ) {
-        val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString())
+        val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString()) ?: return
         //ok, we have some crazy tarot stuff
         val tarot = Image(tarotTextureAtlas.findRegion(event.animation.skin.toString())).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
@@ -305,7 +384,7 @@ class BattleScreen(
         tarot.rotation = 180f
         tarot.alpha = 0f
         tarotEffectsGroup.addActor(tarot)
-        val actions = animation.targets.map { targetId ->
+        val actions = animation.targets.mapNotNull { targetId ->
             unitsGroup.findActor<UnitActor>(targetId.toString())?.let { targetActor ->
                 val rx = targetActor.x + if (targetActor.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
                 val ry = targetActor.y + _characterWidth * 0.3f * Random.nextFloat()
@@ -333,7 +412,7 @@ class BattleScreen(
     }
 
     private fun proessDestroyEvent(event: BattleEvent.DestroyTileEvent) {
-        val actor = tilesGroup.findActor<TileActor>(event.id.toString())
+        val actor = tilesGroup[event.layer].findActor<TileActor>(event.id.toString())
         actor?.addAction(
             Actions.sequence(
                 Actions.delay(0.2f),
@@ -354,8 +433,8 @@ class BattleScreen(
     }
 
     private fun processMergeTileEvent(event: BattleEvent.MergeTileEvent) {
-        val tile1 = tilesGroup.findActor<TileActor>(event.id.toString())
-        val tile2 = tilesGroup.findActor<TileActor>(event.to.toString())
+        val tile1 = tilesGroup[event.layer].findActor<TileActor>(event.id.toString())
+        val tile2 = tilesGroup[event.layer].findActor<TileActor>(event.to.toString())
         //                    placeTile(tile1)
         tile1.updateXY(event.tox, event.toy)
         tile1.zIndex = 0
@@ -382,7 +461,7 @@ class BattleScreen(
     }
 
     private fun processMoveTileEvent(event: BattleEvent.MoveTileEvent) {
-        tilesGroup.findActor<TileActor>(event.id.toString())?.let { tileActor ->
+        tilesGroup[event.layer].findActor<TileActor>(event.id.toString())?.let { tileActor ->
             val tx = event.tox * _tileSize
             val ty = event.toy * _tileSize
     //                        placeTile(tileActor)
@@ -408,10 +487,11 @@ class BattleScreen(
             polygonBatch = polygonSpriteBatch,
             gridX = event.x,
             gridY = event.y,
+            type = event.type,
         )
         tile.name = event.id.toString()
         placeTile(tile)
-        tilesGroup.addActor(tile)
+        tilesGroup[event.layer].addActor(tile)
         tile.animateAppear()
     }
 
@@ -481,7 +561,6 @@ class BattleScreen(
     override fun onDown() = processSwipe(0, -1)
 
     private fun processSwipe(dx: Int, dy: Int) {
-        println("swipe: $dx:$dy")
         KtxAsync.launch { battleService.processSwipe(dx, dy) }
     }
 }

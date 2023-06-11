@@ -8,6 +8,8 @@ dark
 bounds:1672,135,128,128
 fire
 bounds:514,19,128,128
+heal
+bounds:1802,159,128,128
 healthbar_bg
 bounds:0,0,128,25
 split:8,8,8,8
@@ -21,7 +23,7 @@ split:31,33,32,39
 panel_bg
 bounds:0,27,512,424
 physical
-bounds:1802,29,128,128
+bounds:904,2,128,128
 progress_active
 bounds:1028,136,179,161
 progress_inactive
@@ -29,7 +31,7 @@ bounds:1747,289,180,162
 semi_black_pixel
 bounds:1209,296,1,1
 shock
-bounds:1802,159,128,128
+bounds:1802,29,128,128
 tbg
 bounds:1284,195,256,256
 tile_bg

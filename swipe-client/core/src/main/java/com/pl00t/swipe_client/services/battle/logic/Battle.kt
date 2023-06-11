@@ -45,4 +45,8 @@ data class Battle(
         character.id == it.id && character.health > 0 -> character
         else -> it
     }})
+
+    override fun toString(): String {
+        return characters.joinToString("\n")
+    }
 }

@@ -1,13 +1,18 @@
 package com.pl00t.swipe_client.screen.battle
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.actions.SizeToAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
+import com.pl00t.swipe_client.ux.Colors
 import com.pl00t.swipe_client.ux.Fonts
+import ktx.actors.repeat
+import ktx.actors.repeatForever
 import kotlin.random.Random
 
 class UltimateProgressActor(
@@ -41,7 +46,7 @@ class UltimateProgressActor(
             setScaling(Scaling.stretch)
         }
         addActor(iProgress)
-        description = Fonts.createCaption("Fill for ultimate", h).apply {
+        description = Fonts.createWhiteCaption("Fill for ultimate", h).apply {
             this.width = w
             this.height = h
             setAlignment(Align.center)
@@ -57,11 +62,25 @@ class UltimateProgressActor(
         addActor(foreground)
     }
 
-    private fun updateUltimateProgress() {
+    fun updateUltimateProgress(progress: Float) {
         val newWidth = 0.9f * w * progress
-        iProgress.addAction(SizeToAction().apply {
-            setSize(newWidth, iProgress.height)
-            duration = 0.2f
-        })
+        iProgress.addAction(Actions.sizeTo(newWidth, iProgress.height, 0.5f))
+        if (this.progress != progress) {
+            this.progress = progress
+            if (progress == 1f) {
+                description.color = Color.RED
+                description.setText("Ultimate ready!")
+                iProgress.addAction(
+                    Actions.sequence(
+                        Actions.alpha(0.9f, 0.1f),
+                        Actions.alpha(1f,  0.1f)
+                    ).repeatForever()
+                )
+            } else {
+                description.color = Color.WHITE
+                description.setText("Fill to ultimate")
+//                iProgress.clearActions()
+            }
+        }
     }
 }

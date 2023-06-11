@@ -26,6 +26,8 @@ sealed interface BattleEvent {
         val skin: TileSkin,
         val stack: Int,
         val maxStack: Int,
+        val layer: Int,
+        val type: TileType,
     ) : BattleEvent
 
     data class MoveTileEvent(
@@ -33,6 +35,7 @@ sealed interface BattleEvent {
         val id: Int,
         val tox: Int,
         val toy: Int,
+        val layer: Int,
     ) : BattleEvent
 
     data class MergeTileEvent(
@@ -44,12 +47,14 @@ sealed interface BattleEvent {
         val ttox: Int,
         val ttoy: Int,
         val targetStack: Int,
-        val stackLeft: Int
+        val stackLeft: Int,
+        val layer: Int,
     ) : BattleEvent
 
     data class DestroyTileEvent(
         val unitId: Int,
-        val id: Int
+        val id: Int,
+        val layer: Int,
     ) : BattleEvent
 
     data class AnimateTarotEvent(
@@ -68,5 +73,17 @@ sealed interface BattleEvent {
     data class UnitHealthEvent(
         val unitId: Int,
         val health: Int,
+    ) : BattleEvent
+
+    data class UltimateProgressEvent(
+        val unitId: Int,
+        val progress: Int,
+        val maxProgress: Int
+    ) : BattleEvent
+
+    data class UltimateEvent(
+        val unitId: Int,
+        val skin: TileSkin,
+        val events: List<BattleEvent>
     ) : BattleEvent
 }
