@@ -12,7 +12,8 @@ object TileMerger {
         TileSkin.CORRUPTED_DRYAD_SHADOWED_ANNIHILATION,
         TileSkin.THORNSTALKER_RESILIENT_GROWTH,
         TileSkin.THORNSTALKER_VENOMOUS_BARRAGE,
-        TileSkin.THORNSTALKER_PRIMAL_ASSAULT
+        TileSkin.THORNSTALKER_PRIMAL_ASSAULT,
+        TileSkin.COMMON_POISON
     )
 
     val NEUTRAL = listOf<TileSkin>()

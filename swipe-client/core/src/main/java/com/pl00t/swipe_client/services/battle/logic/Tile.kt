@@ -1,6 +1,8 @@
 package com.pl00t.swipe_client.services.battle.logic
 
 enum class TileSkin {
+    COMMON_POISON,
+
     VALERIAN_RADIANT_STRIKE,
     VALERIAN_LUMINOUS_BEAM,
     VALERIAN_SIGIL_OF_RENEWAL,
@@ -30,6 +32,7 @@ data class Tile(
     val layer: Int,
     val mobility: Int,
     val type: TileType,
+    val meta: Any? = null,
 ) {
     override fun toString(): String {
         return "$skin $x:$y"

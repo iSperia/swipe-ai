@@ -290,6 +290,32 @@ class BattleScreen(
                 ultimateEffectsGroup.addActor(bg)
                 ultimateEffectsGroup.addActor(tarot)
             }
+            is BattleEvent.TileEffect -> {
+                val tarot = Image(tarotTextureAtlas.findRegion(event.skin.toString())).apply {
+                    height = _tileSize
+                    width = _tileSize * 0.66f
+                    x = _tileSize * event.x + (_tileSize - this.width) / 2f
+                    y = _tileSize * event.y
+                    setOrigin(Align.center)
+                    rotation = 45f
+                    setScale(4f, 4f)
+                    alpha = 0f
+                }
+                tarot.addAction(Actions.sequence(
+                    Actions.parallel(
+                        Actions.rotateBy(-60f, 0.4f),
+                        Actions.scaleTo(1.5f, 1.5f, 0.4f),
+                        Actions.alpha(1f)
+                    ),
+                    Actions.sequence(
+                        Actions.scaleTo(1.55f, 1.55f, 0.03f),
+                        Actions.scaleTo(1.44f, 1.44f, 0.03f)
+                    ).repeat(3),
+                    Actions.alpha(0f, 0.2f),
+                    Actions.removeActor()
+                ))
+                tilesGroup.last().addActor(tarot)
+            }
 
             else -> Unit
         }

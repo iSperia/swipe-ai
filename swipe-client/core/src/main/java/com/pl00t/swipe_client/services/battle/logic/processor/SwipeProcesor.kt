@@ -83,7 +83,7 @@ class SwipeProcesor {
         }
         character = character.updateField(fc)
         if (mergedCount > 0) {
-            val comboAmount = (mergedCount + 10f * (1f + 0.1f * character.attributes.mind + 0.5f * character.combo)).toInt()
+            val comboAmount = (mergedCount + 10f * (1f + 0.05f * character.attributes.mind + 0.5f * character.combo)).toInt()
             val newUltimateProgress = min(character.maxUltimateProgress, character.ultimateProgress + comboAmount)
             character = character.updateUltimateProgress(character.combo + 1, newUltimateProgress)
             events.add(BattleEvent.UltimateProgressEvent(character.id, character.ultimateProgress, character.maxUltimateProgress))
@@ -165,6 +165,16 @@ class SwipeProcesor {
                         events.addAll(result.events)
                     }
                 }
+            }
+        }
+
+        battle.unitById(character.id)?.let { character ->
+            character.field.tiles.forEach { eotTile ->
+                val behavior = BehaviorFactory.behavior(eotTile.skin)
+                val eotResult = behavior.onEndOfTurn(battle, character.id, eotTile)
+                battle = eotResult.battle
+
+                events.addAll(eotResult.events)
             }
         }
 

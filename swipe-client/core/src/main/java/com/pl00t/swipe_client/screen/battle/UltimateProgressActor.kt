@@ -43,7 +43,7 @@ class UltimateProgressActor(
             setScaling(Scaling.stretch)
             this.x = 0.05f * w
             this.y = 0.1f * h
-            setScaling(Scaling.stretch)
+            setOrigin(Align.center)
         }
         addActor(iProgress)
         description = Fonts.createWhiteCaption("Fill for ultimate", h).apply {
@@ -63,24 +63,37 @@ class UltimateProgressActor(
     }
 
     fun updateUltimateProgress(progress: Float) {
-        val newWidth = 0.9f * w * progress
-        iProgress.addAction(Actions.sizeTo(newWidth, iProgress.height, 0.5f))
         if (this.progress != progress) {
             this.progress = progress
             if (progress == 1f) {
                 description.color = Color.RED
                 description.setText("Ultimate ready!")
+                description.addAction(
+                    Actions.sequence(
+                        Actions.color(Color.WHITE, 0.1f),
+                        Actions.color(Color.RED, 0.1f)
+                    ).repeatForever()
+                )
                 iProgress.addAction(
                     Actions.sequence(
-                        Actions.alpha(0.9f, 0.1f),
-                        Actions.alpha(1f,  0.1f)
+                        Actions.parallel(
+                            Actions.alpha(0.9f, 0.1f),
+                            Actions.scaleBy(0.02f, 0.02f, 0.2f)
+                        ),
+                        Actions.parallel(
+                            Actions.alpha(1f,  0.1f),
+                            Actions.scaleBy(-0.02f, -0.02f, 0.2f)
+                        )
                     ).repeatForever()
                 )
             } else {
                 description.color = Color.WHITE
                 description.setText("Fill to ultimate")
-//                iProgress.clearActions()
+                iProgress.clearActions()
+                description.clearActions()
             }
         }
+        val newWidth = 0.9f * w * progress
+        iProgress.addAction(Actions.sizeTo(newWidth, iProgress.height, 0.5f))
     }
 }

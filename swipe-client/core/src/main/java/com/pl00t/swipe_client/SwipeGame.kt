@@ -56,10 +56,8 @@ class SwipeGame : Game(), Router {
             coreLoaded = true
             Fonts.init(amCore)
             levelService = LevelServiceImpl()
-            navigateMap("act1")
+//            navigateMap("act1")
             navigateBattle("act1", "location_groves")
-//            setScreen(MapScreen(amCore, inputMultiplexer, levelService))
-//            setScreen(BattleScreen(amCore, inputMultiplexer, battleService))
         }
     }
 

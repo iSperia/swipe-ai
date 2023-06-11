@@ -5,6 +5,7 @@ import com.pl00t.swipe_client.services.battle.logic.processor.SwipeProcesor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterNot
+import kotlinx.coroutines.flow.map
 
 interface BattleService {
     suspend fun createMockBattle(): BattleDecorations
@@ -62,7 +63,19 @@ class BattleServiceImpl() : BattleService {
             it is BattleEvent.MoveTileEvent && it.unitId != 0 ||
             it is BattleEvent.MergeTileEvent && it.unitId != 0 ||
             it is BattleEvent.DestroyTileEvent && it.unitId != 0 ||
-            it is BattleEvent.UltimateProgressEvent && it.unitId != 0
+            it is BattleEvent.UltimateProgressEvent && it.unitId != 0 ||
+            it is BattleEvent.TileEffect && it.characterId != 0
+    }.map { event ->
+        if (event is BattleEvent.UltimateEvent) {
+            event.copy(events = event.events.filterNot {
+                it is BattleEvent.CreateTileEvent && it.unitId != 0 ||
+                    it is BattleEvent.MoveTileEvent && it.unitId != 0 ||
+                    it is BattleEvent.MergeTileEvent && it.unitId != 0 ||
+                    it is BattleEvent.DestroyTileEvent && it.unitId != 0 ||
+                    it is BattleEvent.UltimateProgressEvent && it.unitId != 0 ||
+                    it is BattleEvent.TileEffect && it.characterId != 0
+            })
+        } else event
     }
 
     override suspend fun processSwipe(dx: Int, dy: Int) {
