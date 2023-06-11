@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.battle.BattleScreen
 import com.pl00t.swipe_client.screen.map.MapScreen
 import com.pl00t.swipe_client.services.battle.BattleService
@@ -18,7 +19,7 @@ import com.pl00t.swipe_client.ux.Fonts
 import ktx.async.KtxAsync
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
-class SwipeGame : Game() {
+class SwipeGame : Game(), Router {
 
     lateinit var amCore: AssetManager
     var coreLoaded = false
@@ -55,8 +56,17 @@ class SwipeGame : Game() {
             coreLoaded = true
             Fonts.init(amCore)
             levelService = LevelServiceImpl()
+            navigateMap("act1")
 //            setScreen(MapScreen(amCore, inputMultiplexer, levelService))
-            setScreen(BattleScreen(amCore, inputMultiplexer, battleService))
+//            setScreen(BattleScreen(amCore, inputMultiplexer, battleService))
         }
+    }
+
+    override fun navigateBattle(actId: String, locationId: String) {
+        setScreen(BattleScreen(amCore, inputMultiplexer, battleService))
+    }
+
+    override fun navigateMap(actId: String) {
+        setScreen(MapScreen(amCore, inputMultiplexer, levelService, this))
     }
 }

@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe.model.LevelType
+import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.services.levels.FrontLevelModel
 import com.pl00t.swipe_client.services.levels.LevelService
@@ -30,18 +33,22 @@ class MapScreen(
     amCore: AssetManager,
     inputMultiplexer: InputMultiplexer,
     private val levelService: LevelService,
+    private val router: Router,
 ) : StageScreen(amCore, inputMultiplexer), GestureDetector.GestureListener {
 
-    lateinit var amMap: AssetManager
-    lateinit var taMap: TextureAtlas
-    lateinit var taCharacter: TextureAtlas
+    lateinit var mapAssetManager: AssetManager
+    lateinit var mapAtlas: TextureAtlas
+    lateinit var charactersAtlas: TextureAtlas
 
     lateinit var mapActor: Group
+    lateinit var mapScroll: ScrollPane
+    lateinit var mapScrollRoot: Group
     lateinit var mapImage: Image
     lateinit var linkActor: LinkActor
     lateinit var mapIconsGroup: Group
     private var levelDetailsActor: LevelDetailsActor? = null
 
+    lateinit var actTitleBackground: Image
     lateinit var actTitle: Label
 
     private val gestureDetector = GestureDetector(this)
@@ -53,11 +60,11 @@ class MapScreen(
 
     override fun show() {
         debug("MapScreen") { "map screen is shown" }
-        amMap = AssetManager().apply {
+        mapAssetManager = AssetManager().apply {
             load("atlases/map.atlas", TextureAtlas::class.java)
             load("atlases/charValerion.atlas", TextureAtlas::class.java)
         }
-        loadAm(amMap, this::mapLoaded)
+        loadAm(mapAssetManager, this::mapLoaded)
         multiplexer.addProcessor(root)
         multiplexer.addProcessor(gestureDetector)
         Gdx.input.inputProcessor = multiplexer
@@ -70,8 +77,8 @@ class MapScreen(
 
     private fun mapLoaded() {
         debug("MapScreen") { "Map screen is loaded" }
-        taMap = amMap.get("atlases/map.atlas", TextureAtlas::class.java)
-        taCharacter = amMap.get("atlases/charValerion.atlas", TextureAtlas::class.java)
+        mapAtlas = mapAssetManager.get("atlases/map.atlas", TextureAtlas::class.java)
+        charactersAtlas = mapAssetManager.get("atlases/charValerion.atlas", TextureAtlas::class.java)
 
         actTitle = Fonts.createWindowTitle("Kingdom Of Harmony", _windowTitleHeight).apply {
             x = 0f
@@ -80,10 +87,26 @@ class MapScreen(
             height = _windowTitleHeight
             setAlignment(Align.center)
         }
+        actTitleBackground = Image(taCore.findRegion("button_bg")).apply {
+            width = root.width
+            height = _windowTitleHeight
+            y = root.height - this.height
+            touchable = Touchable.disabled
+        }
 
         mapActor = Group()
         initMapImage()
-        root.addActor(mapActor)
+        mapScroll = ScrollPane(mapActor).apply {
+            width = root.width
+            height = root.height
+        }
+        mapImage.onClick {
+            println("CLICKED IMAGE")
+            levelDetailsActor?.hideToBehindAndRemove(root.width)
+            levelDetailsActor = null
+        }
+        root.addActor(mapScroll)
+        root.addActor(actTitleBackground)
         root.addActor(actTitle)
 
         KtxAsync.launch {
@@ -91,16 +114,22 @@ class MapScreen(
             linkActor = LinkActor(act, 0.003f * root.height).apply {
                 width = mapImage.width
                 height = mapImage.height
+                touchable = Touchable.disabled
             }
             mapActor.addActor(linkActor)
-            mapIconsGroup = Group()
+            mapIconsGroup = Group().apply {
+                width = mapImage.width
+                height = mapImage.height
+                touchable = Touchable.childrenOnly
+            }
             mapActor.addActor(mapIconsGroup)
+
 
             act.levels.forEach { level ->
                 val texture = when (level.type) {
-                    LevelType.RAID -> taMap.findRegion("map_icon_farm")
-                    LevelType.CAMPAIGN -> taMap.findRegion("map_icon_shield")
-                    LevelType.BOSS -> taMap.findRegion("map_icon_boss")
+                    LevelType.RAID -> mapAtlas.findRegion("map_icon_farm")
+                    LevelType.CAMPAIGN -> mapAtlas.findRegion("map_icon_shield")
+                    LevelType.BOSS -> mapAtlas.findRegion("map_icon_boss")
                 }
                 val iconSize = when (level.type) {
                     LevelType.RAID -> _mapIconSize
@@ -130,28 +159,33 @@ class MapScreen(
     private fun showLevelDetails(level: FrontLevelModel) {
         KtxAsync.launch {
             val details = levelService.getLevelDetails(level.id)
-            if (levelDetailsActor == null) {
-                levelDetailsActor = LevelDetailsActor(details.locationId, details.locationTitle,
-                    root.width, root.width, taCore, taMap).apply {
-                    this.raiseFromBehind(root.width)
-                }
-                root.addActor(levelDetailsActor)
-            } else {
-                levelDetailsActor?.hideToBehindAndRemove(root.width)
-                levelDetailsActor = null
+            levelDetailsActor?.hideToBehindAndRemove(root.width)
+            levelDetailsActor = null
+
+            levelDetailsActor = LevelDetailsActor(details.locationId, details.locationTitle,
+                root.width, root.width, taCore, mapAtlas, this@MapScreen::onAttackClicked).apply {
+                this.raiseFromBehind(root.width)
             }
+            root.addActor(levelDetailsActor)
         }
 
     }
 
+    private fun onAttackClicked(locationId: String) {
+        router.navigateBattle("act1", locationId)
+    }
+
     private fun initMapImage() {
-        val region = taMap.findRegion("map_act1")
+        val region = mapAtlas.findRegion("map_act1")
         mapImage = Image(region).apply {
             height = root.height
             width = root.height
         }
         _mapScale = root.height / region.originalHeight
         mapActor.addActor(mapImage)
+        mapActor.width = mapImage.width
+        mapActor.height = mapImage.height
+        mapActor.touchable = Touchable.childrenOnly
     }
 
     override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
@@ -171,7 +205,7 @@ class MapScreen(
     }
 
     override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float): Boolean {
-        mapActor.x = max(root.width - mapImage.imageWidth, min(0f, mapActor.x + deltaX))
+//        mapActor.x = max(root.width - mapImage.imageWidth, min(0f, mapActor.x + deltaX))
         return false
     }
 

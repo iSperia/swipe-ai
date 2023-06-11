@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 fun Actor.raiseFromBehind(height: Float) {
     addAction(MoveByAction().apply {
         amountY = height
-        duration = 0.2f
+        duration = 0.4f
     })
     this.y -= height
 }
@@ -18,7 +18,7 @@ fun Actor.hideToBehindAndRemove(height: Float) {
         SequenceAction(
             MoveByAction().apply {
                 amountY = -height
-                duration = 0.2f
+                duration = 0.4f
             },
             RunnableAction().apply {
                 setRunnable { this.target.remove() }

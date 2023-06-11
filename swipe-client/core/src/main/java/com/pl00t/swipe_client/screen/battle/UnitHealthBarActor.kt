@@ -47,14 +47,15 @@ class UnitHealthBarActor(
         updateHealth(health, maxHealth)
     }
 
+    fun updateHealth(health: Int) = updateHealth(health, this.maxHealth)
+
     fun updateHealth(health: Int, maxHealth: Int) {
         this.health = health
         this.maxHealth = maxHealth
         val progress = health.toFloat() / maxHealth
-        foregound.width = _maxWidth * progress
         foregound.addAction(SizeToAction().apply {
             setSize(_maxWidth * progress, foregound.height)
-            duration = 0.1f
+            duration = 1f
         })
         healthText.setText(health.toString())
     }

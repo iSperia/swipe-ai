@@ -1,16 +1,21 @@
 package com.pl00t.swipe_client.services.battle.logic
 
+data class CharacterAttributes(
+    val mind: Int,
+    val body: Int,
+    val spirit: Int
+)
+
 data class HumanConfiguration(
     val skin: UnitSkin,
     val level: Int,
-    val mind: Int,
-    val body: Int,
-    val spirit: Int,
+    val attributes: CharacterAttributes
 )
 
 data class MonsterConfiguration(
     val skin: UnitSkin,
     val level: Int,
+    val baseHealth: Int,
 )
 
 data class MonsterWaveConfiguration(
@@ -24,12 +29,20 @@ data class BattleConfiguration(
 
 data class Battle(
     val maxUnitId: Int,
-    val units: List<Unit>,
+    val characters: List<Character>,
     val swipeBeforeNpc: Int,
 ) {
-    fun unitById(id: Int) = units.firstOrNull { it.id == id }
+    fun unitById(id: Int) = characters.firstOrNull { it.id == id }
 
-    fun enemies(unit: Unit) = units.filter { it.team != unit.team }
+    fun enemies(character: Character) = characters.filter { it.team != character.team }
 
-    fun meleeTarget(unit: Unit) = enemies(unit).lastOrNull()
+    fun meleeTarget(character: Character) = enemies(character).shuffled().maxByOrNull { it.maxHealth }
+
+    fun updateUnit(character: Character) = copy(characters = characters.map { if (it.id == character.id) character else it })
+
+    fun updateOrRemoveUnit(character: Character) = copy(characters = characters.mapNotNull { when {
+        character.id == it.id && character.health <= 0 -> null
+        character.id == it.id && character.health > 0 -> character
+        else -> it
+    }})
 }

@@ -1,7 +1,7 @@
 package com.pl00t.swipe_client.services.battle.logic.processor
 
 import com.pl00t.swipe_client.services.battle.logic.*
-import com.pl00t.swipe_client.services.battle.logic.Unit
+import com.pl00t.swipe_client.services.battle.logic.Character
 import kotlin.math.min
 import kotlin.random.Random
 
@@ -103,7 +103,7 @@ class SwipeProcesor {
             //TODO: doom
         }
 
-        var updatedBattle = battle.copy(units = battle.units.map { u ->
+        var updatedBattle = battle.copy(characters = battle.characters.map { u ->
             if (u.id == unitId) {
                 u.copy(field = fc)
             } else {
@@ -120,15 +120,19 @@ class SwipeProcesor {
                     fc = fc.copy(tiles = fc.tiles.filterNot { it.id == tile.id })
                     events.add(BattleEvent.DestroyTileEvent(unitId, tile.id))
                 }
-                updatedBattle = battle.copy(units = battle.units.map { u ->
+                val animation = behavior.animationStrategy(updatedBattle, unitId)
+                events.add(BattleEvent.AnimateTarotEvent(animation))
+                val useResult = behavior.skillUse(updatedBattle, unit, false)
+                updatedBattle = useResult.battle
+                events.addAll(useResult.events)
+                updatedBattle = updatedBattle.copy(characters = updatedBattle.characters.map { u ->
                     if (u.id == unitId) {
                         u.copy(field = fc)
                     } else {
                         u
                     }
                 })
-                val animation = behavior.animationStrategy(battle, unitId)
-                events.add(BattleEvent.AnimateTarotEvent(animation))
+
                 needCheck = true
             }
         }
@@ -137,8 +141,8 @@ class SwipeProcesor {
         if (unit.human) {
             swipes = updatedBattle.swipeBeforeNpc - 1
             if (swipes <= 0) {
-                swipes = updatedBattle.units.count { it.human }
-                val bots = updatedBattle.units.filter { !it.human }.toList()
+                swipes = updatedBattle.characters.count { it.human }
+                val bots = updatedBattle.characters.filter { !it.human }.toList()
                 bots.forEach { botUnit ->
                     updatedBattle.unitById(botUnit.id)?.let { bot ->
                         val directions = when (Random.nextInt(4)) {
@@ -168,36 +172,57 @@ class SwipeProcesor {
     fun createBattle(config: BattleConfiguration, battle: Battle): ProcessResult {
         var unitId = battle.maxUnitId
         val events = mutableListOf<BattleEvent>()
-        val humanUnits = config.humans.map { humanConfig ->
-            Unit(
+        val humanCharacters = config.humans.map { humanConfig ->
+            val health = (100 * (1f + humanConfig.attributes.body * 0.1f)).toInt()
+            Character(
                 id = unitId++,
                 field = TileField(emptyList(), 0),
-                health = humanConfig.level * 50,
-                maxHealth = humanConfig.level * 50,
+                health = health,
+                maxHealth = health,
                 resists = ElementalConfig(),
                 effects = emptyList(),
                 skin = humanConfig.skin,
                 level = humanConfig.level,
                 human = true,
-                team = 0
+                team = 0,
+                attributes = humanConfig.attributes
             )
         }
-        val monsterUnits = config.waves.first().monsters.map { monsterConfig ->
-            Unit(
+
+        val monstersWithAttributes = config.waves.first().monsters.map { monsterConfig ->
+            val amountOfAttributes = (Math.pow(1.05, monsterConfig.level.toDouble()).toFloat() * monsterConfig.level * 3).toInt()
+            var body = 0
+            var spirit = 0
+            var mind = 0
+            (1..amountOfAttributes).forEach {
+                val r = Random.nextFloat()
+                when {
+                    r <= 0.3333f -> body++
+                    r <= 0.6666f -> spirit++
+                    else -> mind++
+                }
+            }
+            monsterConfig to CharacterAttributes(mind, body, spirit)
+        }
+
+        val monsterCharacters = monstersWithAttributes.map { (monsterConfig, attributes) ->
+            val health = (monsterConfig.baseHealth * (1f + attributes.body * 0.1f)).toInt()
+            Character(
                 id = unitId++,
                 field = TileField(emptyList(), 0),
-                health = monsterConfig.level * 50,
-                maxHealth = monsterConfig.level * 50,
+                health = health,
+                maxHealth = health,
                 resists = ElementalConfig(),
                 effects = emptyList(),
                 skin = monsterConfig.skin,
                 level = monsterConfig.level,
                 human  = false,
-                team = 1
+                team = 1,
+                attributes = attributes
             )
         }
-        val units = humanUnits + monsterUnits
-        val unitsWithTiles: List<Unit> = units.map { unit ->
+        val units = humanCharacters + monsterCharacters
+        val unitsWithTiles: List<Character> = units.map { unit ->
             var tileId = unit.field.maxTileId
             val numTiles = 5
             val tileGeneratorConfig = TileGeneratorConfigFactory.CONFIGS[unit.skin]
@@ -221,7 +246,7 @@ class SwipeProcesor {
                 it.team
             )
         })
-        val newBattle = battle.copy(maxUnitId = unitId, units = unitsWithTiles)
+        val newBattle = battle.copy(maxUnitId = unitId, characters = unitsWithTiles)
         return ProcessResult(battle = newBattle, events = events)
     }
 

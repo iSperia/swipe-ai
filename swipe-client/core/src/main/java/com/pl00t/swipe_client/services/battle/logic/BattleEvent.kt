@@ -55,4 +55,18 @@ sealed interface BattleEvent {
     data class AnimateTarotEvent(
         val animation: TarotAnimation
     ) : BattleEvent
+
+    data class UnitDeathEvent(
+        val unitId: Int
+    ) : BattleEvent
+
+    data class UnitPopupEvent(
+        val unitId: Int,
+        val popup: UnitPopup,
+    ) : BattleEvent
+
+    data class UnitHealthEvent(
+        val unitId: Int,
+        val health: Int,
+    ) : BattleEvent
 }

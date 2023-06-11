@@ -12,15 +12,16 @@ class LevelServiceImpl : LevelService {
     val act1: ActModel = gson.fromJson(Gdx.files.local("assets/json/act1.json").readString(), ActModel::class.java)
 
     override suspend fun getAct(actName: String): FrontActModel {
+        val progress = Random.nextInt(3, act1.levels.size)
         //assume everything is enabled for now
         return FrontActModel(
-            levels = act1.levels.map {
+            levels = act1.levels.mapIndexed { index, level ->
                 FrontLevelModel(
-                    x = it.x,
-                    y = 1024 - it.y,
-                    enabled = Random.nextInt(5) > 2,
-                    type = it.type,
-                    id = it.id
+                    x = level.x,
+                    y = 1024 - level.y,
+                    enabled = progress > index,
+                    type = level.type,
+                    id = level.id
                 )
             },
             links = act1.links,

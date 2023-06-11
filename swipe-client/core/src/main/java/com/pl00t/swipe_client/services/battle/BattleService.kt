@@ -25,10 +25,8 @@ class BattleServiceImpl() : BattleService {
             humans = listOf(
                 HumanConfiguration(
                     skin = UnitSkin.CHARACTER_VALERIAN,
-                    level = 10,
-                    body = 4,
-                    spirit = 4,
-                    mind = 4
+                    level = 1,
+                    attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1)
                 )
             ),
             waves = listOf(
@@ -36,15 +34,18 @@ class BattleServiceImpl() : BattleService {
                     monsters = listOf(
                         MonsterConfiguration(
                             skin = UnitSkin.MONSTER_THORNSTALKER,
-                            level = 10
+                            level = 1,
+                            baseHealth = 30
                         ),
                         MonsterConfiguration(
                             skin = UnitSkin.MONSTER_THORNSTALKER,
-                            level = 10
+                            level = 1,
+                            baseHealth = 30
                         ),
                         MonsterConfiguration(
                             skin = UnitSkin.MONSTER_CORRUPTED_DRYAD,
-                            level = 10
+                            level = 1,
+                            baseHealth = 20
                         )
                     )
                 )

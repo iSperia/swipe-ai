@@ -12,12 +12,14 @@ map_act1
 bounds:1024,1024,1024,1024
 
 map2.png
-size:512,128
+size:1024,256
 filter:MipMapLinearLinear,MipMapLinearLinear
 repeat:none
+button_attack
+bounds:0,0,256,256
 map_icon_boss
-bounds:126,4,128,124
+bounds:256,56,200,200
 map_icon_farm
-bounds:254,0,115,128
+bounds:456,58,198,198
 map_icon_shield
-bounds:0,0,126,128
+bounds:654,66,190,190
