@@ -87,10 +87,14 @@ sealed interface BattleEvent {
         val events: List<BattleEvent>
     ) : BattleEvent
 
-    data class TileEffect(
+    data class TileEffectEvent(
         val characterId: Int,
         val x: Int,
         val y: Int,
         val skin: TileSkin
+    ) : BattleEvent
+
+    data class BattleEndEvent(
+        val team: Int
     ) : BattleEvent
 }

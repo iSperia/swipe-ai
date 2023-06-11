@@ -290,7 +290,7 @@ class BattleScreen(
                 ultimateEffectsGroup.addActor(bg)
                 ultimateEffectsGroup.addActor(tarot)
             }
-            is BattleEvent.TileEffect -> {
+            is BattleEvent.TileEffectEvent -> {
                 val tarot = Image(tarotTextureAtlas.findRegion(event.skin.toString())).apply {
                     height = _tileSize
                     width = _tileSize * 0.66f

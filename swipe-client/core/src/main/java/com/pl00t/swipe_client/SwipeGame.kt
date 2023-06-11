@@ -56,8 +56,8 @@ class SwipeGame : Game(), Router {
             coreLoaded = true
             Fonts.init(amCore)
             levelService = LevelServiceImpl()
-//            navigateMap("act1")
-            navigateBattle("act1", "location_groves")
+            navigateMap("act1")
+//            navigateBattle("act1", "location_groves")
         }
     }
 

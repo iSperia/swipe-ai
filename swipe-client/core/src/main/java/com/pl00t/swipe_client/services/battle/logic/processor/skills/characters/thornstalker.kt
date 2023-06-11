@@ -4,6 +4,7 @@ import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.processor.SkillBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.animateMeleeAttack
 import com.pl00t.swipe_client.services.battle.logic.processor.animateSelfStatic
+import com.pl00t.swipe_client.services.battle.logic.processor.skills.HealBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.MeleeAttackSkillBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.InflictPoisonBehavior
 
@@ -19,7 +20,29 @@ class PrimalAssaultBehaviour: SkillBehavior() {
 }
 
 class ResilentGrowth: SkillBehavior() {
+
+    private fun calculateHeal(battle: Battle, character: Character, target: Character): Int {
+        return (3f * (1f + 0.1f * character.attributes.spirit)).toInt()
+    }
+
+    private fun getHealTargets(battle: Battle, character: Character) = listOf(character)
+
+    private val heal = HealBehavior(
+        this::getHealTargets,
+        this::calculateHeal
+    )
+
     override fun animationStrategy(battle: Battle, unitId: Int) = animateSelfStatic(battle, unitId, TileSkin.THORNSTALKER_RESILIENT_GROWTH)
+
+    override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
+        val events = mutableListOf<BattleEvent>()
+        var battle = battle
+        heal.skillUse(battle, character, lucky).let {
+            events.addAll(it.events)
+            battle = battle
+        }
+        return ProcessResult(events, battle)
+    }
 }
 
 class VenomousBarrageBehavior: SkillBehavior() {

@@ -7,11 +7,18 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.map
 
+data class BattleResult(
+    val victory: Boolean,
+    val goldRewardCost: Int,
+    val chronoShardsRewardCost: Int,
+)
+
 interface BattleService {
     suspend fun createMockBattle(): BattleDecorations
     suspend fun events(): Flow<BattleEvent>
     suspend fun processSwipe(dx: Int, dy: Int)
     suspend fun processUltimate()
+    suspend fun battleEnd(): Flow<BattleResult>
 }
 
 class BattleServiceImpl() : BattleService {
@@ -19,6 +26,7 @@ class BattleServiceImpl() : BattleService {
     val processor = SwipeProcesor()
     lateinit var battle: Battle
     val events = MutableSharedFlow<BattleEvent>(200)
+    val endBattle = MutableSharedFlow<BattleResult>(5)
 
     override suspend fun createMockBattle(): BattleDecorations {
         battle = Battle(0, emptyList(), 1)
@@ -64,7 +72,7 @@ class BattleServiceImpl() : BattleService {
             it is BattleEvent.MergeTileEvent && it.unitId != 0 ||
             it is BattleEvent.DestroyTileEvent && it.unitId != 0 ||
             it is BattleEvent.UltimateProgressEvent && it.unitId != 0 ||
-            it is BattleEvent.TileEffect && it.characterId != 0
+            it is BattleEvent.TileEffectEvent && it.characterId != 0
     }.map { event ->
         if (event is BattleEvent.UltimateEvent) {
             event.copy(events = event.events.filterNot {
@@ -73,21 +81,35 @@ class BattleServiceImpl() : BattleService {
                     it is BattleEvent.MergeTileEvent && it.unitId != 0 ||
                     it is BattleEvent.DestroyTileEvent && it.unitId != 0 ||
                     it is BattleEvent.UltimateProgressEvent && it.unitId != 0 ||
-                    it is BattleEvent.TileEffect && it.characterId != 0
+                    it is BattleEvent.TileEffectEvent && it.characterId != 0
             })
         } else event
     }
 
     override suspend fun processSwipe(dx: Int, dy: Int) {
         val result = processor.processSwipe(battle, 0, dx, dy)
-        result.events.forEach { events.emit(it) }
+        result.events.forEach { event ->
+            handleEvent(event)
+        }
         battle = result.battle
     }
 
     override suspend fun processUltimate() {
         println("Processing ultimate")
         val result = processor.processUltimate(battle, 0)
-        result.events.forEach { events.emit(it) }
+        result.events.forEach { event ->
+            handleEvent(event)
+        }
         battle = result.battle
+    }
+
+    override suspend fun battleEnd() = endBattle
+
+    private suspend fun handleEvent(event: BattleEvent) {
+        if (event is BattleEvent.BattleEndEvent) {
+            endBattle.emit(BattleResult(event.team == 0, 1000, 500))
+        } else {
+            events.emit(event)
+        }
     }
 }

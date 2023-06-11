@@ -4,7 +4,6 @@ import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.processor.SkillBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.animateDirectedAoe
 import com.pl00t.swipe_client.services.battle.logic.processor.animateMeleeAttack
-import com.pl00t.swipe_client.services.battle.logic.processor.animateSelfStatic
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.AoeSkillBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.HealBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.MeleeAttackSkillBehavior
@@ -25,13 +24,13 @@ class ArborealFangsSkill : SkillBehavior() {
 class VileSiphonSkill: SkillBehavior() {
 
     private fun calcualteDamage(battle: Battle, character: Character): ElementalConfig {
-        return (3f * (1f + 0.1f * character.attributes.body)).let {
+        return (2f * (1f + 0.1f * character.attributes.body)).let {
             ElementalConfig(physical = it)
         }
     }
 
     private fun calculateHeal(battle: Battle, character: Character, target: Character): Int {
-        return (3f * (1f + 0.1f * character.attributes.spirit)).toInt()
+        return (2f * (1f + 0.1f * character.attributes.spirit)).toInt()
     }
 
     private fun getHealTargets(battle: Battle, character: Character) = listOf(character)
@@ -78,7 +77,7 @@ class ShadowedAnnihinlation: SkillBehavior() {
             var enemy = enemy
             val positions = (0 until 25).shuffled().take(5)
             positions.forEach { p ->
-                events.add(BattleEvent.TileEffect(enemy.id, p % 5, p / 5, TileSkin.CORRUPTED_DRYAD_SHADOWED_ANNIHILATION))
+                events.add(BattleEvent.TileEffectEvent(enemy.id, p % 5, p / 5, TileSkin.CORRUPTED_DRYAD_SHADOWED_ANNIHILATION))
                 enemy.field.tiles.filter { it.x == p % 5 && it.y == p / 5 }.forEach { tileToRemove ->
                     events.add(BattleEvent.DestroyTileEvent(enemy.id, tileToRemove.id, tileToRemove.layer))
                 }
