@@ -2,9 +2,11 @@ package com.pl00t.swipe_client.services.profile
 
 import com.badlogic.gdx.Gdx
 import com.google.gson.Gson
+import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.pl00t.swipe_client.services.levels.FrontActModel
 import com.pl00t.swipe_client.services.levels.FrontLevelModel
 import com.pl00t.swipe_client.services.levels.LevelService
+import com.pl00t.swipe_client.services.monsters.MonsterService
 
 interface ProfileService {
 
@@ -16,7 +18,8 @@ interface ProfileService {
 }
 
 class ProfileServiceImpl(
-    val levelService: LevelService
+    val levelService: LevelService,
+    val monsterService: MonsterService,
 ) : ProfileService {
 
     val gson = Gson()
@@ -48,16 +51,19 @@ class ProfileServiceImpl(
         val actModel = levelService.getAct(act)
         val progress = profile.actProgress.firstOrNull { it.act == act } ?: return FrontActModel(emptyList(), emptyList())
         val availableLevels = actModel.levels.filter { progress.levelsAvailable.contains(it.id) }
-        println("> AL: $availableLevels")
         val availableLinks = actModel.links.filter { progress.levelsAvailable.contains(it.n1) || progress.levelsAvailable.contains(it.n2) }
-        println("> LL: $availableLinks")
         val disabledLevels = actModel.levels.filter { l -> !progress.levelsAvailable.contains(l.id) && availableLinks.any { it.n1 == l.id || it.n2 == l.id } }
-        println("> DL: $disabledLevels")
         return FrontActModel(
-            levels = availableLevels.map {
-                FrontLevelModel(it.x, 1024 - it.y, it.id, it.type, true)
-            } + disabledLevels.map {
-                FrontLevelModel(it.x, 1024 - it.y, it.id, it.type, false)
+            levels = availableLevels.map { l ->
+                FrontLevelModel(l.x, 1024 - l.y, l.id, l.type, true, l.monsters?.map { it.map { e ->
+                    val monster = monsterService.getMonster(e.skin)
+                    FrontMonsterEntryModel(monster.skin, monster.name, e.level)
+                } } ?: emptyList())
+            } + disabledLevels.map { l ->
+                FrontLevelModel(l.x, 1024 - l.y, l.id, l.type, false, l.monsters?.map { it.map { e ->
+                    val monster = monsterService.getMonster(e.skin)
+                    FrontMonsterEntryModel(monster.skin, monster.name, e.level)
+                } } ?: emptyList())
             },
             links = availableLinks
         )

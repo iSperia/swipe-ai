@@ -32,7 +32,7 @@
             "level": 1
           },
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_CORRUPTED_DRYAD",
             "level": 1
           }
         ]
@@ -54,6 +54,16 @@
           },
           {
             "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
             "level": 1
           }
         ]

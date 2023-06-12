@@ -17,7 +17,7 @@ data class MonsterConfigurationFile(
 
 class MonsterServiceImpl() : MonsterService {
 
-    val handle = Gdx.files.local("json/monsters.json")
+    val handle = Gdx.files.internal("json/monsters.json")
     var config: MonsterConfigurationFile
     val gson = Gson()
 
@@ -27,6 +27,6 @@ class MonsterServiceImpl() : MonsterService {
 
     override suspend fun getMonster(skin: UnitSkin): MonsterConfiguration {
         return config.monsters.firstOrNull { it.skin == skin }
-            ?: MonsterConfiguration(skin = UnitSkin.MONSTER_THORNSTALKER, 30, TileGeneratorConfig(emptyList()), 1f, 0f, 0f, 0f, 0f, 0f, 0, 0, 0, 1)
+            ?: MonsterConfiguration(skin = UnitSkin.MONSTER_THORNSTALKER, "Cabbage Head", 30, TileGeneratorConfig(emptyList()), 1f, 0f, 0f, 0f, 0f, 0f, 0, 0, 0, 1)
     }
 }

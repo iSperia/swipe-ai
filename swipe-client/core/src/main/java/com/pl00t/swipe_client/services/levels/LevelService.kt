@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.services.levels
 
+import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeAct
 
 interface LevelService {
@@ -19,6 +20,7 @@ data class FrontLevelModel(
     val id: String,
     val type: LevelType,
     val enabled: Boolean,
+    val waves: List<List<FrontMonsterEntryModel>>
 )
 data class FrontLevelDetails(
     val locationId: String,

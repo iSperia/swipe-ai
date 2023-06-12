@@ -41,6 +41,7 @@ class MapScreen(
     lateinit var mapAssetManager: AssetManager
     lateinit var mapAtlas: TextureAtlas
     lateinit var uxAtlas: TextureAtlas
+    lateinit var unitsAtlas: TextureAtlas
 
     lateinit var mapActor: Group
     lateinit var mapScroll: ScrollPane
@@ -65,6 +66,7 @@ class MapScreen(
         mapAssetManager = AssetManager().apply {
             load("atlases/${act.name}.atlas", TextureAtlas::class.java)
             load("atlases/ux.atlas", TextureAtlas::class.java)
+            load("atlases/units.atlas", TextureAtlas::class.java)
         }
         loadAm(mapAssetManager, this::mapLoaded)
         multiplexer.addProcessor(root)
@@ -81,6 +83,7 @@ class MapScreen(
         debug("MapScreen") { "Map screen is loaded" }
         mapAtlas = mapAssetManager.get("atlases/${act.name}.atlas", TextureAtlas::class.java)
         uxAtlas = mapAssetManager.get("atlases/ux.atlas", TextureAtlas::class.java)
+        unitsAtlas = mapAssetManager.get("atlases/units.atlas", TextureAtlas::class.java)
 
         actTitle = Fonts.createWindowTitle("Kingdom Of Harmony", _windowTitleHeight).apply {
             x = 0f
@@ -171,11 +174,13 @@ class MapScreen(
                 locationBackground = details.locationBackground,
                 locationName = details.locationTitle,
                 locationDescription = details.locationDescription,
+                waves = level.waves,
                 width = root.width,
                 height = root.width,
                 coreAtlas = coreTextureAtlas,
                 mapAtlas = mapAtlas,
                 uxAtlas = uxAtlas,
+                unitsAtlas = unitsAtlas,
                 attackAction = this@MapScreen::onAttackClicked).apply {
                 this.raiseFromBehind(root.width)
             }

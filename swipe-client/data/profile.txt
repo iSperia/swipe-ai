@@ -1,1 +1,1 @@
-{"balances":[],"actProgress":[{"act":"ACT_1","levelsAvailable":["c1","c2","c3","c4","r1"]}]}
+{"balances":[],"actProgress":[{"act":"ACT_1","levelsAvailable":["c1","c2","c3","c4","r1","c5"]}]}

@@ -64,7 +64,7 @@ class SwipeGame : Game(), Router {
             monsterService = MonsterServiceImpl()
             levelService = LevelServiceImpl()
             battleService = BattleServiceImpl(levelService, monsterService)
-            profileService = ProfileServiceImpl(levelService)
+            profileService = ProfileServiceImpl(levelService, monsterService)
 
             navigateMap(SwipeAct.ACT_1)
         }

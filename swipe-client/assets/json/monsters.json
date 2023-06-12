@@ -2,6 +2,7 @@
   "monsters": [
     {
       "skin": "CHARACTER_VALERIAN",
+      "name": "Prince Valerian",
       "baseHealth": 100,
       "tileConfig": { "entries": [
         {"tile": "VALERIAN_RADIANT_STRIKE", "weight":  3},
@@ -17,6 +18,7 @@
     },
     {
       "skin": "MONSTER_THORNSTALKER",
+      "name": "Thornstalker",
       "baseHealth": 30,
       "tileConfig": { "entries": [
         {"tile": "THORNSTALKER_PRIMAL_ASSAULT", "weight":  5},
@@ -30,6 +32,7 @@
     },
     {
       "skin": "MONSTER_CORRUPTED_DRYAD",
+      "name": "Corrupted Dryad",
       "baseHealth": 20,
       "tileConfig": { "entries": [
         {"tile": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "weight":  4},

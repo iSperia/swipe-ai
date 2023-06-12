@@ -11,6 +11,7 @@ enum class UnitSkin {
 
 data class MonsterConfiguration(
     val skin: UnitSkin,
+    val name: String,
     val baseHealth: Int,
     val tileConfig: TileGeneratorConfig,
     val scale: Float,
