@@ -1,19 +1,17 @@
 package com.pl00t.swipe_client.services.levels
 
-import com.pl00t.swipe.model.LevelType
-import com.pl00t.swipe.model.LinkModel
+import com.pl00t.swipe_client.services.profile.SwipeAct
 
 interface LevelService {
 
-    suspend fun getAct(actName: String): FrontActModel
+    suspend fun getAct(act: SwipeAct): ActModel
 
-    suspend fun getLevelDetails(level: String): FrontLevelDetails
+    suspend fun getLevelDetails(act: SwipeAct, level: String): FrontLevelDetails
 }
 
 data class FrontActModel(
     val levels: List<FrontLevelModel>,
-    val links: List<LinkModel>,
-    val background: String
+    val links: List<LinkModel>
 )
 data class FrontLevelModel(
     val x: Float,
@@ -24,5 +22,7 @@ data class FrontLevelModel(
 )
 data class FrontLevelDetails(
     val locationId: String,
+    val locationBackground: String,
     val locationTitle: String,
+    val locationDescription: String,
 )

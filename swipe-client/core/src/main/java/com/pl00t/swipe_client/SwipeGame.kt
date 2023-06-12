@@ -15,6 +15,11 @@ import com.pl00t.swipe_client.services.battle.BattleServiceImpl
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
+import com.pl00t.swipe_client.services.monsters.MonsterService
+import com.pl00t.swipe_client.services.monsters.MonsterServiceImpl
+import com.pl00t.swipe_client.services.profile.ProfileService
+import com.pl00t.swipe_client.services.profile.ProfileServiceImpl
+import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.Fonts
 import ktx.async.KtxAsync
 
@@ -23,8 +28,10 @@ class SwipeGame : Game(), Router {
 
     lateinit var amCore: AssetManager
     var coreLoaded = false
+    lateinit var profileService: ProfileService
     lateinit var levelService: LevelService
     lateinit var battleService: BattleService
+    lateinit var monsterService: MonsterService
     lateinit var inputMultiplexer: InputMultiplexer
 
     override fun create() {
@@ -34,7 +41,6 @@ class SwipeGame : Game(), Router {
         amCore.load("atlases/core.atlas", TextureAtlas::class.java)
         amCore.load("fonts/cinzel.fnt", BitmapFont::class.java)
         amCore.load("fonts/notepad.fnt", BitmapFont::class.java)
-        battleService = BattleServiceImpl()
     }
 
     override fun render() {
@@ -55,17 +61,20 @@ class SwipeGame : Game(), Router {
         if (amCore.update()) {
             coreLoaded = true
             Fonts.init(amCore)
+            monsterService = MonsterServiceImpl()
             levelService = LevelServiceImpl()
-            navigateMap("act1")
-//            navigateBattle("act1", "location_groves")
+            battleService = BattleServiceImpl(levelService, monsterService)
+            profileService = ProfileServiceImpl(levelService)
+
+            navigateMap(SwipeAct.ACT_1)
         }
     }
 
-    override fun navigateBattle(actId: String, locationId: String) {
-        setScreen(BattleScreen(amCore, inputMultiplexer, battleService, this))
+    override fun navigateBattle(act: SwipeAct, locationId: String) {
+        setScreen(BattleScreen(act, locationId, amCore, inputMultiplexer, battleService, this))
     }
 
-    override fun navigateMap(actId: String) {
-        setScreen(MapScreen(amCore, inputMultiplexer, levelService, this))
+    override fun navigateMap(act: SwipeAct) {
+        setScreen(MapScreen(act, amCore, inputMultiplexer, profileService, levelService, this))
     }
 }

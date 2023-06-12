@@ -1,5 +1,8 @@
 package com.pl00t.swipe_client.services.battle.logic
 
+import com.pl00t.swipe_client.services.battle.MonsterConfiguration
+import com.pl00t.swipe_client.services.battle.UnitSkin
+
 data class CharacterAttributes(
     val mind: Int,
     val body: Int,
@@ -7,15 +10,9 @@ data class CharacterAttributes(
 )
 
 data class HumanConfiguration(
-    val skin: UnitSkin,
+    val configuration: MonsterConfiguration,
     val level: Int,
     val attributes: CharacterAttributes
-)
-
-data class MonsterConfiguration(
-    val skin: UnitSkin,
-    val level: Int,
-    val baseHealth: Int,
 )
 
 data class MonsterWaveConfiguration(

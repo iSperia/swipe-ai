@@ -36,6 +36,13 @@ class LinkActor(
                 val y2 = l2.y * height / 1024f
 
                 renderer.rectLine(x1, y1, x2, y2, lineWidth)
+            } else {
+                val x1 = l1.x * width / 1024f
+                val x2 = l2.x * width / 1024f
+                val y1 = l1.y * height / 1024f
+                val y2 = l2.y * height / 1024f
+
+                renderer.rectLine(x1, y1, x2, y2, lineWidth / 3f)
             }
 
         }

@@ -96,7 +96,7 @@ class SwipeProcesor {
         }
 
         if (freePosition != null) {
-            val tileConfig: TileGeneratorConfig = TileGeneratorConfigFactory.CONFIGS[character.skin]!!
+            val tileConfig: TileGeneratorConfig = character.tileConfig
             val newTile = generateTile(freePosition, tileConfig, character.field.maxTileId)
             character = character.addTile(newTile)
             events.add(BattleEvent.CreateTileEvent(
@@ -209,7 +209,7 @@ class SwipeProcesor {
                 maxHealth = health,
                 resists = ElementalConfig(),
                 effects = emptyList(),
-                skin = humanConfig.skin,
+                skin = humanConfig.configuration.skin,
                 level = humanConfig.level,
                 human = true,
                 team = 0,
@@ -218,6 +218,8 @@ class SwipeProcesor {
                 maxUltimateProgress = 1000,
                 combo = 0,
                 ultimateBehavior = TileSkin.VALERIAN_DIVINE_CONVERGENCE,
+                scale = 1f,
+                tileConfig = humanConfig.configuration.tileConfig
             )
         }
 
@@ -254,23 +256,23 @@ class SwipeProcesor {
                 ultimateProgress = 0,
                 maxUltimateProgress = 1000,
                 combo = 0,
-                ultimateBehavior = TileSkin.VALERIAN_SIGIL_OF_RENEWAL_BG
+                ultimateBehavior = TileSkin.VALERIAN_SIGIL_OF_RENEWAL_BG,
+                scale = monsterConfig.scale,
+                tileConfig = monsterConfig.tileConfig,
             )
         }
         val units = humanCharacters + monsterCharacters
         val unitsWithTiles: List<Character> = units.map { unit ->
             var tileId = unit.field.maxTileId
             val numTiles = 5
-            val tileGeneratorConfig = TileGeneratorConfigFactory.CONFIGS[unit.skin]
-            tileGeneratorConfig?.let { tileGenerationConfig ->
-                val tiles = (0 until 25).shuffled().take(numTiles).map { position ->
-                    generateTile(position, tileGeneratorConfig, tileId++)
-                }
-                tiles.forEach { tile ->
-                    events.add(BattleEvent.CreateTileEvent(unit.id, tile.id, tile.x, tile.y, tile.skin, tile.progress, tile.maxProgress, tile.layer, tile.type))
-                }
-                unit.copy(field = unit.field.copy(maxTileId = tileId, tiles = tiles))
-            } ?: unit
+            val tileGeneratorConfig = unit.tileConfig
+            val tiles = (0 until 25).shuffled().take(numTiles).map { position ->
+                generateTile(position, tileGeneratorConfig, tileId++)
+            }
+            tiles.forEach { tile ->
+                events.add(BattleEvent.CreateTileEvent(unit.id, tile.id, tile.x, tile.y, tile.skin, tile.progress, tile.maxProgress, tile.layer, tile.type))
+            }
+            unit.copy(field = unit.field.copy(maxTileId = tileId, tiles = tiles))
         }
         events.addAll(units.map {
             BattleEvent.CreateUnitEvent(
@@ -279,7 +281,8 @@ class SwipeProcesor {
                 it.health,
                 it.maxHealth,
                 it.effects,
-                it.team
+                it.team,
+                it.scale,
             )
         })
         val newBattle = battle.copy(maxUnitId = unitId, characters = unitsWithTiles)

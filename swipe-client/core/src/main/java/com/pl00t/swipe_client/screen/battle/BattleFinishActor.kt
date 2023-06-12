@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.ux.IconedButton
 import com.pl00t.swipe_client.services.battle.BattleResult
+import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.Fonts
 import ktx.actors.alpha
 import ktx.actors.onClick
@@ -124,7 +125,7 @@ class BattleFinishActor(
         resultBlockGroup.addActor(caption)
 
         closeButton.onClick {
-            router.navigateMap("act1")
+            router.navigateMap(SwipeAct.ACT_1)
         }
     }
 }

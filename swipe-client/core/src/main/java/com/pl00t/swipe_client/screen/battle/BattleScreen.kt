@@ -19,6 +19,7 @@ import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.battle.logic.BattleEvent
 import com.pl00t.swipe_client.services.battle.logic.processor.TarotAnimation
+import com.pl00t.swipe_client.services.profile.SwipeAct
 import kotlinx.coroutines.launch
 import ktx.actors.*
 import ktx.async.KtxAsync
@@ -26,6 +27,8 @@ import kotlin.math.max
 import kotlin.random.Random
 
 class BattleScreen(
+    private val actId: SwipeAct,
+    private val levelId: String,
     amCore: AssetManager,
     inputMultiplexer: InputMultiplexer,
     private val battleService: BattleService,
@@ -72,10 +75,10 @@ class BattleScreen(
         multiplexer.addProcessor(gestureDetector)
         Gdx.input.inputProcessor = multiplexer
         KtxAsync.launch {
-            decorations = battleService.createMockBattle()
+            decorations = battleService.createBattle(actId, levelId)
             battleAssetManager = AssetManager().apply {
                 load("atlases/battle.atlas", TextureAtlas::class.java)
-                load("atlases/map.atlas", TextureAtlas::class.java)
+                load("atlases/ACT_1.atlas", TextureAtlas::class.java)
                 load("atlases/units.atlas", TextureAtlas::class.java)
                 load("atlases/tarot.atlas", TextureAtlas::class.java)
             }
@@ -85,7 +88,7 @@ class BattleScreen(
 
     private fun amLoaded() {
         battleTextureAtlas = battleAssetManager.get("atlases/battle.atlas", TextureAtlas::class.java)
-        mapTextureAtlas = battleAssetManager.get("atlases/map.atlas", TextureAtlas::class.java)
+        mapTextureAtlas = battleAssetManager.get("atlases/ACT_1.atlas", TextureAtlas::class.java)
         unitsTextureAtlas = battleAssetManager.get("atlases/units.atlas", TextureAtlas::class.java)
         tarotTextureAtlas = battleAssetManager.get("atlases/tarot.atlas", TextureAtlas::class.java)
 
@@ -551,7 +554,7 @@ class BattleScreen(
             texture = event.skin.toString(),
             team = event.team,
             w = _characterWidth,
-            s = BattleScaleMapper.map(event.skin),
+            s = event.scale,
             position = if (event.team == 0) leftUnitsCount++ else rightUnitsCount++
         )
         unit.name = event.id.toString()

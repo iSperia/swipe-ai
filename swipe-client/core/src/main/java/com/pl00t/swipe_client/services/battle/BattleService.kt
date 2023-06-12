@@ -2,10 +2,14 @@ package com.pl00t.swipe_client.services.battle
 
 import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.processor.SwipeProcesor
+import com.pl00t.swipe_client.services.levels.LevelService
+import com.pl00t.swipe_client.services.monsters.MonsterService
+import com.pl00t.swipe_client.services.profile.SwipeAct
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.map
+import java.lang.IllegalStateException
 
 data class BattleResult(
     val victory: Boolean,
@@ -15,56 +19,49 @@ data class BattleResult(
 )
 
 interface BattleService {
-    suspend fun createMockBattle(): BattleDecorations
+    suspend fun createBattle(act: SwipeAct, level: String): BattleDecorations
     suspend fun events(): Flow<BattleEvent>
     suspend fun processSwipe(dx: Int, dy: Int)
     suspend fun processUltimate()
     suspend fun battleEnd(): Flow<BattleResult>
 }
 
-class BattleServiceImpl() : BattleService {
+class BattleServiceImpl(
+    private val levelService: LevelService,
+    private val monsterService: MonsterService) : BattleService {
 
     val processor = SwipeProcesor()
     lateinit var battle: Battle
     val events = MutableSharedFlow<BattleEvent>(200)
     val endBattle = MutableSharedFlow<BattleResult>(5)
 
-    override suspend fun createMockBattle(): BattleDecorations {
+    override suspend fun createBattle(actId: SwipeAct, level: String): BattleDecorations {
+        val actModel = levelService.getAct(actId)
+        val levelModel = actModel.levels.firstOrNull { it.id == level } ?: return BattleDecorations("")
+
+        val waves = levelModel.monsters?.map { wave ->
+            MonsterWaveConfiguration(
+                monsters = wave.map { monster ->
+                    monsterService.getMonster(monster.skin).copy(level = monster.level)
+                }
+            )
+        } ?: throw IllegalStateException("Did not find waves of monsters")
+
         battle = Battle(0, emptyList(), 1)
         val configuration = BattleConfiguration(
             humans = listOf(
                 HumanConfiguration(
-                    skin = UnitSkin.CHARACTER_VALERIAN,
+                    configuration = monsterService.getMonster(UnitSkin.CHARACTER_VALERIAN),
                     level = 1,
                     attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1)
                 )
             ),
-            waves = listOf(
-                MonsterWaveConfiguration(
-                    monsters = listOf(
-                        MonsterConfiguration(
-                            skin = UnitSkin.MONSTER_THORNSTALKER,
-                            level = 1,
-                            baseHealth = 30
-                        ),
-                        MonsterConfiguration(
-                            skin = UnitSkin.MONSTER_THORNSTALKER,
-                            level = 1,
-                            baseHealth = 30
-                        ),
-                        MonsterConfiguration(
-                            skin = UnitSkin.MONSTER_CORRUPTED_DRYAD,
-                            level = 1,
-                            baseHealth = 20
-                        )
-                    )
-                )
-            )
+            waves = waves
         )
         val createResults = processor.createBattle(configuration, battle)
         createResults.events.forEach { events.emit(it) }
         battle = createResults.battle
-        return BattleDecorations("location_groves")
+        return BattleDecorations("groves")
     }
 
     override suspend fun events(): Flow<BattleEvent> = events.filterNot {

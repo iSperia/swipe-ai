@@ -1,6 +1,7 @@
 package com.pl00t.swipe_client.services.battle.logic
 
-import com.pl00t.swipe_client.services.battle.logic.processor.SkillBehavior
+import com.pl00t.swipe_client.services.battle.UnitSkin
+import com.pl00t.swipe_client.services.battle.logic.processor.TileGeneratorConfig
 
 data class Character(
     val id: Int,
@@ -18,6 +19,8 @@ data class Character(
     val maxUltimateProgress: Int,
     val combo: Int,
     val ultimateBehavior: TileSkin,
+    val scale: Float,
+    val tileConfig: TileGeneratorConfig
 ) {
 
     override fun toString(): String {
@@ -33,9 +36,4 @@ data class Character(
     fun updateUltimateProgress(combo: Int, progress: Int) = copy(combo = combo, ultimateProgress = progress)
 }
 
-enum class UnitSkin {
-    CHARACTER_VALERIAN,
-    MONSTER_THORNSTALKER,
-    MONSTER_CORRUPTED_DRYAD,
-    MONSTER_THALENDROS
-}
+

@@ -42,7 +42,7 @@ class VileSiphonSkill: SkillBehavior() {
         this::calculateHeal
     )
 
-    override fun animationStrategy(battle: Battle, unitId: Int) = animateMeleeAttack(battle, unitId, TileSkin.CORRUPTED_DRYUAD_VILE_SIPHON)
+    override fun animationStrategy(battle: Battle, unitId: Int) = animateMeleeAttack(battle, unitId, TileSkin.CORRUPTED_DRYAD_VILE_SIPHON)
 
     override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
         val events = mutableListOf<BattleEvent>()

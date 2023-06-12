@@ -57,7 +57,7 @@ object BehaviorFactory {
             TileSkin.THORNSTALKER_VENOMOUS_BARRAGE -> VenomousBarrageBehavior()
             TileSkin.THORNSTALKER_PRIMAL_ASSAULT -> PrimalAssaultBehaviour()
 
-            TileSkin.CORRUPTED_DRYUAD_VILE_SIPHON -> VileSiphonSkill()
+            TileSkin.CORRUPTED_DRYAD_VILE_SIPHON -> VileSiphonSkill()
             TileSkin.CORRUPTED_DRYAD_SHADOWED_ANNIHILATION -> ShadowedAnnihinlation()
             TileSkin.CORRUPTED_DRYAD_ARBOREAL_FANGS -> ArborealFangsSkill()
             else -> PrimalAssaultBehaviour()

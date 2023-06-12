@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.services.battle.logic
 
+import com.pl00t.swipe_client.services.battle.UnitSkin
 import com.pl00t.swipe_client.services.battle.logic.processor.TarotAnimation
 
 data class UnitPopup(
@@ -16,6 +17,7 @@ sealed interface BattleEvent {
         val maxHealth: Int,
         val effects: List<Effect>,
         val team: Int,
+        val scale: Float,
     ) : BattleEvent
 
     data class CreateTileEvent(
