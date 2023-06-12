@@ -13,12 +13,18 @@ import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.ux.IconedButton
 import com.pl00t.swipe_client.services.battle.BattleResult
+import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.Fonts
+import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
+import ktx.async.KtxAsync
 
 class BattleFinishActor(
+    private val actId: SwipeAct,
+    private val locationId: String,
+    private val profileService: ProfileService,
     private val result: BattleResult,
     private val coreTextureAtlas: TextureAtlas,
     private val battleTextureAtlas: TextureAtlas,
@@ -125,7 +131,12 @@ class BattleFinishActor(
         resultBlockGroup.addActor(caption)
 
         closeButton.onClick {
-            router.navigateMap(SwipeAct.ACT_1)
+            KtxAsync.launch {
+                if (result.victory) {
+                    profileService.markActComplete(actId, locationId)
+                }
+                router.navigateMap(SwipeAct.ACT_1)
+            }
         }
     }
 }

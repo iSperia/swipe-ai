@@ -19,6 +19,7 @@ import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.battle.logic.BattleEvent
 import com.pl00t.swipe_client.services.battle.logic.processor.TarotAnimation
+import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import kotlinx.coroutines.launch
 import ktx.actors.*
@@ -32,6 +33,7 @@ class BattleScreen(
     amCore: AssetManager,
     inputMultiplexer: InputMultiplexer,
     private val battleService: BattleService,
+    private val profileService: ProfileService,
     private val router: Router,
 ) : StageScreen(amCore, inputMultiplexer), SimpleDirectionGestureDetector.DirectionListener {
 
@@ -176,7 +178,7 @@ class BattleScreen(
         //we are finished, remove multiplexor
         multiplexer.removeProcessor(gestureDetector)
 
-        val endActor = BattleFinishActor(event, coreTextureAtlas, battleTextureAtlas, router)
+        val endActor = BattleFinishActor(actId, levelId, profileService, event, coreTextureAtlas, battleTextureAtlas, router)
         root.addActor(endActor)
     }
 
