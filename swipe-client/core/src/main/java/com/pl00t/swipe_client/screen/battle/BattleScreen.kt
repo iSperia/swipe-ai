@@ -12,8 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
 import com.game7th.swipe.gestures.SimpleDirectionGestureDetector
+import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.services.battle.BattleDecorations
+import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.battle.logic.BattleEvent
 import com.pl00t.swipe_client.services.battle.logic.processor.TarotAnimation
@@ -26,7 +28,8 @@ import kotlin.random.Random
 class BattleScreen(
     amCore: AssetManager,
     inputMultiplexer: InputMultiplexer,
-    private val battleService: BattleService
+    private val battleService: BattleService,
+    private val router: Router,
 ) : StageScreen(amCore, inputMultiplexer), SimpleDirectionGestureDetector.DirectionListener {
 
     lateinit var decorations: BattleDecorations
@@ -150,6 +153,7 @@ class BattleScreen(
         panelGroup.addActor(ultimateActor)
 
         KtxAsync.launch { observeBattleEvents() }
+        KtxAsync.launch { observeEndBattle() }
     }
 
     private suspend fun observeBattleEvents() {
@@ -158,8 +162,23 @@ class BattleScreen(
         }
     }
 
+    private suspend fun observeEndBattle() {
+        battleService.battleEnd().collect { event ->
+            processBattleEvent(event)
+        }
+    }
+
+    private fun processBattleEvent(event: BattleResult) {
+        println("battle end: $event")
+        //we are finished, remove multiplexor
+        multiplexer.removeProcessor(gestureDetector)
+
+        val endActor = BattleFinishActor(event, coreTextureAtlas, battleTextureAtlas, router)
+        root.addActor(endActor)
+    }
+
     private fun processEvent(event: BattleEvent) {
-        println("BS: $event")
+//        println("BS: $event")
         when (event) {
             is BattleEvent.CreateUnitEvent -> {
                 createUnit(event)
@@ -242,7 +261,7 @@ class BattleScreen(
                 ultimateActor.updateUltimateProgress(event.progress.toFloat() / event.maxProgress)
             }
             is BattleEvent.UltimateEvent -> {
-                val bg = Image(taCore.findRegion("semi_black_pixel")).apply {
+                val bg = Image(coreTextureAtlas.findRegion("semi_black_pixel")).apply {
                     width = root.width
                     height = _locationHei
                     alpha = 0f
@@ -570,15 +589,12 @@ class BattleScreen(
         }
     }
 
+    override fun hide() = dispose()
+
     override fun dispose() {
         super.dispose()
         multiplexer.removeProcessor(gestureDetector)
-        multiplexer.removeProcessor(root)
-        battleTextureAtlas.dispose()
-        unitsTextureAtlas.dispose()
-        tarotTextureAtlas.dispose()
-        mapTextureAtlas.dispose()
-        taCore.dispose()
+        battleAssetManager.dispose()
     }
 
     override fun onLeft() = processSwipe(-1, 0)

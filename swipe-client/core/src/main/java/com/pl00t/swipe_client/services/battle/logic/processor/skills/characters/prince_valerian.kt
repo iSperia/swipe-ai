@@ -76,7 +76,6 @@ class SigilOfRenewalBackgroundBehavior : SkillBehavior() {
         println("SIGIL BG init")
     }
     override fun afterTileUsed(battle: Battle, character: Character, self: Tile, target: Tile): ProcessResult {
-        println("${self.x}:${self.y} <> ${target.x}:${target.y}")
         if (self.x == target.x && self.y == target.y) {
             //we are sigil under the usage stuff
             //first of all, we heal the stuff

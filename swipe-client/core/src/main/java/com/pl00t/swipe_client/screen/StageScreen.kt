@@ -11,11 +11,11 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport
 import ktx.app.KtxScreen
 
 abstract class StageScreen(
-    protected val amCore: AssetManager,
+    protected val coreAssetManager: AssetManager,
     protected var multiplexer: InputMultiplexer,
 ) : KtxScreen {
 
-    protected val taCore = amCore.get<TextureAtlas>("atlases/core.atlas")
+    protected val coreTextureAtlas = coreAssetManager.get<TextureAtlas>("atlases/core.atlas")
 
     protected val root = Stage(ScreenViewport())
 
@@ -42,8 +42,8 @@ abstract class StageScreen(
     }
 
     override fun dispose() {
-        root.dispose()
         super.dispose()
+        multiplexer.removeProcessor(root)
     }
 
     protected fun loadAm(am: AssetManager, action: () -> Unit) {
@@ -58,7 +58,7 @@ abstract class StageScreen(
         }
     }
 
-    private fun createLoadingActor() = Image(taCore.findRegion("loading")).apply {
+    private fun createLoadingActor() = Image(coreTextureAtlas.findRegion("loading")).apply {
         x = 0f
         y = 0f
         width = this@StageScreen.root.width

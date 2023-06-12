@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.map
 
 data class BattleResult(
     val victory: Boolean,
+    val freeReward: Boolean,
     val goldRewardCost: Int,
     val chronoShardsRewardCost: Int,
 )
@@ -92,6 +93,7 @@ class BattleServiceImpl() : BattleService {
             handleEvent(event)
         }
         battle = result.battle
+        checkBattleEnd()
     }
 
     override suspend fun processUltimate() {
@@ -101,15 +103,25 @@ class BattleServiceImpl() : BattleService {
             handleEvent(event)
         }
         battle = result.battle
+        checkBattleEnd()
     }
 
     override suspend fun battleEnd() = endBattle
 
-    private suspend fun handleEvent(event: BattleEvent) {
-        if (event is BattleEvent.BattleEndEvent) {
-            endBattle.emit(BattleResult(event.team == 0, 1000, 500))
-        } else {
-            events.emit(event)
+    private suspend fun checkBattleEnd() {
+        val hasTeam0 = battle.characters.any { it.team == 0 && it.human }
+        val hasTeam1 = battle.characters.any { it.team == 1 }
+        println("CHECK: $hasTeam0 $hasTeam1")
+        if (!hasTeam0) {
+            endBattle.emit(BattleResult(victory = false, freeReward = false, goldRewardCost = 0, chronoShardsRewardCost = 0))
+            events.resetReplayCache()
+            endBattle.resetReplayCache()
+        } else if (!hasTeam1) {
+            endBattle.emit(BattleResult(victory = true, freeReward = true, goldRewardCost = 0, chronoShardsRewardCost = 0))
+            events.resetReplayCache()
+            endBattle.resetReplayCache()
         }
     }
+
+    private suspend inline fun handleEvent(event: BattleEvent) = events.emit(event)
 }

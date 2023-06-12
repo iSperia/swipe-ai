@@ -13,6 +13,7 @@ object Fonts {
     lateinit var lsWindowTitle: LabelStyle
     lateinit var lsTitle: LabelStyle
     lateinit var lsDescription: LabelStyle
+    lateinit var lsDescriptionAccent: LabelStyle
     lateinit var lsWhiteCaption: LabelStyle
     lateinit var lsWhiteTitle: LabelStyle
 
@@ -20,6 +21,7 @@ object Fonts {
         lsWindowTitle = LabelStyle(amCore.fntTitle(), Colors.ACCENT_COLOR)
         lsTitle = LabelStyle(amCore.fntTitle(), Colors.MAIN_COLOR)
         lsDescription = LabelStyle(amCore.fntDescription(), Colors.MAIN_COLOR)
+        lsDescriptionAccent = LabelStyle(amCore.fntDescription(), Colors.ACCENT_COLOR)
         lsWhiteCaption = LabelStyle(amCore.fntDescription(), Color.WHITE)
         lsWhiteTitle = LabelStyle(amCore.fntTitle(), Color.WHITE)
     }
@@ -30,6 +32,11 @@ object Fonts {
     }
 
     fun createCaption(text: String, lineHeight: Float): Label = Label(text, lsDescription).apply {
+        this.fontScaleX = lineHeight * 0.014f
+        this.fontScaleY = lineHeight * 0.014f
+    }
+
+    fun createCaptionAccent(text: String, lineHeight: Float): Label = Label(text, lsDescriptionAccent).apply {
         this.fontScaleX = lineHeight * 0.014f
         this.fontScaleY = lineHeight * 0.014f
     }

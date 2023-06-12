@@ -25,8 +25,6 @@ import ktx.actors.alpha
 import ktx.actors.onClick
 import ktx.async.KtxAsync
 import ktx.log.debug
-import kotlin.math.max
-import kotlin.math.min
 
 
 class MapScreen(
@@ -87,9 +85,9 @@ class MapScreen(
             height = _windowTitleHeight
             setAlignment(Align.center)
         }
-        actTitleBackground = Image(taCore.findRegion("button_bg")).apply {
+        actTitleBackground = Image(coreTextureAtlas.findRegion("top_gradient")).apply {
             width = root.width
-            height = _windowTitleHeight
+            height = _windowTitleHeight * 1.5f
             y = root.height - this.height
             touchable = Touchable.disabled
         }
@@ -162,7 +160,7 @@ class MapScreen(
             levelDetailsActor = null
 
             levelDetailsActor = LevelDetailsActor(details.locationId, details.locationTitle,
-                root.width, root.width, taCore, mapAtlas, this@MapScreen::onAttackClicked).apply {
+                root.width, root.width, coreTextureAtlas, mapAtlas, this@MapScreen::onAttackClicked).apply {
                 this.raiseFromBehind(root.width)
             }
             root.addActor(levelDetailsActor)
@@ -185,6 +183,15 @@ class MapScreen(
         mapActor.width = mapImage.width
         mapActor.height = mapImage.height
         mapActor.touchable = Touchable.childrenOnly
+    }
+
+    override fun hide() = dispose()
+
+    override fun dispose() {
+        super.dispose()
+        multiplexer.removeProcessor(root)
+        multiplexer.removeProcessor(gestureDetector)
+        mapAssetManager.dispose()
     }
 
     override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
