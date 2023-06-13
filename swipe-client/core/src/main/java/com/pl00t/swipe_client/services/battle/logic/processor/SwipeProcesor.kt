@@ -197,10 +197,10 @@ class SwipeProcesor {
         } ?: return ProcessResult(emptyList(), battle)
     }
 
-    fun createBattle(config: BattleConfiguration, battle: Battle): ProcessResult {
+    fun createBattle(config: BattleConfiguration, battle: Battle, wave: Int): ProcessResult {
         var unitId = battle.maxUnitId
         val events = mutableListOf<BattleEvent>()
-        val humanCharacters = config.humans.map { humanConfig ->
+        val humanCharacters = if (wave < 1) config.humans.map { humanConfig ->
             val health = (100 * (1f + humanConfig.attributes.body * 0.1f)).toInt()
             Character(
                 id = unitId++,
@@ -221,9 +221,11 @@ class SwipeProcesor {
                 scale = 1f,
                 tileConfig = humanConfig.configuration.tileConfig
             )
+        } else {
+            emptyList()
         }
 
-        val monstersWithAttributes = config.waves.first().monsters.map { monsterConfig ->
+        val monstersWithAttributes = config.waves[wave].monsters.map { monsterConfig ->
             val amountOfAttributes = (Math.pow(1.05, monsterConfig.level.toDouble()).toFloat() * monsterConfig.level * 3).toInt()
             var body = 0
             var spirit = 0
@@ -285,7 +287,7 @@ class SwipeProcesor {
                 it.scale,
             )
         })
-        val newBattle = battle.copy(maxUnitId = unitId, characters = unitsWithTiles)
+        val newBattle = battle.copy(maxUnitId = unitId, characters = battle.characters + unitsWithTiles)
         return ProcessResult(battle = newBattle, events = events)
     }
 

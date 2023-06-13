@@ -31,6 +31,7 @@ class BattleServiceImpl(
     private val monsterService: MonsterService) : BattleService {
 
     val processor = SwipeProcesor()
+    private var configuration: BattleConfiguration? = null
     lateinit var battle: Battle
     val events = MutableSharedFlow<BattleEvent>(200)
     val endBattle = MutableSharedFlow<BattleResult>(5)
@@ -47,8 +48,7 @@ class BattleServiceImpl(
             )
         } ?: throw IllegalStateException("Did not find waves of monsters")
 
-        battle = Battle(0, emptyList(), 1)
-        val configuration = BattleConfiguration(
+        configuration = BattleConfiguration(
             humans = listOf(
                 HumanConfiguration(
                     configuration = monsterService.getMonster(UnitSkin.CHARACTER_VALERIAN),
@@ -58,7 +58,8 @@ class BattleServiceImpl(
             ),
             waves = waves
         )
-        val createResults = processor.createBattle(configuration, battle)
+        battle = Battle(0, emptyList(), 1, waves, 0)
+        val createResults = processor.createBattle(configuration!!, battle, 0)
         createResults.events.forEach { events.emit(it) }
         battle = createResults.battle
         return BattleDecorations("groves")
@@ -108,15 +109,21 @@ class BattleServiceImpl(
     private suspend fun checkBattleEnd() {
         val hasTeam0 = battle.characters.any { it.team == 0 && it.human }
         val hasTeam1 = battle.characters.any { it.team == 1 }
+        val lastWave = battle.activeWave >= battle.waves.size - 1
         println("CHECK: $hasTeam0 $hasTeam1")
         if (!hasTeam0) {
             endBattle.emit(BattleResult(victory = false, freeReward = false, goldRewardCost = 0, chronoShardsRewardCost = 0))
             events.resetReplayCache()
             endBattle.resetReplayCache()
-        } else if (!hasTeam1) {
+        } else if (!hasTeam1 && lastWave) {
             endBattle.emit(BattleResult(victory = true, freeReward = true, goldRewardCost = 0, chronoShardsRewardCost = 0))
             events.resetReplayCache()
             endBattle.resetReplayCache()
+        } else if (!hasTeam1 && !lastWave) {
+            events.emit(BattleEvent.WaveEvent(battle.activeWave + 2))
+            val waveResult = processor.createBattle(configuration!!, battle, battle.activeWave + 1)
+            battle = waveResult.battle.copy(activeWave = waveResult.battle.activeWave + 1)
+            waveResult.events.forEach { events.emit(it) }
         }
     }
 

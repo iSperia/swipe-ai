@@ -28,6 +28,8 @@ data class Battle(
     val maxUnitId: Int,
     val characters: List<Character>,
     val swipeBeforeNpc: Int,
+    val waves: List<MonsterWaveConfiguration>,
+    val activeWave: Int,
 ) {
     fun unitById(id: Int) = characters.firstOrNull { it.id == id }
 

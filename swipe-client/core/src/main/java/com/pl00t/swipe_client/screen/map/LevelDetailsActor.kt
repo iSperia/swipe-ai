@@ -2,12 +2,9 @@ package com.pl00t.swipe_client.screen.map
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
-import com.badlogic.gdx.scenes.scene2d.Touchable
-import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.screen.ux.IconedButton
@@ -89,7 +86,7 @@ class LevelDetailsActor(
 
         val waveActors = waves.mapIndexed { index, wave ->
             LevelWaveActor(index + 1, wave, unitsAtlas, width * 0.9f).apply {
-                x = width * 0.1f
+                x = width * 0.05f
                 y = totalRootHeight - (index + 1) * 0.6f * width
             }
         }

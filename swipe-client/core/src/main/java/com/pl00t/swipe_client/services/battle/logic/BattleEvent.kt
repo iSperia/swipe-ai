@@ -10,6 +10,10 @@ data class UnitPopup(
 
 sealed interface BattleEvent {
 
+    data class WaveEvent(
+        val wave: Int
+    ) : BattleEvent
+
     data class CreateUnitEvent(
         val id: Int,
         val skin: UnitSkin,

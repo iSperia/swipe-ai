@@ -21,6 +21,7 @@ import com.pl00t.swipe_client.services.battle.logic.BattleEvent
 import com.pl00t.swipe_client.services.battle.logic.processor.TarotAnimation
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import com.pl00t.swipe_client.ux.Fonts
 import kotlinx.coroutines.launch
 import ktx.actors.*
 import ktx.async.KtxAsync
@@ -185,6 +186,26 @@ class BattleScreen(
     private fun processEvent(event: BattleEvent) {
 //        println("BS: $event")
         when (event) {
+            is BattleEvent.WaveEvent -> {
+                rightUnitsCount = 0
+                val wave = Fonts.createWhiteTitle("Wave ${event.wave}", root.height * 0.2f).apply {
+                    width = root.width
+                    height = root.height * 0.2f
+                    y = root.height * 0.2f
+                    alpha = 0f
+                    setAlignment(Align.bottom)
+                }
+                root.addActor(wave)
+                wave.addAction(Actions.sequence(
+                    Actions.parallel(
+                        Actions.alpha(1f, 0.2f),
+                        Actions.moveBy(0f, root.height * 0.6f, 2f)
+                    ),
+                    Actions.alpha(0f, 0.5f),
+                    Actions.removeActor()
+                ))
+            }
+
             is BattleEvent.CreateUnitEvent -> {
                 createUnit(event)
             }
