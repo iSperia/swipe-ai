@@ -17,7 +17,7 @@ class ArborealFangsSkill : SkillBehavior() {
 
     override fun animationStrategy(battle: Battle, unitId: Int) = animateMeleeAttack(battle, unitId, TileSkin.CORRUPTED_DRYAD_ARBOREAL_FANGS)
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean) = melee.skillUse(battle, character, lucky)
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean) = melee.skillUse(battle, character, at, lucky)
 
 }
 
@@ -44,14 +44,14 @@ class VileSiphonSkill: SkillBehavior() {
 
     override fun animationStrategy(battle: Battle, unitId: Int) = animateMeleeAttack(battle, unitId, TileSkin.CORRUPTED_DRYAD_VILE_SIPHON)
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean): ProcessResult {
         val events = mutableListOf<BattleEvent>()
         var battle = battle
-        melee.skillUse(battle, character, lucky).let {
+        melee.skillUse(battle, character, at, lucky).let {
             events.addAll(it.events)
             battle = it.battle
         }
-        heal.skillUse(battle, character, lucky).let {
+        heal.skillUse(battle, character, at, lucky).let {
             events.addAll(it.events)
             battle = it.battle
         }
@@ -70,7 +70,7 @@ class ShadowedAnnihinlation: SkillBehavior() {
 
     override fun animationStrategy(battle: Battle, unitId: Int) = animateDirectedAoe(battle, unitId, TileSkin.CORRUPTED_DRYAD_SHADOWED_ANNIHILATION)
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean): ProcessResult {
         val events = mutableListOf<BattleEvent>()
         var battle = battle
         battle.enemies(character).forEach { enemy ->
@@ -87,7 +87,7 @@ class ShadowedAnnihinlation: SkillBehavior() {
                 battle.unitById(enemy.id)?.let { enemy = it }
             }
         }
-        aoe.skillUse(battle, character, lucky).let {
+        aoe.skillUse(battle, character, at, lucky).let {
             events.addAll(it.events)
             battle = it.battle
         }

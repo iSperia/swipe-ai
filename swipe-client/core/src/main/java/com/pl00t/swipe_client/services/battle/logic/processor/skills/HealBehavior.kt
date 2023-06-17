@@ -9,7 +9,7 @@ class HealBehavior(
     val getAmount: (Battle, Character, Character) -> Int
 ) : SkillBehavior() {
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean): ProcessResult {
         val targets = getTargets(battle, character)
         val events = mutableListOf<BattleEvent>()
         var battle = battle

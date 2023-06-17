@@ -37,9 +37,9 @@ class LevelDetailsActor(
 
     val locationDescriptionLabel: Label
 
-    private val _titleHeight = height * 0.11f
+    private val _titleHeight = width * 0.11f
     private val _bw = width * 0.6f
-    private val _bh = height * 0.12f
+    private val _bh = width * 0.12f
 
     init {
         this.width = width
@@ -48,7 +48,7 @@ class LevelDetailsActor(
         imLocation = Image(mapAtlas.findRegion(locationBackground)).apply {
             x = 0f
             y = 0f
-            setScaling(Scaling.stretch)
+            setScaling(Scaling.fill)
             this.width = width
             this.height = height
         }
@@ -57,12 +57,12 @@ class LevelDetailsActor(
             y = 0f
             this.width = width
             this.height = height
-            this.alpha = 0.6f
+            this.alpha = 0.7f
         }
 
         startButton = IconedButton(_bw, _bh, "To Battle!", "button_attack", coreAtlas, uxAtlas).apply {
             x = (width - _bw) / 2f
-            y = height * 0.05f
+            y = width * 0.05f
         }
         startButton.onClick { attackAction(locationId) }
         title = Fonts.createWhiteTitle(locationName, _titleHeight).apply {
@@ -74,7 +74,7 @@ class LevelDetailsActor(
         }
         locationDescriptionLabel = Fonts.createCaptionAccent(locationDescription, _bh * 0.8f).apply {
             setAlignment(Align.topLeft)
-            this.height = height * 0.7f
+            this.height = width * 0.7f
             this.width = width * 0.9f
             x = width * 0.05f
             wrap = true
@@ -95,7 +95,7 @@ class LevelDetailsActor(
         scrollRoot.width = width
         scrollRoot.height = totalRootHeight
         scroll = ScrollPane(scrollRoot).apply {
-            y = _bh + height * 0.1f
+            y = _bh + width * 0.1f
             this.width = width
             this.height = height - _bh - title.height - height * 0.1f
         }

@@ -10,13 +10,13 @@ import com.pl00t.swipe_client.services.battle.logic.processor.skills.InflictPois
 
 class PrimalAssaultBehaviour: SkillBehavior() {
     private val melee = MeleeAttackSkillBehavior { battle, character ->
-        val physicalDamage = 5f * (1f + character.attributes.body * 0.1f)
+        val physicalDamage = 4f * (1f + character.attributes.body * 0.1f)
         ElementalConfig(physical = physicalDamage)
     }
 
     override fun animationStrategy(battle: Battle, unitId: Int) = animateMeleeAttack(battle, unitId, TileSkin.THORNSTALKER_PRIMAL_ASSAULT)
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean) = melee.skillUse(battle, character, lucky)
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean) = melee.skillUse(battle, character, at, lucky)
 }
 
 class ResilentGrowth: SkillBehavior() {
@@ -34,10 +34,10 @@ class ResilentGrowth: SkillBehavior() {
 
     override fun animationStrategy(battle: Battle, unitId: Int) = animateSelfStatic(battle, unitId, TileSkin.THORNSTALKER_RESILIENT_GROWTH)
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean): ProcessResult {
         val events = mutableListOf<BattleEvent>()
         var battle = battle
-        heal.skillUse(battle, character, lucky).let {
+        heal.skillUse(battle, character, at, lucky).let {
             events.addAll(it.events)
             battle = battle
         }
@@ -61,8 +61,8 @@ class VenomousBarrageBehavior: SkillBehavior() {
 
     override fun animationStrategy(battle: Battle, unitId: Int) = animateMeleeAttack(battle, unitId, TileSkin.THORNSTALKER_VENOMOUS_BARRAGE)
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
-        val poisonResult = poison.skillUse(battle, character, lucky)
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean): ProcessResult {
+        val poisonResult = poison.skillUse(battle, character, at, lucky)
         var battle = poisonResult.battle
         val events = mutableListOf<BattleEvent>()
         events.addAll(poisonResult.events)

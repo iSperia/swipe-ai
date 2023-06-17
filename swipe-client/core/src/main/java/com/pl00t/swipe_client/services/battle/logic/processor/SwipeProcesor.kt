@@ -129,7 +129,7 @@ class SwipeProcesor {
                 val animation = behavior.animationStrategy(battle, unitId)
                 events.add(BattleEvent.AnimateTarotEvent(animation))
 
-                val useResult = behavior.skillUse(battle, character, false)
+                val useResult = behavior.skillUse(battle, character, tile, false)
                 battle = useResult.battle
                 character = battle.unitById(character.id) ?: character
                 events.addAll(useResult.events)
@@ -187,7 +187,7 @@ class SwipeProcesor {
     fun processUltimate(battle: Battle, unit: Int): ProcessResult {
         battle.unitById(unit)?.let { character ->
             val behavior = BehaviorFactory.behavior(character.ultimateBehavior)
-            val result = behavior.skillUse(battle, character, false)
+            val result = behavior.ultimateUse(battle, character, false)
             result.battle.unitById(unit)?.let { character ->
                 val character = character.copy(ultimateProgress = 0, combo = 0)
                 val battle = result.battle.updateOrRemoveUnit(character)

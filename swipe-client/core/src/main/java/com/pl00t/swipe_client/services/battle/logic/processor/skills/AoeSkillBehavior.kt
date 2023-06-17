@@ -7,7 +7,7 @@ class AoeSkillBehavior(
     val calculateDamage: (Battle, Character) -> ElementalConfig
 ) : SkillBehavior() {
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean): ProcessResult {
         val enemies = battle.enemies(character)
         val events = mutableListOf<BattleEvent>()
 
@@ -25,20 +25,9 @@ class AoeSkillBehavior(
         var updatedBattle = battle
 
         enemies.forEach { target ->
-            val resist = target.resists
-            val damageAfterResist = damage.applyResist(resist)
-            val totalDamage = damageAfterResist.totalDamage()
-            val targetAfterDamage = target.copy(health = target.health - totalDamage)
-
-            events.add(BattleEvent.UnitPopupEvent(target.id, UnitPopup(
-                icons = damageAfterResist.iconsIfPositive(),
-                text = totalDamage.toString()
-            )))
-            events.add(BattleEvent.UnitHealthEvent(target.id, targetAfterDamage.health))
-            if (targetAfterDamage.health <= 0) {
-                events.add(BattleEvent.UnitDeathEvent(target.id))
-            }
-            updatedBattle = battle.updateOrRemoveUnit(targetAfterDamage)
+            val r = battle.dealDamage(character, target, at, damage)
+            updatedBattle = r.battle
+            events.addAll(r.events)
         }
 
         return ProcessResult(events, updatedBattle)

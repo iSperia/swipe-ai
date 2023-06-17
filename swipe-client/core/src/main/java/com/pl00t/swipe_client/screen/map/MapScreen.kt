@@ -176,7 +176,7 @@ class MapScreen(
                 locationDescription = details.locationDescription,
                 waves = level.waves,
                 width = root.width,
-                height = root.width,
+                height = root.width * 1.6f,
                 coreAtlas = coreTextureAtlas,
                 mapAtlas = mapAtlas,
                 uxAtlas = uxAtlas,

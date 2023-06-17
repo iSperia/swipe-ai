@@ -2,6 +2,7 @@ package com.pl00t.swipe_client.services.battle.logic
 
 enum class TileSkin {
     COMMON_POISON,
+    COMMON_WEAKNESS,
 
     VALERIAN_RADIANT_STRIKE,
     VALERIAN_LUMINOUS_BEAM,
@@ -16,6 +17,10 @@ enum class TileSkin {
     CORRUPTED_DRYAD_ARBOREAL_FANGS,
     CORRUPTED_DRYAD_VILE_SIPHON,
     CORRUPTED_DRYAD_SHADOWED_ANNIHILATION,
+
+    THORNED_CRAWLER_VICIOUS_PINCERS,
+    THORNED_CRAWLER_DEBILIATING_STRIKE,
+    THORNED_CRAWLER_LEECHING_SHADOWS,
 }
 
 enum class TileType {
@@ -38,3 +43,16 @@ data class Tile(
         return "$skin $x:$y"
     }
 }
+
+val EMPTY_TILE = Tile(
+    TileSkin.CORRUPTED_DRYAD_VILE_SIPHON,
+    0,
+    0,
+    -10,
+    -10,
+    -1,
+    -1,
+    0,
+    TileType.TAROT,
+    null
+)

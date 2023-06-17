@@ -13,7 +13,7 @@ class RadiantStrikeBehaviour : SkillBehavior() {
     }
     override fun animationStrategy(battle: Battle, unitId: Int) = animateMeleeAttack(battle, unitId, TileSkin.VALERIAN_RADIANT_STRIKE)
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean) = melee.skillUse(battle, character, lucky)
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean) = melee.skillUse(battle, character, at, lucky)
 }
 
 class LuminousBeamBehaviour : SkillBehavior() {
@@ -24,13 +24,13 @@ class LuminousBeamBehaviour : SkillBehavior() {
 
     override fun animationStrategy(battle: Battle, unitId: Int) = animateDirectedAoe(battle, unitId, TileSkin.VALERIAN_LUMINOUS_BEAM)
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean) = aoe.skillUse(battle, character, lucky)
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean) = aoe.skillUse(battle, character, at, lucky)
 }
 
 class SigilOfRenewalBehavior : SkillBehavior() {
     override fun animationStrategy(battle: Battle, unitId: Int) = animateSelfStatic(battle, unitId, TileSkin.VALERIAN_SIGIL_OF_RENEWAL)
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean): ProcessResult {
         val numTiles = if (lucky) 4 else 2
         val filledPositions = character.field.tiles.filter { it.layer == 0 }.map { it.x + it.y * 5 }.toSet()
         val positions = (0 until 25).filter { !filledPositions.contains(it) }.shuffled().take(numTiles)
@@ -72,9 +72,6 @@ class SigilOfRenewalBehavior : SkillBehavior() {
 
 class SigilOfRenewalBackgroundBehavior : SkillBehavior() {
 
-    init {
-        println("SIGIL BG init")
-    }
     override fun afterTileUsed(battle: Battle, character: Character, self: Tile, target: Tile): ProcessResult {
         if (self.x == target.x && self.y == target.y) {
             //we are sigil under the usage stuff
@@ -98,7 +95,7 @@ class SigilOfRenewalBackgroundBehavior : SkillBehavior() {
 
 class DivineConvergenceBehavior : SkillBehavior() {
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
+    override fun ultimateUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
         val tilesToExplode = character.field.tiles.filter { it.skin == TileSkin.VALERIAN_SIGIL_OF_RENEWAL_BG }
         val events = mutableListOf<BattleEvent>()
         val healAmount = (5f * tilesToExplode.size * (1f + (character.attributes.mind + character.attributes.body) * 0.1f)).toInt()
@@ -115,7 +112,7 @@ class DivineConvergenceBehavior : SkillBehavior() {
         var battle = battle.updateOrRemoveUnit(character)
 
         val aoe = AoeSkillBehavior { battle, character -> ElementalConfig(light = damage) }
-        val aoeResult = aoe.skillUse(battle, character, false)
+        val aoeResult = aoe.skillUse(battle, character, EMPTY_TILE, false)
         battle = aoeResult.battle
         events.addAll(aoeResult.events)
 

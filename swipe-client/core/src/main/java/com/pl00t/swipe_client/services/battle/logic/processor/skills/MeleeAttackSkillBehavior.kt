@@ -7,7 +7,7 @@ class MeleeAttackSkillBehavior(
     val calculageDamage: (Battle, Character) -> ElementalConfig
 ) : SkillBehavior() {
 
-    override fun skillUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
+    override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean): ProcessResult {
         val target = battle.meleeTarget(character) ?: return ProcessResult(emptyList(), battle)
         val damage = calculageDamage(battle, character).let {
             if (lucky) it.copy(
@@ -19,22 +19,6 @@ class MeleeAttackSkillBehavior(
                 dark = it.dark * 2f
             ) else it
         }
-        val resist = target.resists
-        val damageAfterResist = damage.applyResist(resist)
-        val totalDamage = damageAfterResist.totalDamage()
-        val targetAfterDamage = target.copy(health = target.health - totalDamage)
-
-        val events = mutableListOf<BattleEvent>()
-        events.add(BattleEvent.UnitPopupEvent(target.id, UnitPopup(
-            icons = damageAfterResist.iconsIfPositive(),
-            text = totalDamage.toString()
-        )))
-        events.add(BattleEvent.UnitHealthEvent(target.id, targetAfterDamage.health))
-        if (targetAfterDamage.health <= 0) {
-            events.add(BattleEvent.UnitDeathEvent(target.id))
-        }
-        val updatedBattle = battle.updateOrRemoveUnit(targetAfterDamage)
-
-        return ProcessResult(events, updatedBattle)
+        return battle.dealDamage(character, target, at, damage)
     }
 }

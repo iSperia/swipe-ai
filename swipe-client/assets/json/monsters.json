@@ -17,6 +17,22 @@
       "f4": 5
     },
     {
+      "skin": "MONSTER_THORNED_CRAWLER",
+      "name": "Thorned Crawler",
+      "baseHealth": 20,
+      "tileConfig": { "entries": [
+        {"tile": "THORNED_CRAWLER_VICIOUS_PINCERS", "weight":  5},
+        {"tile": "THORNED_CRAWLER_DEBILIATING_STRIKE", "weight":  2},
+        {"tile": "THORNED_CRAWLER_LEECHING_SHADOWS", "weight":  3}
+      ] },
+      "scale": 0.6,
+      "f1": 10,
+      "f2": 5,
+      "i1": 2,
+      "f3": 5,
+      "f4": 5
+    },
+    {
       "skin": "MONSTER_THORNSTALKER",
       "name": "Thornstalker",
       "baseHealth": 30,

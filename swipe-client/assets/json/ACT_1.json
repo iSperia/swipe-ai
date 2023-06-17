@@ -29,11 +29,21 @@
         [
           {
             "skin": "MONSTER_THORNSTALKER",
-            "level": 1
+            "level": 2
           },
           {
-            "skin": "MONSTER_CORRUPTED_DRYAD",
-            "level": 1
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
           }
         ]
       ]
@@ -49,8 +59,26 @@
       "monsters": [
         [
           {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 2
+          },
+          {
             "skin": "MONSTER_THORNSTALKER",
-            "level": 1
+            "level": 2
           },
           {
             "skin": "MONSTER_THORNSTALKER",
@@ -64,6 +92,10 @@
           },
           {
             "skin": "MONSTER_THORNSTALKER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
             "level": 2
           }
         ]
