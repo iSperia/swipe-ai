@@ -2,7 +2,6 @@ package com.pl00t.swipe_client.services.battle.logic.processor
 
 import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.Character
-import com.pl00t.swipe_client.services.battle.logic.processor.skills.characters.DivineConvergenceBehavior
 import kotlin.math.min
 import kotlin.random.Random
 
