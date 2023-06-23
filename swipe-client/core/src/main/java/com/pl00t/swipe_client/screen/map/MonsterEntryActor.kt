@@ -15,7 +15,7 @@ data class FrontMonsterEntryModel(
 )
 
 class MonsterEntryActor(
-    private val entry: FrontMonsterEntryModel,
+    val entry: FrontMonsterEntryModel,
     private val w: Float,
     private val h: Float,
     private val unitsAtlas: TextureAtlas,

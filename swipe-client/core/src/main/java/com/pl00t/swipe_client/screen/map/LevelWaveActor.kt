@@ -3,7 +3,14 @@ package com.pl00t.swipe_client.screen.map
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.utils.Align
+import com.pl00t.swipe_client.services.battle.UnitSkin
 import com.pl00t.swipe_client.ux.Fonts
+import ktx.actors.onClick
+import ktx.actors.onClickEvent
+
+interface LevelWaveCallback {
+    fun processMonsterClicked(skin: UnitSkin)
+}
 
 class LevelWaveActor(
     private val index: Int,
@@ -14,6 +21,8 @@ class LevelWaveActor(
 
     private val caption = Fonts.createWhiteTitle("Wave $index", w * 0.1f)
     private val unitGroup = Group()
+
+    var callback: LevelWaveCallback? = null
 
     init {
         width = w
@@ -31,6 +40,9 @@ class LevelWaveActor(
                     x = index * w / 3f
                 }
                 addActor(entry)
+                entry.onClick {
+                    callback?.processMonsterClicked(entry.entry.skin)
+                }
             }
         }
         addActor(caption)

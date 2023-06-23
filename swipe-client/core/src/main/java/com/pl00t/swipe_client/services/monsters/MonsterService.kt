@@ -26,7 +26,6 @@ class MonsterServiceImpl() : MonsterService {
     }
 
     override suspend fun getMonster(skin: UnitSkin): MonsterConfiguration {
-        return config.monsters.firstOrNull { it.skin == skin }
-            ?: MonsterConfiguration(skin = UnitSkin.MONSTER_THORNSTALKER, "Cabbage Head", 30, TileGeneratorConfig(emptyList()), 1f, 0f, 0f, 0f, 0f, 0f, 0, 0, 0, 1)
+        return config.monsters.firstOrNull { it.skin == skin } ?: MonsterConfiguration.DEFAULT
     }
 }
