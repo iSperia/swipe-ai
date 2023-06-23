@@ -21,7 +21,7 @@ class ViciousPincers : SkillBehavior() {
 
 class LeechingShadows : SkillBehavior() {
     private fun calcualteDamage(battle: Battle, character: Character): ElementalConfig {
-        return (2f * (1f + 0.1f * character.attributes.body)).let {
+        return (2f * (1f + 0.1f * character.attributes.spirit)).let {
             ElementalConfig(dark = it)
         }
     }

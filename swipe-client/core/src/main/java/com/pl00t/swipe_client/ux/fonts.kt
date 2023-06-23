@@ -27,26 +27,26 @@ object Fonts {
     }
 
     fun createWindowTitle(text: String, lineHeight: Float): Label = Label(text, lsWindowTitle).apply {
-        this.fontScaleX = lineHeight * 0.014f
-        this.fontScaleY = lineHeight * 0.014f
+        this.fontScaleX = lineHeight * 0.016f
+        this.fontScaleY = lineHeight * 0.016f
     }
 
     fun createCaption(text: String, lineHeight: Float): Label = Label(text, lsDescription).apply {
-        this.fontScaleX = lineHeight * 0.014f
-        this.fontScaleY = lineHeight * 0.014f
+        this.fontScaleX = lineHeight * 0.016f
+        this.fontScaleY = lineHeight * 0.016f
     }
 
     fun createCaptionAccent(text: String, lineHeight: Float): Label = Label(text, lsDescriptionAccent).apply {
-        this.fontScaleX = lineHeight * 0.014f
-        this.fontScaleY = lineHeight * 0.014f
+        this.fontScaleX = lineHeight * 0.016f
+        this.fontScaleY = lineHeight * 0.016f
     }
 
     fun createWhiteTitle(text: String, lineHeight: Float): Label = Label(text, lsWhiteTitle).apply {
-        this.fontScaleX = lineHeight * 0.014f
-        this.fontScaleY = lineHeight * 0.014f
+        this.fontScaleX = lineHeight * 0.016f
+        this.fontScaleY = lineHeight * 0.016f
     }
     fun createWhiteCaption(text: String, lineHeight: Float): Label = Label(text, lsWhiteCaption).apply {
-        this.fontScaleX = lineHeight * 0.014f
-        this.fontScaleY = lineHeight * 0.014f
+        this.fontScaleX = lineHeight * 0.016f
+        this.fontScaleY = lineHeight * 0.016f
     }
 }

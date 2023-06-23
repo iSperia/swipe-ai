@@ -3,38 +3,118 @@
     {
       "skin": "CHARACTER_VALERIAN",
       "name": "Prince Valerian",
+      "lore": "Born from the twisted roots of ancient trees, the Thornstalker prowls the shadows with its razor-sharp thorns, a fearsome guardian of the corrupted groves.",
       "baseHealth": 100,
       "tileConfig": { "entries": [
         {"tile": "VALERIAN_RADIANT_STRIKE", "weight":  3},
         {"tile": "VALERIAN_LUMINOUS_BEAM", "weight":  3},
         {"tile": "VALERIAN_SIGIL_OF_RENEWAL", "weight":  3}
       ] },
-      "scale": 1,
-      "f1": 10,
-      "f2": 5,
-      "i1": 2,
-      "f3": 5,
-      "f4": 5
+      "scale": 1
     },
     {
       "skin": "MONSTER_THORNED_CRAWLER",
       "name": "Thorned Crawler",
-      "baseHealth": 20,
+      "lore": "With its armored exoskeleton and venomous fangs, the Thorned Crawler lurks beneath the forest floor, a relentless predator blending into the undergrowth, waiting to strike its unsuspecting prey.",
+      ",baseHealth": 20,
       "tileConfig": { "entries": [
         {"tile": "THORNED_CRAWLER_VICIOUS_PINCERS", "weight":  5},
         {"tile": "THORNED_CRAWLER_DEBILIATING_STRIKE", "weight":  2},
         {"tile": "THORNED_CRAWLER_LEECHING_SHADOWS", "weight":  3}
       ] },
       "scale": 0.6,
-      "f1": 10,
-      "f2": 5,
-      "i1": 2,
-      "f3": 5,
-      "f4": 5
+      "abilities": [
+        {
+          "title": "Vicious Pincers",
+          "skin": "THORNED_CRAWLER_VICIOUS_PINCERS",
+          "description": "Deals physical/darkness damage to single target",
+          "lore": "Sharp claws rend flesh, leaving scars of pain.",
+          "attributes": {
+            "physDamage": 1,
+            "darkDamage": 1,
+            "physPerBody": 10,
+            "darkPerSpirit": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Base physical damage",
+              "description": "{physDamage}"
+            },
+            {
+              "title": "Physical damage increase, per BODY",
+              "description": "{physPerBody}%"
+            },
+            {
+              "title": "Base dark damage",
+              "description": "{darkDamage}"
+            },
+            {
+              "title": "Dark damage increase, per SPIRIT",
+              "description": "{darkPerSpirit}%"
+            }
+          ]
+        },
+        {
+          "title": "Debilitating Strike",
+          "skin": "THORNED_CRAWLER_DEBILIATING_STRIKE",
+          "description": "Powerful physical single target attack, that inflicts weakness",
+          "lore": "Strength wanes as thorns pierce the body.",
+          "attributes": {
+            "physDamage": 3,
+            "physPerBody": 10,
+            "weaknessTiles": 2
+          },
+          "descriptionTable": [
+            {
+              "title": "Base physical damage",
+              "description": "{physDamage}"
+            },
+            {
+              "title": "Physical damage increase, per BODY",
+              "description": "{physPerBody}%"
+            },
+            {
+              "title": "WEAKNESS tiles generated on target",
+              "description": "{weaknessTiles} tiles"
+            }
+          ]
+        },
+        {
+          "title": "Leeching Shadows",
+          "skin": "THORNED_CRAWLER_LEECHING_SHADOWS",
+          "description": "Dark damage single target attack, that heals the crawler",
+          "lore": "Life fades as darkness drains vitality.",
+          "attributes": {
+            "darkDamage": 2,
+            "darkPerSpirit": 10,
+            "heal": 2,
+            "healPerSpirit": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Base dark damage",
+              "description": "{darkDamage}"
+            },
+            {
+              "title": "Dark damage increase per SPIRIT",
+              "description": "{darkPerSpirit}%"
+            },
+            {
+              "title": "HEALING base amount",
+              "description": "{heal}"
+            },
+            {
+              "title": "HEALING increase, per SPIRIT",
+              "description": "{healPerSpirit}%"
+            }
+          ]
+        }
+      ]
     },
     {
       "skin": "MONSTER_THORNSTALKER",
       "name": "Thornstalker",
+      "lore": "Born from the twisted roots of ancient trees, the Thornstalker prowls the shadows with its razor-sharp thorns, a fearsome guardian of the corrupted groves.",
       "baseHealth": 30,
       "tileConfig": { "entries": [
         {"tile": "THORNSTALKER_PRIMAL_ASSAULT", "weight":  5},
@@ -42,13 +122,73 @@
         {"tile": "THORNSTALKER_VENOMOUS_BARRAGE", "weight":  2}
       ] },
       "scale": 1.05,
-      "f1": 5,
-      "f2": 3,
-      "f3": 1
+      "abilities": [
+        {
+          "title": "Primal Assault",
+          "skin": "THORNSTALKER_PRIMAL_ASSAULT",
+          "description": "Heavy physical single target attack",
+          "lore": "Nature's fury strikes without mercy.",
+          "attributes": {
+            "physDamage": 4,
+            "physPerBody": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Base physical damage",
+              "description": "{physDamage}"
+            },
+            {
+              "title": "Physical damage increase, per BODY",
+              "description": "{physPerBody}%"
+            }
+          ]
+        },
+        {
+          "title": "Venomous Barrage",
+          "skin": "THORNSTALKER_VENOMOUS_BARRAGE",
+          "description": "Poisons the target with three poison tiles",
+          "lore": "Thorns of poison sow decay and despair.",
+          "attributes": {
+            "poisonDamage": 1,
+            "poisonPerSpirit": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Poison tile dark damage, per turn",
+              "description": "{poisonDamage}"
+            },
+            {
+              "title": "Poison damage increase, per SPIRIT",
+              "description": "{poisonPerSpirit}%"
+            }
+          ]
+        },
+        {
+          "title": "Resilient Growth",
+          "skin": "THORNSTALKER_RESILIENT_GROWTH",
+          "description": "Heals the thorstalker",
+          "lore": "Nature's embrace fortifies, defying all harm.",
+          "attributes": {
+            "heal": 3,
+            "healPerSpirit": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "HEALING base amount",
+              "description": "{heal}"
+            },
+            {
+              "title": "HEALING increase, per SPIRIT",
+              "description": "{healPerSpirit}%"
+            }
+          ]
+        }
+      ]
     },
     {
       "skin": "MONSTER_CORRUPTED_DRYAD",
       "name": "Corrupted Dryad",
+      "lore": "Once a guardian of nature's balance, the Corrupted Dryad now embodies the darkness that seeped into the heart of the forest, its ethereal beauty concealing a malevolent presence.",
       "baseHealth": 20,
       "tileConfig": { "entries": [
         {"tile": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "weight":  4},
@@ -56,11 +196,93 @@
         {"tile": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION", "weight":  2}
       ] },
       "scale": 0.92,
-      "f1": 6,
-      "f2": 2,
-      "f3": 2,
-      "f4": 2,
-      "i1": 5
+      "abilities": [
+        {
+          "title": "Arboreal Fangs",
+          "skin": "CORRUPTED_DRYAD_ARBOREAL_FANGS",
+          "description": "Physical single target attack",
+          "lore": "Nature's teeth rend with twisted malice.",
+          "attributes": {
+            "physDamage": 6,
+            "physPerBody": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Base physical damage",
+              "description": "{physDamage}"
+            },
+            {
+              "title": "Physical damage increase, per BODY",
+              "description": "{physPerBody}%"
+            }
+          ]
+        },
+        {
+          "title": "Vile Siphon",
+          "skin": "CORRUPTED_DRYAD_ARBOREAL_FANGS",
+          "description": "Single targeted physical attack, Corrupted Dryad is healed",
+          "lore": "Life's essence drained, hope withers away.",
+          "attributes": {
+            "physDamage": 2,
+            "physPerBody": 10,
+            "heal": 2,
+            "healPerSpirit": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Base physical damage",
+              "description": "{physDamage}"
+            },
+            {
+              "title": "Physical damage increase, per BODY",
+              "description": "{physPerBody}%"
+            },
+            {
+              "title": "Healing amount base",
+              "description": "{healPerSpirit}"
+            },
+            {
+              "title": "Healing increase, per SPIRIT",
+              "description": "{healPerSpirit}%"
+            }
+          ]
+        },
+        {
+          "title": "Shadowed Annihilation",
+          "skin": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION",
+          "description": "Mass attack. For each target all tiles are destroyed at random positions",
+          "lore": "Darkness descends, consuming all in its path.",
+          "attributes": {
+            "damage": 2,
+            "damagePerSpirit": 10,
+            "heal": 3,
+            "healPerSpirit": 10,
+            "tiles": 5
+          },
+          "descriptionTable": [
+            {
+              "title": "Base physical damage",
+              "description": "{damage}"
+            },
+            {
+              "title": "Physical damage increase, per SPIRIT",
+              "description": "{damagePerSpirit}%"
+            },
+            {
+              "title": "Base dark damage",
+              "description": "{damage}"
+            },
+            {
+              "title": "Dark damage increase, per SPIRIT",
+              "description": "{damagePerSpirit}%"
+            },
+            {
+              "title": "Amount of tile positions to destroy",
+              "description": "{tiles}"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

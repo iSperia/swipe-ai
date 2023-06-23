@@ -8,9 +8,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.screen.ux.IconedButton
+import com.pl00t.swipe_client.services.battle.UnitSkin
 import com.pl00t.swipe_client.ux.Fonts
 import ktx.actors.alpha
 import ktx.actors.onClick
+
+interface LevelDetailsCallback {
+    fun processMonsterClicked(skin: UnitSkin)
+}
 
 class LevelDetailsActor(
     locationId: String,
@@ -25,7 +30,7 @@ class LevelDetailsActor(
     uxAtlas: TextureAtlas,
     unitsAtlas: TextureAtlas,
     attackAction: (String) -> Unit
-): Group() {
+): Group(), LevelWaveCallback {
 
     val imLocation: Image
     val locationForeground: Image
@@ -38,8 +43,10 @@ class LevelDetailsActor(
     val locationDescriptionLabel: Label
 
     private val _titleHeight = width * 0.11f
-    private val _bw = width * 0.6f
+    private val _bw = width * 0.4f
     private val _bh = width * 0.12f
+
+    var callback: LevelDetailsCallback? = null
 
     init {
         this.width = width
@@ -61,7 +68,7 @@ class LevelDetailsActor(
         }
 
         startButton = IconedButton(_bw, _bh, "To Battle!", "button_attack", coreAtlas, uxAtlas).apply {
-            x = (width - _bw) / 2f
+            x = width * 0.55f
             y = width * 0.05f
         }
         startButton.onClick { attackAction(locationId) }
@@ -88,6 +95,8 @@ class LevelDetailsActor(
             LevelWaveActor(index + 1, wave, unitsAtlas, width * 0.9f).apply {
                 x = width * 0.05f
                 y = totalRootHeight - (index + 1) * 0.6f * width
+            }.apply {
+                callback = this@LevelDetailsActor
             }
         }
         waveActors.forEach { scrollRoot.addActor(it) }
@@ -105,5 +114,9 @@ class LevelDetailsActor(
         addActor(title)
         addActor(startButton)
         addActor(scroll)
+    }
+
+    override fun processMonsterClicked(skin: UnitSkin) {
+        callback?.processMonsterClicked(skin)
     }
 }
