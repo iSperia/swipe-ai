@@ -1,5 +1,8 @@
 package com.pl00t.swipe_client.services.battle.logic.processor.skills.characters
 
+import com.pl00t.swipe_client.services.battle.MonsterAbilityConfiguration
+import com.pl00t.swipe_client.services.battle.floatAttribute
+import com.pl00t.swipe_client.services.battle.intAttribute
 import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.processor.SkillBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.animateDirectedAoe
@@ -9,9 +12,12 @@ import com.pl00t.swipe_client.services.battle.logic.processor.skills.HealBehavio
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.MeleeAttackSkillBehavior
 
 
-class ArborealFangsSkill : SkillBehavior() {
+class ArborealFangsSkill(config: MonsterAbilityConfiguration) : SkillBehavior() {
+    private val basePhysicalDamage = config.attributes.floatAttribute("physDamage")
+    private val physPerBody = config.attributes.floatAttribute("physPerBody")
+
     private val melee = MeleeAttackSkillBehavior { battle, character ->
-        val physicalDamage = 6f * (1f + character.attributes.body * 0.1f)
+        val physicalDamage = basePhysicalDamage * (1f + character.attributes.body * physPerBody / 100f)
         ElementalConfig(physical = physicalDamage)
     }
 
@@ -21,26 +27,32 @@ class ArborealFangsSkill : SkillBehavior() {
 
 }
 
-class VileSiphonSkill: SkillBehavior() {
+class VileSiphonSkill(config: MonsterAbilityConfiguration): SkillBehavior() {
 
-    private fun calcualteDamage(battle: Battle, character: Character): ElementalConfig {
-        return (2f * (1f + 0.1f * character.attributes.body)).let {
+    val physDamage = config.attributes.floatAttribute("physDamage")
+    val physPerBody = config.attributes.floatAttribute("physPerBody")
+    val heal = config.attributes.floatAttribute("heal")
+    val healPerSpirit = config.attributes.floatAttribute("healPerSpirit")
+
+    private val healBehavior = HealBehavior(
+        this::getHealTargets,
+        this::calculateHeal
+    )
+
+    private fun calculateDamage(battle: Battle, character: Character): ElementalConfig {
+        return (physDamage * (1f + physPerBody / 100f * character.attributes.body)).let {
             ElementalConfig(physical = it)
         }
     }
 
     private fun calculateHeal(battle: Battle, character: Character, target: Character): Int {
-        return (2f * (1f + 0.1f * character.attributes.spirit)).toInt()
+        return (heal * (1f + healPerSpirit / 100f * character.attributes.spirit)).toInt()
     }
 
     private fun getHealTargets(battle: Battle, character: Character) = listOf(character)
 
-    private val melee = MeleeAttackSkillBehavior(this::calcualteDamage)
+    private val melee = MeleeAttackSkillBehavior(this::calculateDamage)
 
-    private val heal = HealBehavior(
-        this::getHealTargets,
-        this::calculateHeal
-    )
 
     override fun animationStrategy(battle: Battle, unitId: Int) = animateMeleeAttack(battle, unitId, TileSkin.CORRUPTED_DRYAD_VILE_SIPHON)
 
@@ -51,7 +63,7 @@ class VileSiphonSkill: SkillBehavior() {
             events.addAll(it.events)
             battle = it.battle
         }
-        heal.skillUse(battle, character, at, lucky).let {
+        healBehavior.skillUse(battle, character, at, lucky).let {
             events.addAll(it.events)
             battle = it.battle
         }
@@ -59,10 +71,14 @@ class VileSiphonSkill: SkillBehavior() {
     }
 }
 
-class ShadowedAnnihinlation: SkillBehavior() {
+class ShadowedAnnihinlation(config: MonsterAbilityConfiguration): SkillBehavior() {
+
+    private val damage = config.attributes.floatAttribute("damage")
+    private val damagePerSpirit = config.attributes.floatAttribute("damagePerSpirit")
+    private val tiles = config.attributes.intAttribute("tiles")
 
     private fun calculateDamage(battle: Battle, character: Character) =
-        (2f * (1f + 0.1f * character.attributes.spirit)).let {
+        (damage * (1f + damagePerSpirit / 100f * character.attributes.spirit)).let {
             ElementalConfig(dark = it, physical = it)
         }
 
@@ -75,7 +91,7 @@ class ShadowedAnnihinlation: SkillBehavior() {
         var battle = battle
         battle.enemies(character).forEach { enemy ->
             var enemy = enemy
-            val positions = (0 until 25).shuffled().take(5)
+            val positions = (0 until 25).shuffled().take(if (lucky) tiles * 2 else tiles)
             positions.forEach { p ->
                 events.add(BattleEvent.TileEffectEvent(enemy.id, p % 5, p / 5, TileSkin.CORRUPTED_DRYAD_SHADOWED_ANNIHILATION))
                 enemy.field.tiles.filter { it.x == p % 5 && it.y == p / 5 }.forEach { tileToRemove ->

@@ -30,7 +30,7 @@ class BattleServiceImpl(
     private val levelService: LevelService,
     private val monsterService: MonsterService) : BattleService {
 
-    val processor = SwipeProcesor()
+    val processor = SwipeProcesor(monsterService)
     private var configuration: BattleConfiguration? = null
     lateinit var battle: Battle
     val events = MutableSharedFlow<BattleEvent>(200)

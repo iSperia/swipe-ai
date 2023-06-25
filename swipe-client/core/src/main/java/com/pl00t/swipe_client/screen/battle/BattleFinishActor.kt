@@ -90,7 +90,7 @@ class BattleFinishActor(
         val _ch = _w / 4f
         captionGradient.apply {
             width = _w
-            height = _ch * 1.5f
+            height = _ch
             scaleY = -1f
             x = borderImage.x
             y = borderImage.y + this.height
@@ -108,7 +108,7 @@ class BattleFinishActor(
         val captionText = if (result.victory) "Victory shines upon the brave, as heroes forge their destiny amidst the shattered kingdoms."
         else "Defeat is but a stepping stone on the path to greatness, as the journey continues."
 
-        flavour = Fonts.createCaptionAccent(captionText, _w * 0.12f).apply {
+        flavour = Fonts.createCaptionAccent(captionText, _w * 0.11f).apply {
             width = _w * 0.8f
             height = _sbh - _w * 0.15f - _sbh * 0.3f
             wrap = true

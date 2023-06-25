@@ -10,13 +10,115 @@
         {"tile": "VALERIAN_LUMINOUS_BEAM", "weight":  3},
         {"tile": "VALERIAN_SIGIL_OF_RENEWAL", "weight":  3}
       ] },
-      "scale": 1
+      "scale": 1,
+      "abilities": [
+        {
+          "title": "Radiant strike",
+          "skin": "VALERIAN_RADIANT_STRIKE",
+          "description": "Melee physical strike",
+          "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
+          "attributes": {
+            "physDamage": 10,
+            "physPerBody": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Base physical damage",
+              "description": "{physDamage}"
+            },
+            {
+              "title": "Physical damage increase, per BODY",
+              "description": "{physPerBody}%"
+            }
+          ]
+        },
+        {
+          "title": "Luminous Beam",
+          "skin": "VALERIAN_LUMINOUS_BEAM",
+          "description": "Mass attack that deals damage with light",
+          "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
+          "attributes": {
+            "lightDamage": 10,
+            "lightPerSpirit": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Base light damage",
+              "description": "{lightDamage}"
+            },
+            {
+              "title": "Light damage increase, per SPIRIT",
+              "description": "{lightPerSpirit}%"
+            }
+          ]
+        },
+        {
+          "title": "Sigil of Renewal",
+          "skin": "VALERIAN_SIGIL_OF_RENEWAL",
+          "description": "Generates sigil tiles that heal character if ability triggers on a sigil tile",
+          "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
+          "attributes": {
+            "numTiles": 2,
+            "healPerSigil": 5,
+            "healPerSpirit": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Sigil tiles amount",
+              "description": "{numTiles}"
+            },
+            {
+              "title": "Sigil healing base amount",
+              "description": "{healPerSigil}%"
+            },
+            {
+              "title": "Sigil healing increase, per SPIRIT",
+              "description": "{healPerSpirit}%"
+            }
+          ]
+        },
+        {
+          "title": "Divine Convergence",
+          "skin": "VALERIAN_DIVINE_CONVERGENCE",
+          "description": "ULTIMATE: consumes all sigils, heals the character and deals mass lightning damage for each sigil consumed",
+          "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
+          "attributes": {
+            "lightDamagePerSigil": 5,
+            "healPerSigil": 5,
+            "lightDamagePerSpirit": 5,
+            "healPerSpirit": 10,
+            "healPerBody": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Base light damage, per sigil",
+              "description": "{lightDamagePerSigil}"
+            },
+            {
+              "title": "Light damage increase, per SPIRIT",
+              "description": "{lightDamagePerSpirit}%"
+            },
+            {
+              "title": "Base heal amount, per sigil",
+              "description": "{healPerSigil}"
+            },
+            {
+              "title": "Healing increase, per SPIRIT",
+              "description": "{healPerSpirit}"
+            },
+            {
+              "title": "Healing increase, per BODY",
+              "description": "{healPerBody}"
+            }
+          ]
+        }
+      ]
     },
     {
       "skin": "MONSTER_THORNED_CRAWLER",
       "name": "Thorned Crawler",
       "lore": "With its armored exoskeleton and venomous fangs, the Thorned Crawler lurks beneath the forest floor, a relentless predator blending into the undergrowth, waiting to strike its unsuspecting prey.",
-      ",baseHealth": 20,
+      "baseHealth": 20,
       "tileConfig": { "entries": [
         {"tile": "THORNED_CRAWLER_VICIOUS_PINCERS", "weight":  5},
         {"tile": "THORNED_CRAWLER_DEBILIATING_STRIKE", "weight":  2},
@@ -219,7 +321,7 @@
         },
         {
           "title": "Vile Siphon",
-          "skin": "CORRUPTED_DRYAD_ARBOREAL_FANGS",
+          "skin": "CORRUPTED_DRYAD_VILE_SIPHON",
           "description": "Single targeted physical attack, Corrupted Dryad is healed",
           "lore": "Life's essence drained, hope withers away.",
           "attributes": {
@@ -255,8 +357,6 @@
           "attributes": {
             "damage": 2,
             "damagePerSpirit": 10,
-            "heal": 3,
-            "healPerSpirit": 10,
             "tiles": 5
           },
           "descriptionTable": [

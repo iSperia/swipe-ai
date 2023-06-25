@@ -2,14 +2,17 @@ package com.pl00t.swipe_client.services.battle.logic.processor
 
 import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.Character
+import com.pl00t.swipe_client.services.monsters.MonsterService
 import kotlin.math.min
 import kotlin.random.Random
 
-class SwipeProcesor {
+class SwipeProcesor(private val monsterService: MonsterService) {
+
+    private val behaviorFactory: BehaviorFactory = BehaviorFactory(monsterService)
 
     private fun inb(x: Int, y: Int) = x > -1 && x < 5 && y > -1 && y < 5
 
-    fun processSwipe(battle: Battle, unitId: Int, dx: Int, dy: Int): ProcessResult {
+    suspend fun processSwipe(battle: Battle, unitId: Int, dx: Int, dy: Int): ProcessResult {
         var character = battle.unitById(unitId) ?: return ProcessResult(emptyList(), battle)
         val fo = character.field
         var fc = fo.copy(tiles = fo.tiles)
@@ -119,7 +122,7 @@ class SwipeProcesor {
         while (needCheck) {
             needCheck = false
             character.field.tiles.firstOrNull { it.maxProgress > 1 && it.progress >= it.maxProgress }?.let { tile ->
-                val behavior = BehaviorFactory.behavior(tile.skin)
+                val behavior = behaviorFactory.behavior(tile.skin)
                 if (behavior.autoDelete()) {
                     character = character.removeTile(tile.id)
                     battle = battle.updateOrRemoveUnit(character)
@@ -134,7 +137,7 @@ class SwipeProcesor {
                 events.addAll(useResult.events)
 
                 fc.tiles.forEach { triggerTile ->
-                    val triggerBehavior = BehaviorFactory.behavior(triggerTile.skin)
+                    val triggerBehavior = behaviorFactory.behavior(triggerTile.skin)
                     val triggerResult = triggerBehavior.afterTileUsed(battle, character, triggerTile, tile)
                     battle = triggerResult.battle
                     character = battle.unitById(character.id) ?: character
@@ -169,7 +172,7 @@ class SwipeProcesor {
 
         battle.unitById(character.id)?.let { character ->
             character.field.tiles.forEach { eotTile ->
-                val behavior = BehaviorFactory.behavior(eotTile.skin)
+                val behavior = behaviorFactory.behavior(eotTile.skin)
                 val eotResult = behavior.onEndOfTurn(battle, character.id, eotTile)
                 battle = eotResult.battle
 
@@ -183,9 +186,9 @@ class SwipeProcesor {
         )
     }
 
-    fun processUltimate(battle: Battle, unit: Int): ProcessResult {
+    suspend fun processUltimate(battle: Battle, unit: Int): ProcessResult {
         battle.unitById(unit)?.let { character ->
-            val behavior = BehaviorFactory.behavior(character.ultimateBehavior)
+            val behavior = behaviorFactory.behavior(character.ultimateBehavior)
             val result = behavior.ultimateUse(battle, character, false)
             result.battle.unitById(unit)?.let { character ->
                 val character = character.copy(ultimateProgress = 0, combo = 0)

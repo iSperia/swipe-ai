@@ -1,9 +1,13 @@
 package com.pl00t.swipe_client.services.battle.logic.processor
 
+import com.google.gson.JsonObject
+import com.pl00t.swipe_client.services.battle.MonsterAbilityConfiguration
+import com.pl00t.swipe_client.services.battle.UnitSkin
 import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.PoisonBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.WeaknessBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.characters.*
+import com.pl00t.swipe_client.services.monsters.MonsterService
 
 sealed abstract class TarotAnimation(val skin: TileSkin) {
     class TarotFromSourceTargets(
@@ -43,32 +47,36 @@ abstract class SkillBehavior {
     open fun onEndOfTurn(battle: Battle, characterId: Int, self: Tile): ProcessResult = ProcessResult(emptyList(), battle)
 }
 
-object BehaviorFactory {
+class BehaviorFactory(private val monsterService: MonsterService) {
 
     private val cache = mutableMapOf<TileSkin, SkillBehavior>()
-    fun behavior(skin: TileSkin): SkillBehavior {
+
+    suspend fun behavior(skin: TileSkin): SkillBehavior {
         return cache[skin] ?: when (skin) {
             TileSkin.COMMON_POISON -> PoisonBehavior()
             TileSkin.COMMON_WEAKNESS -> WeaknessBehavior()
 
-            TileSkin.VALERIAN_RADIANT_STRIKE -> RadiantStrikeBehaviour()
-            TileSkin.VALERIAN_LUMINOUS_BEAM -> LuminousBeamBehaviour()
-            TileSkin.VALERIAN_SIGIL_OF_RENEWAL -> SigilOfRenewalBehavior()
-            TileSkin.VALERIAN_SIGIL_OF_RENEWAL_BG -> SigilOfRenewalBackgroundBehavior()
-            TileSkin.VALERIAN_DIVINE_CONVERGENCE -> DivineConvergenceBehavior()
+            TileSkin.VALERIAN_RADIANT_STRIKE -> RadiantStrikeBehaviour(getMonsterAbilityConfig(UnitSkin.CHARACTER_VALERIAN, skin))
+            TileSkin.VALERIAN_LUMINOUS_BEAM -> LuminousBeamBehaviour(getMonsterAbilityConfig(UnitSkin.CHARACTER_VALERIAN, skin))
+            TileSkin.VALERIAN_SIGIL_OF_RENEWAL -> SigilOfRenewalBehavior(getMonsterAbilityConfig(UnitSkin.CHARACTER_VALERIAN, skin))
+            TileSkin.VALERIAN_SIGIL_OF_RENEWAL_BG -> SigilOfRenewalBackgroundBehavior(getMonsterAbilityConfig(UnitSkin.CHARACTER_VALERIAN, TileSkin.VALERIAN_SIGIL_OF_RENEWAL))
+            TileSkin.VALERIAN_DIVINE_CONVERGENCE -> DivineConvergenceBehavior(getMonsterAbilityConfig(UnitSkin.CHARACTER_VALERIAN, skin))
 
-            TileSkin.THORNSTALKER_RESILIENT_GROWTH -> ResilentGrowth()
-            TileSkin.THORNSTALKER_VENOMOUS_BARRAGE -> VenomousBarrageBehavior()
-            TileSkin.THORNSTALKER_PRIMAL_ASSAULT -> PrimalAssaultBehaviour()
+            TileSkin.THORNSTALKER_RESILIENT_GROWTH -> ResilentGrowth(getMonsterAbilityConfig(UnitSkin.MONSTER_THORNSTALKER, skin))
+            TileSkin.THORNSTALKER_VENOMOUS_BARRAGE -> VenomousBarrageBehavior(getMonsterAbilityConfig(UnitSkin.MONSTER_THORNSTALKER, skin))
+            TileSkin.THORNSTALKER_PRIMAL_ASSAULT -> PrimalAssaultBehaviour(getMonsterAbilityConfig(UnitSkin.MONSTER_THORNSTALKER, skin))
 
-            TileSkin.CORRUPTED_DRYAD_VILE_SIPHON -> VileSiphonSkill()
-            TileSkin.CORRUPTED_DRYAD_SHADOWED_ANNIHILATION -> ShadowedAnnihinlation()
-            TileSkin.CORRUPTED_DRYAD_ARBOREAL_FANGS -> ArborealFangsSkill()
+            TileSkin.CORRUPTED_DRYAD_VILE_SIPHON -> VileSiphonSkill(getMonsterAbilityConfig(UnitSkin.MONSTER_CORRUPTED_DRYAD, skin))
+            TileSkin.CORRUPTED_DRYAD_SHADOWED_ANNIHILATION -> ShadowedAnnihinlation(getMonsterAbilityConfig(UnitSkin.MONSTER_CORRUPTED_DRYAD, skin))
+            TileSkin.CORRUPTED_DRYAD_ARBOREAL_FANGS -> ArborealFangsSkill(getMonsterAbilityConfig(UnitSkin.MONSTER_CORRUPTED_DRYAD, skin))
 
-            TileSkin.THORNED_CRAWLER_VICIOUS_PINCERS -> ViciousPincers()
-            TileSkin.THORNED_CRAWLER_LEECHING_SHADOWS -> LeechingShadows()
-            TileSkin.THORNED_CRAWLER_DEBILIATING_STRIKE -> DebiliatingStrike()
-            else -> PrimalAssaultBehaviour()
+            TileSkin.THORNED_CRAWLER_VICIOUS_PINCERS -> ViciousPincers(getMonsterAbilityConfig(UnitSkin.MONSTER_THORNED_CRAWLER, skin))
+            TileSkin.THORNED_CRAWLER_LEECHING_SHADOWS -> LeechingShadows(getMonsterAbilityConfig(UnitSkin.MONSTER_THORNED_CRAWLER, skin))
+            TileSkin.THORNED_CRAWLER_DEBILIATING_STRIKE -> DebiliatingStrike(getMonsterAbilityConfig(UnitSkin.MONSTER_THORNED_CRAWLER, skin))
         }.also { cache[skin] = it }
+    }
+
+    private suspend fun getMonsterAbilityConfig(unitSkin: UnitSkin, skin: TileSkin): MonsterAbilityConfiguration {
+        return monsterService.getMonster(unitSkin).abilities?.firstOrNull { it.skin == skin } ?: MonsterAbilityConfiguration("", skin, JsonObject(), emptyList(), "", "")
     }
 }

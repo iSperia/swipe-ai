@@ -1,14 +1,21 @@
 package com.pl00t.swipe_client.services.battle.logic.processor.skills.characters
 
+import com.pl00t.swipe_client.services.battle.MonsterAbilityConfiguration
+import com.pl00t.swipe_client.services.battle.floatAttribute
+import com.pl00t.swipe_client.services.battle.intAttribute
 import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.processor.*
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.AoeSkillBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.MeleeAttackSkillBehavior
 import kotlin.math.min
 
-class RadiantStrikeBehaviour : SkillBehavior() {
+class RadiantStrikeBehaviour(config: MonsterAbilityConfiguration) : SkillBehavior() {
+
+    private val physDamage = config.attributes.floatAttribute("physDamage")
+    private val physPerBody = config.attributes.floatAttribute("physPerBody")
+
     private val melee = MeleeAttackSkillBehavior { battle, character ->
-        val physicalDamage = 10f * (1f + character.attributes.body * 0.1f)
+        val physicalDamage = physDamage * (1f + character.attributes.body * physPerBody / 100f)
         ElementalConfig(physical = physicalDamage)
     }
     override fun animationStrategy(battle: Battle, unitId: Int) = animateMeleeAttack(battle, unitId, TileSkin.VALERIAN_RADIANT_STRIKE)
@@ -16,9 +23,13 @@ class RadiantStrikeBehaviour : SkillBehavior() {
     override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean) = melee.skillUse(battle, character, at, lucky)
 }
 
-class LuminousBeamBehaviour : SkillBehavior() {
+class LuminousBeamBehaviour(config: MonsterAbilityConfiguration) : SkillBehavior() {
+
+    private val lightDamage = config.attributes.floatAttribute("lightDamage")
+    private val lightPerSpirit = config.attributes.floatAttribute("lightPerSpirit")
+
     private val aoe = AoeSkillBehavior { battle, character ->
-        val lightDamage = 5f * (1f + character.attributes.spirit * 0.1f)
+        val lightDamage = lightDamage * (1f + character.attributes.spirit * lightPerSpirit / 100f)
         ElementalConfig(light = lightDamage)
     }
 
@@ -27,11 +38,14 @@ class LuminousBeamBehaviour : SkillBehavior() {
     override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean) = aoe.skillUse(battle, character, at, lucky)
 }
 
-class SigilOfRenewalBehavior : SkillBehavior() {
+class SigilOfRenewalBehavior(config: MonsterAbilityConfiguration) : SkillBehavior() {
+
+    private val numTiles = config.attributes.intAttribute("numTiles")
+
     override fun animationStrategy(battle: Battle, unitId: Int) = animateSelfStatic(battle, unitId, TileSkin.VALERIAN_SIGIL_OF_RENEWAL)
 
     override fun skillUse(battle: Battle, character: Character, at: Tile, lucky: Boolean): ProcessResult {
-        val numTiles = if (lucky) 4 else 2
+        val numTiles = if (lucky) this.numTiles * 2 else this.numTiles
         val filledPositions = character.field.tiles.filter { it.layer == 0 }.map { it.x + it.y * 5 }.toSet()
         val positions = (0 until 25).filter { !filledPositions.contains(it) }.shuffled().take(numTiles)
         var tileId = character.field.maxTileId
@@ -70,13 +84,16 @@ class SigilOfRenewalBehavior : SkillBehavior() {
     }
 }
 
-class SigilOfRenewalBackgroundBehavior : SkillBehavior() {
+class SigilOfRenewalBackgroundBehavior(config: MonsterAbilityConfiguration) : SkillBehavior() {
+
+    private val healPerSigil = config.attributes.floatAttribute("healPerSigil")
+    private val healPerSpirit = config.attributes.floatAttribute("healPerSigil")
 
     override fun afterTileUsed(battle: Battle, character: Character, self: Tile, target: Tile): ProcessResult {
         if (self.x == target.x && self.y == target.y) {
             //we are sigil under the usage stuff
             //first of all, we heal the stuff
-            val healAmount = (5f * (1f + 0.1f * character.attributes.mind)).toInt()
+            val healAmount = (healPerSigil * (1f + healPerSpirit / 100f * character.attributes.mind)).toInt()
             val healthAfterHeal = min(character.maxHealth, character.health + healAmount)
             var unit = character.copy(health = healthAfterHeal)
             unit = unit.copy(field = unit.field.copy(tiles = unit.field.tiles.filterNot { it.id == self.id }))
@@ -93,13 +110,19 @@ class SigilOfRenewalBackgroundBehavior : SkillBehavior() {
     }
 }
 
-class DivineConvergenceBehavior : SkillBehavior() {
+class DivineConvergenceBehavior(config: MonsterAbilityConfiguration) : SkillBehavior() {
+
+    private val lightDamagePerSigil = config.attributes.floatAttribute("lightDamagePerSigil")
+    private val lightDamagePerSpirit = config.attributes.floatAttribute("lightDamagePerSpirit")
+    private val healPerSigil = config.attributes.floatAttribute("healPerSigil")
+    private val healPerSpirit = config.attributes.floatAttribute("healPerSpirit")
+    private val healPerBody = config.attributes.floatAttribute("healPerBody")
 
     override fun ultimateUse(battle: Battle, character: Character, lucky: Boolean): ProcessResult {
         val tilesToExplode = character.field.tiles.filter { it.skin == TileSkin.VALERIAN_SIGIL_OF_RENEWAL_BG }
         val events = mutableListOf<BattleEvent>()
-        val healAmount = (5f * tilesToExplode.size * (1f + (character.attributes.mind + character.attributes.body) * 0.1f)).toInt()
-        val damage = 5f * tilesToExplode.size * (1f + character.attributes.spirit * 0.1f)
+        val healAmount = (healPerSigil * tilesToExplode.size * (1f + character.attributes.spirit * healPerSpirit / 100f + character.attributes.body * healPerBody / 100f)).toInt()
+        val damage = lightDamagePerSigil * tilesToExplode.size * (1f + character.attributes.spirit * lightDamagePerSpirit / 100f)
 
         val healthAfterHeal = min(character.maxHealth, character.health + healAmount)
         var character = character.copy(health = healthAfterHeal)

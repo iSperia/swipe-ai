@@ -42,7 +42,7 @@ class LevelDetailsActor(
 
     val locationDescriptionLabel: Label
 
-    private val _titleHeight = width * 0.11f
+    private val _titleHeight = width * 0.1f
     private val _bw = width * 0.4f
     private val _bh = width * 0.12f
 

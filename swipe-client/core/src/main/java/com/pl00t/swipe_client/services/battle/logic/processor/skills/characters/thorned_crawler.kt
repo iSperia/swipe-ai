@@ -1,15 +1,24 @@
 package com.pl00t.swipe_client.services.battle.logic.processor.skills.characters
 
+import com.pl00t.swipe_client.services.battle.MonsterAbilityConfiguration
+import com.pl00t.swipe_client.services.battle.floatAttribute
+import com.pl00t.swipe_client.services.battle.intAttribute
 import com.pl00t.swipe_client.services.battle.logic.*
 import com.pl00t.swipe_client.services.battle.logic.processor.SkillBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.animateMeleeAttack
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.HealBehavior
 import com.pl00t.swipe_client.services.battle.logic.processor.skills.MeleeAttackSkillBehavior
 
-class ViciousPincers : SkillBehavior() {
+class ViciousPincers(config: MonsterAbilityConfiguration) : SkillBehavior() {
+
+    private val physDamage = config.attributes.floatAttribute("physDamage")
+    private val physPerBody = config.attributes.floatAttribute("physPerBody")
+    private val darkDamage = config.attributes.floatAttribute("darkDamage")
+    private val darkPerSpirit = config.attributes.floatAttribute("darkPerSpirit")
+
     private val melee = MeleeAttackSkillBehavior { battle, character ->
-        val physicalDamage = 1f * (1f + character.attributes.body * 0.1f)
-        val darkDamage = 1f * (1f + character.attributes.spirit * 0.1f)
+        val physicalDamage = physDamage* (1f + character.attributes.body * physPerBody / 100f)
+        val darkDamage = darkDamage * (1f + character.attributes.spirit * darkPerSpirit / 100f)
         ElementalConfig(physical = physicalDamage, dark = darkDamage)
     }
 
@@ -19,25 +28,31 @@ class ViciousPincers : SkillBehavior() {
 
 }
 
-class LeechingShadows : SkillBehavior() {
+class LeechingShadows(config: MonsterAbilityConfiguration) : SkillBehavior() {
+
+    private val darkDamage = config.attributes.floatAttribute("darkDamage")
+    private val darkPerSpirit = config.attributes.floatAttribute("darkPerSpirit")
+    private val heal = config.attributes.floatAttribute("heal")
+    private val healPerSpirit = config.attributes.floatAttribute("healPerSpirit")
+
+    private val healBehavior = HealBehavior(
+        this::getHealTargets,
+        this::calculateHeal
+    )
+
     private fun calcualteDamage(battle: Battle, character: Character): ElementalConfig {
-        return (2f * (1f + 0.1f * character.attributes.spirit)).let {
+        return (darkDamage * (1f + darkPerSpirit / 100f * character.attributes.spirit)).let {
             ElementalConfig(dark = it)
         }
     }
 
     private fun calculateHeal(battle: Battle, character: Character, target: Character): Int {
-        return (2f * (1f + 0.1f * character.attributes.spirit)).toInt()
+        return (heal * (1f + healPerSpirit / 100f * character.attributes.spirit)).toInt()
     }
 
     private fun getHealTargets(battle: Battle, character: Character) = listOf(character)
 
     private val melee = MeleeAttackSkillBehavior(this::calcualteDamage)
-
-    private val heal = HealBehavior(
-        this::getHealTargets,
-        this::calculateHeal
-    )
 
     override fun animationStrategy(battle: Battle, unitId: Int) = animateMeleeAttack(battle, unitId, TileSkin.THORNED_CRAWLER_LEECHING_SHADOWS)
 
@@ -48,7 +63,7 @@ class LeechingShadows : SkillBehavior() {
             events.addAll(it.events)
             battle = it.battle
         }
-        heal.skillUse(battle, character, at, lucky).let {
+        healBehavior.skillUse(battle, character, at, lucky).let {
             events.addAll(it.events)
             battle = it.battle
         }
@@ -56,10 +71,14 @@ class LeechingShadows : SkillBehavior() {
     }
 }
 
-class DebiliatingStrike : SkillBehavior() {
+class DebiliatingStrike(config: MonsterAbilityConfiguration) : SkillBehavior() {
+
+    private val physDamage = config.attributes.floatAttribute("physDamage")
+    private val physPerBody = config.attributes.floatAttribute("physPerBody")
+    private val weaknessTiles = config.attributes.intAttribute("weaknessTiles")
 
     private val melee = MeleeAttackSkillBehavior { battle, character ->
-        val physicalDamage = 3f * (1f + character.attributes.body * 0.1f)
+        val physicalDamage = physDamage * (1f + character.attributes.body * physPerBody / 100f)
         ElementalConfig(physical = physicalDamage)
     }
 
@@ -75,7 +94,7 @@ class DebiliatingStrike : SkillBehavior() {
         var battle = meleeResult.battle
         events.addAll(meleeResult.events)
 
-        val numTiles = if (lucky) 4 else 2
+        val numTiles = if (lucky) weaknessTiles * 2 else weaknessTiles
         val filledPositions = target.field.tiles.filter { it.layer == 0 }.map { it.x + it.y * 5 }.toSet()
         val positions = (0 until 25).filter { !filledPositions.contains(it) }.shuffled().take(numTiles)
         var tileId = target.field.maxTileId
