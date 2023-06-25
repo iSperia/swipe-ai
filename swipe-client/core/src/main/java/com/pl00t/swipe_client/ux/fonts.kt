@@ -16,6 +16,8 @@ object Fonts {
     lateinit var lsDescriptionAccent: LabelStyle
     lateinit var lsWhiteCaption: LabelStyle
     lateinit var lsWhiteTitle: LabelStyle
+    lateinit var lsDialogTitle: LabelStyle
+    lateinit var lsDialogText: LabelStyle
 
     fun init(amCore: AssetManager) {
         lsWindowTitle = LabelStyle(amCore.fntTitle(), Colors.ACCENT_COLOR)
@@ -24,6 +26,8 @@ object Fonts {
         lsDescriptionAccent = LabelStyle(amCore.fntDescription(), Colors.ACCENT_COLOR)
         lsWhiteCaption = LabelStyle(amCore.fntDescription(), Color.WHITE)
         lsWhiteTitle = LabelStyle(amCore.fntTitle(), Color.WHITE)
+        lsDialogTitle = LabelStyle(amCore.fntTitle(), Colors.RARITY_3)
+        lsDialogText = LabelStyle(amCore.fntDescription(), Color.BLACK)
     }
 
     fun createWindowTitle(text: String, lineHeight: Float): Label = Label(text, lsWindowTitle).apply {
@@ -45,6 +49,18 @@ object Fonts {
         this.fontScaleX = lineHeight * 0.016f
         this.fontScaleY = lineHeight * 0.016f
     }
+
+    fun createDialogTitle(text: String, lineHeight: Float): Label = Label(text, lsDialogTitle).apply {
+        this.fontScaleX = lineHeight * 0.016f
+        this.fontScaleY = lineHeight * 0.016f
+    }
+
+    fun createDialogText(text: String, lineHeight: Float): Label = Label(text, lsDialogText).apply {
+        this.fontScaleX = lineHeight * 0.016f
+        this.fontScaleY = lineHeight * 0.016f
+        wrap = true
+    }
+
     fun createWhiteCaption(text: String, lineHeight: Float): Label = Label(text, lsWhiteCaption).apply {
         this.fontScaleX = lineHeight * 0.016f
         this.fontScaleY = lineHeight * 0.016f

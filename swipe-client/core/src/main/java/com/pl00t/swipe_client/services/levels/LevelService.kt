@@ -27,4 +27,5 @@ data class FrontLevelDetails(
     val locationBackground: String,
     val locationTitle: String,
     val locationDescription: String,
+    val dialog: List<DialogEntryModel>,
 )

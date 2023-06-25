@@ -6,6 +6,7 @@ import com.pl00t.swipe_client.services.battle.logic.processor.TileGeneratorConfi
 
 enum class UnitSkin {
     CHARACTER_VALERIAN,
+    CHARACTER_SAFFRON,
     MONSTER_THORNSTALKER,
     MONSTER_CORRUPTED_DRYAD,
     MONSTER_THALENDROS,

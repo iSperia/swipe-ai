@@ -19,6 +19,8 @@ import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.battle.logic.BattleEvent
 import com.pl00t.swipe_client.services.battle.logic.processor.TarotAnimation
+import com.pl00t.swipe_client.services.levels.DialogEntryModel
+import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.Fonts
@@ -33,6 +35,7 @@ class BattleScreen(
     private val levelId: String,
     amCore: AssetManager,
     inputMultiplexer: InputMultiplexer,
+    private val levelService: LevelService,
     private val battleService: BattleService,
     private val profileService: ProfileService,
     private val router: Router,
@@ -71,6 +74,8 @@ class BattleScreen(
     private var leftUnitsCount = 0
     private var rightUnitsCount = 0
     private var tilesDirty = false
+
+    private val preBattleDialogs: MutableList<DialogEntryModel> = mutableListOf()
 
     override fun show() {
         gestureDetector = SimpleDirectionGestureDetector(this)
@@ -158,6 +163,24 @@ class BattleScreen(
         }
         panelGroup.addActor(ultimateActor)
 
+        KtxAsync.launch {
+            val level = levelService.getLevelDetails(actId, levelId)
+            preBattleDialogs.addAll(level.dialog)
+            resolvePreBattleDialogs()
+        }
+    }
+
+    private fun resolvePreBattleDialogs() {
+        if (preBattleDialogs.isEmpty()) {
+            connectBattle()
+        } else {
+            val nextDialog = preBattleDialogs.removeFirst()
+            val actor = BattleDialogActor(root.width, root.height, nextDialog, unitsTextureAtlas, coreTextureAtlas, this::resolvePreBattleDialogs)
+            root.addActor(actor)
+        }
+    }
+
+    private fun connectBattle() {
         KtxAsync.launch { observeBattleEvents() }
         KtxAsync.launch { observeEndBattle() }
     }

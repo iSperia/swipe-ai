@@ -22,12 +22,13 @@ class LevelServiceImpl : LevelService {
 
     override suspend fun getLevelDetails(act: SwipeAct, level: String): FrontLevelDetails {
         val actModel = getAct(act)
-        val level = actModel.levels.firstOrNull { it.id == level } ?: return FrontLevelDetails("", "", "", "")
+        val level = actModel.levels.firstOrNull { it.id == level } ?: return FrontLevelDetails("", "", "", "", emptyList())
         return FrontLevelDetails(
             locationId = level.id,
             locationBackground = level.background,
             locationDescription = level.description,
-            locationTitle = level.title
+            locationTitle = level.title,
+            dialog = level.dialog ?: emptyList()
         )
     }
 }
