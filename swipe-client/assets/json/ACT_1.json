@@ -1,0 +1,429 @@
+{
+  "levels": [
+    {
+      "x": 70,
+      "y": 656,
+      "type": "CAMPAIGN",
+      "id": "c1",
+      "title": "The Verdant Grove",
+      "description": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
+      "background": "groves",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 172,
+      "y": 449,
+      "type": "CAMPAIGN",
+      "id": "c2",
+      "title": "The Verdant Grove",
+      "background": "groves",
+      "description": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          }
+        ]
+      ]
+    },
+    {
+      "x": 110,
+      "y": 334,
+      "type": "CAMPAIGN",
+      "id": "c3",
+      "title": "The Verdant Grove",
+      "background": "groves",
+      "description": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 2
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          }
+        ]
+      ]
+    },
+    {
+      "x": 226,
+      "y": 230,
+      "type": "BOSS",
+      "id": "c4",
+      "title": "Thalendros, the Corrupted Treant",
+      "background": "groves",
+      "description": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 3
+          },
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 3
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 3
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 3
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 412,
+      "y": 200,
+      "type": "CAMPAIGN",
+      "id": "c5",
+      "title": "The Crystal Caverns",
+      "background": "crystal_coves",
+      "description": "Hidden deep beneath the Kingdom of Harmony, the Crystal Caverns are a breathtaking network of caverns adorned with shimmering crystals of various colors. Valerian embarks on his quest in the Crystal Caverns to uncover an ancient prophecy inscribed on the walls. The prophecy foretells the shattering of the Ethereal Crystal and the role Valerian must play in restoring it. Exploring the depths of the Crystal Caverns, Valerian encounters challenges and puzzles that hold the key to understanding his destiny.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 577,
+      "y": 251,
+      "type": "CAMPAIGN",
+      "id": "c6",
+      "title": "The Crystal Caverns",
+      "background": "crystal_coves",
+      "description": "Hidden deep beneath the Kingdom of Harmony, the Crystal Caverns are a breathtaking network of caverns adorned with shimmering crystals of various colors. Valerian embarks on his quest in the Crystal Caverns to uncover an ancient prophecy inscribed on the walls. The prophecy foretells the shattering of the Ethereal Crystal and the role Valerian must play in restoring it. Exploring the depths of the Crystal Caverns, Valerian encounters challenges and puzzles that hold the key to understanding his destiny.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 698,
+      "y": 247,
+      "type": "CAMPAIGN",
+      "id": "c7",
+      "title": "The Crystal Caverns",
+      "background": "crystal_coves",
+      "description": "Hidden deep beneath the Kingdom of Harmony, the Crystal Caverns are a breathtaking network of caverns adorned with shimmering crystals of various colors. Valerian embarks on his quest in the Crystal Caverns to uncover an ancient prophecy inscribed on the walls. The prophecy foretells the shattering of the Ethereal Crystal and the role Valerian must play in restoring it. Exploring the depths of the Crystal Caverns, Valerian encounters challenges and puzzles that hold the key to understanding his destiny.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 850,
+      "y": 218,
+      "type": "BOSS",
+      "id": "c8",
+      "title": "Xalithar, the Crystal Goliath",
+      "background": "crystal_coves",
+      "description": "Description: Xalithar is a towering, crystalline behemoth formed from the fused shards of the shattered Ethereal Crystal. Its body emanates a pulsating glow, and shards of various colors protrude from its massive form. Xalithar's eyes glow with a malevolent energy, reflecting the corrupted power it has absorbed.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 740,
+      "y": 592,
+      "type": "CAMPAIGN",
+      "id": "c9",
+      "title": "The Sacred Citadel",
+      "background": "harmony_citadel",
+      "description": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 857,
+      "y": 763,
+      "type": "CAMPAIGN",
+      "id": "c10",
+      "title": "The Sacred Citadel",
+      "background": "harmony_citadel",
+      "description": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 676,
+      "y": 871,
+      "type": "CAMPAIGN",
+      "id": "c11",
+      "title": "The Sacred Citadel",
+      "background": "harmony_citadel",
+      "description": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 466,
+      "y": 809,
+      "type": "BOSS",
+      "id": "c12",
+      "title": "Malachi, the Corrupted Cleric",
+      "background": "harmony_citadel",
+      "description": "As a dark cleric corrupted by the forces of darkness, Malachi wields powerful dark magic and commands the Dark Legion, a formidable force that seeks to thwart the restoration of the Ethereal Crystal and plunge the kingdoms into chaos.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 340,
+      "y": 427,
+      "type": "RAID",
+      "id": "r1",
+      "title": "The Enchanted Sanctuary",
+      "background": "groves",
+      "description": "Immerse yourself in the lush and mystical Verdant Groves, where ancient spirits dwell amidst towering trees. Harness the power of nature as you venture deeper into this sacred haven, seeking rare treasures and materials that hold the secrets of life itself.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 653,
+      "y": 149,
+      "type": "RAID",
+      "id": "r2",
+      "title": "The Veins of the Earth",
+      "background": "crystal_coves",
+      "description": "Descend into the depths of the Crystal Caverns, a mesmerizing network of glittering crystals and treacherous pathways. These subterranean chambers are rich with precious minerals and hidden wonders, attracting adventurers seeking to harness the mystical energy pulsating within the crystalline walls.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    },
+    {
+      "x": 614,
+      "y": 772,
+      "type": "RAID",
+      "id": "r3",
+      "title": "The Divine Stronghold",
+      "background": "harmony_citadel",
+      "description": "Within the Sacred Citadel, a magnificent fortress nestled in the heart of the Kingdom of Harmony, you'll find the Divine Stronghold. This ethereal location, adorned with intricate arches and celestial motifs, is a place of spiritual refuge and devotion. Journey through its hallowed halls, where echoes of prayers and hymns fill the air, and face the trials that guard the sacred artifacts and ancient wisdom of this revered sanctuary. Prepare to tread the path of the chosen one, for the fate of the realms rests within your hands.",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ]
+    }
+  ],
+  "links": [
+    {
+      "n1": "c1",
+      "n2": "c2"
+    },
+    {
+      "n1": "c2",
+      "n2": "c3"
+    },
+    {
+      "n1": "c3",
+      "n2": "c4"
+    },
+    {
+      "n1": "c4",
+      "n2": "c5"
+    },
+    {
+      "n1": "c5",
+      "n2": "c6"
+    },
+    {
+      "n1": "c6",
+      "n2": "c7"
+    },
+    {
+      "n1": "c7",
+      "n2": "c8"
+    },
+    {
+      "n1": "c8",
+      "n2": "c9"
+    },
+    {
+      "n1": "c9",
+      "n2": "c10"
+    },
+    {
+      "n1": "c10",
+      "n2": "c11"
+    },
+    {
+      "n1": "c11",
+      "n2": "c12"
+    },
+    {
+      "n1": "c3",
+      "n2": "r1"
+    },
+    {
+      "n1": "c7",
+      "n2": "r2"
+    },
+    {
+      "n1": "c11",
+      "n2": "r3"
+    }
+  ]
+}
