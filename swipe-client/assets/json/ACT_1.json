@@ -5,7 +5,7 @@
       "y": 656,
       "type": "CAMPAIGN",
       "id": "c1",
-      "title": "The Verdant Grove",
+      "title": "The Verdant Grove Entrance",
       "description": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
       "background": "groves",
       "monsters": [
@@ -15,6 +15,26 @@
             "level": 1
           }
         ]
+      ],
+      "dialog": [
+        {
+          "actor": "CHARACTER_VALERIAN",
+          "side": "left",
+          "text": "The verdant grove, a place teeming with life and mysteries. What brings us here, Saffron?",
+          "title": "Prince Valerian"
+        },
+        {
+          "actor": "CHARACTER_SAFFRON",
+          "side": "right",
+          "text": "Your Highness, the forest holds a shard of great power. Our journey is to reclaim it and restore balance.",
+          "title": "Saffron"
+        },
+        {
+          "actor": "CHARACTER_VALERIAN",
+          "side": "left",
+          "text": "Let us tread carefully and face whatever challenges lie ahead. The fate of our kingdom depends on it.",
+          "title": "Prince Valerian"
+        }
       ]
     },
     {
@@ -46,6 +66,26 @@
             "level": 2
           }
         ]
+      ],
+      "dialog": [
+        {
+          "actor": "CHARACTER_VALERIAN",
+          "side": "left",
+          "text": "These thorned crawlers have grown bolder. Their presence is a sign of a deeper corruption.",
+          "title": "Prince Valerian"
+        },
+        {
+          "actor": "CHARACTER_SAFFRON",
+          "side": "right",
+          "text": "Indeed, Your Highness. It seems Thalendros, the Corrupted Treant, has tainted this grove. We must restore its purity.",
+          "title": "Saffron"
+        },
+        {
+          "actor": "CHARACTER_VALERIAN",
+          "side": "left",
+          "text": "The shard's power must be reclaimed, and Thalendros must answer for his actions. Onward!",
+          "title": "Prince Valerian"
+        }
       ]
     },
     {
@@ -99,6 +139,44 @@
             "level": 2
           }
         ]
+      ],
+      "dialog": [
+        {
+          "actor": "CHARACTER_VALERIAN",
+          "side": "left",
+          "text": "These dryads seem to guard the heart of the grove. We must face them to reach the shard.",
+          "title": "Prince Valerian"
+        },
+        {
+          "actor": "CHARACTER_SAFFRON",
+          "side": "right",
+          "text": "They have fallen under corruption, Your Highness. Their once serene spirits are twisted. We have no choice but to fight.",
+          "title": "Saffron"
+        },
+        {
+          "actor": "MONSTER_CORRUPTED_DRYAD",
+          "side": "right",
+          "text": "Intruders! You shall not defile the sacred heart of the grove!",
+          "title": "Dryad Guardian"
+        },
+        {
+          "actor": "CHARACTER_VALERIAN",
+          "side": "left",
+          "text": "We seek to restore balance, but if you stand in our way, we will bring justice upon you!",
+          "title": "Prince Valerian"
+        },
+        {
+          "actor": "CHARACTER_SAFFRON",
+          "side": "right",
+          "text": "The grove mourns your corruption, but we shall cleanse it with our blades!",
+          "title": "Saffron"
+        },
+        {
+          "actor": "MONSTER_CORRUPTED_DRYAD",
+          "side": "right",
+          "text": "You know nothing of balance! Prepare to face the wrath of nature!",
+          "title": "Dryad Guardian"
+        }
       ]
     },
     {

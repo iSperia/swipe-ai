@@ -22,6 +22,17 @@ data class MonsterEntryModel(
     val level: Int,
 )
 
+enum class DialogOrientation {
+    left, right
+}
+
+data class DialogEntryModel(
+    val actor: UnitSkin,
+    val side: DialogOrientation,
+    val text: String,
+    val title: String,
+)
+
 data class LevelModel(
     val id: String,
     val type: LevelType,
@@ -30,5 +41,6 @@ data class LevelModel(
     val title: String,
     val description: String,
     val background: String,
-    val monsters: List<List<MonsterEntryModel>>?
+    val monsters: List<List<MonsterEntryModel>>?,
+    val dialog: List<DialogEntryModel>?
 )
