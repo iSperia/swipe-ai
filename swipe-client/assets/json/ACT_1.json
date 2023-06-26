@@ -42,7 +42,7 @@
       "y": 449,
       "type": "CAMPAIGN",
       "id": "c2",
-      "title": "The Verdant Grove",
+      "title": "Verdant Grove Depths",
       "background": "groves",
       "description": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
       "monsters": [
@@ -93,7 +93,7 @@
       "y": 334,
       "type": "CAMPAIGN",
       "id": "c3",
-      "title": "The Verdant Grove",
+      "title": "Grove's Heart",
       "background": "groves",
       "description": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
       "monsters": [

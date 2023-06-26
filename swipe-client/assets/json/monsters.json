@@ -38,8 +38,8 @@
           "description": "Mass attack that deals damage with light",
           "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
           "attributes": {
-            "lightDamage": 10,
-            "lightPerSpirit": 10
+            "lightDamage": 6,
+            "lightPerSpirit": 6
           },
           "descriptionTable": [
             {
