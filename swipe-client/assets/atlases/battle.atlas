@@ -56,9 +56,16 @@ healthbar_bg
   index: -1
 healthbar_fg
   rotate: false
-  xy: 1413, 1882
+  xy: 1930, 2032
   size: 118, 15
   orig: 118, 15
+  offset: 0, 0
+  index: -1
+icon_free_reward
+  rotate: false
+  xy: 1026, 1293
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 light
@@ -101,7 +108,7 @@ panel_border_no_top_filled
   index: -1
 physical
   rotate: false
-  xy: 0, 0
+  xy: 1800, 1919
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -129,7 +136,7 @@ semi_black_pixel
   index: -1
 shock
   rotate: false
-  xy: 1026, 1293
+  xy: 0, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

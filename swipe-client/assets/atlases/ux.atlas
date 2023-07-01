@@ -4,66 +4,81 @@ size: 2048, 2048
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
+ESSENCE_FRAGMENT
+  rotate: false
+  xy: 2, 452
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
 ETHERIUM_COIN
   rotate: false
-  xy: 516, 1232
+  xy: 516, 1480
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 EXPERIENCE_CRYSTAL
   rotate: false
-  xy: 516, 718
+  xy: 1030, 1480
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 EXPERIENCE_RELIC
   rotate: false
-  xy: 2, 1232
+  xy: 2, 1480
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 SPARK_OF_INSIGHT
   rotate: false
-  xy: 2, 204
+  xy: 516, 966
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 TIME_SHARD
   rotate: false
-  xy: 2, 718
+  xy: 2, 966
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 button_attack
   rotate: false
-  xy: 1030, 1488
+  xy: 2, 194
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 map_icon_boss
   rotate: false
-  xy: 2, 2
+  xy: 516, 764
   size: 200, 200
   orig: 200, 200
   offset: 0, 0
   index: -1
 map_icon_farm
   rotate: false
-  xy: 516, 518
+  xy: 1030, 1280
   size: 198, 198
   orig: 198, 198
   offset: 0, 0
   index: -1
 map_icon_shield
   rotate: false
-  xy: 1030, 1296
+  xy: 2, 2
   size: 190, 190
   orig: 190, 190
+  offset: 0, 0
+  index: -1
+panelBg
+  rotate: false
+  xy: 1544, 1806
+  size: 203, 186
+  split: 31, 33, 32, 39
+  orig: 203, 186
   offset: 0, 0
   index: -1

@@ -63,8 +63,8 @@ class SwipeGame : Game(), Router {
             Fonts.init(amCore)
             monsterService = MonsterServiceImpl()
             levelService = LevelServiceImpl()
-            battleService = BattleServiceImpl(levelService, monsterService)
             profileService = ProfileServiceImpl(levelService, monsterService)
+            battleService = BattleServiceImpl(levelService, monsterService, profileService)
 
             navigateMap(SwipeAct.ACT_1)
         }

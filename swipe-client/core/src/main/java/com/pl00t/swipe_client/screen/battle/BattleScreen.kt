@@ -48,6 +48,7 @@ class BattleScreen(
     lateinit var mapTextureAtlas: TextureAtlas
     lateinit var unitsTextureAtlas: TextureAtlas
     lateinit var tarotTextureAtlas: TextureAtlas
+    lateinit var uxTetxureAtlas: TextureAtlas
 
     lateinit var panelGroup: Group
     lateinit var locationGroup: Group
@@ -89,6 +90,7 @@ class BattleScreen(
                 load("atlases/ACT_1.atlas", TextureAtlas::class.java)
                 load("atlases/units.atlas", TextureAtlas::class.java)
                 load("atlases/tarot.atlas", TextureAtlas::class.java)
+                load("atlases/ux.atlas", TextureAtlas::class.java)
             }
             loadAm(battleAssetManager) { amLoaded() }
         }
@@ -99,6 +101,7 @@ class BattleScreen(
         mapTextureAtlas = battleAssetManager.get("atlases/ACT_1.atlas", TextureAtlas::class.java)
         unitsTextureAtlas = battleAssetManager.get("atlases/units.atlas", TextureAtlas::class.java)
         tarotTextureAtlas = battleAssetManager.get("atlases/tarot.atlas", TextureAtlas::class.java)
+        uxTetxureAtlas = battleAssetManager.get("atlases/ux.atlas", TextureAtlas::class.java)
 
         panelGroup = Group()
         locationGroup = Group()
@@ -202,7 +205,7 @@ class BattleScreen(
         //we are finished, remove multiplexor
         multiplexer.removeProcessor(gestureDetector)
 
-        val endActor = BattleFinishActor(actId, levelId, profileService, event, coreTextureAtlas, battleTextureAtlas, router)
+        val endActor = BattleFinishActor(actId, levelId, profileService, event, coreTextureAtlas, battleTextureAtlas, uxTetxureAtlas, router)
         root.addActor(endActor)
     }
 

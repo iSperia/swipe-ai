@@ -42,5 +42,6 @@ data class LevelModel(
     val description: String,
     val background: String,
     val monsters: List<List<MonsterEntryModel>>?,
-    val dialog: List<DialogEntryModel>?
+    val dialog: List<DialogEntryModel>?,
+    val freeReward: List<LevelReward>?,
 )

@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.pl00t.swipe_client.services.levels.FrontActModel
 import com.pl00t.swipe_client.services.levels.FrontLevelModel
+import com.pl00t.swipe_client.services.levels.LevelRewardType
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.monsters.MonsterService
 
@@ -15,7 +16,31 @@ interface ProfileService {
     suspend fun markActComplete(act: SwipeAct, level: String)
 
     suspend fun getAct(act: SwipeAct): FrontActModel
+
+    suspend fun isFreeRewardAvailable(act: SwipeAct, level: String): Boolean
+
+    suspend fun collectFreeReward(act: SwipeAct, level: String): List<CollectedReward>
+
+    suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata
 }
+
+sealed interface CollectedReward {
+    data class CollectedCurrencyReward(
+        val currency: SwipeCurrency,
+        val amount: Int,
+        val title: String,
+    ): CollectedReward
+}
+
+data class CurrencyMetadata(
+    val currency: SwipeCurrency,
+    val lore: String,
+    val name: String,
+)
+
+data class CurrenciesMetadata(
+    val currencies: List<CurrencyMetadata>
+)
 
 class ProfileServiceImpl(
     val levelService: LevelService,
@@ -24,10 +49,14 @@ class ProfileServiceImpl(
 
     val gson = Gson()
     val handle = Gdx.files.local("data/profile.txt")
+    val currencyHandle = Gdx.files.internal("json/currency.json")
 
     var profile: SwipeProfile
+    val currencyCache: CurrenciesMetadata
 
     init {
+        currencyCache = gson.fromJson(currencyHandle.readString(), CurrenciesMetadata::class.java)
+
         profile = if (handle.exists()) {
             println(handle.file().absolutePath)
             val text = handle.readString()
@@ -40,7 +69,8 @@ class ProfileServiceImpl(
                         SwipeAct.ACT_1,
                         listOf("c1")
                     )
-                )
+                ),
+                rewardsCollected = emptyList()
             )
         }
     }
@@ -89,5 +119,30 @@ class ProfileServiceImpl(
     private fun saveProfile() {
         val text = gson.toJson(profile)
         handle.writeString(text, false)
+    }
+
+    override suspend fun isFreeRewardAvailable(act: SwipeAct, level: String): Boolean {
+        return profile.rewardsCollected?.firstOrNull { it.act == act && it.level == level } == null
+    }
+
+    override suspend fun collectFreeReward(act: SwipeAct, level: String): List<CollectedReward> {
+        val result = mutableListOf<CollectedReward>()
+        val rewards = levelService.getFreeReward(act, level)
+        rewards.forEach { reward ->
+            when (reward.type) {
+                LevelRewardType.currency -> {
+                    profile = profile.addBalance(reward.currency!!.type, reward.currency.amount)
+                    result.add(CollectedReward.CollectedCurrencyReward(reward.currency.type, reward.currency.amount, getCurrency(reward.currency.type).name))
+                }
+                else -> {}
+            }
+        }
+//        profile = profile.copy(rewardsCollected = (profile.rewardsCollected ?: emptyList()) + ActCollectedReward(act, level))
+        saveProfile()
+        return result
+    }
+
+    override suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata {
+        return currencyCache.currencies.firstOrNull { it.currency == currency } ?: CurrencyMetadata(currency, "", "")
     }
 }

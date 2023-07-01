@@ -31,4 +31,10 @@ class LevelServiceImpl : LevelService {
             dialog = level.dialog ?: emptyList()
         )
     }
+
+    override suspend fun getFreeReward(act: SwipeAct, level: String): List<LevelReward> {
+        val level = getAct(act).levels.firstOrNull { it.id == level } ?: return emptyList()
+        val freeRewards = level.freeReward ?: emptyList()
+        return freeRewards
+    }
 }

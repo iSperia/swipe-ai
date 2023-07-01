@@ -35,6 +35,22 @@
           "text": "Let us tread carefully and face whatever challenges lie ahead. The fate of our kingdom depends on it.",
           "title": "Prince Valerian"
         }
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 50,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "SPARK_OF_INSIGHT"
+          }
+        }
       ]
     },
     {
@@ -85,6 +101,22 @@
           "side": "left",
           "text": "The shard's power must be reclaimed, and Thalendros must answer for his actions. Onward!",
           "title": "Prince Valerian"
+        }
+      ],
+      "rewards": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 50,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ESSENCE_FRAGMENT"
+          }
         }
       ]
     },
