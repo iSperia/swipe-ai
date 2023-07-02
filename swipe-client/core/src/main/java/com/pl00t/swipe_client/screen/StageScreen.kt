@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.screen
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -7,23 +8,43 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
+import com.badlogic.gdx.utils.viewport.ExtendViewport
+import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.ScreenViewport
+import com.badlogic.gdx.utils.viewport.StretchViewport
+import com.badlogic.gdx.utils.viewport.Viewport
+import com.pl00t.swipe_client.Atlases
+import com.pl00t.swipe_client.SwipeContext
 import ktx.app.KtxScreen
 
 abstract class StageScreen(
     protected val coreAssetManager: AssetManager,
     protected var multiplexer: InputMultiplexer,
-) : KtxScreen {
+) : KtxScreen, SwipeContext {
 
-    protected val coreTextureAtlas = coreAssetManager.get<TextureAtlas>("atlases/core.atlas")
+    private val atlases = mutableMapOf<String, TextureAtlas>()
 
-    protected val root = Stage(ScreenViewport())
+    val root: Stage
 
     private var isLoading = false
 
     private var loadingActor: Actor? = null
 
     private val loadingAms = mutableListOf<Pair<AssetManager, () -> Unit>>()
+
+    val width: Float
+    val height: Float
+
+    init {
+        atlases[Atlases.COMMON_CORE] = coreAssetManager.get(Atlases.COMMON_CORE)
+        val ratio = Gdx.graphics.width.toFloat() / Gdx.graphics.height
+        val width = 480f
+        val height = width / ratio
+        val viewport = StretchViewport(width, height)
+        root = Stage(viewport)
+        this.width = 480f
+        this.height = height
+    }
 
     override fun render(delta: Float) {
         super.render(delta)
@@ -36,7 +57,16 @@ abstract class StageScreen(
             }
         } else {
             loadingAms.removeAll { (am, action) ->
-                am.update().also { loaded -> if (loaded) action() }
+                am.update().also {
+                    loaded -> if (loaded) {
+                        am.assetNames.forEach { assetName ->
+                            if (am.getAssetType(assetName) == TextureAtlas::class.java) {
+                                atlases[assetName] = am.get(assetName)
+                            }
+                        }
+                        action()
+                    }
+                }
             }
         }
     }
@@ -58,11 +88,18 @@ abstract class StageScreen(
         }
     }
 
-    private fun createLoadingActor() = Image(coreTextureAtlas.findRegion("loading")).apply {
+    private fun createLoadingActor() = Image(commonAtlas(Atlases.COMMON_CORE).findRegion("loading")).apply {
         x = 0f
         y = 0f
         width = this@StageScreen.root.width
         height = this@StageScreen.root.height
         setScaling(Scaling.fill)
+    }
+
+    override fun width() = this.width
+    override fun height() = this.height
+
+    override fun commonAtlas(atlas: String): TextureAtlas {
+        return atlases[atlas]!!
     }
 }

@@ -1,16 +1,20 @@
 package com.pl00t.swipe_client.screen.map
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
+import com.pl00t.swipe_client.Atlases
+import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.services.battle.UnitSkin
-import com.pl00t.swipe_client.ux.Fonts
-import com.pl00t.swipe_client.ux.IconedButton
-import ktx.actors.alpha
+import com.pl00t.swipe_client.services.levels.FrontLevelDetails
+import com.pl00t.swipe_client.ux.Buttons
+import com.pl00t.swipe_client.ux.ScreenTitle
 import ktx.actors.onClick
 
 interface LevelDetailsCallback {
@@ -18,101 +22,113 @@ interface LevelDetailsCallback {
 }
 
 class LevelDetailsActor(
-    locationId: String,
-    locationBackground: String,
-    locationName: String,
-    locationDescription: String,
-    waves: List<List<FrontMonsterEntryModel>>,
-    width: Float,
-    height: Float,
-    coreAtlas: TextureAtlas,
-    mapAtlas: TextureAtlas,
-    uxAtlas: TextureAtlas,
-    unitsAtlas: TextureAtlas,
-    attackAction: (String) -> Unit
+    private val levelDetails: FrontLevelDetails,
+    private val context: SwipeContext,
+    private val skin: Skin,
+    private val attackAction: (String) -> Unit
 ): Group(), LevelWaveCallback {
 
-    val imLocation: Image
+    val backgroundImage: Image
     val locationForeground: Image
-    val title: Label
-    val startButton: IconedButton
-
-    val scrollRoot: Group
+    val startButton: TextButton
+    val locationTitle: Group
     val scroll: ScrollPane
-
-    val locationDescriptionLabel: Label
-
-    private val _titleHeight = width * 0.1f
-    private val _bw = width * 0.5f
-    private val _bh = width * 0.12f
 
     var callback: LevelDetailsCallback? = null
 
     init {
-        this.width = width
-        this.height = height
-
-        imLocation = Image(mapAtlas.findRegion(locationBackground)).apply {
-            x = 0f
-            y = 0f
+        val line = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("panel_line")).apply {
+            y = 598f
+            width = 480f
+            height = 4f
+        }
+        backgroundImage = Image(context.commonAtlas(Atlases.ACT(levelDetails.act)).findRegion(levelDetails.locationBackground)).apply {
             setScaling(Scaling.fill)
-            this.width = width
-            this.height = height
+            width = 480f
+            height = 600f
         }
-        locationForeground = Image(coreAtlas.findRegion("semi_black_pixel")).apply {
-            x = 0f
-            y = 0f
-            this.width = width
-            this.height = height
-            this.alpha = 0.7f
+        locationForeground = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("black_pixel")).apply {
+            width = 480f
+            height = 600f
+            setScaling(Scaling.stretch)
+        }
+        locationTitle = ScreenTitle.createScreenTitle(context, skin, levelDetails.locationTitle).apply {
+            x = 60f
+            y = 570f
         }
 
-        startButton = IconedButton(_bw, _bh, "To Battle!", "button_attack", coreAtlas, uxAtlas).apply {
-            x = width * 0.45f
-            y = width * 0.05f
+        val panel = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("panel_bg")).apply {
+            width = 480f
+            height = 60f
         }
-        startButton.onClick { attackAction(locationId) }
-        title = Fonts.createWhiteTitle(locationName, _titleHeight).apply {
-            x = 0f
-            y = height - _titleHeight
-            this.width = width
-            this.height = _titleHeight
-            setAlignment(Align.center)
+        startButton = Buttons.createActionButton("To Battle!", skin).apply {
+            x = 305f
+            y = 14f
         }
-        locationDescriptionLabel = Fonts.createCaptionAccent(locationDescription, _bh * 0.8f).apply {
-            setAlignment(Align.topLeft)
-            this.height = width * 0.7f
-            this.width = width * 0.9f
-            x = width * 0.05f
+        startButton.onClick { attackAction(levelDetails.locationId) }
+
+        val table = Table()
+        table.width = 360f
+
+        val needWaveLabel = levelDetails.waves.size > 1
+
+        val loreLabel = Label(levelDetails.locationDescription, skin, "lore_small").apply {
             wrap = true
+            width = 360f
+            setAlignment(Align.topLeft)
         }
+        table.add(loreLabel).colspan(3).width(360f).padBottom(30f).padTop(30f)
+        table.row()
 
-        scrollRoot = Group()
-        val totalWaveActorsHeight = 0.6f * width * waves.size
-        val totalRootHeight = totalWaveActorsHeight + locationDescriptionLabel.height
-
-        val waveActors = waves.mapIndexed { index, wave ->
-            LevelWaveActor(index + 1, wave, unitsAtlas, width * 0.9f).apply {
-                x = width * 0.05f
-                y = totalRootHeight - (index + 1) * 0.6f * width
-            }.apply {
-                callback = this@LevelDetailsActor
+        levelDetails.waves.forEachIndexed { index, wave ->
+            if (needWaveLabel) {
+                table.add(Label("Wave ${index + 1}", skin, "wave_caption").apply {
+                    width = 360f
+                    setAlignment(Align.center)
+                }).colspan(3)
+                table.row()
             }
-        }
-        waveActors.forEach { scrollRoot.addActor(it) }
-        scrollRoot.addActor(locationDescriptionLabel)
-        scrollRoot.width = width
-        scrollRoot.height = totalRootHeight
-        scroll = ScrollPane(scrollRoot).apply {
-            y = _bh + width * 0.1f
-            this.width = width
-            this.height = height - _bh - title.height - height * 0.1f
+            wave.forEach { monster ->
+                val group = Group().apply {
+                    width = 120f
+                    height = 180f
+                }
+                val label = Label("${monster.name}\nlvl. ${monster.level}", skin, "text_small").apply {
+                    wrap = true
+                    width = 110f
+                    height = 40f
+                    x = 5f
+                    setAlignment(Align.center)
+                }
+                val monsterImage = Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(monster.skin.toString())).apply {
+                    width = 120f
+                    height = 180f
+                }
+                monsterImage.onClick {
+                    processMonsterClicked(monster.skin)
+                }
+                group.addActor(monsterImage)
+                group.addActor(label)
+                table.add(group)
+            }
+            table.row()
         }
 
-        addActor(imLocation)
+
+
+        scroll = ScrollPane(table).apply {
+            width = 360f
+            height = 510f
+            x = 60f
+            y = 60f
+        }
+
+        addActor(backgroundImage)
         addActor(locationForeground)
-        addActor(title)
+        addActor(line)
+        addActor(panel)
         addActor(startButton)
+        addActor(locationTitle)
         addActor(scroll)
     }
 

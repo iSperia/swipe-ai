@@ -1,54 +1,61 @@
 
-ux.png
+ui.png
 size: 2048, 2048
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
 ESSENCE_FRAGMENT
   rotate: false
-  xy: 2, 322
+  xy: 2, 292
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 ETHERIUM_COIN
   rotate: false
-  xy: 516, 1350
+  xy: 516, 1320
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 EXPERIENCE_CRYSTAL
   rotate: false
-  xy: 1030, 1350
+  xy: 1030, 1320
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 EXPERIENCE_RELIC
   rotate: false
-  xy: 2, 1350
+  xy: 2, 1320
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 SPARK_OF_INSIGHT
   rotate: false
-  xy: 516, 836
+  xy: 516, 806
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 TIME_SHARD
   rotate: false
-  xy: 2, 836
+  xy: 2, 806
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
+black_pixel
+  rotate: false
+  xy: 1235, 1317
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
 button_attack
   rotate: false
-  xy: 2, 64
+  xy: 2, 34
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -56,31 +63,60 @@ button_attack
 button_pressed
   rotate: false
   xy: 1544, 1802
-  size: 204, 60
-  split: 26, 24, 31, 20
-  orig: 204, 60
+  size: 102, 30
+  split: 13, 30, 14, 9
+  orig: 102, 30
   offset: 0, 0
   index: -1
 button_simple
   rotate: false
   xy: 2, 2
-  size: 204, 60
-  split: 19, 59, 26, 24
-  orig: 204, 60
+  size: 102, 30
+  split: 18, 32, 12, 14
+  orig: 102, 30
+  offset: 0, 0
+  index: -1
+opaque_black
+  rotate: false
+  xy: 1030, 1129
+  size: 1, 1
+  orig: 1, 1
   offset: 0, 0
   index: -1
 panelBg
   rotate: false
-  xy: 516, 648
+  xy: 1030, 1132
   size: 203, 186
   split: 31, 33, 32, 39
   orig: 203, 186
   offset: 0, 0
   index: -1
+panel_bg
+  rotate: false
+  xy: 260, 260
+  size: 78, 30
+  orig: 78, 30
+  offset: 0, 0
+  index: -1
+panel_line
+  rotate: false
+  xy: 516, 746
+  size: 78, 4
+  orig: 78, 4
+  offset: 0, 0
+  index: -1
 title_background
   rotate: false
-  xy: 1030, 1282
-  size: 214, 66
-  orig: 214, 66
+  xy: 516, 752
+  size: 440, 52
+  orig: 440, 52
+  offset: 0, 0
+  index: -1
+white_border
+  rotate: false
+  xy: 958, 799
+  size: 5, 5
+  split: 1, 1, 1, 1
+  orig: 5, 5
   offset: 0, 0
   index: -1

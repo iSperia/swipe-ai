@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
 import com.game7th.swipe.gestures.SimpleDirectionGestureDetector
+import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.services.battle.BattleDecorations
@@ -23,7 +24,6 @@ import com.pl00t.swipe_client.services.levels.DialogEntryModel
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
-import com.pl00t.swipe_client.ux.Fonts
 import kotlinx.coroutines.launch
 import ktx.actors.*
 import ktx.async.KtxAsync
@@ -44,11 +44,6 @@ class BattleScreen(
     lateinit var decorations: BattleDecorations
 
     lateinit var battleAssetManager: AssetManager
-    lateinit var battleTextureAtlas: TextureAtlas
-    lateinit var mapTextureAtlas: TextureAtlas
-    lateinit var unitsTextureAtlas: TextureAtlas
-    lateinit var tarotTextureAtlas: TextureAtlas
-    lateinit var uxTetxureAtlas: TextureAtlas
 
     lateinit var panelGroup: Group
     lateinit var locationGroup: Group
@@ -97,12 +92,6 @@ class BattleScreen(
     }
 
     private fun amLoaded() {
-        battleTextureAtlas = battleAssetManager.get("atlases/battle.atlas", TextureAtlas::class.java)
-        mapTextureAtlas = battleAssetManager.get("atlases/ACT_1.atlas", TextureAtlas::class.java)
-        unitsTextureAtlas = battleAssetManager.get("atlases/units.atlas", TextureAtlas::class.java)
-        tarotTextureAtlas = battleAssetManager.get("atlases/tarot.atlas", TextureAtlas::class.java)
-        uxTetxureAtlas = battleAssetManager.get("atlases/ux.atlas", TextureAtlas::class.java)
-
         panelGroup = Group()
         locationGroup = Group()
         unitsGroup = Group()
@@ -115,7 +104,7 @@ class BattleScreen(
         ultimateEffectsGroup.y = _panelHei * 0.11f
         popupsGroup.y = tarotEffectsGroup.y
 
-        val panelImage = Image(battleTextureAtlas.createPatch("panelBg")).apply {
+        val panelImage = Image(commonAtlas(Atlases.COMMON_BATTLE).createPatch("panelBg")).apply {
             x = 0f
             y = 0f
             width = root.width
@@ -140,7 +129,7 @@ class BattleScreen(
         root.addActor(panelGroup)
 
         val locationSize = max(root.height - _panelHei * 0.9f, max(root.width, _locationHei))
-        val locationImage = Image(mapTextureAtlas.findRegion(decorations.background)).apply {
+        val locationImage = Image(commonAtlas(Atlases.ACT(actId)).findRegion(decorations.background)).apply {
             width = locationSize
             height = locationSize
             x = - (locationSize - root.width) / 2f
@@ -153,7 +142,7 @@ class BattleScreen(
 
         addTileBackgrounds()
 
-        ultimateActor = UltimateProgressActor(battleTextureAtlas, _tileSize * 5f, _tileSize * 0.7f).apply {
+        ultimateActor = UltimateProgressActor(commonAtlas(Atlases.COMMON_BATTLE), _tileSize * 5f, _tileSize * 0.7f).apply {
             x = (root.width - _tileSize * 5f) / 2f
             y = _tileSize * 0.2f
             touchable = Touchable.enabled
@@ -178,7 +167,7 @@ class BattleScreen(
             connectBattle()
         } else {
             val nextDialog = preBattleDialogs.removeFirst()
-            val actor = BattleDialogActor(root.width, root.height, nextDialog, unitsTextureAtlas, coreTextureAtlas, this::resolvePreBattleDialogs)
+            val actor = BattleDialogActor(root.width, root.height, nextDialog, commonAtlas(Atlases.COMMON_UNITS), commonAtlas(Atlases.COMMON_CORE), this::resolvePreBattleDialogs)
             root.addActor(actor)
         }
     }
@@ -205,7 +194,7 @@ class BattleScreen(
         //we are finished, remove multiplexor
         multiplexer.removeProcessor(gestureDetector)
 
-        val endActor = BattleFinishActor(actId, levelId, profileService, event, coreTextureAtlas, battleTextureAtlas, uxTetxureAtlas, router)
+        val endActor = BattleFinishActor(actId, levelId, profileService, event, commonAtlas(Atlases.COMMON_CORE), commonAtlas(Atlases.COMMON_BATTLE), commonAtlas(Atlases.COMMON_UX), router)
         root.addActor(endActor)
     }
 
@@ -214,22 +203,22 @@ class BattleScreen(
         when (event) {
             is BattleEvent.WaveEvent -> {
                 rightUnitsCount = 0
-                val wave = Fonts.createWhiteTitle("Wave ${event.wave}", root.height * 0.2f).apply {
-                    width = root.width
-                    height = root.height * 0.2f
-                    y = root.height * 0.2f
-                    alpha = 0f
-                    setAlignment(Align.bottom)
-                }
-                root.addActor(wave)
-                wave.addAction(Actions.sequence(
-                    Actions.parallel(
-                        Actions.alpha(1f, 0.2f),
-                        Actions.moveBy(0f, root.height * 0.6f, 2f)
-                    ),
-                    Actions.alpha(0f, 0.5f),
-                    Actions.removeActor()
-                ))
+//                val wave = Fonts.createWhiteTitle("Wave ${event.wave}", root.height * 0.2f).apply {
+//                    width = root.width
+//                    height = root.height * 0.2f
+//                    y = root.height * 0.2f
+//                    alpha = 0f
+//                    setAlignment(Align.bottom)
+//                }
+//                root.addActor(wave)
+//                wave.addAction(Actions.sequence(
+//                    Actions.parallel(
+//                        Actions.alpha(1f, 0.2f),
+//                        Actions.moveBy(0f, root.height * 0.6f, 2f)
+//                    ),
+//                    Actions.alpha(0f, 0.5f),
+//                    Actions.removeActor()
+//                ))
             }
 
             is BattleEvent.CreateUnitEvent -> {
@@ -291,7 +280,7 @@ class BattleScreen(
                         _characterWidth / 3f,
                         event.popup.text,
                         event.popup.icons,
-                        battleTextureAtlas
+                        commonAtlas(Atlases.COMMON_BATTLE)
                     ).apply {
                         x = unitActor.x - if (unitActor.team == 0) 0f else _characterWidth
                         y = unitActor.y + _characterWidth * 1.66f * unitActor.s * 0.8f
@@ -313,7 +302,7 @@ class BattleScreen(
                 ultimateActor.updateUltimateProgress(event.progress.toFloat() / event.maxProgress)
             }
             is BattleEvent.UltimateEvent -> {
-                val bg = Image(coreTextureAtlas.findRegion("semi_black_pixel")).apply {
+                val bg = Image(commonAtlas(Atlases.COMMON_CORE).findRegion("semi_black_pixel")).apply {
                     width = root.width
                     height = _locationHei
                     alpha = 0f
@@ -324,7 +313,7 @@ class BattleScreen(
                     Actions.alpha(0f, 0.5f),
                     Actions.removeActor()
                 ))
-                val tarot = Image(tarotTextureAtlas.findRegion("VALERIAN_DIVINE_CONVERGENCE")).apply {
+                val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion("VALERIAN_DIVINE_CONVERGENCE")).apply {
                     width = _characterWidth
                     height = _characterWidth * 1.66f
                     x = (root.width - this.width) / 2f
@@ -362,7 +351,7 @@ class BattleScreen(
                 ultimateEffectsGroup.addActor(tarot)
             }
             is BattleEvent.TileEffectEvent -> {
-                val tarot = Image(tarotTextureAtlas.findRegion(event.skin.toString())).apply {
+                val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.skin.toString())).apply {
                     height = _tileSize
                     width = _tileSize * 0.66f
                     x = _tileSize * event.x + (_tileSize - this.width) / 2f
@@ -398,7 +387,7 @@ class BattleScreen(
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.at.toString()) ?: return
         //ok, we have some crazy tarot stuff
-        val tarot = Image(tarotTextureAtlas.findRegion(event.animation.skin.toString())).apply {
+        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.animation.skin.toString())).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
             y = sourceUnit.y + _characterWidth * 0.35f
             width = _characterWidth * 0.8f
@@ -436,7 +425,7 @@ class BattleScreen(
         event: BattleEvent.AnimateTarotEvent
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString()) ?: return
-        val tarot = Image(tarotTextureAtlas.findRegion(event.animation.skin.toString())).apply {
+        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.animation.skin.toString())).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
             y = sourceUnit.y + _characterWidth * 0.35f
             width = _characterWidth * 0.8f
@@ -470,7 +459,7 @@ class BattleScreen(
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString()) ?: return
         //ok, we have some crazy tarot stuff
-        val tarot = Image(tarotTextureAtlas.findRegion(event.animation.skin.toString())).apply {
+        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.animation.skin.toString())).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) _characterWidth * 0.1f else -_characterWidth * 1.1f
             y = sourceUnit.y + _characterWidth * 0.15f
             width = _characterWidth * 0.8f
@@ -579,8 +568,8 @@ class BattleScreen(
             size = _tileSize,
             strokeWidth = _tileStrokeWidth,
             cardTexture = event.skin.toString(),
-            taBattle = battleTextureAtlas,
-            taTarot = tarotTextureAtlas,
+            taBattle = commonAtlas(Atlases.COMMON_BATTLE),
+            taTarot = commonAtlas(Atlases.COMMON_TAROT),
             polygonBatch = polygonSpriteBatch,
             gridX = event.x,
             gridY = event.y,
@@ -598,8 +587,8 @@ class BattleScreen(
             health = event.health,
             maxHealth = event.maxHealth,
             effects = event.effects,
-            taBattle = battleTextureAtlas,
-            atlas = unitsTextureAtlas,
+            taBattle = commonAtlas(Atlases.COMMON_BATTLE),
+            atlas = commonAtlas(Atlases.COMMON_TAROT),
             texture = event.skin.toString(),
             team = event.team,
             w = _characterWidth,
@@ -631,7 +620,7 @@ class BattleScreen(
             val x = index % 5
             val y = index / 5
 
-            val bg = Image(battleTextureAtlas.findRegion("tile_bg")).apply {
+            val bg = Image(commonAtlas(Atlases.COMMON_BATTLE).findRegion("tile_bg")).apply {
                 this.x = x * _tileSize
                 this.y = y * _tileSize
                 this.width = _tileSize

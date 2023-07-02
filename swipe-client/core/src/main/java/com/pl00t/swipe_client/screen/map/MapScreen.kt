@@ -9,19 +9,20 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
-import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.Stack
+import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.services.battle.UnitSkin
-import com.pl00t.swipe_client.services.levels.FrontLevelModel
+import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.monsters.MonsterService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
-import com.pl00t.swipe_client.ux.Fonts
+import com.pl00t.swipe_client.ux.ScreenTitle
 import com.pl00t.swipe_client.ux.hideToBehindAndRemove
 import com.pl00t.swipe_client.ux.raiseFromBehind
 import kotlinx.coroutines.launch
@@ -42,36 +43,33 @@ class MapScreen(
 ) : StageScreen(amCore, inputMultiplexer), GestureDetector.GestureListener, LevelDetailsCallback {
 
     lateinit var mapAssetManager: AssetManager
-    lateinit var mapAtlas: TextureAtlas
-    lateinit var uxAtlas: TextureAtlas
-    lateinit var unitsAtlas: TextureAtlas
-    lateinit var tarotAtlas: TextureAtlas
+    lateinit var skin: Skin
+
+    lateinit var topBlock: Stack
 
     lateinit var mapActor: Group
     lateinit var mapScroll: ScrollPane
-    lateinit var mapScrollRoot: Group
     lateinit var mapImage: Image
     lateinit var linkActor: LinkActor
     lateinit var mapIconsGroup: Group
     private var levelDetailsActor: LevelDetailsActor? = null
 
-    lateinit var actTitleBackground: Image
-    lateinit var actTitle: Label
+    lateinit var mapTitle: Group
 
     private val gestureDetector = GestureDetector(this)
 
-    private val _mapIconSizeSmall = root.height / 15f
-    private val _mapIconSize = root.height / 10f
-    private val _windowTitleHeight = root.height * 0.06f
+    private val mapSmallIconSize = root.height / 15f
+    private val mapIconSize = root.height / 10f
     private var _mapScale = 1f
 
     override fun show() {
         debug("MapScreen") { "map screen is shown" }
         mapAssetManager = AssetManager().apply {
-            load("atlases/${act.name}.atlas", TextureAtlas::class.java)
-            load("atlases/ux.atlas", TextureAtlas::class.java)
-            load("atlases/units.atlas", TextureAtlas::class.java)
-            load("atlases/tarot.atlas", TextureAtlas::class.java)
+            load(Atlases.ACT(act), TextureAtlas::class.java)
+            load(Atlases.COMMON_MAP, TextureAtlas::class.java)
+            load(Atlases.COMMON_UX, TextureAtlas::class.java)
+            load(Atlases.COMMON_UNITS, TextureAtlas::class.java)
+            load(Atlases.COMMON_TAROT, TextureAtlas::class.java)
         }
         loadAm(mapAssetManager, this::mapLoaded)
         multiplexer.addProcessor(root)
@@ -86,23 +84,18 @@ class MapScreen(
 
     private fun mapLoaded() {
         debug("MapScreen") { "Map screen is loaded" }
-        mapAtlas = mapAssetManager.get("atlases/${act.name}.atlas", TextureAtlas::class.java)
-        uxAtlas = mapAssetManager.get("atlases/ux.atlas", TextureAtlas::class.java)
-        unitsAtlas = mapAssetManager.get("atlases/units.atlas", TextureAtlas::class.java)
-        tarotAtlas = mapAssetManager.get("atlases/tarot.atlas", TextureAtlas::class.java)
 
-        actTitle = Fonts.createWindowTitle("Kingdom Of Harmony", _windowTitleHeight).apply {
-            x = 0f
-            y = root.height - _windowTitleHeight
-            width = root.width
-            height = _windowTitleHeight
-            setAlignment(Align.center)
+        skin = Skin(Gdx.files.internal("styles/ui.json")).apply {
+            addRegions(commonAtlas(Atlases.COMMON_UX))
         }
-        actTitleBackground = Image(coreTextureAtlas.findRegion("top_gradient")).apply {
-            width = root.width
-            height = _windowTitleHeight * 1.2f
-            y = root.height - this.height
-            touchable = Touchable.disabled
+
+        mapTitle = ScreenTitle.createScreenTitle(
+            context = this,
+            skin = skin,
+            text = "Kingdom Of Harmony"
+        ).apply {
+            y = root.height - 60f
+            x = 60f
         }
 
         mapActor = Group()
@@ -116,8 +109,7 @@ class MapScreen(
             levelDetailsActor = null
         }
         root.addActor(mapScroll)
-        root.addActor(actTitleBackground)
-        root.addActor(actTitle)
+        root.addActor(mapTitle)
 
         KtxAsync.launch {
             val act = profileService.getAct(SwipeAct.ACT_1)
@@ -138,14 +130,14 @@ class MapScreen(
 
             act.levels.forEach { level ->
                 val texture = when (level.type) {
-                    LevelType.RAID -> uxAtlas.findRegion("map_icon_farm")
-                    LevelType.CAMPAIGN -> uxAtlas.findRegion("map_icon_shield")
-                    LevelType.BOSS -> uxAtlas.findRegion("map_icon_boss")
+                    LevelType.RAID -> commonAtlas(Atlases.COMMON_MAP).findRegion("map_icon_farm")
+                    LevelType.CAMPAIGN -> commonAtlas(Atlases.COMMON_MAP).findRegion("map_icon_shield")
+                    LevelType.BOSS -> commonAtlas(Atlases.COMMON_MAP).findRegion("map_icon_boss")
                 }
                 val iconSize = when (level.type) {
-                    LevelType.RAID -> _mapIconSize
-                    LevelType.CAMPAIGN -> _mapIconSizeSmall
-                    LevelType.BOSS -> _mapIconSize
+                    LevelType.RAID -> mapIconSize
+                    LevelType.CAMPAIGN -> mapSmallIconSize
+                    LevelType.BOSS -> mapIconSize
                 }
                 val iconX = level.x * _mapScale
                 val iconY = level.y * _mapScale
@@ -154,7 +146,7 @@ class MapScreen(
                     originY = 0.5f
                     x = iconX - iconSize / 2f
                     y = iconY - iconSize / 2f
-                    name = level.id
+                    name = level.locationId
                     width = iconSize
                     height = iconSize
                     alpha = if (level.enabled) 1f else 0.5f
@@ -169,27 +161,19 @@ class MapScreen(
         }
     }
 
-    private fun showLevelDetails(level: FrontLevelModel) {
+    private fun showLevelDetails(level: FrontLevelDetails) {
         KtxAsync.launch {
-            val details = levelService.getLevelDetails(SwipeAct.ACT_1, level.id)
+            val details = levelService.getLevelDetails(SwipeAct.ACT_1, level.locationId)
             levelDetailsActor?.hideToBehindAndRemove(root.width)
             levelDetailsActor = null
 
             levelDetailsActor = LevelDetailsActor(
-                locationId = details.locationId,
-                locationBackground = details.locationBackground,
-                locationName = details.locationTitle,
-                locationDescription = details.locationDescription,
-                waves = level.waves,
-                width = root.width,
-                height = root.width * 1.6f,
-                coreAtlas = coreTextureAtlas,
-                mapAtlas = mapAtlas,
-                uxAtlas = uxAtlas,
-                unitsAtlas = unitsAtlas,
-                attackAction = this@MapScreen::onAttackClicked).apply {
-                this.raiseFromBehind(root.width)
-            }
+                levelDetails = details,
+                attackAction = this@MapScreen::onAttackClicked,
+                context = this@MapScreen,
+                skin = skin).apply {
+                    this.raiseFromBehind(root.width)
+                }
             levelDetailsActor?.callback = this@MapScreen
             root.addActor(levelDetailsActor)
         }
@@ -201,7 +185,7 @@ class MapScreen(
     }
 
     private fun initMapImage() {
-        val region = mapAtlas.findRegion("map")
+        val region = commonAtlas(Atlases.ACT(act)).findRegion("map")
         mapImage = Image(region).apply {
             height = root.height
             width = root.height
@@ -263,15 +247,12 @@ class MapScreen(
     override fun pinchStop() {
     }
 
-    override fun processMonsterClicked(skin: UnitSkin) {
+    override fun processMonsterClicked(unitSkin: UnitSkin) {
         KtxAsync.launch {
             val monsterDetailActor = MonsterDetailActor(
-                w = root.width,
-                h = root.height,
-                monsterInfo = monsterService.getMonster(skin),
-                monsterAtlas = unitsAtlas,
-                coreAtlas = coreTextureAtlas,
-                tarotAtlas = tarotAtlas,
+                monsterInfo = monsterService.getMonster(unitSkin),
+                context = this@MapScreen,
+                skin = skin
             )
             root.addActor(monsterDetailActor)
             monsterDetailActor.raiseFromBehind(root.height)

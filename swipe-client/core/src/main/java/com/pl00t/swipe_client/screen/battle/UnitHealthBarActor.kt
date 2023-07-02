@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
-import com.pl00t.swipe_client.ux.Fonts
 
 class UnitHealthBarActor(
     val w: Float,
@@ -29,11 +28,11 @@ class UnitHealthBarActor(
         x = 7f
         y = 7f
     }
-    val healthText: Label = Fonts.createWhiteCaption("$health", h).apply {
-        width = w
-        height = h
-        setAlignment(Align.center)
-    }
+//    val healthText: Label = Fonts.createWhiteCaption("$health", h).apply {
+//        width = w
+//        height = h
+//        setAlignment(Align.center)
+//    }
 
     private var health = health
     private var maxHealth = maxHealth
@@ -42,7 +41,7 @@ class UnitHealthBarActor(
     init {
         addActor(background)
         addActor(foregound)
-        addActor(healthText)
+//        addActor(healthText)
         updateHealth(health, maxHealth)
     }
 
@@ -56,6 +55,6 @@ class UnitHealthBarActor(
             setSize(_maxWidth * progress, foregound.height)
             duration = 1f
         })
-        healthText.setText(health.toString())
+//        healthText.setText(health.toString())
     }
 }

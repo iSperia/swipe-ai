@@ -15,24 +15,26 @@ interface LevelService {
 }
 
 data class FrontActModel(
-    val levels: List<FrontLevelModel>,
+    val levels: List<FrontLevelDetails>,
     val links: List<LinkModel>
 )
-data class FrontLevelModel(
-    val x: Float,
-    val y: Float,
-    val id: String,
-    val type: LevelType,
-    val enabled: Boolean,
-    val waves: List<List<FrontMonsterEntryModel>>
-)
 data class FrontLevelDetails(
+    val act: SwipeAct,
     val locationId: String,
     val locationBackground: String,
     val locationTitle: String,
     val locationDescription: String,
     val dialog: List<DialogEntryModel>,
-)
+    val waves: List<List<FrontMonsterEntryModel>>,
+    val enabled: Boolean,
+    val type: LevelType,
+    val x: Float,
+    val y: Float,
+) {
+    companion object {
+        val DEFAULT = FrontLevelDetails(SwipeAct.ACT_1, "", "", "", "", emptyList(), emptyList(), false, LevelType.CAMPAIGN, 0f, 0f)
+    }
+}
 
 enum class LevelRewardType {
     currency, item

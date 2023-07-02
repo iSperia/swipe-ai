@@ -5,14 +5,12 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.GL20
-import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.battle.BattleScreen
 import com.pl00t.swipe_client.screen.map.MapScreen
 import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.battle.BattleServiceImpl
-import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
 import com.pl00t.swipe_client.services.monsters.MonsterService
@@ -20,7 +18,6 @@ import com.pl00t.swipe_client.services.monsters.MonsterServiceImpl
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.ProfileServiceImpl
 import com.pl00t.swipe_client.services.profile.SwipeAct
-import com.pl00t.swipe_client.ux.Fonts
 import ktx.async.KtxAsync
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
@@ -39,8 +36,6 @@ class SwipeGame : Game(), Router {
         inputMultiplexer = InputMultiplexer()
         amCore = AssetManager()
         amCore.load("atlases/core.atlas", TextureAtlas::class.java)
-        amCore.load("fonts/cinzel.fnt", BitmapFont::class.java)
-        amCore.load("fonts/notepad.fnt", BitmapFont::class.java)
     }
 
     override fun render() {
@@ -60,9 +55,8 @@ class SwipeGame : Game(), Router {
     private fun checkCoreLoading() {
         if (amCore.update()) {
             coreLoaded = true
-            Fonts.init(amCore)
             monsterService = MonsterServiceImpl()
-            levelService = LevelServiceImpl()
+            levelService = LevelServiceImpl(monsterService)
             profileService = ProfileServiceImpl(levelService, monsterService)
             battleService = BattleServiceImpl(levelService, monsterService, profileService)
 

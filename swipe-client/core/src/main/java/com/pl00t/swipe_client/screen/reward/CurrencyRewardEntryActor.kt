@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.services.profile.CollectedReward
-import com.pl00t.swipe_client.ux.Fonts
 
 
 class CurrencyRewardEntryActor(
@@ -17,8 +16,8 @@ class CurrencyRewardEntryActor(
 ): Group() {
 
     val image: Image
-    val title: Label
-    val amountLabel: Label
+//    val title: Label
+//    val amountLabel: Label
 
     val titleHeight = h * 0.55f
     val amountHeight = h - titleHeight
@@ -29,18 +28,18 @@ class CurrencyRewardEntryActor(
             width = h
             height = h
         }
-        title = Fonts.createWhiteTitle(reward.title, titleHeight).apply {
-            x = h + padding
-            y = amountHeight
-            setAlignment(Align.left)
-        }
-        amountLabel = Fonts.createCaptionAccent("x${reward.amount}", amountHeight).apply {
-            x = h + padding
-            setAlignment(Align.topLeft)
-        }
+//        title = Fonts.createWhiteTitle(reward.title, titleHeight).apply {
+//            x = h + padding
+//            y = amountHeight
+//            setAlignment(Align.left)
+//        }
+//        amountLabel = Fonts.createCaptionAccent("x${reward.amount}", amountHeight).apply {
+//            x = h + padding
+//            setAlignment(Align.topLeft)
+//        }
 
         addActor(image)
-        addActor(title)
-        addActor(amountLabel)
+//        addActor(title)
+//        addActor(amountLabel)
     }
 }

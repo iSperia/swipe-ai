@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.services.levels.DialogEntryModel
 import com.pl00t.swipe_client.services.levels.DialogOrientation
-import com.pl00t.swipe_client.ux.Fonts
 import ktx.actors.onClick
 
 class BattleDialogActor(
@@ -24,8 +23,8 @@ class BattleDialogActor(
 
     val unitImage: Image
     val dialogBackground: Image
-    val dialogLabel: Label
-    val titleLabel: Label
+//    val dialogLabel: Label
+//    val titleLabel: Label
 
     private val _unitWidth = w * 0.6f
     private val _unitHeight = _unitWidth * 1.66f
@@ -51,27 +50,27 @@ class BattleDialogActor(
             x = if (dialog.side == DialogOrientation.left) w - _bubbleWidth else 0f
             y = _unitY + _unitHeight - _bubbleHeight
         }
-        titleLabel = Fonts.createDialogTitle(dialog.title, _titleHeight).apply {
-            x = dialogBackground.x + _bubbleWidth * 0.1f
-            y = dialogBackground.y + _bubbleHeight * 0.9f - _titleHeight
-            width = _bubbleWidth * 0.8f
-            height = _titleHeight
-            setAlignment(Align.center)
-            touchable = Touchable.disabled
-        }
-        dialogLabel = Fonts.createDialogText(dialog.text, _titleHeight * 0.8f).apply {
-            x = titleLabel.x
-            width = titleLabel.width
-            y = dialogBackground.y + _bubbleHeight * 0.05f
-            height = _bubbleHeight * 0.85f - titleLabel.height
-            setAlignment(Align.topLeft)
-            touchable = Touchable.disabled
-        }
+//        titleLabel = Fonts.createDialogTitle(dialog.title, _titleHeight).apply {
+//            x = dialogBackground.x + _bubbleWidth * 0.1f
+//            y = dialogBackground.y + _bubbleHeight * 0.9f - _titleHeight
+//            width = _bubbleWidth * 0.8f
+//            height = _titleHeight
+//            setAlignment(Align.center)
+//            touchable = Touchable.disabled
+//        }
+//        dialogLabel = Fonts.createDialogText(dialog.text, _titleHeight * 0.8f).apply {
+//            x = titleLabel.x
+//            width = titleLabel.width
+//            y = dialogBackground.y + _bubbleHeight * 0.05f
+//            height = _bubbleHeight * 0.85f - titleLabel.height
+//            setAlignment(Align.topLeft)
+//            touchable = Touchable.disabled
+//        }
 
         addActor(unitImage)
         addActor(dialogBackground)
-        addActor(titleLabel)
-        addActor(dialogLabel)
+//        addActor(titleLabel)
+//        addActor(dialogLabel)
 
         x = if (dialog.side == DialogOrientation.left) -w / 2f else w / 2f
         addAction(Actions.moveBy(if (dialog.side == DialogOrientation.left) w / 2f else -w / 2f, 0f, 0.6f))

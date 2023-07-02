@@ -26,8 +26,8 @@ class LinkActor(
         renderer.set(ShapeRenderer.ShapeType.Filled)
 
         act.links.forEach { link ->
-            val l1 = act.levels.first { it.id == link.n1 }
-            val l2 = act.levels.first { it.id == link.n2 }
+            val l1 = act.levels.first { it.locationId == link.n1 }
+            val l2 = act.levels.first { it.locationId == link.n2 }
 
             if (l1.enabled && l2.enabled) {
                 val x1 = l1.x * width / 1024f

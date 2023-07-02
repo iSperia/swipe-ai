@@ -17,7 +17,7 @@ class IconedButton(
 
     val background = Image(coreTextureAtlas.createPatch("button_simple"))
     val iconImage = Image(textureAtlas.findRegion(icon))
-    val captionText = Fonts.createWhiteCaption(text, h)
+//    val captionText = Fonts.createWhiteCaption(text, h)
     val padding = h * 0.1f
 
     init {
@@ -30,18 +30,18 @@ class IconedButton(
             height = h
             x = if (this@IconedButton.align == Align.left) 0f else w - h
         }
-        captionText.apply {
-            width = w - h - padding
-            height = h
-            setAlignment(align)
-            x = if (align == Align.left) h + padding else 0f
-        }
+//        captionText.apply {
+//            width = w - h - padding
+//            height = h
+//            setAlignment(align)
+//            x = if (align == Align.left) h + padding else 0f
+//        }
         addActor(background)
         addActor(iconImage)
-        addActor(captionText)
+//        addActor(captionText)
     }
 
     fun updateText(text: String) {
-        captionText.setText(text)
+//        captionText.setText(text)
     }
 }

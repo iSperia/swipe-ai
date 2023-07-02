@@ -4,16 +4,11 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.scenes.scene2d.actions.SizeToAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
-import com.pl00t.swipe_client.ux.Colors
-import com.pl00t.swipe_client.ux.Fonts
-import ktx.actors.repeat
 import ktx.actors.repeatForever
-import kotlin.random.Random
 
 class UltimateProgressActor(
     private val taBattle: TextureAtlas,
@@ -23,7 +18,7 @@ class UltimateProgressActor(
 
     var imageBg: Image
     var iProgress: Image
-    var description: Label
+//    var description: Label
     var foreground: Image
 
     var progress: Float = 0f
@@ -46,14 +41,14 @@ class UltimateProgressActor(
             setOrigin(Align.center)
         }
         addActor(iProgress)
-        description = Fonts.createWhiteCaption("Fill for ultimate", h).apply {
-            this.width = w
-            this.height = h
-            setAlignment(Align.center)
-            this.x = 0f
-            this.y = 0f
-        }
-        addActor(description)
+//        description = Fonts.createWhiteCaption("Fill for ultimate", h).apply {
+//            this.width = w
+//            this.height = h
+//            setAlignment(Align.center)
+//            this.x = 0f
+//            this.y = 0f
+//        }
+//        addActor(description)
         foreground = Image(taBattle.findRegion("ult_progress_fg")).apply {
             this.width = w
             this.height = h
@@ -66,14 +61,14 @@ class UltimateProgressActor(
         if (this.progress != progress) {
             this.progress = progress
             if (progress == 1f) {
-                description.color = Color.RED
-                description.setText("Ultimate ready!")
-                description.addAction(
-                    Actions.sequence(
-                        Actions.color(Color.WHITE, 0.1f),
-                        Actions.color(Color.RED, 0.1f)
-                    ).repeatForever()
-                )
+//                description.color = Color.RED
+//                description.setText("Ultimate ready!")
+//                description.addAction(
+//                    Actions.sequence(
+//                        Actions.color(Color.WHITE, 0.1f),
+//                        Actions.color(Color.RED, 0.1f)
+//                    ).repeatForever()
+//                )
                 iProgress.addAction(
                     Actions.sequence(
                         Actions.parallel(
@@ -87,10 +82,10 @@ class UltimateProgressActor(
                     ).repeatForever()
                 )
             } else {
-                description.color = Color.WHITE
-                description.setText("Fill to ultimate")
-                iProgress.clearActions()
-                description.clearActions()
+//                description.color = Color.WHITE
+//                description.setText("Fill to ultimate")
+//                iProgress.clearActions()
+//                description.clearActions()
             }
         }
         val newWidth = 0.9f * w * progress

@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.services.battle.MonsterAbilityConfiguration
-import com.pl00t.swipe_client.ux.Fonts
 
 class MonsterAbilityDetailActor(
     private val configuration: MonsterAbilityConfiguration,
@@ -16,9 +15,9 @@ class MonsterAbilityDetailActor(
 ): Group() {
 
     private val tarotImage: Image
-    private val title: Label
-    private val description: Label
-    private val lore: Label
+//    private val title: Label
+//    private val description: Label
+//    private val lore: Label
     private val table: Group
 
     private val _tarotWidth = w * 0.2f
@@ -41,35 +40,35 @@ class MonsterAbilityDetailActor(
             y = _totalHeight - _padding - _tarotHeight
         }
 
-        title = Fonts.createWhiteTitle(configuration.title, _titleHeight).apply {
-            width = w - _tarotWidth - 3 * _padding
-            height = _titleHeight
-            x = tarotImage.x + _tarotWidth + _padding
-            y = _totalHeight - _padding - _titleHeight
-        }
+//        title = Fonts.createWhiteTitle(configuration.title, _titleHeight).apply {
+//            width = w - _tarotWidth - 3 * _padding
+//            height = _titleHeight
+//            x = tarotImage.x + _tarotWidth + _padding
+//            y = _totalHeight - _padding - _titleHeight
+//        }
 
-        description = Fonts.createWhiteCaption(configuration.description, _lineHeight).apply {
-            width = w - _tarotWidth - 3 * _padding
-            height = _descHeight
-            setAlignment(Align.topLeft)
-            x = title.x
-            y = title.y - _descHeight
-            wrap = true
-        }
+//        description = Fonts.createWhiteCaption(configuration.description, _lineHeight).apply {
+//            width = w - _tarotWidth - 3 * _padding
+//            height = _descHeight
+//            setAlignment(Align.topLeft)
+//            x = title.x
+//            y = title.y - _descHeight
+//            wrap = true
+//        }
 
-        lore = Fonts.createCaptionAccent(configuration.lore, _lineHeight).apply {
-            width = description.width
-            height = _loreHeight
-            setAlignment(Align.topLeft)
-            x = description.x
-            y = tarotImage.y
-            wrap = true
-        }
+//        lore = Fonts.createCaptionAccent(configuration.lore, _lineHeight).apply {
+//            width = description.width
+//            height = _loreHeight
+//            setAlignment(Align.topLeft)
+//            x = description.x
+//            y = tarotImage.y
+//            wrap = true
+//        }
 
         addActor(tarotImage)
-        addActor(title)
-        addActor(description)
-        addActor(lore)
+//        addActor(title)
+//        addActor(description)
+//        addActor(lore)
 
         table = Group()
         table.height = _rowHeight * configuration.descriptionTable.size
@@ -82,31 +81,31 @@ class MonsterAbilityDetailActor(
                 width = _firstColumnWid
                 height = _rowHeight
             }
-            val columnTitleLabel = Fonts.createCaptionAccent(desc.title, _rowHeight).apply {
-                x = columnTitleBackground.x - _padding
-                y = columnTitleBackground.y
-                width = columnTitleBackground.width
-                height = columnTitleBackground.height
-                setAlignment(Align.right)
-
-            }
+//            val columnTitleLabel = Fonts.createCaptionAccent(desc.title, _rowHeight).apply {
+//                x = columnTitleBackground.x - _padding
+//                y = columnTitleBackground.y
+//                width = columnTitleBackground.width
+//                height = columnTitleBackground.height
+//                setAlignment(Align.right)
+//
+//            }
             val textBackground = Image(coreAtlas.createPatch("white_border")).apply {
                 x = columnTitleBackground.x + _firstColumnWid
                 y = columnTitleBackground.y
                 width = w - 2 * _padding - _firstColumnWid
                 height = _rowHeight
             }
-            val textLabel = Fonts.createWhiteCaption(desc.formatDescription(configuration.attributes), _rowHeight).apply {
-                x = textBackground.x + _padding
-                y = textBackground.y
-                width = textBackground.width
-                height = textBackground.height
-                setAlignment(Align.left)
-            }
+//            val textLabel = Fonts.createWhiteCaption(desc.formatDescription(configuration.attributes), _rowHeight).apply {
+//                x = textBackground.x + _padding
+//                y = textBackground.y
+//                width = textBackground.width
+//                height = textBackground.height
+//                setAlignment(Align.left)
+//            }
             table.addActor(columnTitleBackground)
-            table.addActor(columnTitleLabel)
+//            table.addActor(columnTitleLabel)
             table.addActor(textBackground)
-            table.addActor(textLabel)
+//            table.addActor(textLabel)
             h -= _rowHeight
         }
 

@@ -15,7 +15,6 @@ import com.pl00t.swipe_client.ux.IconedButton
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
-import com.pl00t.swipe_client.ux.Fonts
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
@@ -104,27 +103,27 @@ class BattleFinishActor(
             y = borderImage.y + this.height
         }
 
-        caption = Fonts.createWhiteTitle(if (result.victory) "Victory" else "Defeat", _ch)
-        caption.apply {
-            x = resultImage.x
-            y = resultImage.y
-            width = topBlockSize
-            height = _ch
-            setAlignment(Align.center)
-        }
+//        caption = Fonts.createWhiteTitle(if (result.victory) "Victory" else "Defeat", _ch)
+//        caption.apply {
+//            x = resultImage.x
+//            y = resultImage.y
+//            width = topBlockSize
+//            height = _ch
+//            setAlignment(Align.center)
+//        }
 
         val captionText = if (result.victory) "Victory shines upon the brave, as heroes forge their destiny amidst the shattered kingdoms."
         else "Defeat is but a stepping stone on the path to greatness, as the journey continues."
 
-        flavour = Fonts.createCaptionAccent(captionText, topBlockSize * 0.11f).apply {
-            width = topBlockSize * 0.8f
-            height = subBlockHeight - topBlockSize * 0.15f - subBlockHeight * 0.3f
-            wrap = true
-            setAlignment(Align.topLeft)
-            x = topBlockSize * 0.1f
-            y = subBlockHeight * 0.25f + topBlockSize * 0.15f
-        }
-        subBlockGroup.addActor(flavour)
+//        flavour = Fonts.createCaptionAccent(captionText, topBlockSize * 0.11f).apply {
+//            width = topBlockSize * 0.8f
+//            height = subBlockHeight - topBlockSize * 0.15f - subBlockHeight * 0.3f
+//            wrap = true
+//            setAlignment(Align.topLeft)
+//            x = topBlockSize * 0.1f
+//            y = subBlockHeight * 0.25f + topBlockSize * 0.15f
+//        }
+//        subBlockGroup.addActor(flavour)
 
         closeButton = IconedButton(iconedButtonWidth, iconedButtonHeight, "Continue Journey", "button_map", coreTextureAtlas, battleTextureAtlas)
         closeButton.apply {

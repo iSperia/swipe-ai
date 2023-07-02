@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.ux.IconedButton
 import com.pl00t.swipe_client.services.profile.CollectedReward
-import com.pl00t.swipe_client.ux.Fonts
 import ktx.actors.alpha
 import ktx.actors.onClick
 
@@ -21,7 +20,7 @@ class RewardDialog(
 ): Group() {
 
     val bg: Image
-    val title: Label
+//    val title: Label
     val closeButton: IconedButton
 
     val contentWidth = w * 0.9f
@@ -36,12 +35,12 @@ class RewardDialog(
             height = h
         }
 
-        title = Fonts.createWhiteTitle("Rewards", titleHeight).apply {
-            setAlignment(Align.center)
-            width = w
-            height = titleHeight
-            y = h - titleHeight
-        }
+//        title = Fonts.createWhiteTitle("Rewards", titleHeight).apply {
+//            setAlignment(Align.center)
+//            width = w
+//            height = titleHeight
+//            y = h - titleHeight
+//        }
 
         closeButton = IconedButton(contentWidth, closeButtonHeight, "Close", "icon_close", coreAtlas, coreAtlas, Align.right).apply {
             x = contentPadding
@@ -49,7 +48,7 @@ class RewardDialog(
         }
 
         addActor(bg)
-        addActor(title)
+//        addActor(title)
         addActor(closeButton)
 
         closeButton.onClick {
