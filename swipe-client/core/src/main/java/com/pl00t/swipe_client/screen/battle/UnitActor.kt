@@ -44,7 +44,7 @@ class UnitActor(
             this.height = s * w * region.originalHeight.toFloat() / region.originalWidth.toFloat()
         }
         addActor(characterImage)
-        healthBar = UnitHealthBarActor(w * 0.6f, w * 0.2f, context, health, maxHealth).apply {
+        healthBar = UnitHealthBarActor(w * 0.6f, w * 0.2f, context, skin, health, maxHealth).apply {
             x = if (team == 0) w * 0.2f else -w * 1.2f
             y = -5f
         }

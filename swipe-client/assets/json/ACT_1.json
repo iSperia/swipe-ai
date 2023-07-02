@@ -103,7 +103,7 @@
           "title": "Prince Valerian"
         }
       ],
-      "rewards": [
+      "freeReward": [
         {
           "type": "currency",
           "currency": {

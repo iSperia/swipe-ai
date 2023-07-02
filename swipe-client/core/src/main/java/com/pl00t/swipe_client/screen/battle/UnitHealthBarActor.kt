@@ -1,10 +1,10 @@
 package com.pl00t.swipe_client.screen.battle
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.SizeToAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
@@ -14,6 +14,7 @@ class UnitHealthBarActor(
     val w: Float,
     val h: Float,
     val context: SwipeContext,
+    val skin: Skin,
     health: Int,
     maxHealth: Int
 ): Group() {
@@ -30,11 +31,11 @@ class UnitHealthBarActor(
         x = 7f
         y = 7f
     }
-//    val healthText: Label = Fonts.createWhiteCaption("$health", h).apply {
-//        width = w
-//        height = h
-//        setAlignment(Align.center)
-//    }
+    val healthText: Label = Label("$health", skin, "text_small").apply {
+        width = w
+        height = h
+        setAlignment(Align.center)
+    }
 
     private var health = health
     private var maxHealth = maxHealth
@@ -43,7 +44,7 @@ class UnitHealthBarActor(
     init {
         addActor(background)
         addActor(foregound)
-//        addActor(healthText)
+        addActor(healthText)
         updateHealth(health, maxHealth)
     }
 

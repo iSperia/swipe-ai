@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Interpolation.SwingOut
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
@@ -123,8 +124,10 @@ class BattleFinishActor(
         resultBlockGroup.addActor(borderImage)
         addActor(caption)
 
-        KtxAsync.launch {
-            checkFreeRewardAvailable()
+        if (result.victory) {
+            KtxAsync.launch {
+                checkFreeRewardAvailable()
+            }
         }
 
         closeButton.onClick {
@@ -155,6 +158,8 @@ class BattleFinishActor(
                         y = this@BattleFinishActor.y
                     }
                     stage.addActor(rewardsDialog)
+                    freeRewardButton.touchable = Touchable.disabled
+                    freeRewardButton.isVisible = false
                 }
             }
             subBlockGroup.addActor(freeRewardButton)
