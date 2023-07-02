@@ -102,6 +102,7 @@ class TileActor(
         if (arcVisible) {
             batch.end()
             polygonBatch.begin()
+            polygonBatch.projectionMatrix = batch.projectionMatrix
             bufferVector.set(0f, 0f)
             localToStageCoordinates(bufferVector)
 

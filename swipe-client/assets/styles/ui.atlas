@@ -48,7 +48,7 @@ TIME_SHARD
   index: -1
 black_pixel
   rotate: false
-  xy: 1235, 1317
+  xy: 1544, 1746
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -62,7 +62,7 @@ button_attack
   index: -1
 button_pressed
   rotate: false
-  xy: 1544, 1802
+  xy: 2, 2
   size: 102, 30
   split: 13, 30, 14, 9
   orig: 102, 30
@@ -70,15 +70,23 @@ button_pressed
   index: -1
 button_simple
   rotate: false
-  xy: 2, 2
+  xy: 260, 260
   size: 102, 30
   split: 18, 32, 12, 14
   orig: 102, 30
   offset: 0, 0
   index: -1
+dialog_bubble
+  rotate: false
+  xy: 1544, 1749
+  size: 256, 83
+  split: 124, 84, 29, 48
+  orig: 256, 83
+  offset: 0, 0
+  index: -1
 opaque_black
   rotate: false
-  xy: 1030, 1129
+  xy: 1235, 1317
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -93,14 +101,14 @@ panelBg
   index: -1
 panel_bg
   rotate: false
-  xy: 260, 260
+  xy: 516, 720
   size: 78, 30
   orig: 78, 30
   offset: 0, 0
   index: -1
 panel_line
   rotate: false
-  xy: 516, 746
+  xy: 1030, 1126
   size: 78, 4
   orig: 78, 4
   offset: 0, 0

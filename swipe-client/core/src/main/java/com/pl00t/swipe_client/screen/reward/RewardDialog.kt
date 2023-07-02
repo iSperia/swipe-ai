@@ -1,55 +1,58 @@
 package com.pl00t.swipe_client.screen.reward
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.badlogic.gdx.scenes.scene2d.ui.Label
-import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.ux.IconedButton
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.pl00t.swipe_client.Atlases
+import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.services.profile.CollectedReward
+import com.pl00t.swipe_client.ux.Buttons
+import com.pl00t.swipe_client.ux.ScreenTitle
 import ktx.actors.alpha
 import ktx.actors.onClick
 
 class RewardDialog(
-    private val w: Float,
-    private val h: Float,
     private val rewards: List<CollectedReward>,
-    private val coreAtlas: TextureAtlas,
-    private val uxAtlas: TextureAtlas,
+    private val context: SwipeContext,
+    private val skin: Skin
 ): Group() {
 
     val bg: Image
-//    val title: Label
-    val closeButton: IconedButton
+    val fg: Image
+    val title: Actor
+    val closeButton: TextButton
 
-    val contentWidth = w * 0.9f
-    val contentPadding = (w - contentWidth) / 2f
-    val titleHeight = h * 0.1f
-    val entryHeight = h * 0.1f
-    val closeButtonHeight = h * 0.08f
+    val scroll: ScrollPane
 
     init {
-        bg = Image(uxAtlas.createPatch("panelBg")).apply {
-            width = w
-            height = h
+        fg = Image(context.commonAtlas(Atlases.COMMON_BATTLE).createPatch("panel_border")).apply {
+            width = 400f
+            height = 720f
+            touchable = Touchable.disabled
+        }
+        bg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("opaque_black")).apply {
+            width = 400f
+            height = 720f
         }
 
-//        title = Fonts.createWhiteTitle("Rewards", titleHeight).apply {
-//            setAlignment(Align.center)
-//            width = w
-//            height = titleHeight
-//            y = h - titleHeight
-//        }
-
-        closeButton = IconedButton(contentWidth, closeButtonHeight, "Close", "icon_close", coreAtlas, coreAtlas, Align.right).apply {
-            x = contentPadding
-            y = contentPadding * 2f
+        title = ScreenTitle.createScreenTitle(context, skin, "Rewards").apply {
+            x = 20f
+            y = 690f
         }
 
-        addActor(bg)
-//        addActor(title)
-        addActor(closeButton)
+        closeButton = Buttons.createActionButton("Close", skin).apply {
+            x = 100f
+            width = 200f
+            y = 10f
+        }
+
+
 
         closeButton.onClick {
             this@RewardDialog.addAction(Actions.sequence(
@@ -58,19 +61,29 @@ class RewardDialog(
             ))
         }
 
-        var nowY = h - titleHeight - entryHeight
-        rewards.forEach { reward ->
+        val rewardTable = Table()
+        rewards.forEach {  reward ->
             when (reward) {
                 is CollectedReward.CollectedCurrencyReward -> {
-                    val entryActor = CurrencyRewardEntryActor(contentWidth, entryHeight, reward, uxAtlas).apply {
-                        x = contentPadding
-                        y = nowY
-                    }
-                    addActor(entryActor)
+                    val entryActor = CurrencyRewardEntryActor(reward, context, skin)
+                    rewardTable.add(entryActor).padBottom(5f).top()
+                    rewardTable.row()
                 }
             }
-            nowY -= entryHeight
         }
+
+        scroll = ScrollPane(rewardTable).apply {
+            x = 20f
+            y = 50f
+            width = 360f
+            height = 640f
+        }
+
+        addActor(bg)
+        addActor(closeButton)
+        addActor(scroll)
+        addActor(fg)
+        addActor(title)
 
         alpha = 0f
         addAction(Actions.alpha(1f, 0.4f))

@@ -1,57 +1,56 @@
 package com.pl00t.swipe_client.screen.battle
 
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
+import com.pl00t.swipe_client.Atlases
+import com.pl00t.swipe_client.SwipeContext
 import ktx.actors.repeatForever
 
 class UltimateProgressActor(
-    private val taBattle: TextureAtlas,
-    private val w: Float,
-    private val h: Float
+    private val context: SwipeContext,
+    private val skin: Skin
 ) : Group() {
 
     var imageBg: Image
     var iProgress: Image
-//    var description: Label
+    var description: Label
     var foreground: Image
 
     var progress: Float = 0f
 
     init {
-        imageBg = Image(taBattle.findRegion("semi_black_pixel")).apply {
-            this.width = w * 0.9f
-            this.height = h * 0.9f
+        imageBg = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("semi_black_pixel")).apply {
+            this.width = 270f
+            this.height = 45f
             setScaling(Scaling.stretch)
-            this.x = 0.05f * w
-            this.y = 0.05f * h
         }
         addActor(imageBg)
-        iProgress = Image(taBattle.findRegion("ult_progress")).apply {
+        iProgress = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("ult_progress")).apply {
             this.width = 0f
-            this.height = h * 0.8f
+            this.height = 35f
             setScaling(Scaling.stretch)
-            this.x = 0.05f * w
-            this.y = 0.1f * h
+            this.x = 20f
+            this.y = 5f
             setOrigin(Align.center)
         }
         addActor(iProgress)
-//        description = Fonts.createWhiteCaption("Fill for ultimate", h).apply {
-//            this.width = w
-//            this.height = h
-//            setAlignment(Align.center)
-//            this.x = 0f
-//            this.y = 0f
-//        }
-//        addActor(description)
-        foreground = Image(taBattle.findRegion("ult_progress_fg")).apply {
-            this.width = w
-            this.height = h
+        description = Label("Fill for ultimate", skin, "text_small").apply {
+            this.width = 270f
+            this.height = 45f
+            setAlignment(Align.center)
+            this.x = 0f
+            this.y = 0f
+        }
+        addActor(description)
+        foreground = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("ult_progress_fg")).apply {
+            this.width = 270f
+            this.height = 45f
             setScaling(Scaling.stretch)
         }
         addActor(foreground)
@@ -61,14 +60,14 @@ class UltimateProgressActor(
         if (this.progress != progress) {
             this.progress = progress
             if (progress == 1f) {
-//                description.color = Color.RED
-//                description.setText("Ultimate ready!")
-//                description.addAction(
-//                    Actions.sequence(
-//                        Actions.color(Color.WHITE, 0.1f),
-//                        Actions.color(Color.RED, 0.1f)
-//                    ).repeatForever()
-//                )
+                description.color = Color.RED
+                description.setText("Ultimate ready!")
+                description.addAction(
+                    Actions.sequence(
+                        Actions.color(Color.WHITE, 0.1f),
+                        Actions.color(Color.RED, 0.1f)
+                    ).repeatForever()
+                )
                 iProgress.addAction(
                     Actions.sequence(
                         Actions.parallel(
@@ -82,13 +81,13 @@ class UltimateProgressActor(
                     ).repeatForever()
                 )
             } else {
-//                description.color = Color.WHITE
-//                description.setText("Fill to ultimate")
-//                iProgress.clearActions()
-//                description.clearActions()
+                description.color = Color.WHITE
+                description.setText("Fill to ultimate")
+                iProgress.clearActions()
+                description.clearActions()
             }
         }
-        val newWidth = 0.9f * w * progress
+        val newWidth = progress * 230f
         iProgress.addAction(Actions.sizeTo(newWidth, iProgress.height, 0.5f))
     }
 }

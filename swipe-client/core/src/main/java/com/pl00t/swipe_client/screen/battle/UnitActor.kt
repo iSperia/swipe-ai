@@ -7,6 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction
 import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.pl00t.swipe_client.Atlases
+import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.services.battle.logic.Effect
 import ktx.actors.along
 import ktx.actors.repeatForever
@@ -17,8 +20,8 @@ class UnitActor(
     health: Int,
     maxHealth: Int,
     var effects: List<Effect>,
-    val taBattle: TextureAtlas,
-    val atlas: TextureAtlas,
+    val context: SwipeContext,
+    val skin: Skin,
     val texture: String,
     val team: Int,
     val w: Float,//character width
@@ -31,15 +34,17 @@ class UnitActor(
     private var health: Int = health
     private var maxHealth: Int = maxHealth
 
+    var popupDelay: Float = 0f
+
     init {
-        val region = atlas.findRegion(texture)
+        val region = context.commonAtlas(Atlases.COMMON_UNITS).findRegion(texture)
         characterImage = Image(region).apply {
             this.scaleX = if (team == 0) 1f else -1f
             this.width = s * w
             this.height = s * w * region.originalHeight.toFloat() / region.originalWidth.toFloat()
         }
         addActor(characterImage)
-        healthBar = UnitHealthBarActor(w * 0.6f, w * 0.2f, taBattle, health, maxHealth).apply {
+        healthBar = UnitHealthBarActor(w * 0.6f, w * 0.2f, context, health, maxHealth).apply {
             x = if (team == 0) w * 0.2f else -w * 1.2f
             y = -5f
         }
@@ -53,6 +58,12 @@ class UnitActor(
         }).repeatForever()
 
         characterImage.addAction(breath)
+    }
+
+    override fun act(delta: Float) {
+        super.act(delta)
+        popupDelay -= delta
+        if (popupDelay < 0f) popupDelay = 0f
     }
 
     fun animateAppear() {

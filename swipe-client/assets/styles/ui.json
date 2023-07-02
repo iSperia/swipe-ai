@@ -25,6 +25,10 @@
       font: caption_regular
       fontColor: accent_color
     },
+    damage_popup: {
+      font: caption_regular
+      fontColor: white_color
+    },
     text_regular: {
       font: text_large
       fontColor: main_color
@@ -32,6 +36,10 @@
     text_small: {
       font: text_small
       fontColor: white_color
+    }
+    lore_medium: {
+      font: text_large
+      fontColor: rarity_5
     }
     text_small_accent: {
       font: text_small

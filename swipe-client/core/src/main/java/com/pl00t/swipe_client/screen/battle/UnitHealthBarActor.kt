@@ -7,21 +7,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
+import com.pl00t.swipe_client.Atlases
+import com.pl00t.swipe_client.SwipeContext
 
 class UnitHealthBarActor(
     val w: Float,
     val h: Float,
-    val taBattle: TextureAtlas,
+    val context: SwipeContext,
     health: Int,
     maxHealth: Int
 ): Group() {
 
-    val background: Image = Image(taBattle.createPatch("healthbar_bg")).apply {
+    val background: Image = Image(context.commonAtlas(Atlases.COMMON_BATTLE).createPatch("healthbar_bg")).apply {
         width = w
         height = h
         setScaling(Scaling.stretch)
     }
-    val foregound: Image = Image(taBattle.findRegion("healthbar_fg")).apply {
+    val foregound: Image = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("healthbar_fg")).apply {
         width = w - 14f
         height = h - 14f
         setScaling(Scaling.stretch)
