@@ -55,7 +55,7 @@ button_attack
   index: -1
 button_pressed
   rotate: false
-  xy: 260, 390
+  xy: 718, 904
   size: 204, 60
   split: 26, 24, 31, 20
   orig: 204, 60
@@ -63,7 +63,7 @@ button_pressed
   index: -1
 button_simple
   rotate: false
-  xy: 718, 904
+  xy: 1230, 1418
   size: 204, 60
   split: 19, 59, 26, 24
   orig: 204, 60
@@ -96,5 +96,12 @@ panelBg
   size: 203, 186
   split: 31, 33, 32, 39
   orig: 203, 186
+  offset: 0, 0
+  index: -1
+title_background
+  rotate: false
+  xy: 260, 384
+  size: 214, 66
+  orig: 214, 66
   offset: 0, 0
   index: -1
