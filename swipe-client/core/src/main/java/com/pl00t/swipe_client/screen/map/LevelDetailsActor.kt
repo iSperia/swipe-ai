@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
-import com.pl00t.swipe_client.screen.ux.IconedButton
 import com.pl00t.swipe_client.services.battle.UnitSkin
 import com.pl00t.swipe_client.ux.Fonts
+import com.pl00t.swipe_client.ux.IconedButton
 import ktx.actors.alpha
 import ktx.actors.onClick
 
@@ -43,7 +43,7 @@ class LevelDetailsActor(
     val locationDescriptionLabel: Label
 
     private val _titleHeight = width * 0.1f
-    private val _bw = width * 0.4f
+    private val _bw = width * 0.5f
     private val _bh = width * 0.12f
 
     var callback: LevelDetailsCallback? = null
@@ -68,7 +68,7 @@ class LevelDetailsActor(
         }
 
         startButton = IconedButton(_bw, _bh, "To Battle!", "button_attack", coreAtlas, uxAtlas).apply {
-            x = width * 0.55f
+            x = width * 0.45f
             y = width * 0.05f
         }
         startButton.onClick { attackAction(locationId) }

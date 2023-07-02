@@ -217,7 +217,7 @@
       "skin": "MONSTER_THORNSTALKER",
       "name": "Thornstalker",
       "lore": "Born from the twisted roots of ancient trees, the Thornstalker prowls the shadows with its razor-sharp thorns, a fearsome guardian of the corrupted groves.",
-      "baseHealth": 1,
+      "baseHealth": 30,
       "tileConfig": { "entries": [
         {"tile": "THORNSTALKER_PRIMAL_ASSAULT", "weight":  5},
         {"tile": "THORNSTALKER_RESILIENT_GROWTH", "weight":  3},

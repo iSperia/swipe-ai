@@ -1,11 +1,9 @@
-package com.pl00t.swipe_client.screen.ux
+package com.pl00t.swipe_client.ux
 
-import com.badlogic.gdx.Graphics.DisplayMode
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.ux.Fonts
 
 class IconedButton(
     val w: Float,
@@ -17,9 +15,10 @@ class IconedButton(
     val align: Int = Align.right,
 ) : Group() {
 
-    val background = Image(coreTextureAtlas.findRegion("button_bg"))
+    val background = Image(coreTextureAtlas.createPatch("button_simple"))
     val iconImage = Image(textureAtlas.findRegion(icon))
     val captionText = Fonts.createWhiteCaption(text, h)
+    val padding = h * 0.1f
 
     init {
         background.apply {
@@ -32,10 +31,10 @@ class IconedButton(
             x = if (this@IconedButton.align == Align.left) 0f else w - h
         }
         captionText.apply {
-            width = w - h - h * 0.05f
+            width = w - h - padding
             height = h
             setAlignment(align)
-            x = if (align == Align.left) h * 1.05f else h * 0.05f
+            x = if (align == Align.left) h + padding else 0f
         }
         addActor(background)
         addActor(iconImage)

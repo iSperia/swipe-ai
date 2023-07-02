@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.reward.RewardDialog
-import com.pl00t.swipe_client.screen.ux.IconedButton
+import com.pl00t.swipe_client.ux.IconedButton
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct

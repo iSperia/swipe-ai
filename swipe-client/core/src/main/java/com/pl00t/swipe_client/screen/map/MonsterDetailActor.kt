@@ -1,6 +1,5 @@
 package com.pl00t.swipe_client.screen.map
 
-import com.badlogic.gdx.graphics.TextureArray
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -9,13 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
-import com.pl00t.swipe_client.screen.ux.IconedButton
+import com.pl00t.swipe_client.ux.IconedButton
 import com.pl00t.swipe_client.services.battle.MonsterConfiguration
 import com.pl00t.swipe_client.ux.Fonts
 import com.pl00t.swipe_client.ux.hideToBehindAndRemove
 import ktx.actors.onClick
 import kotlin.math.max
-import kotlin.math.min
 
 private enum class DisplayMode {
     DESCRIPTION,

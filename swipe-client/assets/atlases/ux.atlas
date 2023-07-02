@@ -53,6 +53,22 @@ button_attack
   orig: 256, 256
   offset: 0, 0
   index: -1
+button_pressed
+  rotate: false
+  xy: 260, 390
+  size: 204, 60
+  split: 26, 24, 31, 20
+  orig: 204, 60
+  offset: 0, 0
+  index: -1
+button_simple
+  rotate: false
+  xy: 718, 904
+  size: 204, 60
+  split: 19, 59, 26, 24
+  orig: 204, 60
+  offset: 0, 0
+  index: -1
 map_icon_boss
   rotate: false
   xy: 516, 764

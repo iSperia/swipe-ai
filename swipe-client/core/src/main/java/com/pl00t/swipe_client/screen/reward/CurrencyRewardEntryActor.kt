@@ -20,7 +20,7 @@ class CurrencyRewardEntryActor(
     val title: Label
     val amountLabel: Label
 
-    val titleHeight = h * 0.6f
+    val titleHeight = h * 0.55f
     val amountHeight = h - titleHeight
     val padding = h * 0.05f
 
@@ -36,7 +36,7 @@ class CurrencyRewardEntryActor(
         }
         amountLabel = Fonts.createCaptionAccent("x${reward.amount}", amountHeight).apply {
             x = h + padding
-            setAlignment(Align.left)
+            setAlignment(Align.topLeft)
         }
 
         addActor(image)
