@@ -315,7 +315,7 @@
       "type": "BOSS",
       "id": "c8",
       "title": "Xalithar, the Crystal Goliath",
-      "background": "crystal_coves",
+      "background": "vines_of_earth",
       "description": "Description: Xalithar is a towering, crystalline behemoth formed from the fused shards of the shattered Ethereal Crystal. Its body emanates a pulsating glow, and shards of various colors protrude from its massive form. Xalithar's eyes glow with a malevolent energy, reflecting the corrupted power it has absorbed.",
       "monsters": [
         [
@@ -441,7 +441,7 @@
       "type": "RAID",
       "id": "r2",
       "title": "The Veins of the Earth",
-      "background": "crystal_coves",
+      "background": "vines_of_earth",
       "description": "Descend into the depths of the Crystal Caverns, a mesmerizing network of glittering crystals and treacherous pathways. These subterranean chambers are rich with precious minerals and hidden wonders, attracting adventurers seeking to harness the mystical energy pulsating within the crystalline walls.",
       "monsters": [
         [
