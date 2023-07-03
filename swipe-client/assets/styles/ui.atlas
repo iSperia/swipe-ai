@@ -6,63 +6,63 @@ filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
 ESSENCE_FRAGMENT
   rotate: false
-  xy: 2, 292
+  xy: 0, 290
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 ETHERIUM_COIN
   rotate: false
-  xy: 516, 1320
+  xy: 514, 1318
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 EXPERIENCE_CRYSTAL
   rotate: false
-  xy: 1030, 1320
+  xy: 514, 804
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 EXPERIENCE_RELIC
   rotate: false
-  xy: 2, 1320
+  xy: 0, 1318
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 SPARK_OF_INSIGHT
   rotate: false
-  xy: 516, 806
-  size: 512, 512
-  orig: 512, 512
+  xy: 0, 32
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 TIME_SHARD
   rotate: false
-  xy: 2, 806
+  xy: 0, 804
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 black_pixel
   rotate: false
-  xy: 1544, 1746
+  xy: 1286, 1744
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 button_attack
   rotate: false
-  xy: 2, 34
+  xy: 1028, 1574
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 button_pressed
   rotate: false
-  xy: 2, 2
+  xy: 0, 0
   size: 102, 30
   split: 13, 30, 14, 9
   orig: 102, 30
@@ -70,7 +70,7 @@ button_pressed
   index: -1
 button_simple
   rotate: false
-  xy: 260, 260
+  xy: 258, 258
   size: 102, 30
   split: 18, 32, 12, 14
   orig: 102, 30
@@ -78,7 +78,7 @@ button_simple
   index: -1
 dialog_bubble
   rotate: false
-  xy: 1544, 1749
+  xy: 1286, 1747
   size: 256, 83
   split: 124, 84, 29, 48
   orig: 256, 83
@@ -86,14 +86,14 @@ dialog_bubble
   index: -1
 opaque_black
   rotate: false
-  xy: 1235, 1317
+  xy: 1233, 1571
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 panelBg
   rotate: false
-  xy: 1030, 1132
+  xy: 1028, 1386
   size: 203, 186
   split: 31, 33, 32, 39
   orig: 203, 186
@@ -101,28 +101,28 @@ panelBg
   index: -1
 panel_bg
   rotate: false
-  xy: 516, 720
+  xy: 514, 718
   size: 78, 30
   orig: 78, 30
   offset: 0, 0
   index: -1
 panel_line
   rotate: false
-  xy: 1030, 1126
+  xy: 1028, 1380
   size: 78, 4
   orig: 78, 4
   offset: 0, 0
   index: -1
 title_background
   rotate: false
-  xy: 516, 752
+  xy: 514, 750
   size: 440, 52
   orig: 440, 52
   offset: 0, 0
   index: -1
 white_border
   rotate: false
-  xy: 958, 799
+  xy: 956, 797
   size: 5, 5
   split: 1, 1, 1, 1
   orig: 5, 5

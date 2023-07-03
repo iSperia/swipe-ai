@@ -3,6 +3,8 @@ package com.pl00t.swipe_client.services.profile
 import com.badlogic.gdx.Gdx
 import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
+import com.pl00t.swipe_client.services.battle.UnitSkin
+import com.pl00t.swipe_client.services.battle.logic.CharacterAttributes
 import com.pl00t.swipe_client.services.levels.FrontActModel
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelRewardType
@@ -70,7 +72,14 @@ class ProfileServiceImpl(
                         listOf("c1")
                     )
                 ),
-                rewardsCollected = emptyList()
+                rewardsCollected = emptyList(),
+                characters = listOf(
+                    SwipeCharacter(
+                        skin = UnitSkin.CHARACTER_VALERIAN,
+                        attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                        level = SwipeCharacterLevelInfo(0L, 1000L, 1)
+                    )
+                )
             )
         }
     }

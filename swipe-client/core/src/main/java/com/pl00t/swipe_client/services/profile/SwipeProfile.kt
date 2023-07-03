@@ -1,5 +1,8 @@
 package com.pl00t.swipe_client.services.profile
 
+import com.pl00t.swipe_client.services.battle.UnitSkin
+import com.pl00t.swipe_client.services.battle.logic.CharacterAttributes
+
 enum class SwipeCurrency {
     ETHERIUM_COIN, ESSENCE_FRAGMENT, TIME_SHARD, SPARK_OF_INSIGHT, EXPERIENCE_CRYSTAL, EXPERIENCE_RELIC
 }
@@ -18,15 +21,28 @@ data class ActProgress(
     val levelsAvailable: List<String>,
 )
 
+data class SwipeCharacterLevelInfo(
+    val experience: Long,
+    val maxExperience: Long,
+    val level: Int,
+)
+
 data class ActCollectedReward(
     val act: SwipeAct,
-    val level: String,
+    val level: String
+)
+
+data class SwipeCharacter(
+    val skin: UnitSkin,
+    val attributes: CharacterAttributes,
+    val level: SwipeCharacterLevelInfo,
 )
 
 data class SwipeProfile(
     val balances: List<CurrencyBalance>,
     val actProgress: List<ActProgress>,
-    val rewardsCollected: List<ActCollectedReward>?
+    val rewardsCollected: List<ActCollectedReward>?,
+    val characters: List<SwipeCharacter>
 ) {
     private fun getRewardsCollectedOrEmpty() = rewardsCollected ?: emptyList()
 

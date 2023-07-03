@@ -85,10 +85,30 @@ class SwipeProcesor(private val monsterService: MonsterService) {
         }
         character = character.updateField(fc)
         if (mergedCount > 0) {
-            val comboAmount = (mergedCount + 10f * (1f + 0.05f * character.attributes.mind + 0.5f * character.combo)).toInt()
+            val comboAmount = (mergedCount + 10f * (1f + 0.05f * character.attributes.mind)).toInt()
             val newUltimateProgress = min(character.maxUltimateProgress, character.ultimateProgress + comboAmount)
             character = character.updateUltimateProgress(character.combo + 1, newUltimateProgress)
             events.add(BattleEvent.UltimateProgressEvent(character.id, character.ultimateProgress, character.maxUltimateProgress))
+
+            if (newUltimateProgress >= character.maxUltimateProgress) {
+                val positions = (0 until 25).filter { p -> character.field.tiles.none { it.layer == 5 && it.x == p%5 && it.y ==p/5 } }.take(10)
+                positions.forEach { p ->
+                    val tile = generateTile(p, character.tileConfig, character.field.maxTileId)
+                    character = character.addTile(tile)
+                    events.add(BattleEvent.CreateTileEvent(
+                        unitId = character.id,
+                        id = tile.id,
+                        x = tile.x,
+                        y = tile.y,
+                        skin = tile.skin,
+                        stack = tile.progress,
+                        maxStack = tile.maxProgress,
+                        layer = tile.layer,
+                        type = tile.type,
+                    ))
+                }
+                character = character.updateUltimateProgress(0, 0)
+            }
         } else {
             character = character.updateUltimateProgress(0, character.ultimateProgress)
         }
