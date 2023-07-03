@@ -75,7 +75,7 @@ class BattleServiceImpl(
         val createResults = processor.createBattle(configuration!!, battle, 0)
         createResults.events.forEach { events.emit(it) }
         battle = createResults.battle
-        return BattleDecorations("groves")
+        return BattleDecorations(levelModel.background)
     }
 
     override suspend fun events(): Flow<BattleEvent> = events.filterNot {

@@ -217,7 +217,7 @@
       "type": "BOSS",
       "id": "c4",
       "title": "Thalendros, the Corrupted Treant",
-      "background": "groves",
+      "background": "enchanted_sanctuary",
       "description": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
       "monsters": [
         [
@@ -420,7 +420,7 @@
       "type": "RAID",
       "id": "r1",
       "title": "The Enchanted Sanctuary",
-      "background": "groves",
+      "background": "enchanted_sanctuary",
       "description": "Immerse yourself in the lush and mystical Verdant Groves, where ancient spirits dwell amidst towering trees. Harness the power of nature as you venture deeper into this sacred haven, seeking rare treasures and materials that hold the secrets of life itself.",
       "monsters": [
         [

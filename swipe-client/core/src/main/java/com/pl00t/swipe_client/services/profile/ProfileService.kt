@@ -73,13 +73,13 @@ class ProfileServiceImpl(
                     )
                 ),
                 rewardsCollected = emptyList(),
-                characters = listOf(
-                    SwipeCharacter(
-                        skin = UnitSkin.CHARACTER_VALERIAN,
-                        attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
-                        level = SwipeCharacterLevelInfo(0L, 1000L, 1)
-                    )
-                )
+//                characters = listOf(
+//                    SwipeCharacter(
+//                        skin = UnitSkin.CHARACTER_VALERIAN,
+//                        attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+//                        level = SwipeCharacterLevelInfo(0L, 1000L, 1)
+//                    )
+//                )
             )
         }
     }

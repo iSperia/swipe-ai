@@ -1,1 +1,1 @@
-{"balances":[{"currency":"ETHERIUM_COIN","amount":2450},{"currency":"SPARK_OF_INSIGHT","amount":46},{"currency":"ESSENCE_FRAGMENT","amount":3}],"actProgress":[{"act":"ACT_1","levelsAvailable":["c1","c2","c3","c4","r1"]}],"rewardsCollected":[]}
+{"balances":[{"currency":"ETHERIUM_COIN","amount":2450},{"currency":"SPARK_OF_INSIGHT","amount":46},{"currency":"ESSENCE_FRAGMENT","amount":3}],"actProgress":[{"act":"ACT_1","levelsAvailable":["c1","c2","c3","c4","r1","c5"]}],"rewardsCollected":[]}

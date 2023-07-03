@@ -42,7 +42,7 @@ data class SwipeProfile(
     val balances: List<CurrencyBalance>,
     val actProgress: List<ActProgress>,
     val rewardsCollected: List<ActCollectedReward>?,
-    val characters: List<SwipeCharacter>
+//    val characters: List<SwipeCharacter>
 ) {
     private fun getRewardsCollectedOrEmpty() = rewardsCollected ?: emptyList()
 
