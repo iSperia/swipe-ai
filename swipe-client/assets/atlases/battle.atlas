@@ -6,49 +6,49 @@ filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
 bg_victory
   rotate: false
-  xy: 0, 1023
+  xy: 0, 923
   size: 1024, 1024
   orig: 1024, 1024
   offset: 0, 0
   index: -1
 button_map
   rotate: false
-  xy: 0, 130
+  xy: 1026, 1317
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 cold
   rotate: false
-  xy: 1026, 1423
+  xy: 410, 639
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 dark
   rotate: false
-  xy: 1231, 1605
+  xy: 0, 130
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 fire
   rotate: false
-  xy: 770, 893
+  xy: 770, 793
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 heal
   rotate: false
-  xy: 1670, 1919
+  xy: 1670, 1819
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 healthbar_bg
   rotate: false
-  xy: 258, 683
+  xy: 205, 454
   size: 128, 25
   split: 8, 8, 8, 8
   orig: 128, 25
@@ -56,28 +56,28 @@ healthbar_bg
   index: -1
 healthbar_fg
   rotate: false
-  xy: 1930, 2032
+  xy: 1930, 1932
   size: 118, 15
   orig: 118, 15
   offset: 0, 0
   index: -1
 icon_free_reward
   rotate: false
-  xy: 1026, 1293
+  xy: 1026, 1187
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 light
   rotate: false
-  xy: 1540, 1919
+  xy: 1540, 1819
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 panelBg
   rotate: false
-  xy: 1026, 1711
+  xy: 0, 581
   size: 203, 186
   split: 31, 33, 32, 39
   orig: 203, 186
@@ -85,7 +85,7 @@ panelBg
   index: -1
 panel_border
   rotate: false
-  xy: 0, 423
+  xy: 1026, 1611
   size: 203, 186
   split: 33, 34, 32, 38
   orig: 203, 186
@@ -93,14 +93,16 @@ panel_border
   index: -1
 panel_border_no_top
   rotate: false
-  xy: 258, 710
+  xy: 0, 422
   size: 203, 157
+  split: 33, 37, 0, 157
+  pad: 33, 37, -1, -1
   orig: 203, 157
   offset: 0, 0
   index: -1
 panel_border_no_top_filled
   rotate: false
-  xy: 1026, 1553
+  xy: 205, 611
   size: 203, 156
   split: 34, 37, 3, 41
   orig: 203, 156
@@ -108,28 +110,35 @@ panel_border_no_top_filled
   index: -1
 physical
   rotate: false
-  xy: 1800, 1919
+  xy: 1800, 1819
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 progress_active
   rotate: false
-  xy: 0, 260
+  xy: 1231, 1636
   size: 179, 161
   orig: 179, 161
   offset: 0, 0
   index: -1
+progress_active2
+  rotate: false
+  xy: 0, 260
+  size: 175, 160
+  orig: 175, 160
+  offset: 0, 0
+  index: -1
 progress_inactive
   rotate: false
-  xy: 1231, 1735
+  xy: 1026, 1447
   size: 180, 162
   orig: 180, 162
   offset: 0, 0
   index: -1
 semi_black_pixel
   rotate: false
-  xy: 205, 608
+  xy: 1208, 1608
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -141,37 +150,30 @@ shock
   orig: 128, 128
   offset: 0, 0
   index: -1
-tbg
-  rotate: false
-  xy: 0, 611
-  size: 256, 256
-  orig: 256, 256
-  offset: 0, 0
-  index: -1
 tile_bg
   rotate: false
-  xy: 463, 739
+  xy: 205, 481
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 ult_progress
   rotate: false
-  xy: 1026, 1899
+  xy: 1026, 1799
   size: 512, 148
   orig: 512, 148
   offset: 0, 0
   index: -1
 ult_progress_fg
   rotate: false
-  xy: 0, 869
+  xy: 0, 769
   size: 768, 152
   orig: 768, 152
   offset: 0, 0
   index: -1
 weak
   rotate: false
-  xy: 593, 739
+  xy: 540, 639
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

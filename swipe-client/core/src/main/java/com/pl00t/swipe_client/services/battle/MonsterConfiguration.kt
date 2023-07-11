@@ -1,6 +1,7 @@
 package com.pl00t.swipe_client.services.battle
 
 import com.google.gson.JsonObject
+import com.pl00t.swipe_client.services.battle.logic.CharacterAttributes
 import com.pl00t.swipe_client.services.battle.logic.TileSkin
 import com.pl00t.swipe_client.services.battle.logic.processor.TileGeneratorConfig
 
@@ -45,6 +46,7 @@ data class MonsterConfiguration(
     val skin: UnitSkin,
     val name: String,
     val baseHealth: Int,
+    val attributes: CharacterAttributes,
     val tileConfig: TileGeneratorConfig,
     val scale: Float,
     val lore: String,
@@ -56,6 +58,7 @@ data class MonsterConfiguration(
             skin = UnitSkin.CHARACTER_VALERIAN,
             name = "Cabbage Head",
             baseHealth = 10,
+            attributes = CharacterAttributes(0, 0, 0),
             tileConfig = TileGeneratorConfig(emptyList()),
             abilities = emptyList(),
             scale = 1f,

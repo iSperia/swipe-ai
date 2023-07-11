@@ -3,32 +3,38 @@
     {
       "currency": "ETHERIUM_COIN",
       "name": "Etherium Coin",
-      "lore": "Etherium coins, shimmering metallic discs infused with ethereal energy, the currency of choice in the shattered realms."
+      "lore": "Etherium coins, shimmering metallic discs infused with ethereal energy, the currency of choice in the shattered realms.",
+      "rarity": 0
     },
     {
       "currency": "TIME_SHARD",
       "name": "Time Shard",
-      "lore": "Legends speak of the elusive Time Shards, crystalline fragments imbued with the essence of temporal energy. These shards are said to be remnants of the fabric of time itself, possessing the power to manipulate the flow of hours and minutes."
+      "lore": "Legends speak of the elusive Time Shards, crystalline fragments imbued with the essence of temporal energy. These shards are said to be remnants of the fabric of time itself, possessing the power to manipulate the flow of hours and minutes.",
+      "rarity": 4
     },
     {
       "currency": "ESSENCE_FRAGMENT",
       "name": "Essence Fragment",
-      "lore": " Essence Fragments are valuable fragments of power scattered throughout the realms. By collecting these ethereal shards, you can unlock and access the abundant rewards and treasures hidden within the kingdom's depths. Utilize the Essence Fragments wisely to uncover the secrets and forge your path to victory."
+      "lore": " Essence Fragments are valuable fragments of power scattered throughout the realms. By collecting these ethereal shards, you can unlock and access the abundant rewards and treasures hidden within the kingdom's depths. Utilize the Essence Fragments wisely to uncover the secrets and forge your path to victory.",
+      "rarity": 0
     },
     {
       "currency": "SPARK_OF_INSIGHT",
       "name": "Spark of Insight",
-      "lore": "A fragment imbued with the essence of knowledge, offering a glimpse into the mysteries of the world."
+      "lore": "A fragment imbued with the essence of knowledge, offering a glimpse into the mysteries of the world.",
+      "rarity": 1
     },
     {
       "currency": "EXPERIENCE_CRYSTAL",
       "name": "Essence of Growth",
-      "lore": "A crystal resonating with the life force of the world, bestowing its wisdom upon those who seek to grow."
+      "lore": "A crystal resonating with the life force of the world, bestowing its wisdom upon those who seek to grow.",
+      "rarity": 3
     },
     {
       "currency": "EXPERIENCE_RELIC",
       "name": "Echoes of Legends",
-      "lore": "An artifact infused with the echoes of countless heroes, carrying their collective experience and stories within its core."
+      "lore": "An artifact infused with the echoes of countless heroes, carrying their collective experience and stories within its core.",
+      "rarity": 5
     }
   ]
 }

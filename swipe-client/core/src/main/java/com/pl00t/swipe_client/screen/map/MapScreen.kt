@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.StageScreen
+import com.pl00t.swipe_client.screen.navpanel.NavigationPanel
 import com.pl00t.swipe_client.services.battle.UnitSkin
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelService
@@ -31,7 +32,6 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 import ktx.log.debug
 
-
 class MapScreen(
     private val act: SwipeAct,
     amCore: AssetManager,
@@ -40,7 +40,7 @@ class MapScreen(
     private val levelService: LevelService,
     private val monsterService: MonsterService,
     private val router: Router,
-) : StageScreen(amCore, inputMultiplexer), GestureDetector.GestureListener, LevelDetailsCallback {
+) : StageScreen(amCore, inputMultiplexer), GestureDetector.GestureListener, LevelDetailsCallback, NavigationPanel.Router {
 
     lateinit var mapAssetManager: AssetManager
     lateinit var skin: Skin
@@ -52,6 +52,7 @@ class MapScreen(
     lateinit var mapImage: Image
     lateinit var linkActor: LinkActor
     lateinit var mapIconsGroup: Group
+    lateinit var navigationPanel: NavigationPanel
     private var levelDetailsActor: LevelDetailsActor? = null
 
     lateinit var mapTitle: Group
@@ -159,6 +160,9 @@ class MapScreen(
                 mapIconsGroup.addActor(icon)
             }
         }
+
+        navigationPanel = NavigationPanel(this@MapScreen, skin, this@MapScreen)
+        root.addActor(navigationPanel)
     }
 
     private fun showLevelDetails(level: FrontLevelDetails) {
@@ -249,8 +253,8 @@ class MapScreen(
 
     override fun processMonsterClicked(unitSkin: UnitSkin) {
         KtxAsync.launch {
-            val monsterDetailActor = MonsterDetailActor(
-                monsterInfo = monsterService.getMonster(unitSkin),
+            val monsterDetailActor = MonsterDetailPanel(
+                monsterConfiguration = monsterService.getMonster(unitSkin),
                 context = this@MapScreen,
                 skin = skin
             )
@@ -258,4 +262,18 @@ class MapScreen(
             monsterDetailActor.raiseFromBehind(root.height)
         }
     }
+
+    override fun showHeroesList() {
+        val heroesListActor = HeroesListActor(profileService, monsterService,this@MapScreen, skin)
+        root.addActor(heroesListActor)
+        heroesListActor.raiseFromBehind(height())
+    }
+
+    override fun showSelectKingdom() {
+    }
+
+    override fun showInventory() {
+    }
+
+    override fun profileService() = profileService
 }

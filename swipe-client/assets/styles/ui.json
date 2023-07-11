@@ -55,5 +55,17 @@
       down: button_pressed, up: button_simple,
       font: text_large, fontColor: white_color, downFontColor: accent_color
     }
+    nav_party: {
+      down: icon_party_pressed, up: icon_party,
+      font: text_small, fontColor: white_color, downFontColor: accent_color
+    }
+    nav_inventory: {
+      down: icon_inventory_pressed, up: icon_inventory,
+      font: text_small, fontColor: white_color, downFontColor: accent_color
+    }
+    nav_map: {
+      down: icon_map_pressed, up: icon_map,
+      font: text_small, fontColor: white_color, downFontColor: accent_color
+    }
   }
 }

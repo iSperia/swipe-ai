@@ -6,13 +6,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.services.profile.CollectedReward
 
 
 class CurrencyRewardEntryActor(
-    private val reward: CollectedReward.CollectedCurrencyReward,
+    private val reward: CollectedReward.CountedCurrency,
     private val context: SwipeContext,
     private val skin: Skin,
 ): Group() {
@@ -39,15 +40,36 @@ class CurrencyRewardEntryActor(
         title = Label(reward.title, skin, "wave_caption").apply {
             setAlignment(Align.left)
         }
-        table.add(title).width(270f).left()
+        table.add(title).colspan(2).expandX().left()
         table.row()
         amountLabel = Label("x${reward.amount}", skin, "text_regular").apply {
             setAlignment(Align.left)
         }
-        table.add(amountLabel).width(270f).left()
+
+        val starGroup = Group().apply {
+            width = 24f * reward.rarity
+            height = 24f
+        }
+        (0 until reward.rarity).forEach { index ->
+            val star = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("icon_star")).apply {
+                x = 24f * index
+                width = 24f
+                height = 24f
+                setScaling(Scaling.stretch)
+            }
+            starGroup.addActor(star)
+        }
+        table.add(starGroup).align(Align.left).width(starGroup.width)
+
+        table.add(amountLabel).expandX().left().padLeft(10f)
         table.row()
 
         addActor(image)
         addActor(table)
     }
+
+    fun updateAmount(balance: Int) {
+        amountLabel.setText("x$balance")
+    }
+
 }

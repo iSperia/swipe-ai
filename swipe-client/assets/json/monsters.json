@@ -3,7 +3,8 @@
     {
       "skin": "CHARACTER_VALERIAN",
       "name": "Prince Valerian",
-      "lore": "Born from the twisted roots of ancient trees, the Thornstalker prowls the shadows with its razor-sharp thorns, a fearsome guardian of the corrupted groves.",
+      "lore": "Prince Valerian, heir to the throne of the Kingdom of Harmony, is a courageous and noble warrior destined for greatness. Born with a deep sense of justice and a burning desire to protect his people, he possesses a natural affinity for the radiant powers of light.\n\nAs a young prince, Valerian received rigorous training in the arts of swordplay and combat, honing his skills to become a formidable warrior. His unwavering dedication to his kingdom and its people earned him the respect and admiration of his subjects.\n\nDriven by a strong sense of responsibility, Prince Valerian embarks on a perilous quest to restore balance and harmony to the fractured realms. With his sword, the radiant Sword of the Lightbearer, and the empowering sigils bestowed upon him, he stands as a beacon of hope against the encroaching darkness.\n\nValerian's unwavering determination is matched only by his unwavering sense of compassion. Along his journey, he forges deep bonds with allies and confronts the malevolent forces that threaten the realms. As the hero of prophecy, he embraces his destiny, facing formidable challenges and sacrificing his own well-being for the greater good.\n\nGuided by the wisdom of Saffron, his ethereal companion, Prince Valerian must rally the kingdoms and unite them against the encroaching shadows. With his unwavering resolve and the power of light pulsating within him, he strives to restore peace and harmony to a world on the brink of chaos.\n\nWill Prince Valerian emerge triumphant, fulfilling his destiny as the savior of the realms? Only time will tell, as he embarks on a journey that will test his mettle, shape his character, and ultimately determine the fate of the kingdoms and all who inhabit them.",
+      "attributes": {"mind":  0, "spirit":  0, "body":  0},
       "baseHealth": 100,
       "tileConfig": { "entries": [
         {"tile": "VALERIAN_RADIANT_STRIKE", "weight":  3},
@@ -50,7 +51,13 @@
               "title": "Light damage increase, per SPIRIT",
               "description": "{lightPerSpirit}%"
             }
-          ]
+          ],
+          "behavior": {
+            "selectTarget": "enemyAoe",
+            "dealDamageBase": {"light":  6},
+
+            "scalePhysicalDamagePerBody": 0.1
+          }
         },
         {
           "title": "Sigil of Renewal",
@@ -74,6 +81,18 @@
             {
               "title": "Sigil healing increase, per SPIRIT",
               "description": "{healPerSpirit}%"
+            }
+          ],
+          "calculateTable": [
+            {
+              "title": "Sigil tiles amount",
+              "description": "{_numTiles}",
+              "id": "_numTiles"
+            },
+            {
+              "title": "Sigil healing amount",
+              "description": "{_healPerSigil}",
+              "id": "_healPerSigil"
             }
           ]
         },
@@ -110,6 +129,18 @@
               "title": "Healing increase, per BODY",
               "description": "{healPerBody}"
             }
+          ],
+          "calculateTable": [
+            {
+              "title": "Light damage",
+              "description": "{_lightDamage}",
+              "id": "_lightDamage"
+            },
+            {
+              "title": "Heal amount, per sigil",
+              "description": "{_healPerSigil}",
+              "id": "_healPerSigil"
+            }
           ]
         }
       ]
@@ -117,8 +148,9 @@
     {
       "skin": "MONSTER_THORNED_CRAWLER",
       "name": "Thorned Crawler",
-      "lore": "With its armored exoskeleton and venomous fangs, the Thorned Crawler lurks beneath the forest floor, a relentless predator blending into the undergrowth, waiting to strike its unsuspecting prey.",
+      "lore": "Beneath the forest floor, the Thorned Crawlers scuttle and slither, their spiky carapaces blending seamlessly with the shadows. These menacing creatures boast an armored exoskeleton adorned with razor-sharp thorns, serving as both protection and weaponry. Their movements are swift and calculated, often ambushing their prey by bursting forth from the undergrowth. With formidable strength and agility, they are formidable opponents in close-quarters combat. Legends speak of their ability to sense vibrations in the earth, granting them an uncanny ability to navigate even the darkest of subterranean passages.",
       "baseHealth": 20,
+      "attributes": {"mind":  30, "spirit":  30, "body":  40},
       "tileConfig": { "entries": [
         {"tile": "THORNED_CRAWLER_VICIOUS_PINCERS", "weight":  5},
         {"tile": "THORNED_CRAWLER_DEBILIATING_STRIKE", "weight":  2},
@@ -154,6 +186,18 @@
               "title": "Dark damage increase, per SPIRIT",
               "description": "{darkPerSpirit}%"
             }
+          ],
+          "calculateTable": [
+            {
+              "title": "Physical damage",
+              "description": "{_physDamage}",
+              "id": "_physDamage"
+            },
+            {
+              "title": "Dark damage",
+              "description": "{_darkDamage}",
+              "id": "_darkDamage"
+            }
           ]
         },
         {
@@ -178,6 +222,18 @@
             {
               "title": "WEAKNESS tiles generated on target",
               "description": "{weaknessTiles} tiles"
+            }
+          ],
+          "calculateTable": [
+            {
+              "title": "Physical damage",
+              "description": "{_physDamage}",
+              "id": "_physDamage"
+            },
+            {
+              "title": "WEAKNESS tiles generated on target",
+              "description": "{_weaknessTiles}",
+              "id": "_weaknessTiles"
             }
           ]
         },
@@ -209,6 +265,18 @@
               "title": "HEALING increase, per SPIRIT",
               "description": "{healPerSpirit}%"
             }
+          ],
+          "calculateTable": [
+            {
+              "title": "Dark damage",
+              "description": "{_darkDamage}",
+              "id": "_darkDamage"
+            },
+            {
+              "title": "Heal amount",
+              "description": "{_heal}",
+              "id": "_heal"
+            }
           ]
         }
       ]
@@ -216,8 +284,9 @@
     {
       "skin": "MONSTER_THORNSTALKER",
       "name": "Thornstalker",
-      "lore": "Born from the twisted roots of ancient trees, the Thornstalker prowls the shadows with its razor-sharp thorns, a fearsome guardian of the corrupted groves.",
+      "lore": "Deep within the enchanted groves, the Thornstalkers roam with their sinewy forms and razor-sharp thorns. These elusive creatures embody the untamed spirit of the forest, blending seamlessly with the verdant surroundings. They strike swiftly and silently, relying on their natural camouflage to ambush unsuspecting prey. Legends whisper of their ability to communicate with the ancient trees and harness the raw power of nature. Caution is advised when venturing into their territory, for the Thornstalkers are fierce protectors of the groves and will not hesitate to defend their realm with untamed ferocity.",
       "baseHealth": 3,
+      "attributes": {"mind":  25, "spirit":  25, "body":  50},
       "tileConfig": { "entries": [
         {"tile": "THORNSTALKER_PRIMAL_ASSAULT", "weight":  5},
         {"tile": "THORNSTALKER_RESILIENT_GROWTH", "weight":  3},
@@ -243,6 +312,13 @@
               "title": "Physical damage increase, per BODY",
               "description": "{physPerBody}%"
             }
+          ],
+          "calculateTable": [
+            {
+              "title": "Physical damage",
+              "description": "{_physDamage}",
+              "id": "_physDamage"
+            }
           ]
         },
         {
@@ -262,6 +338,13 @@
             {
               "title": "Poison damage increase, per SPIRIT",
               "description": "{poisonPerSpirit}%"
+            }
+          ],
+          "calculateTable": [
+            {
+              "title": "Poison damage",
+              "description": "{_poisonDamage}",
+              "id": "_poisonDamage"
             }
           ]
         },
@@ -283,6 +366,13 @@
               "title": "HEALING increase, per SPIRIT",
               "description": "{healPerSpirit}%"
             }
+          ],
+          "calculateTable": [
+            {
+              "title": "Heal amount",
+              "description": "{_heal}",
+              "id": "_heal"
+            }
           ]
         }
       ]
@@ -290,8 +380,9 @@
     {
       "skin": "MONSTER_CORRUPTED_DRYAD",
       "name": "Corrupted Dryad",
-      "lore": "Once a guardian of nature's balance, the Corrupted Dryad now embodies the darkness that seeped into the heart of the forest, its ethereal beauty concealing a malevolent presence.",
+      "lore": "Once the graceful guardians of the forest, the Corrupted Dryads now bear a twisted visage, consumed by darkness and despair. Once embodying nature's harmony and beauty, they have succumbed to corruption, their essence tainted by an unknown malevolence. Their once melodious voices now echo with haunting wails, and their graceful movements have been replaced by unsettling contortions. Beware their deceitful allure, for they will stop at nothing to lure unsuspecting wanderers into their sinister grasp. Redemption seems but a distant memory as they cling desperately to their fading connection with the natural world.",
       "baseHealth": 20,
+      "attributes": {"mind":  20, "spirit":  40, "body":  40},
       "tileConfig": { "entries": [
         {"tile": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "weight":  4},
         {"tile": "CORRUPTED_DRYAD_VILE_SIPHON", "weight":  4},
@@ -316,6 +407,13 @@
             {
               "title": "Physical damage increase, per BODY",
               "description": "{physPerBody}%"
+            }
+          ],
+          "calculateTable": [
+            {
+              "title": "Physical damage",
+              "description": "{_physicalDamage}",
+              "id": "_physDamage"
             }
           ]
         },
@@ -346,6 +444,13 @@
             {
               "title": "Healing increase, per SPIRIT",
               "description": "{healPerSpirit}%"
+            }
+          ],
+          "calculateTable": [
+            {
+              "title": "Physical damage",
+              "description": "{_physDamage}",
+              "id": "_physDamage"
             }
           ]
         },

@@ -64,7 +64,7 @@ class RewardDialog(
         val rewardTable = Table()
         rewards.forEach {  reward ->
             when (reward) {
-                is CollectedReward.CollectedCurrencyReward -> {
+                is CollectedReward.CountedCurrency -> {
                     val entryActor = CurrencyRewardEntryActor(reward, context, skin)
                     rewardTable.add(entryActor).padBottom(5f).top()
                     rewardTable.row()

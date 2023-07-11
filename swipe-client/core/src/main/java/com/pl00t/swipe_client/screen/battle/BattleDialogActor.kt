@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.screen.battle
 
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -12,6 +13,7 @@ import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.services.levels.DialogEntryModel
 import com.pl00t.swipe_client.services.levels.DialogOrientation
+import com.pl00t.swipe_client.ux.require
 import ktx.actors.onClick
 
 class BattleDialogActor(
@@ -27,7 +29,7 @@ class BattleDialogActor(
     val titleLabel: Label
 
     init {
-        unitImage = Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(dialog.actor.toString())).apply {
+        unitImage = Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(dialog.actor.toString()).require()).apply {
             width = 400f
             height = 600f
             y = -100f

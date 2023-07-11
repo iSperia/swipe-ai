@@ -1,7 +1,6 @@
 package com.pl00t.swipe_client.services.battle.logic
 
 import com.pl00t.swipe_client.services.battle.MonsterConfiguration
-import com.pl00t.swipe_client.services.battle.UnitSkin
 
 data class CharacterAttributes(
     val mind: Int,

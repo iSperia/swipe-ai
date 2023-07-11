@@ -17,4 +17,17 @@ object Buttons {
         }
         return button
     }
+
+    fun createShortActionButton(
+        text: String,
+        skin: Skin
+    ): TextButton {
+        val button = TextButton(text, skin).apply {
+            width = 80f
+            height = 36f
+            pad(5f)
+            padBottom(8f)
+        }
+        return button
+    }
 }

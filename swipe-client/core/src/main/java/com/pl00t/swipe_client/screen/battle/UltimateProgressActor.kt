@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
+import com.pl00t.swipe_client.ux.require
 import ktx.actors.repeatForever
 
 class UltimateProgressActor(
@@ -25,13 +26,13 @@ class UltimateProgressActor(
     var progress: Float = 0f
 
     init {
-        imageBg = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("semi_black_pixel")).apply {
+        imageBg = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("semi_black_pixel").require()).apply {
             this.width = 270f
             this.height = 45f
             setScaling(Scaling.stretch)
         }
         addActor(imageBg)
-        iProgress = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("ult_progress")).apply {
+        iProgress = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("ult_progress").require()).apply {
             this.width = 0f
             this.height = 35f
             setScaling(Scaling.stretch)
@@ -48,7 +49,7 @@ class UltimateProgressActor(
             this.y = 0f
         }
         addActor(description)
-        foreground = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("ult_progress_fg")).apply {
+        foreground = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("ult_progress_fg").require()).apply {
             this.width = 270f
             this.height = 45f
             setScaling(Scaling.stretch)

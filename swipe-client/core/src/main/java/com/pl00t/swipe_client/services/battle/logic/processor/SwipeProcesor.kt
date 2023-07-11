@@ -90,7 +90,7 @@ class SwipeProcesor(private val monsterService: MonsterService) {
             character = character.updateUltimateProgress(character.combo + 1, newUltimateProgress)
             events.add(BattleEvent.UltimateProgressEvent(character.id, character.ultimateProgress, character.maxUltimateProgress))
 
-            if (newUltimateProgress >= character.maxUltimateProgress) {
+            if (newUltimateProgress >= character.maxUltimateProgress && !character.human) {
                 val positions = (0 until 25).filter { p -> character.field.tiles.none { it.layer == 5 && it.x == p%5 && it.y ==p/5 } }.take(10)
                 positions.forEach { p ->
                     val tile = generateTile(p, character.tileConfig, character.field.maxTileId)

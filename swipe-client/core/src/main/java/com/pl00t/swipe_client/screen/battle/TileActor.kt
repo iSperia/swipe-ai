@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.services.battle.logic.TileType
+import com.pl00t.swipe_client.ux.require
 import ktx.actors.along
 import ktx.actors.alpha
 
@@ -27,8 +28,8 @@ class TileActor(
     val type: TileType,
 ) : Group() {
 
-    private val progressActiveTexture = taBattle.findRegion("progress_active")
-    private val progressInactiveTexture = taBattle.findRegion("progress_inactive")
+    private val progressActiveTexture = taBattle.findRegion("progress_active").require()
+    private val progressInactiveTexture = taBattle.findRegion("progress_inactive").require()
 
     lateinit var tarotImage: Image
 
@@ -63,13 +64,13 @@ class TileActor(
 
     }
 
-    private fun generateBackground() = Image(taTarot.findRegion(cardTexture)).apply {
+    private fun generateBackground() = Image(taTarot.findRegion(cardTexture).require()).apply {
         width = size
         height = size
         this.setOrigin(Align.center)
     }
 
-    private fun generateTarot() = Image(taTarot.findRegion(cardTexture)).apply {
+    private fun generateTarot() = Image(taTarot.findRegion(cardTexture).require()).apply {
             this.height = size * 0.9f
             this.width = this.height * 0.66f
             this.setOrigin(Align.center)

@@ -40,15 +40,22 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 50,
-            "type": "ETHERIUM_COIN"
+            "amount": 300,
+            "type": "SPARK_OF_INSIGHT"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
-            "type": "SPARK_OF_INSIGHT"
+            "amount": 300,
+            "type": "EXPERIENCE_CRYSTAL"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 300,
+            "type": "EXPERIENCE_RELIC"
           }
         }
       ]
@@ -114,8 +121,22 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
-            "type": "ESSENCE_FRAGMENT"
+            "amount": 300,
+            "type": "SPARK_OF_INSIGHT"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 300,
+            "type": "EXPERIENCE_CRYSTAL"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 300,
+            "type": "EXPERIENCE_RELIC"
           }
         }
       ]

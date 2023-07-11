@@ -1,6 +1,6 @@
 package com.pl00t.swipe_client.screen.map
 
-import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -8,17 +8,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
+import com.pl00t.swipe_client.screen.reward.CurrencyRewardEntryActor
 import com.pl00t.swipe_client.services.battle.MonsterConfiguration
+import com.pl00t.swipe_client.services.profile.CollectedReward
+import com.pl00t.swipe_client.services.profile.SwipeCharacter
+import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.Buttons
 import com.pl00t.swipe_client.ux.ScreenTitle
-import com.pl00t.swipe_client.ux.hideToBehindAndRemove
-import ktx.actors.alpha
+import kotlinx.coroutines.launch
 import ktx.actors.onClick
+import ktx.async.KtxAsync
 
 private enum class DisplayMode {
     DESCRIPTION,
@@ -26,266 +29,225 @@ private enum class DisplayMode {
 }
 
 class MonsterDetailActor(
+    private val spaceHeight: Float,
     private val monsterInfo: MonsterConfiguration,
+    private var character: SwipeCharacter?,
     private val context: SwipeContext,
-    private val skin: Skin
-): Group() {
+    private val skin: Skin,
+) : Group() {
 
-    private var displayMode = DisplayMode.DESCRIPTION
-
-    private val buttonSwitch: TextButton
-    private val scroll: ScrollPane
+    lateinit var scroll: ScrollPane
+    lateinit var attributesActor: AttributeActor
 
     init {
-        val blackBackground = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("opaque_black")).apply {
-            width = context.width()
-            height = context.height()
-        }
-        val monsterImage = Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(monsterInfo.skin.toString())).apply {
-            name = "monster_image"
-            width = context.width()
-            height = context.height()
-            setScaling(Scaling.fit)
-        }
-        val panel = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("panel_bg")).apply {
-            width = 480f
-            height = 60f
-            setScaling(Scaling.stretch)
-        }
-        val buttonClose = Buttons.createActionButton("Close", skin).apply {
-            x = 305f
-            y = 14f
-        }
-        buttonClose.onClick {
-            this@MonsterDetailActor.hideToBehindAndRemove(context.height())
-        }
-        buttonSwitch = Buttons.createActionButton("Show abilities", skin).apply {
-            x = 5f
-            y = 14f
-        }
-        buttonSwitch.onClick {
-            updateDisplayMode(if (displayMode == DisplayMode.DESCRIPTION) DisplayMode.ABILITIES else DisplayMode.DESCRIPTION)
-        }
-        val title = ScreenTitle.createScreenTitle(context, skin, monsterInfo.name).apply {
-            y = context.height() - 60f
-            x = 60f
-        }
-        val loreBackground = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("opaque_black")).apply {
-            name = "lore_background"
-            y = 60f
-            width = 480f
-            height = 80f
-        }
-        val loreLine = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("panel_line")).apply {
-            name = "lore_line"
-            y = 138f
-            width = 480f
-            height = 4f
-        }
-        val monsterLore = Label(monsterInfo.lore, skin, "lore_small").apply {
-            name = "monster_lore"
-            height = 75f
-            width = 470f
-            wrap = true
-            y = 60f
-            x = 5f
-            setAlignment(Align.topLeft)
-        }
+        KtxAsync.launch {
+            val table = Table()
 
-        val skillsTable = Table()
-        monsterInfo.abilities?.forEach { ability ->
-            val tarot = Image(context.commonAtlas(Atlases.COMMON_TAROT).findRegion(ability.skin.toString())).apply {
-                width = 120f
-                height = 200f
-                setScaling(Scaling.stretch)
+            val blackBackground = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("opaque_black")).apply {
+                width = context.width()
+                height = context.height()
             }
-            skillsTable.add(tarot).pad(5f).width(130f).height(210f)
-
-            val sideTable = Table()
-            sideTable.add(Label(ability.title, skin, "wave_caption").apply {
-                setAlignment(Align.left)
-            }).width(330f).pad(5f).colspan(2)
-            sideTable.row()
-            sideTable.add(Label(ability.description, skin, "text_regular").apply {
-                setAlignment(Align.left)
-                wrap = true
-            }).width(330f).pad(5f).colspan(2)
-            sideTable.row()
-
-            ability.descriptionTable.forEach { row ->
-                val titleLabel = Label(row.title, skin, "text_small").apply {
-                    wrap = true
-                    width = 250f
-                    setAlignment(Align.right)
+            val monsterImage =
+                Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(monsterInfo.skin.toString())).apply {
+                    name = "monster_image"
+                    width = 120f
+                    height = 200f
+                    setScaling(Scaling.stretch)
                 }
-                sideTable.add(titleLabel).width(260f).pad(5f)
-                val valueLabel = Label(row.formatDescription(ability.attributes), skin, "text_small_accent").apply {
-                    wrap = true
-                    width = 50f
+
+            val title = ScreenTitle.createScreenTitle(context, skin, monsterInfo.name).apply {
+                y = spaceHeight - 60f
+                x = 60f
+            }
+
+            val paragraphIndex = monsterInfo.lore.indexOf("\n")
+            val needReadMore = paragraphIndex > 0
+            val text = if (needReadMore) monsterInfo.lore.take(paragraphIndex) else monsterInfo.lore
+
+            val monsterLore = Label(text, skin, "lore_small").apply {
+                name = "monster_lore"
+                width = 340f
+                wrap = true
+                setAlignment(Align.topLeft)
+            }
+
+            val loreTable = Table()
+            val loreTextTable = Table()
+            loreTable.add(monsterImage).width(120f).padLeft(5f).padRight(5f).height(200f)
+            loreTextTable.add(monsterLore).padLeft(5f).padRight(5f).align(Align.bottomLeft).width(340f)
+            loreTextTable.row()
+            if (needReadMore) {
+                val readMore = Label("Read more...", skin, "text_small").apply {
+                    width = 340f
+                    setAlignment(Align.topRight)
+                }
+
+                readMore.onClick {
+                    readMore.isVisible = false
+                    readMore.remove()
+                    monsterLore.setText(monsterInfo.lore)
+                }
+                loreTextTable.add(readMore).align(Align.right)
+            }
+            loreTable.add(loreTextTable)
+
+            val loreLabel = Label("Description", skin, "wave_caption").apply {
+                width = 480f
+                setAlignment(Align.center)
+            }
+            table.add(loreLabel).padBottom(10f).row()
+            table.add(loreTable).row()
+
+            val attributesLabel = Label("Attributes", skin, "wave_caption").apply {
+                width = 480f
+                setAlignment(Align.center)
+            }
+            table.add(attributesLabel).padBottom(10f).row()
+
+            val char = character
+            if (char != null) {
+                val experienceBar = ExperienceBar(context, skin).apply {
+                    width = 460f
+                    height = 30f
+                    setProgress(char.level.experience, char.level.maxExperience)
+                }
+                table.add(experienceBar).pad(10f).row()
+                val experienceLabel = Label(
+                    "Level: ${char.level.level} (${char.level.experience}/${char.level.maxExperience})",
+                    skin,
+                    "text_regular"
+                ).apply {
+                    width = 460f
                     setAlignment(Align.left)
                 }
-                sideTable.add(valueLabel).width(60f).pad(5f)
+                table.add(experienceLabel).padLeft(10f).padRight(10f).width(460f).minWidth(460f).row()
+
+
+                val profile = context.profileService().getProfile()
+                val expBalances = listOf(
+                    SwipeCurrency.SPARK_OF_INSIGHT,
+                    SwipeCurrency.EXPERIENCE_CRYSTAL,
+                    SwipeCurrency.EXPERIENCE_RELIC
+                )
+                expBalances.map { context.profileService().getCurrency(it) }.map {
+                    val balance = profile.getBalance(it.currency)
+                    CollectedReward.CountedCurrency(it.currency, balance, it.name, it.rarity)
+                }.filter { it.amount > 0 }.forEach { currency ->
+                    val currencyActor = CurrencyRewardEntryActor(currency, context, skin)
+                    val useButton = Buttons.createShortActionButton("Use", skin).apply {
+                        x = 390f
+                        y = 18f
+                    }
+                    val group = Group().apply {
+                        width = 460f
+                        height = 72f
+                    }
+                    group.addActor(currencyActor)
+                    group.addActor(useButton)
+                    table.add(group).padLeft(10f).padRight(10f).row()
+
+                    useButton.onClick {
+                        val result = context.profileService().spendExperienceCurrency(currency.currency, monsterInfo.skin)
+                        attributesActor.updateAttributes(result.character.attributes)
+
+                        val oldCharacter = character!!
+                        character = result.character
+                        character?.let { character ->
+                            val nextProgress = if (oldCharacter.level.level < character.level.level) {
+                                oldCharacter.level.maxExperience
+                            } else {
+                                character.level.experience
+                            }
+                            experienceBar.setProgress(nextProgress, oldCharacter.level.maxExperience)
+
+                            addAction(Actions.delay(0.3f, Actions.run {
+                                experienceLabel.setText("Level: ${character.level.level} (${character.level.experience}/${character.level.maxExperience})")
+                                currencyActor.updateAmount(result.balance)
+                                if (oldCharacter.level.level < character.level.level) {
+                                    experienceLabel.addAction(Actions.sequence(
+                                        Actions.scaleTo(2f, 2f, 0.1f),
+                                        Actions.scaleTo(1f, 1f, 0.3f),
+                                        Actions.run { experienceBar.setProgress(0, character.level.maxExperience) }
+                                    ))
+                                }
+                            }))
+                        }
+                    }
+                }
+            }
+            attributesActor = AttributeActor(
+                attributes = character?.attributes ?: monsterInfo.attributes,
+                mode = if (character == null) AttributeActor.Mode.PERCENT else AttributeActor.Mode.ABSOLUTE,
+                context = context,
+                skin = skin
+            )
+            table.add(attributesActor).align(Align.center).row()
+
+
+            val abilitiesLabel = Label("Abilities", skin, "wave_caption").apply {
+                width = 480f
+                setAlignment(Align.center)
+            }
+            table.add(abilitiesLabel).padBottom(10f).row()
+
+            val abilsTable = Table()
+
+            monsterInfo.abilities?.forEach { ability ->
+                val tarot = Image(context.commonAtlas(Atlases.COMMON_TAROT).findRegion(ability.skin.toString())).apply {
+                    width = 120f
+                    height = 200f
+                    setScaling(Scaling.stretch)
+                }
+                abilsTable.add(tarot).pad(5f).width(120f).height(200f).align(Align.left)
+
+                val sideTable = Table()
+                sideTable.add(Label(ability.title, skin, "wave_caption").apply {
+                    width = 330f
+                    setAlignment(Align.left)
+                }).width(330f).pad(5f).colspan(2)
                 sideTable.row()
-            }
+                sideTable.add(Label(ability.description, skin, "text_regular").apply {
+                    setAlignment(Align.left)
+                    wrap = true
+                }).width(330f).pad(5f).colspan(2)
+                sideTable.row()
 
-            sideTable.add(Label(ability.lore, skin, "lore_small").apply {
-                wrap = true
-                setAlignment(Align.left)
-            }).width(330f).pad(5f).colspan(2)
-
-            skillsTable.add(sideTable).width(340f)
-            skillsTable.row()
-        }
-
-        scroll = ScrollPane(skillsTable).apply {
-            y = 60f
-            x = 0f
-            width = 480f
-            height = context.height() - 120f
-            isVisible = false
-            alpha = 0f
-        }
-
-        addActor(blackBackground)
-        addActor(monsterImage)
-        addActor(panel)
-        addActor(buttonClose)
-        addActor(buttonSwitch)
-        addActor(title)
-        addActor(loreBackground)
-        addActor(monsterLore)
-        addActor(loreLine)
-        addActor(scroll)
-    }
-
-    init {
-//        backgroundImage = Image(coreAtlas.findRegion("semi_black_pixel")).apply {
-//            width = w
-//            height = h
-//        }
-//        monsterImage = Image(monsterAtlas.findRegion(monsterInfo.skin.toString())).apply {
-//            width = w * 0.9f
-//            height = h * 0.9f
-//            x = w * 0.05f
-//            y = h * 0.05f
-//            setScaling(Scaling.fit)
-//        }
-////        monsterName = Fonts.createWhiteTitle(monsterInfo.name, _nameHeight).apply {
-////            y = h - _nameHeight - _buttonHeight
-////            x = w * 0.05f
-////            setAlignment(Align.center)
-////            width = w * 0.9f
-////            height = _nameHeight
-////        }
-//        buttonClose = IconedButton(_buttonWidth, _buttonHeight, "Close", "icon_close", coreAtlas, coreAtlas).apply {
-//            x = this@MonsterDetailActor.w * 0.55f
-////            y = monsterName.y + _nameHeight - this@MonsterDetailActor.w * 0.025f
-//        }
-//        buttonAbilities = IconedButton(_buttonWidth, _buttonHeight, "Abilities", "icon_question", coreAtlas, coreAtlas, Align.left).apply {
-//            x = this@MonsterDetailActor.w * 0.05f
-//            y = buttonClose.y
-//        }
-//        buttonClose.onClick { this@MonsterDetailActor.hideToBehindAndRemove(this@MonsterDetailActor.h) }
-//        buttonAbilities.onClick {
-//            this@MonsterDetailActor.updateDisplayMode(when (displayMode) {
-//                DisplayMode.ABILITIES -> DisplayMode.DESCRIPTION
-//                DisplayMode.DESCRIPTION -> DisplayMode.ABILITIES
-//            })
-//        }
-//        monsterNameBackground = Image(coreAtlas.findRegion("top_gradient")).apply {
-//            y = h - _nameBgHeight
-//            width = w
-//            height = _nameBgHeight
-//        }
-////        monsterLore = Fonts.createCaptionAccent(monsterInfo.lore, _loreHeight * 0.3f).apply {
-////            width = w * 0.9f
-////            x = w * 0.05f
-////            height = _loreHeight
-////            setAlignment(Align.topLeft)
-////            wrap = true
-////        }
-//        monsterLoreBackground = Image(coreAtlas.findRegion("top_gradient")).apply {
-//            scaleY = -1f
-//            y = _loreBgHeight
-//            width = w
-//            height = _loreBgHeight
-//        }
-////        monsterProperties = Fonts.createWhiteCaption("", _loreHeight / 2f).apply {
-////            width = w * 0.9f
-////            x = w * 0.05f
-////            setAlignment(Align.left)
-////            height = _loreHeight
-////            y = _loreHeight
-////            wrap = true
-////        }
-//
-//        abilitiesGroup = Group()
-//        fillAbilities()
-//        abilitiesScroll = ScrollPane(abilitiesGroup).apply {
-//            x = 0f
-//            y = 0f
-//            width = w
-////            height = monsterName.y
-//        }
-//        abilitiesScroll.isVisible = false
-//
-//        addActor(backgroundImage)
-//        addActor(monsterImage)
-//        addActor(abilitiesScroll)
-//        addActor(monsterNameBackground)
-////        addActor(monsterName)
-//        addActor(buttonClose)
-//        addActor(buttonAbilities)
-//        addActor(monsterLoreBackground)
-////        addActor(monsterLore)
-////        addActor(monsterProperties)
-    }
-
-    private fun fillAbilities() {
-//        val abilityActors = monsterInfo.abilities?.map { config ->
-//            MonsterAbilityDetailActor(config, w, coreAtlas, tarotAtlas)
-//        } ?: emptyList()
-//        var cursor = max(monsterName.y.toInt(), abilityActors.sumOf { it.height.toInt() }) + monsterName.y - monsterNameBackground.y
-//        abilitiesGroup.height = cursor
-//        cursor -= (monsterName.y - monsterNameBackground.y).toInt()
-//        abilitiesGroup.width = w
-//        abilityActors.forEach { actor ->
-//            cursor -= actor.height.toInt()
-//            actor.y = cursor.toFloat()
-//            abilitiesGroup.addActor(actor)
-//        }
-    }
-
-    private fun updateDisplayMode(mode: DisplayMode) {
-        this.displayMode = mode
-        when (this.displayMode) {
-            DisplayMode.ABILITIES -> {
-                listOf("monster_lore", "lore_line", "lore_background", "monster_image").map { findActor<Actor>(it) }.forEach { actor ->
-                    actor.addAction(Actions.sequence(
-                        Actions.alpha(0f, 0.5f),
-                        Actions.visible(false)
-                    ))
-                }
-                scroll.addAction(Actions.sequence(
-                    Actions.visible(true),
-                    Actions.alpha(1f, 0.5f)
-                ))
-                buttonSwitch.setText("Show information")
-            }
-            DisplayMode.DESCRIPTION -> {
-                listOf("monster_lore", "lore_line", "lore_background", "monster_image").map { findActor<Actor>(it) }.forEach { actor ->
-                    actor.addAction(Actions.sequence(
-                        Actions.visible(true),
-                        Actions.alpha(1f, 0.5f),
-                    ))
-                    scroll.addAction(Actions.sequence(
-                        Actions.alpha(0f, 0.5f),
-                        Actions.visible(false)
-                    ))
+                ability.descriptionTable.forEach { row ->
+                    val titleLabel = Label(row.title, skin, "text_small").apply {
+                        wrap = true
+                        width = 250f
+                        setAlignment(Align.right)
+                    }
+                    sideTable.add(titleLabel).width(260f).pad(5f)
+                    val valueLabel = Label(row.formatDescription(ability.attributes), skin, "text_small_accent").apply {
+                        wrap = true
+                        width = 50f
+                        setAlignment(Align.left)
+                    }
+                    sideTable.add(valueLabel).width(60f).pad(5f)
+                    sideTable.row()
                 }
 
-                buttonSwitch.setText("Show abilities")
+                sideTable.add(Label(ability.lore, skin, "lore_small").apply {
+                    wrap = true
+                    setAlignment(Align.left)
+                }).width(330f).pad(5f).colspan(2)
+
+                abilsTable.add(sideTable).width(340f).maxWidth(340f).minHeight(120f).align(Align.topLeft)
+                abilsTable.row()
             }
+
+            table.add(abilsTable).row()
+
+            scroll = ScrollPane(table).apply {
+                width = 480f
+                height = spaceHeight - 60f
+            }
+
+            addActor(blackBackground)
+
+            addActor(title)
+            addActor(scroll)
         }
     }
 }

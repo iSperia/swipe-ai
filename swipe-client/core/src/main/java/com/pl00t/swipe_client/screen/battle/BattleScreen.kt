@@ -26,6 +26,7 @@ import com.pl00t.swipe_client.services.levels.DialogEntryModel
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import com.pl00t.swipe_client.ux.require
 import kotlinx.coroutines.launch
 import ktx.actors.*
 import ktx.async.KtxAsync
@@ -127,7 +128,7 @@ class BattleScreen(
         root.addActor(locationGroup)
         root.addActor(panelGroup)
 
-        val locationImage = Image(commonAtlas(Atlases.ACT(actId)).findRegion(decorations.background)).apply {
+        val locationImage = Image(commonAtlas(Atlases.ACT(actId)).findRegion(decorations.background).require()).apply {
             width = 480f
             height = root.height - 480f
             setScaling(Scaling.fit)
@@ -303,7 +304,7 @@ class BattleScreen(
                 ultimateActor.updateUltimateProgress(event.progress.toFloat() / event.maxProgress)
             }
             is BattleEvent.UltimateEvent -> {
-                val bg = Image(commonAtlas(Atlases.COMMON_UX).findRegion("black_pixel")).apply {
+                val bg = Image(commonAtlas(Atlases.COMMON_UX).findRegion("black_pixel").require()).apply {
                     width = root.width
                     height = height() - 480f
                     alpha = 0f
@@ -314,7 +315,7 @@ class BattleScreen(
                     Actions.alpha(0f, 0.5f),
                     Actions.removeActor()
                 ))
-                val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.skin.toString())).apply {
+                val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.skin.toString()).require()).apply {
                     width = characterWidth
                     height = characterWidth * 1.66f
                     x = (480f - this.width) / 2f
@@ -352,7 +353,7 @@ class BattleScreen(
                 ultimateEffectsGroup.addActor(tarot)
             }
             is BattleEvent.TileEffectEvent -> {
-                val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.skin.toString())).apply {
+                val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.skin.toString()).require()).apply {
                     height = tileSize
                     width = tileSize * 0.66f
                     x = tileSize * event.x + (tileSize - this.width) / 2f
@@ -388,7 +389,7 @@ class BattleScreen(
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.at.toString()) ?: return
         //ok, we have some crazy tarot stuff
-        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.animation.skin.toString())).apply {
+        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.animation.skin.toString()).require()).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) characterWidth * 0.1f else -characterWidth * 1.1f
             y = sourceUnit.y + characterWidth * 0.35f
             width = characterWidth * 0.8f
@@ -426,7 +427,7 @@ class BattleScreen(
         event: BattleEvent.AnimateTarotEvent
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString()) ?: return
-        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.animation.skin.toString())).apply {
+        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.animation.skin.toString()).require()).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) characterWidth * 0.1f else -characterWidth * 1.1f
             y = sourceUnit.y + characterWidth * 0.35f
             width = characterWidth * 0.8f
@@ -460,7 +461,7 @@ class BattleScreen(
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString()) ?: return
         //ok, we have some crazy tarot stuff
-        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.animation.skin.toString())).apply {
+        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(event.animation.skin.toString()).require()).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) characterWidth * 0.1f else -characterWidth * 1.1f
             y = sourceUnit.y + characterWidth * 0.15f
             width = characterWidth * 0.8f
@@ -621,7 +622,7 @@ class BattleScreen(
             val x = index % 5
             val y = index / 5
 
-            val bg = Image(commonAtlas(Atlases.COMMON_BATTLE).findRegion("tile_bg")).apply {
+            val bg = Image(commonAtlas(Atlases.COMMON_BATTLE).findRegion("tile_bg").require()).apply {
                 this.x = x * tileSize
                 this.y = y * tileSize
                 this.width = tileSize
@@ -643,6 +644,8 @@ class BattleScreen(
     override fun onRight() = processSwipe(1, 0)
     override fun onUp() = processSwipe(0, 1)
     override fun onDown() = processSwipe(0, -1)
+
+    override fun profileService() = profileService
 
     private fun processSwipe(dx: Int, dy: Int) {
         KtxAsync.launch { battleService.processSwipe(dx, dy) }

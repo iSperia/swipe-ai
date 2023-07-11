@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
+import com.pl00t.swipe_client.ux.require
 
 class UnitHealthBarActor(
     val w: Float,
@@ -24,7 +25,7 @@ class UnitHealthBarActor(
         height = h
         setScaling(Scaling.stretch)
     }
-    val foregound: Image = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("healthbar_fg")).apply {
+    val foregound: Image = Image(context.commonAtlas(Atlases.COMMON_BATTLE).findRegion("healthbar_fg").require()).apply {
         width = w - 14f
         height = h - 14f
         setScaling(Scaling.stretch)

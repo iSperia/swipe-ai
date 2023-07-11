@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
+import com.pl00t.swipe_client.ux.require
 
 class PopupActor(
     private val text: String,
@@ -22,7 +23,7 @@ class PopupActor(
 
     init {
         icons.forEachIndexed { index, icon ->
-            context.commonAtlas(Atlases.COMMON_BATTLE).findRegion(icon).let { iconTexture ->
+            context.commonAtlas(Atlases.COMMON_BATTLE).findRegion(icon).require().let { iconTexture ->
                 val image = Image(iconTexture)
                 image.width = 24f
                 image.height = 24f

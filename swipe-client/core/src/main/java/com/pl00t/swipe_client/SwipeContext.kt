@@ -1,6 +1,7 @@
 package com.pl00t.swipe_client
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 
 object Atlases {
@@ -21,4 +22,6 @@ interface SwipeContext {
     fun height(): Float
 
     fun commonAtlas(atlas: String): TextureAtlas
+
+    fun profileService(): ProfileService
 }

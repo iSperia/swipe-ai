@@ -10,6 +10,8 @@ import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelRewardType
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.monsters.MonsterService
+import java.lang.IllegalArgumentException
+import kotlin.math.min
 
 interface ProfileService {
 
@@ -24,13 +26,22 @@ interface ProfileService {
     suspend fun collectFreeReward(act: SwipeAct, level: String): List<CollectedReward>
 
     suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata
+
+    suspend fun getCharacters(): List<SwipeCharacter>
+    abstract fun spendExperienceCurrency(currency: SwipeCurrency, skin: UnitSkin): SpendExperienceCurrencyResult
+
+    data class SpendExperienceCurrencyResult(
+        val character: SwipeCharacter,
+        val balance: Int,
+    )
 }
 
 sealed interface CollectedReward {
-    data class CollectedCurrencyReward(
+    data class CountedCurrency(
         val currency: SwipeCurrency,
         val amount: Int,
         val title: String,
+        val rarity: Int,
     ): CollectedReward
 }
 
@@ -38,6 +49,7 @@ data class CurrencyMetadata(
     val currency: SwipeCurrency,
     val lore: String,
     val name: String,
+    val rarity: Int,
 )
 
 data class CurrenciesMetadata(
@@ -73,13 +85,14 @@ class ProfileServiceImpl(
                     )
                 ),
                 rewardsCollected = emptyList(),
-//                characters = listOf(
-//                    SwipeCharacter(
-//                        skin = UnitSkin.CHARACTER_VALERIAN,
-//                        attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
-//                        level = SwipeCharacterLevelInfo(0L, 1000L, 1)
-//                    )
-//                )
+                characters = listOf(
+                    SwipeCharacter(
+                        name = "Valerian",
+                        skin = UnitSkin.CHARACTER_VALERIAN,
+                        attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                        level = SwipeCharacterLevelInfo(0, 1, 1)
+                    )
+                )
             )
         }
     }
@@ -162,8 +175,9 @@ class ProfileServiceImpl(
         rewards.forEach { reward ->
             when (reward.type) {
                 LevelRewardType.currency -> {
-                    profile = profile.addBalance(reward.currency!!.type, reward.currency.amount)
-                    result.add(CollectedReward.CollectedCurrencyReward(reward.currency.type, reward.currency.amount, getCurrency(reward.currency.type).name))
+                    val currency = getCurrency(reward.currency!!.type)
+                    profile = profile.addBalance(currency.currency, reward.currency.amount)
+                    result.add(CollectedReward.CountedCurrency(reward.currency.type, reward.currency.amount, currency.name, currency.rarity))
                 }
                 else -> {}
             }
@@ -174,6 +188,49 @@ class ProfileServiceImpl(
     }
 
     override suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata {
-        return currencyCache.currencies.firstOrNull { it.currency == currency } ?: CurrencyMetadata(currency, "", "")
+        return currencyCache.currencies.firstOrNull { it.currency == currency } ?: CurrencyMetadata(currency, "", "", 0)
+    }
+
+    override suspend fun getCharacters(): List<SwipeCharacter> {
+        return profile.characters
+    }
+
+    override fun spendExperienceCurrency(currency: SwipeCurrency, skin: UnitSkin): ProfileService.SpendExperienceCurrencyResult {
+        profile.characters.firstOrNull { it.skin == skin }?.let { character ->
+            val balance = profile.getBalance(currency)
+            if (balance > 0) {
+                val newExp = min(character.level.experience + when (currency) {
+                    SwipeCurrency.SPARK_OF_INSIGHT -> 1
+                    SwipeCurrency.EXPERIENCE_CRYSTAL -> 10
+                    SwipeCurrency.EXPERIENCE_RELIC -> 100
+                    else -> throw IllegalArgumentException("Invalid experience currency")
+                }, character.level.maxExperience)
+
+                val isUpdateLevel = newExp == character.level.maxExperience
+                val newLevel = if (isUpdateLevel) {
+                    character.level.copy(experience = 0, level = character.level.level + 1, maxExperience = getExperience(character.level.level + 1))
+                } else {
+                    character.level.copy(experience = newExp)
+                }
+
+                profile = profile.addBalance(currency, -1)
+                profile = profile.updateLevel(skin, newLevel)
+                if (isUpdateLevel) {
+                    profile = profile.modifyAttributes(skin, character.attributes.copy(mind = character.attributes.mind + 1,
+                        spirit = character.attributes.spirit + 1,
+                        body = character.attributes.body + 1))
+                }
+
+                saveProfile()
+
+                return ProfileService.SpendExperienceCurrencyResult(profile.characters.first { it.skin == skin }, balance - 1)
+            } else {
+                throw IllegalArgumentException("Not enough currency to update")
+            }
+        } ?: throw IllegalArgumentException("Character does not exist")
+    }
+
+    companion object {
+        fun getExperience(level: Int): Int = level * level
     }
 }

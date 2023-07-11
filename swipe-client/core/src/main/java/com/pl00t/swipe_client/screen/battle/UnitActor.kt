@@ -1,6 +1,5 @@
 package com.pl00t.swipe_client.screen.battle
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.Interpolation.SwingOut
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction
@@ -11,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.services.battle.logic.Effect
+import com.pl00t.swipe_client.ux.require
 import ktx.actors.along
 import ktx.actors.repeatForever
 import ktx.actors.then
@@ -37,7 +37,7 @@ class UnitActor(
     var popupDelay: Float = 0f
 
     init {
-        val region = context.commonAtlas(Atlases.COMMON_UNITS).findRegion(texture)
+        val region = context.commonAtlas(Atlases.COMMON_UNITS).findRegion(texture).require()
         characterImage = Image(region).apply {
             this.scaleX = if (team == 0) 1f else -1f
             this.width = s * w

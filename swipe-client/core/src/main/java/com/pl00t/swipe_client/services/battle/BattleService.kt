@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.map
+import ktx.app.profile
 import java.lang.IllegalStateException
 
 data class BattleRewardConfig(
@@ -61,12 +62,14 @@ class BattleServiceImpl(
             )
         } ?: throw IllegalStateException("Did not find waves of monsters")
 
+        val character = profileService.getCharacters().first()
+
         configuration = BattleConfiguration(
             humans = listOf(
                 HumanConfiguration(
                     configuration = monsterService.getMonster(UnitSkin.CHARACTER_VALERIAN),
-                    level = 1,
-                    attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1)
+                    level = character.level.level,
+                    attributes = CharacterAttributes(mind = character.attributes.mind, body = character.attributes.body, spirit = character.attributes.spirit)
                 )
             ),
             waves = waves

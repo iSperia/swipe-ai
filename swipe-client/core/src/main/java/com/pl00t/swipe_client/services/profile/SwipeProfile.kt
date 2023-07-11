@@ -22,8 +22,8 @@ data class ActProgress(
 )
 
 data class SwipeCharacterLevelInfo(
-    val experience: Long,
-    val maxExperience: Long,
+    val experience: Int,
+    val maxExperience: Int,
     val level: Int,
 )
 
@@ -33,6 +33,7 @@ data class ActCollectedReward(
 )
 
 data class SwipeCharacter(
+    val name: String,
     val skin: UnitSkin,
     val attributes: CharacterAttributes,
     val level: SwipeCharacterLevelInfo,
@@ -42,7 +43,7 @@ data class SwipeProfile(
     val balances: List<CurrencyBalance>,
     val actProgress: List<ActProgress>,
     val rewardsCollected: List<ActCollectedReward>?,
-//    val characters: List<SwipeCharacter>
+    val characters: List<SwipeCharacter>
 ) {
     private fun getRewardsCollectedOrEmpty() = rewardsCollected ?: emptyList()
 
@@ -55,5 +56,16 @@ data class SwipeProfile(
 
     fun getBalance(currency: SwipeCurrency) = balances.firstOrNull { it.currency == currency }?.amount ?: 0
 
+    fun updateLevel(skin: UnitSkin, level: SwipeCharacterLevelInfo): SwipeProfile {
+        return copy(characters = characters.map { c ->
+            if (c.skin == skin) c.copy(level = level) else c
+        })
+    }
+
     fun isRewardCollected(act: SwipeAct, level: String) = getRewardsCollectedOrEmpty().none { it.act == act && it.level == level }
+    fun modifyAttributes(skin: UnitSkin, attributes: CharacterAttributes): SwipeProfile {
+        return copy(characters = characters.map { c ->
+            if (c.skin == skin) c.copy(attributes = attributes) else c
+        })
+    }
 }

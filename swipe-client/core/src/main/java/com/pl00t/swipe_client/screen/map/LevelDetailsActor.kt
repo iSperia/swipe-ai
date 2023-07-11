@@ -62,8 +62,8 @@ class LevelDetailsActor(
             height = 60f
         }
         startButton = Buttons.createActionButton("To Battle!", skin).apply {
-            x = 305f
-            y = 14f
+            x = 300f
+            y = 12f
         }
         startButton.onClick { attackAction(levelDetails.locationId) }
 
