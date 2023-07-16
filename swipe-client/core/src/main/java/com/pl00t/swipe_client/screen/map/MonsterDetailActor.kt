@@ -131,7 +131,7 @@ class MonsterDetailActor(
                 )
                 expBalances.map { context.profileService().getCurrency(it) }.map {
                     val balance = profile.getBalance(it.currency)
-                    CollectedReward.CountedCurrency(it.currency, balance, it.name, it.rarity)
+                    CollectedReward.CountedCurrency(it.currency, balance, it.name, it.rarity, it.description)
                 }.filter { it.amount > 0 }.forEach { currency ->
                     val currencyActor = CurrencyRewardEntryActor(currency, context, skin)
                     val useButton = Buttons.createShortActionButton("Use", skin).apply {
@@ -140,7 +140,7 @@ class MonsterDetailActor(
                     }
                     val group = Group().apply {
                         width = 460f
-                        height = 72f
+                        height = 84f
                     }
                     group.addActor(currencyActor)
                     group.addActor(useButton)

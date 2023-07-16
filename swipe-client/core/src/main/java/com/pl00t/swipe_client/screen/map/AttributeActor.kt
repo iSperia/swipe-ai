@@ -36,65 +36,68 @@ class AttributeActor(
     private val triangleGroup: Group
 
     init {
-        width = 356f
-        height = 396f
+        width = 256f
+        height = 320f
         val suffix = when (mode) {
             Mode.PERCENT -> "%"
             Mode.ABSOLUTE -> ""
         }
         triangleGroup = Group().apply {
-            width = 356f
-            height = 396f
+            width = 256f
+            height = 356f
         }
-        valueBody = Label("Body: ${attributes.body}$suffix", skin, "damage_popup").apply {
-            x = 128f
-            width = 100f
-            height = 20f
-            setAlignment(Align.center)
-            y = 376f
-        }
-        valueMind = Label("Mind: ${attributes.mind}$suffix", skin, "damage_popup").apply {
-            x = 256f
-            width = 100f
-            setAlignment(Align.center)
-            y = 0f
-            height = 20f
-        }
-        valueSpirit = Label("Spirit: ${attributes.spirit}$suffix", skin, "damage_popup").apply {
-            x = 0f
-            width = 100f
-            setAlignment(Align.center)
-            y = 0f
-            height = 20f
+        val triangle = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("triangle_attributes")).apply {
+            y = 30f
+            width = 256f
+            height = 256f
+            setScaling(Scaling.stretch)
         }
         val iconBody = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("attribute_body")).apply {
             width = 100f
             height = 100f
             setScaling(Scaling.stretch)
-            x = 128f
-            y = 276f
+            x = 127f - 50f + triangle.x
+            y = 227f - 50f + triangle.y
         }
+        valueBody = Label("Body: ${attributes.body}$suffix", skin, "damage_popup").apply {
+            x = iconBody.x
+            width = 100f
+            height = 20f
+            setAlignment(Align.center)
+            y = iconBody.y + 100f
+        }
+
         val iconSpirit = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("attribute_spirit")).apply {
             width = 100f
             height = 100f
             setScaling(Scaling.stretch)
-            x = 0f
-            y = 20f
+            x = 44f - 50f + triangle.x
+            y = 78f - 50f + triangle.y
         }
+        valueSpirit = Label("Spirit: ${attributes.spirit}$suffix", skin, "damage_popup").apply {
+            x = iconSpirit.x
+            width = 100f
+            setAlignment(Align.center)
+            y = iconSpirit.y - 20f
+            height = 20f
+        }
+
+
         val iconMind = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("attribute_mind")).apply {
             width = 100f
             height = 100f
             setScaling(Scaling.stretch)
-            x = 258f
-            y = 20f
+            x = 215 - 50f + triangle.x
+            y = 78 - 50f + triangle.y
         }
-        val triangle = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("triangle_attributes")).apply {
-            x = 50f
-            y = 70f
-            width = 256f
-            height = 256f
-            setScaling(Scaling.stretch)
+        valueMind = Label("Mind: ${attributes.mind}$suffix", skin, "damage_popup").apply {
+            x = iconMind.x
+            width = 100f
+            setAlignment(Align.center)
+            y = iconMind.y - 20f
+            height = 20f
         }
+
 
         dialogGroup = Group().apply {
             x = 25f
@@ -107,7 +110,7 @@ class AttributeActor(
         }
         dialogLabel = Label("BODY\nPhysical qualities of character. Health is increased by 10% per BODY. Typically scales physical and fire damage", skin, "lore_medium").apply {
             setAlignment(Align.center)
-            width = 286f
+            width = 256f
             height = 120f
             x = 10f
             y = 10f
@@ -138,17 +141,17 @@ class AttributeActor(
         iconBody.onClick {
             dialogLabel.setText("BODY\nPhysical strength and vitality. Health is increased by 10% per BODY. Typically scales physical and fire damage")
             dialogGroup.isVisible = true
-            animateDialogGroup(25f, 158f)
+            animateDialogGroup(0f, iconBody.y - 120f)
         }
         iconSpirit.onClick {
             dialogLabel.setText("SPIRIT\nMental qualities and morale. Crit. chance is increased by 5% per SPIRIT. Typically scales dark and light damage")
             dialogGroup.isVisible = true
-            animateDialogGroup(5f, 108f)
+            animateDialogGroup(0f, iconMind.y + 100f)
         }
         iconMind.onClick {
             dialogLabel.setText("MIND\nKnowledge and wisdom. Ultimate fills 5% faster per MIND. Typically scales shock and cold damage")
             dialogGroup.isVisible = true
-            animateDialogGroup(45f, 108f)
+            animateDialogGroup(0f, iconMind.y + 100f)
         }
     }
 

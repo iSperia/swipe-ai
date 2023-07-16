@@ -59,6 +59,6 @@ class UnitHealthBarActor(
             setSize(_maxWidth * progress, foregound.height)
             duration = 1f
         })
-//        healthText.setText(health.toString())
+        healthText.setText(health.toString())
     }
 }

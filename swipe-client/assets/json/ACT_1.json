@@ -40,22 +40,15 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 300,
+            "amount": 2,
             "type": "SPARK_OF_INSIGHT"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 300,
-            "type": "EXPERIENCE_CRYSTAL"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 300,
-            "type": "EXPERIENCE_RELIC"
+            "amount": 100,
+            "type": "ETHERIUM_COIN"
           }
         }
       ]
@@ -114,29 +107,15 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 50,
-            "type": "ETHERIUM_COIN"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 300,
+            "amount": 3,
             "type": "SPARK_OF_INSIGHT"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 300,
-            "type": "EXPERIENCE_CRYSTAL"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 300,
-            "type": "EXPERIENCE_RELIC"
+            "amount": 100,
+            "type": "ETHERIUM_COIN"
           }
         }
       ]
@@ -243,28 +222,54 @@
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_THALENDROS",
             "level": 3
-          },
-          {
-            "skin": "MONSTER_CORRUPTED_DRYAD",
-            "level": 3
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_CORRUPTED_DRYAD",
-            "level": 3
-          },
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 3
-          },
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
           }
         ]
+      ],
+      "dialog": [
+        {
+          "actor": "MONSTER_THALENDROS",
+          "side": "right",
+          "text": "Intruders! You dare trespass upon my domain?",
+          "title": "Thalendros"
+        },
+        {
+          "actor": "CHARACTER_VALERIAN",
+          "side": "left",
+          "text": "Thalendros, your corruption has brought imbalance to these sacred groves. We have come to restore harmony.",
+          "title": "Prince Valerian"
+        },
+        {
+          "actor": "CHARACTER_SAFFRON",
+          "side": "right",
+          "text": "Your once noble spirit has been tainted, Thalendros. Release your hold on this realm, or face the consequences.",
+          "title": "Saffron"
+        },
+        {
+          "actor": "MONSTER_THALENDROS",
+          "side": "right",
+          "text": "Foolish mortals, you know nothing of the power I possess. Prepare to be ensnared in the thorns of your own demise!",
+          "title": "Thalendros"
+        },
+        {
+          "actor": "CHARACTER_VALERIAN",
+          "side": "left",
+          "text": "We shall vanquish your darkness, treacherous Treant! Light shall prevail!",
+          "title": "Prince Valerian"
+        },
+        {
+          "actor": "CHARACTER_SAFFRON",
+          "side": "right",
+          "text": "Together, we will cleanse these groves and bring peace back to the land. Prepare for the battle of your life, Thalendros!",
+          "title": "Saffron"
+        },
+        {
+          "actor": "MONSTER_THALENDROS",
+          "side": "right",
+          "text": "You shall regret challenging me. The forest shall be your grave!",
+          "title": "Thalendros"
+        }
       ]
     },
     {

@@ -42,5 +42,9 @@ object TileGeneratorConfigFactory {
         TileSkin.THORNED_CRAWLER_VICIOUS_PINCERS to 4,
         TileSkin.THORNED_CRAWLER_DEBILIATING_STRIKE to 4,
         TileSkin.THORNED_CRAWLER_LEECHING_SHADOWS to 3,
+
+        TileSkin.THALENDROS_THORN_WHIP to 5,
+        TileSkin.THALENDROS_DARK_AURA to 3,
+        TileSkin.THALENDROS_EARTHQUAKE_SLAM to 3,
     )
 }

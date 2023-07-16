@@ -99,7 +99,7 @@
         {
           "title": "Divine Convergence",
           "skin": "VALERIAN_DIVINE_CONVERGENCE",
-          "description": "ULTIMATE: consumes all sigils, heals the character and deals mass lightning damage for each sigil consumed",
+          "description": "ULTIMATE: consumes all sigils, heals the character and deals mass LIGHT damage for each sigil consumed",
           "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
           "attributes": {
             "lightDamagePerSigil": 5,
@@ -203,7 +203,7 @@
         {
           "title": "Debilitating Strike",
           "skin": "THORNED_CRAWLER_DEBILIATING_STRIKE",
-          "description": "Powerful physical single target attack, that inflicts weakness",
+          "description": "Powerful physical single target attack, that inflicts weakness(each weakness tile reduced damage of character by 2,5%. Weakness tile is removed when skill is triggered on its position)",
           "lore": "Strength wanes as thorns pierce the body.",
           "attributes": {
             "physDamage": 3,
@@ -285,13 +285,16 @@
       "skin": "MONSTER_THORNSTALKER",
       "name": "Thornstalker",
       "lore": "Deep within the enchanted groves, the Thornstalkers roam with their sinewy forms and razor-sharp thorns. These elusive creatures embody the untamed spirit of the forest, blending seamlessly with the verdant surroundings. They strike swiftly and silently, relying on their natural camouflage to ambush unsuspecting prey. Legends whisper of their ability to communicate with the ancient trees and harness the raw power of nature. Caution is advised when venturing into their territory, for the Thornstalkers are fierce protectors of the groves and will not hesitate to defend their realm with untamed ferocity.",
-      "baseHealth": 3,
+      "baseHealth": 25,
       "attributes": {"mind":  25, "spirit":  25, "body":  50},
       "tileConfig": { "entries": [
         {"tile": "THORNSTALKER_PRIMAL_ASSAULT", "weight":  5},
         {"tile": "THORNSTALKER_RESILIENT_GROWTH", "weight":  3},
         {"tile": "THORNSTALKER_VENOMOUS_BARRAGE", "weight":  2}
       ] },
+      "affixes": {
+        "RESIST_PHYSICAL": 20
+      },
       "scale": 1.05,
       "abilities": [
         {
@@ -484,6 +487,91 @@
             {
               "title": "Amount of tile positions to destroy",
               "description": "{tiles}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "skin": "MONSTER_THALENDROS",
+      "name": "Thalendros",
+      "lore": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
+      "baseHealth": 120,
+      "attributes": {"mind":  20, "spirit":  20, "body":  60},
+      "affixes": {
+        "VULNERABLE_FIRE": 100,
+        "RESIST_PHYSICAL": 50,
+        "THALENDROS_ROOTS": 1
+      },
+      "tileConfig": { "entries": [
+        {"tile": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "weight":  4},
+        {"tile": "CORRUPTED_DRYAD_VILE_SIPHON", "weight":  4},
+        {"tile": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION", "weight":  2}
+      ] },
+      "scale": 1.5,
+      "abilities": [
+        {
+          "title": "Thorn Whip",
+          "skin": "THALENDROS_THORN_WHIP",
+          "description": "Physical single target attack",
+          "lore": "Nature's grasp turns to thorny wrath, a reminder of the darkness that dwells within.",
+          "attributes": {
+            "physDamage": 6,
+            "physPerBody": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Base physical damage",
+              "description": "{physDamage}"
+            },
+            {
+              "title": "Physical damage increase, per BODY",
+              "description": "{physPerBody}%"
+            }
+          ]
+        },
+        {
+          "title": "Earthquake Slam",
+          "skin": "THALENDROS_EARTHQUAKE_SLAM",
+          "description": "Generates corrupted root tiles that increase Thalendros' physical resistance, while they are on the field. When roots appear, tiles they appear at are destroyed.",
+          "lore": "From the depths of his corrupted heart, Thalendros shakes the very foundations of nature.",
+          "attributes": {
+            "numTiles": 4,
+            "resistBuff": 50
+          },
+          "descriptionTable": [
+            {
+              "title": "Corrupted root tiles generated",
+              "description": "{numTiles}"
+            },
+            {
+              "title": "Physical resistance buff",
+              "description": "+{resistBuff}%"
+            }
+          ]
+        },
+        {
+          "title": "Dark Aura",
+          "skin": "THALENDROS_DARK_AURA",
+          "description": "Corrupts some tiles of a target with dark aura. When the ability triggers on a corrupted tile, that character is dealt with massive darkness damage",
+          "lore": "Darkness takes hold, corrupting all it touches, turning allies into unwitting foes.",
+          "attributes": {
+            "numTiles": 4,
+            "darkDamage": 5,
+            "darkPerSpirit": 10
+          },
+          "descriptionTable": [
+            {
+              "title": "Dark aura tiles generated",
+              "description": "{numTiles}"
+            },
+            {
+              "title": "Darkness damage of a tile",
+              "description": "{darkDamage}"
+            },
+            {
+              "title": "Darkness damage increased, per SPIRIT",
+              "description": "{darkPerSpirit}%"
             }
           ]
         }

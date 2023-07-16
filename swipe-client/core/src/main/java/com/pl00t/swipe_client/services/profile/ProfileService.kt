@@ -42,6 +42,7 @@ sealed interface CollectedReward {
         val amount: Int,
         val title: String,
         val rarity: Int,
+        val description: String,
     ): CollectedReward
 }
 
@@ -50,6 +51,7 @@ data class CurrencyMetadata(
     val lore: String,
     val name: String,
     val rarity: Int,
+    val description: String,
 )
 
 data class CurrenciesMetadata(
@@ -177,7 +179,7 @@ class ProfileServiceImpl(
                 LevelRewardType.currency -> {
                     val currency = getCurrency(reward.currency!!.type)
                     profile = profile.addBalance(currency.currency, reward.currency.amount)
-                    result.add(CollectedReward.CountedCurrency(reward.currency.type, reward.currency.amount, currency.name, currency.rarity))
+                    result.add(CollectedReward.CountedCurrency(reward.currency.type, reward.currency.amount, currency.name, currency.rarity, currency.description))
                 }
                 else -> {}
             }
@@ -188,7 +190,7 @@ class ProfileServiceImpl(
     }
 
     override suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata {
-        return currencyCache.currencies.firstOrNull { it.currency == currency } ?: CurrencyMetadata(currency, "", "", 0)
+        return currencyCache.currencies.firstOrNull { it.currency == currency } ?: CurrencyMetadata(currency, "", "", 0, "")
     }
 
     override suspend fun getCharacters(): List<SwipeCharacter> {
@@ -225,7 +227,7 @@ class ProfileServiceImpl(
 
                 return ProfileService.SpendExperienceCurrencyResult(profile.characters.first { it.skin == skin }, balance - 1)
             } else {
-                throw IllegalArgumentException("Not enough currency to update")
+                return ProfileService.SpendExperienceCurrencyResult(profile.characters.first { it.skin == skin }, balance)
             }
         } ?: throw IllegalArgumentException("Character does not exist")
     }

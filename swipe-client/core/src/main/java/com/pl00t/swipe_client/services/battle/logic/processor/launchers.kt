@@ -73,6 +73,12 @@ class BehaviorFactory(private val monsterService: MonsterService) {
             TileSkin.THORNED_CRAWLER_VICIOUS_PINCERS -> ViciousPincers(getMonsterAbilityConfig(UnitSkin.MONSTER_THORNED_CRAWLER, skin))
             TileSkin.THORNED_CRAWLER_LEECHING_SHADOWS -> LeechingShadows(getMonsterAbilityConfig(UnitSkin.MONSTER_THORNED_CRAWLER, skin))
             TileSkin.THORNED_CRAWLER_DEBILIATING_STRIKE -> DebiliatingStrike(getMonsterAbilityConfig(UnitSkin.MONSTER_THORNED_CRAWLER, skin))
+
+            TileSkin.THALENDROS_EARTHQUAKE_SLAM -> EarthquakeSlam(getMonsterAbilityConfig(UnitSkin.MONSTER_THALENDROS, skin))
+            TileSkin.THALENDROS_DARK_AURA -> DarkAura(getMonsterAbilityConfig(UnitSkin.MONSTER_THALENDROS, skin))
+            TileSkin.THALENDROS_THORN_WHIP -> ThornedWhipBehavior(getMonsterAbilityConfig(UnitSkin.MONSTER_THALENDROS, skin))
+
+            else -> PoisonBehavior()
         }.also { cache[skin] = it }
     }
 

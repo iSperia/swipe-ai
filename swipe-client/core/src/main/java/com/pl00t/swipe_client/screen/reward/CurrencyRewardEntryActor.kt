@@ -24,48 +24,66 @@ class CurrencyRewardEntryActor(
 
     init {
         width = 360f
-        height = 72f
+        height = 84f
+
+        val leftGroup = Group().apply {
+            height = 84f
+            width = 72f
+        }
 
         image = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion(reward.currency.toString())).apply {
             width = 72f
             height = 72f
+            y = 12f
         }
-        val table = Table().apply {
-            x = 80f
-            y = 6f
-            height = 60f
-            width = 270f
-        }
-
-        title = Label(reward.title, skin, "wave_caption").apply {
-            setAlignment(Align.left)
-        }
-        table.add(title).colspan(2).expandX().left()
-        table.row()
-        amountLabel = Label("x${reward.amount}", skin, "text_regular").apply {
-            setAlignment(Align.left)
-        }
+        leftGroup.addActor(image)
 
         val starGroup = Group().apply {
-            width = 24f * reward.rarity
+            width = 24f + (reward.rarity - 1) * 12f
             height = 24f
+            x = (72f - this.width) / 2f
         }
         (0 until reward.rarity).forEach { index ->
             val star = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("icon_star")).apply {
-                x = 24f * index
+                x = 12f * index
                 width = 24f
                 height = 24f
                 setScaling(Scaling.stretch)
             }
             starGroup.addActor(star)
         }
-        table.add(starGroup).align(Align.left).width(starGroup.width)
+        leftGroup.addActor(starGroup)
 
-        table.add(amountLabel).expandX().left().padLeft(10f)
-        table.row()
 
-        addActor(image)
-        addActor(table)
+        val rightGroup = Group().apply {
+            x = 90f
+            height = 84f
+            width = 270f
+        }
+
+        title = Label(reward.title, skin, "wave_caption").apply {
+            setAlignment(Align.topLeft)
+            y = 60f
+        }
+        rightGroup.addActor(title)
+
+        amountLabel = Label("x${reward.amount}", skin, "text_regular").apply {
+            setAlignment(Align.topRight)
+            width = 270f
+            y = 60f
+        }
+        rightGroup.addActor(amountLabel)
+
+        val descriptionLabel = Label(reward.description, skin, "text_small").apply {
+            setAlignment(Align.topLeft)
+            wrap = true
+            width = 270f
+            height = 58f
+        }
+        rightGroup.addActor(descriptionLabel)
+
+        addActor(leftGroup)
+        addActor(rightGroup)
     }
 
     fun updateAmount(balance: Int) {

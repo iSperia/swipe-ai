@@ -1,36 +1,153 @@
+
 tarot.png
-size:2048,2048
-filter:MipMapLinearLinear,MipMapLinearLinear
-repeat:none
+size: 2048, 2048
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: none
 COMMON_POISON
-bounds:903,1010,300,504
+  rotate: false
+  xy: 1204, 1010
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 COMMON_WEAKNESS
-bounds:903,881,128,128
+  rotate: false
+  xy: 1505, 1386
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 CORRUPTED_DRYAD_ARBOREAL_FANGS
-bounds:602,1515,300,504
+  rotate: false
+  xy: 602, 1010
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 CORRUPTED_DRYAD_SHADOWED_ANNIHILATION
-bounds:301,505,300,504
+  rotate: false
+  xy: 301, 0
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 CORRUPTED_DRYAD_VILE_SIPHON
-bounds:0,505,300,504
+  rotate: false
+  xy: 602, 1515
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
+THALENDROS_CORRUPTED_ROOTS
+  rotate: false
+  xy: 0, 1515
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
+THALENDROS_DARK_AURA
+  rotate: false
+  xy: 602, 0
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
+THALENDROS_DARK_TILE
+  rotate: false
+  xy: 903, 376
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+THALENDROS_EARTHQUAKE_SLAM
+  rotate: false
+  xy: 301, 1010
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
+THALENDROS_THORN_WHIP
+  rotate: false
+  xy: 0, 0
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 THORNED_CRAWLER_DEBILIATING_STRIKE
-bounds:1204,1515,300,504
+  rotate: false
+  xy: 1505, 1515
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 THORNED_CRAWLER_LEECHING_SHADOWS
-bounds:903,1515,300,504
+  rotate: false
+  xy: 903, 1010
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 THORNED_CRAWLER_VICIOUS_PINCERS
-bounds:0,0,300,504
+  rotate: false
+  xy: 903, 1515
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 THORNSTALKER_PRIMAL_ASSAULT
-bounds:0,1515,300,504
+  rotate: false
+  xy: 0, 1010
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 THORNSTALKER_RESILIENT_GROWTH
-bounds:602,1010,300,504
+  rotate: false
+  xy: 602, 505
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 THORNSTALKER_VENOMOUS_BARRAGE
-bounds:301,1010,300,504
+  rotate: false
+  xy: 301, 505
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 VALERIAN_DIVINE_CONVERGENCE
-bounds:301,1515,300,504
+  rotate: false
+  xy: 0, 505
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 VALERIAN_LUMINOUS_BEAM
-bounds:301,0,300,504
+  rotate: false
+  xy: 1204, 1515
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 VALERIAN_RADIANT_STRIKE
-bounds:0,1010,300,504
+  rotate: false
+  xy: 301, 1515
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 VALERIAN_SIGIL_OF_RENEWAL
-bounds:602,505,300,504
+  rotate: false
+  xy: 903, 505
+  size: 300, 504
+  orig: 300, 504
+  offset: 0, 0
+  index: -1
 VALERIAN_SIGIL_OF_RENEWAL_BG
-bounds:602,248,256,256
+  rotate: false
+  xy: 1204, 881
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
