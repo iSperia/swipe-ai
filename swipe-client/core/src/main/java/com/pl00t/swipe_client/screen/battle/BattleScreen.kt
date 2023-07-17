@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
@@ -201,26 +202,25 @@ class BattleScreen(
     }
 
     private fun processEvent(event: BattleEvent) {
-//        println("BS: $event")
         when (event) {
             is BattleEvent.WaveEvent -> {
                 rightUnitsCount = 0
-//                val wave = Fonts.createWhiteTitle("Wave ${event.wave}", root.height * 0.2f).apply {
-//                    width = root.width
-//                    height = root.height * 0.2f
-//                    y = root.height * 0.2f
-//                    alpha = 0f
-//                    setAlignment(Align.bottom)
-//                }
-//                root.addActor(wave)
-//                wave.addAction(Actions.sequence(
-//                    Actions.parallel(
-//                        Actions.alpha(1f, 0.2f),
-//                        Actions.moveBy(0f, root.height * 0.6f, 2f)
-//                    ),
-//                    Actions.alpha(0f, 0.5f),
-//                    Actions.removeActor()
-//                ))
+                val wave = Label("Wave ${event.wave}", skin, "wave_caption").apply {
+                    width = root.width
+                    height = root.height * 0.2f
+                    y = root.height * 0.2f
+                    alpha = 0f
+                    setAlignment(Align.bottom)
+                }
+                root.addActor(wave)
+                wave.addAction(Actions.sequence(
+                    Actions.parallel(
+                        Actions.alpha(1f, 0.2f),
+                        Actions.moveBy(0f, root.height * 0.6f, 2f)
+                    ),
+                    Actions.alpha(0f, 0.5f),
+                    Actions.removeActor()
+                ))
             }
 
             is BattleEvent.CreateUnitEvent -> {

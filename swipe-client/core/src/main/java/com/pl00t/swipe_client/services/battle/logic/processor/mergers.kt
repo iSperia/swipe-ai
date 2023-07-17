@@ -17,6 +17,10 @@ object TileMerger {
         TileSkin.THORNED_CRAWLER_LEECHING_SHADOWS,
         TileSkin.THORNED_CRAWLER_DEBILIATING_STRIKE,
         TileSkin.THORNED_CRAWLER_VICIOUS_PINCERS,
+        TileSkin.THALENDROS_THORN_WHIP,
+        TileSkin.THALENDROS_DARK_AURA,
+        TileSkin.THALENDROS_EARTHQUAKE_SLAM,
+        TileSkin.THALENDROS_CORRUPTED_ROOTS,
     )
 
     val NEUTRAL = listOf<TileSkin>()

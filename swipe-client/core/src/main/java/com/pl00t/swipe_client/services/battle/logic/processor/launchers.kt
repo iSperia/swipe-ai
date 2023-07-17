@@ -76,7 +76,9 @@ class BehaviorFactory(private val monsterService: MonsterService) {
 
             TileSkin.THALENDROS_EARTHQUAKE_SLAM -> EarthquakeSlam(getMonsterAbilityConfig(UnitSkin.MONSTER_THALENDROS, skin))
             TileSkin.THALENDROS_DARK_AURA -> DarkAura(getMonsterAbilityConfig(UnitSkin.MONSTER_THALENDROS, skin))
+            TileSkin.THALENDROS_DARK_TILE -> DarkTile(getMonsterAbilityConfig(UnitSkin.MONSTER_THALENDROS, skin))
             TileSkin.THALENDROS_THORN_WHIP -> ThornedWhipBehavior(getMonsterAbilityConfig(UnitSkin.MONSTER_THALENDROS, skin))
+            TileSkin.THALENDROS_CORRUPTED_ROOTS -> CorruptedRoots(getMonsterAbilityConfig(UnitSkin.MONSTER_THALENDROS, skin))
 
             else -> PoisonBehavior()
         }.also { cache[skin] = it }

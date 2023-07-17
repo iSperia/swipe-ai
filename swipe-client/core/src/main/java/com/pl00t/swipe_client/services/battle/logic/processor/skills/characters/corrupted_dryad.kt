@@ -100,7 +100,6 @@ class ShadowedAnnihinlation(config: MonsterAbilityConfiguration): SkillBehavior(
                 battle = battle.updateOrRemoveUnit(enemy.copy(field = enemy.field.copy(
                     tiles = enemy.field.tiles.filter { it.x != p % 5 || it.y != p / 5 }
                 )))
-                battle.unitById(enemy.id)?.let { enemy = it }
             }
         }
         aoe.skillUse(battle, character, at, lucky).let {

@@ -5,7 +5,7 @@
       "name": "Prince Valerian",
       "lore": "Prince Valerian, heir to the throne of the Kingdom of Harmony, is a courageous and noble warrior destined for greatness. Born with a deep sense of justice and a burning desire to protect his people, he possesses a natural affinity for the radiant powers of light.\n\nAs a young prince, Valerian received rigorous training in the arts of swordplay and combat, honing his skills to become a formidable warrior. His unwavering dedication to his kingdom and its people earned him the respect and admiration of his subjects.\n\nDriven by a strong sense of responsibility, Prince Valerian embarks on a perilous quest to restore balance and harmony to the fractured realms. With his sword, the radiant Sword of the Lightbearer, and the empowering sigils bestowed upon him, he stands as a beacon of hope against the encroaching darkness.\n\nValerian's unwavering determination is matched only by his unwavering sense of compassion. Along his journey, he forges deep bonds with allies and confronts the malevolent forces that threaten the realms. As the hero of prophecy, he embraces his destiny, facing formidable challenges and sacrificing his own well-being for the greater good.\n\nGuided by the wisdom of Saffron, his ethereal companion, Prince Valerian must rally the kingdoms and unite them against the encroaching shadows. With his unwavering resolve and the power of light pulsating within him, he strives to restore peace and harmony to a world on the brink of chaos.\n\nWill Prince Valerian emerge triumphant, fulfilling his destiny as the savior of the realms? Only time will tell, as he embarks on a journey that will test his mettle, shape his character, and ultimately determine the fate of the kingdoms and all who inhabit them.",
       "attributes": {"mind":  0, "spirit":  0, "body":  0},
-      "baseHealth": 100,
+      "baseHealth": 1000,
       "tileConfig": { "entries": [
         {"tile": "VALERIAN_RADIANT_STRIKE", "weight":  3},
         {"tile": "VALERIAN_LUMINOUS_BEAM", "weight":  3},
@@ -19,7 +19,7 @@
           "description": "Melee physical strike",
           "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
           "attributes": {
-            "physDamage": 10,
+            "physDamage": 100,
             "physPerBody": 10
           },
           "descriptionTable": [
@@ -39,8 +39,8 @@
           "description": "Mass attack that deals damage with light",
           "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
           "attributes": {
-            "lightDamage": 6,
-            "lightPerSpirit": 6
+            "lightDamage": 60,
+            "lightPerSpirit": 60
           },
           "descriptionTable": [
             {
@@ -51,13 +51,7 @@
               "title": "Light damage increase, per SPIRIT",
               "description": "{lightPerSpirit}%"
             }
-          ],
-          "behavior": {
-            "selectTarget": "enemyAoe",
-            "dealDamageBase": {"light":  6},
-
-            "scalePhysicalDamagePerBody": 0.1
-          }
+          ]
         },
         {
           "title": "Sigil of Renewal",
@@ -66,7 +60,7 @@
           "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
           "attributes": {
             "numTiles": 2,
-            "healPerSigil": 5,
+            "healPerSigil": 50,
             "healPerSpirit": 10
           },
           "descriptionTable": [
@@ -102,9 +96,9 @@
           "description": "ULTIMATE: consumes all sigils, heals the character and deals mass LIGHT damage for each sigil consumed",
           "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
           "attributes": {
-            "lightDamagePerSigil": 5,
+            "lightDamagePerSigil": 50,
             "healPerSigil": 5,
-            "lightDamagePerSpirit": 5,
+            "lightDamagePerSpirit": 50,
             "healPerSpirit": 10,
             "healPerBody": 10
           },
@@ -149,7 +143,7 @@
       "skin": "MONSTER_THORNED_CRAWLER",
       "name": "Thorned Crawler",
       "lore": "Beneath the forest floor, the Thorned Crawlers scuttle and slither, their spiky carapaces blending seamlessly with the shadows. These menacing creatures boast an armored exoskeleton adorned with razor-sharp thorns, serving as both protection and weaponry. Their movements are swift and calculated, often ambushing their prey by bursting forth from the undergrowth. With formidable strength and agility, they are formidable opponents in close-quarters combat. Legends speak of their ability to sense vibrations in the earth, granting them an uncanny ability to navigate even the darkest of subterranean passages.",
-      "baseHealth": 20,
+      "baseHealth": 200,
       "attributes": {"mind":  30, "spirit":  30, "body":  40},
       "tileConfig": { "entries": [
         {"tile": "THORNED_CRAWLER_VICIOUS_PINCERS", "weight":  5},
@@ -164,8 +158,8 @@
           "description": "Deals physical/darkness damage to single target",
           "lore": "Sharp claws rend flesh, leaving scars of pain.",
           "attributes": {
-            "physDamage": 1,
-            "darkDamage": 1,
+            "physDamage": 10,
+            "darkDamage": 10,
             "physPerBody": 10,
             "darkPerSpirit": 10
           },
@@ -206,7 +200,7 @@
           "description": "Powerful physical single target attack, that inflicts weakness(each weakness tile reduced damage of character by 2,5%. Weakness tile is removed when skill is triggered on its position)",
           "lore": "Strength wanes as thorns pierce the body.",
           "attributes": {
-            "physDamage": 3,
+            "physDamage": 30,
             "physPerBody": 10,
             "weaknessTiles": 2
           },
@@ -243,9 +237,9 @@
           "description": "Dark damage single target attack, that heals the crawler",
           "lore": "Life fades as darkness drains vitality.",
           "attributes": {
-            "darkDamage": 2,
+            "darkDamage": 20,
             "darkPerSpirit": 10,
-            "heal": 2,
+            "heal": 20,
             "healPerSpirit": 10
           },
           "descriptionTable": [
@@ -285,7 +279,7 @@
       "skin": "MONSTER_THORNSTALKER",
       "name": "Thornstalker",
       "lore": "Deep within the enchanted groves, the Thornstalkers roam with their sinewy forms and razor-sharp thorns. These elusive creatures embody the untamed spirit of the forest, blending seamlessly with the verdant surroundings. They strike swiftly and silently, relying on their natural camouflage to ambush unsuspecting prey. Legends whisper of their ability to communicate with the ancient trees and harness the raw power of nature. Caution is advised when venturing into their territory, for the Thornstalkers are fierce protectors of the groves and will not hesitate to defend their realm with untamed ferocity.",
-      "baseHealth": 25,
+      "baseHealth": 250,
       "attributes": {"mind":  25, "spirit":  25, "body":  50},
       "tileConfig": { "entries": [
         {"tile": "THORNSTALKER_PRIMAL_ASSAULT", "weight":  5},
@@ -303,7 +297,7 @@
           "description": "Heavy physical single target attack",
           "lore": "Nature's fury strikes without mercy.",
           "attributes": {
-            "physDamage": 4,
+            "physDamage": 40,
             "physPerBody": 10
           },
           "descriptionTable": [
@@ -330,7 +324,7 @@
           "description": "Poisons the target with three poison tiles",
           "lore": "Thorns of poison sow decay and despair.",
           "attributes": {
-            "poisonDamage": 1,
+            "poisonDamage": 5,
             "poisonPerSpirit": 10
           },
           "descriptionTable": [
@@ -357,7 +351,7 @@
           "description": "Heals the thorstalker",
           "lore": "Nature's embrace fortifies, defying all harm.",
           "attributes": {
-            "heal": 3,
+            "heal": 30,
             "healPerSpirit": 10
           },
           "descriptionTable": [
@@ -384,7 +378,7 @@
       "skin": "MONSTER_CORRUPTED_DRYAD",
       "name": "Corrupted Dryad",
       "lore": "Once the graceful guardians of the forest, the Corrupted Dryads now bear a twisted visage, consumed by darkness and despair. Once embodying nature's harmony and beauty, they have succumbed to corruption, their essence tainted by an unknown malevolence. Their once melodious voices now echo with haunting wails, and their graceful movements have been replaced by unsettling contortions. Beware their deceitful allure, for they will stop at nothing to lure unsuspecting wanderers into their sinister grasp. Redemption seems but a distant memory as they cling desperately to their fading connection with the natural world.",
-      "baseHealth": 20,
+      "baseHealth": 200,
       "attributes": {"mind":  20, "spirit":  40, "body":  40},
       "tileConfig": { "entries": [
         {"tile": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "weight":  4},
@@ -399,7 +393,7 @@
           "description": "Physical single target attack",
           "lore": "Nature's teeth rend with twisted malice.",
           "attributes": {
-            "physDamage": 6,
+            "physDamage": 60,
             "physPerBody": 10
           },
           "descriptionTable": [
@@ -426,9 +420,9 @@
           "description": "Single targeted physical attack, Corrupted Dryad is healed",
           "lore": "Life's essence drained, hope withers away.",
           "attributes": {
-            "physDamage": 2,
+            "physDamage": 20,
             "physPerBody": 10,
-            "heal": 2,
+            "heal": 20,
             "healPerSpirit": 10
           },
           "descriptionTable": [
@@ -463,7 +457,7 @@
           "description": "Mass attack. For each target all tiles are destroyed at random positions",
           "lore": "Darkness descends, consuming all in its path.",
           "attributes": {
-            "damage": 2,
+            "damage": 20,
             "damagePerSpirit": 10,
             "tiles": 5
           },
@@ -496,7 +490,7 @@
       "skin": "MONSTER_THALENDROS",
       "name": "Thalendros",
       "lore": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
-      "baseHealth": 120,
+      "baseHealth": 1200,
       "attributes": {"mind":  20, "spirit":  20, "body":  60},
       "affixes": {
         "VULNERABLE_FIRE": 100,
@@ -504,9 +498,9 @@
         "THALENDROS_ROOTS": 1
       },
       "tileConfig": { "entries": [
-        {"tile": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "weight":  4},
-        {"tile": "CORRUPTED_DRYAD_VILE_SIPHON", "weight":  4},
-        {"tile": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION", "weight":  2}
+        {"tile": "THALENDROS_THORN_WHIP", "weight":  4},
+        {"tile": "THALENDROS_EARTHQUAKE_SLAM", "weight":  4},
+        {"tile": "THALENDROS_DARK_AURA", "weight":  2}
       ] },
       "scale": 1.5,
       "abilities": [
@@ -516,7 +510,7 @@
           "description": "Physical single target attack",
           "lore": "Nature's grasp turns to thorny wrath, a reminder of the darkness that dwells within.",
           "attributes": {
-            "physDamage": 6,
+            "physDamage": 60,
             "physPerBody": 10
           },
           "descriptionTable": [
@@ -556,8 +550,8 @@
           "description": "Corrupts some tiles of a target with dark aura. When the ability triggers on a corrupted tile, that character is dealt with massive darkness damage",
           "lore": "Darkness takes hold, corrupting all it touches, turning allies into unwitting foes.",
           "attributes": {
-            "numTiles": 4,
-            "darkDamage": 5,
+            "numTiles": 3,
+            "darkDamage": 50,
             "darkPerSpirit": 10
           },
           "descriptionTable": [

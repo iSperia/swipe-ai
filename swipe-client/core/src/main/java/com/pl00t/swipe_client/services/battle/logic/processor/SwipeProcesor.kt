@@ -223,7 +223,7 @@ class SwipeProcesor(private val monsterService: MonsterService) {
         var unitId = battle.maxUnitId
         val events = mutableListOf<BattleEvent>()
         val humanCharacters = if (wave < 1) config.humans.map { humanConfig ->
-            val health = (100 * (1f + humanConfig.attributes.body * 0.1f)).toInt()
+            val health = (1000 * (1f + humanConfig.attributes.body * 0.1f)).toInt()
             Character(
                 id = unitId++,
                 field = TileField(emptyList(), 0),
