@@ -2,12 +2,11 @@ package com.pl00t.swipe_client.screen.map
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
-import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.services.battle.UnitSkin
+import com.game7th.swipe.battle.UnitSkin
 import ktx.actors.onClick
 
 interface LevelWaveCallback {
-    fun processMonsterClicked(skin: UnitSkin)
+    fun processMonsterClicked(skin: String)
 }
 
 class LevelWaveActor(

@@ -9,9 +9,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.screen.battle.BattleDialogActor
-import com.pl00t.swipe_client.services.battle.logic.Character
-import com.pl00t.swipe_client.services.battle.logic.CharacterAttributes
+import com.game7th.swipe.battle.CharacterAttributes
 import ktx.actors.alpha
 import ktx.actors.onClick
 

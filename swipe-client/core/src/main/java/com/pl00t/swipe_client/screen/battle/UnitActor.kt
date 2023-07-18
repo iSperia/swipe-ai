@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.services.battle.logic.Effect
+import com.game7th.swipe.battle.Effect
 import com.pl00t.swipe_client.ux.require
 import ktx.actors.along
 import ktx.actors.repeatForever

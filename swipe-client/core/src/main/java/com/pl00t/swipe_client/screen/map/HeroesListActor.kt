@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.services.monsters.MonsterService
+import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.ux.Buttons
@@ -114,7 +114,7 @@ class HeroesListActor(
             bg.isVisible = i == index
 
             val hero = heroes[index]
-            val monster = monsterService.getMonster(hero.skin)
+            val monster = monsterService.getMonster(hero.skin.toString()) ?: return
             val actor = MonsterDetailActor(context.height() - 180f, monster, hero, context, skin)
             if (heroContainer.hasChildren()) heroContainer.getChild(0)?.hideToBehindAndRemove(context.height() - 180f)
             heroContainer.addActor(actor)

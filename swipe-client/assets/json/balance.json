@@ -1,0 +1,40 @@
+{
+  "common": {
+
+  },
+
+  "hero.valerian": {
+    "base_health": 1000,
+    "radiant_strike.base_physical_damage": 100,
+    "radiant_strike.scale_physical_damage_per_body": 10,
+    "luminous_beam.base_light_damage": 60,
+    "luminous_beam.scale_light_damage_per_spirit": 10,
+    "sigil_of_renewal.sigil_tiles_count": 2,
+    "sigil_of_renewal.base_heal": 50,
+    "sigil_of_renewal.scale_heal_per_spirit": 10,
+    "divine_convergence.base_light_damage_per_sigil": 50,
+    "divine_convergence.base_heal_per_sigil": 50,
+    "divine_convergence.scale_light_damage_per_spirit": 10,
+    "divine_convergence.scale_heal_per_spirit": 10,
+    "divine_convergence.scale_heal_per_body": 10
+  },
+
+  "monster.thorned_crawler": {
+    "base_health": 200,
+    "mind": 30,
+    "spirit": 30,
+    "body": 40,
+    "vicious_pincers.base_physical_damage": 10,
+    "vicious_pincers.base_dark_damage": 10,
+    "vicious_pincers.scale_physical_damage_per_body": 10,
+    "vicious_pincers.scale_dark_damage_per_spirit": 10,
+    "debiliating_strike.base_physical_damage": 30,
+    "debiliating_strike.scale_physical_damage_per_body": 10,
+    "debiliating_strike.weakness_tiles_count": 2,
+    "leeching_shadows.base_dark_damage": 20,
+    "leeching_shadows.base_heal": 20,
+    "leeching_shadows.scale_dark_damage_per_spirit": 10,
+    "leeching_shadows.scale_heal_per_spirit": 10
+  }
+
+}

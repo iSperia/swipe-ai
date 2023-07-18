@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.services.battle.UnitSkin
+import com.game7th.swipe.battle.UnitSkin
 import ktx.actors.onClick
 
 class NavigationPanel(

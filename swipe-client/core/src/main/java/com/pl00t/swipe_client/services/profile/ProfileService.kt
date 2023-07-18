@@ -3,13 +3,13 @@ package com.pl00t.swipe_client.services.profile
 import com.badlogic.gdx.Gdx
 import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
-import com.pl00t.swipe_client.services.battle.UnitSkin
-import com.pl00t.swipe_client.services.battle.logic.CharacterAttributes
+import com.game7th.swipe.battle.UnitSkin
+import com.game7th.swipe.battle.CharacterAttributes
 import com.pl00t.swipe_client.services.levels.FrontActModel
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelRewardType
 import com.pl00t.swipe_client.services.levels.LevelService
-import com.pl00t.swipe_client.services.monsters.MonsterService
+import com.game7th.swipe.monsters.MonsterService
 import java.lang.IllegalArgumentException
 import kotlin.math.min
 
@@ -28,7 +28,7 @@ interface ProfileService {
     suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata
 
     suspend fun getCharacters(): List<SwipeCharacter>
-    abstract fun spendExperienceCurrency(currency: SwipeCurrency, skin: UnitSkin): SpendExperienceCurrencyResult
+    abstract fun spendExperienceCurrency(currency: SwipeCurrency, skin: String): SpendExperienceCurrencyResult
 
     data class SpendExperienceCurrencyResult(
         val character: SwipeCharacter,
@@ -90,7 +90,7 @@ class ProfileServiceImpl(
                 characters = listOf(
                     SwipeCharacter(
                         name = "Valerian",
-                        skin = UnitSkin.CHARACTER_VALERIAN,
+                        skin = "CHARACTER_VALERIAN",
                         attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
                         level = SwipeCharacterLevelInfo(0, 1, 1)
                     )
@@ -115,9 +115,10 @@ class ProfileServiceImpl(
                     locationId = l.id,
                     type = l.type,
                     enabled = true,
-                    waves = l.monsters?.map { it.map { e ->
-                        val monster = monsterService.getMonster(e.skin)
-                        FrontMonsterEntryModel(monster.skin, monster.name, e.level)
+                    waves = l.monsters?.map { it.mapNotNull { e ->
+                        monsterService.getMonster(e.skin)?.let { config ->
+                            FrontMonsterEntryModel(config.skin, config.name, e.level)
+                        }
                     } } ?: emptyList(),
                     act = act,
                     locationBackground = l.background,
@@ -131,9 +132,10 @@ class ProfileServiceImpl(
                     locationId = l.id,
                     type = l.type,
                     enabled = false,
-                    waves = l.monsters?.map { it.map { e ->
-                        val monster = monsterService.getMonster(e.skin)
-                        FrontMonsterEntryModel(monster.skin, monster.name, e.level)
+                    waves = l.monsters?.map { it.mapNotNull { e ->
+                        monsterService.getMonster(e.skin)?.let { monster ->
+                            FrontMonsterEntryModel(monster.skin, monster.name, e.level)
+                        }
                     } } ?: emptyList(),
                     act = act,
                     locationBackground = l.background,
@@ -197,7 +199,7 @@ class ProfileServiceImpl(
         return profile.characters
     }
 
-    override fun spendExperienceCurrency(currency: SwipeCurrency, skin: UnitSkin): ProfileService.SpendExperienceCurrencyResult {
+    override fun spendExperienceCurrency(currency: SwipeCurrency, skin: String): ProfileService.SpendExperienceCurrencyResult {
         profile.characters.firstOrNull { it.skin == skin }?.let { character ->
             val balance = profile.getBalance(currency)
             if (balance > 0) {

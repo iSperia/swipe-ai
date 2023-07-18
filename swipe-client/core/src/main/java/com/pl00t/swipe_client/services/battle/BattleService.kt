@@ -1,9 +1,13 @@
 package com.pl00t.swipe_client.services.battle
 
-import com.pl00t.swipe_client.services.battle.logic.*
-import com.pl00t.swipe_client.services.battle.logic.processor.SwipeProcesor
+import com.game7th.swipe.battle.*
+import com.game7th.swipe.game.SbBalanceProvider
+import com.game7th.swipe.game.SbContext
+import com.game7th.swipe.game.SbGame
+import com.game7th.swipe.game.di.SbComponent
 import com.pl00t.swipe_client.services.levels.LevelService
-import com.pl00t.swipe_client.services.monsters.MonsterService
+import com.game7th.swipe.monsters.MonsterService
+import com.google.gson.JsonObject
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
@@ -12,7 +16,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.map
-import ktx.app.profile
 import java.lang.IllegalStateException
 
 data class BattleRewardConfig(
@@ -39,9 +42,10 @@ class BattleServiceImpl(
     private val monsterService: MonsterService,
     private val profileService: ProfileService,) : BattleService {
 
-    val processor = SwipeProcesor(monsterService)
     private var configuration: BattleConfiguration? = null
-    lateinit var battle: Battle
+    lateinit var game: SbGame
+    lateinit var component: SbComponent
+    lateinit var context: SbContext
     val events = MutableSharedFlow<BattleEvent>(200)
     val endBattle = MutableSharedFlow<BattleResult>(5)
 
@@ -54,30 +58,22 @@ class BattleServiceImpl(
         val actModel = levelService.getAct(actId)
         val levelModel = actModel.levels.firstOrNull { it.id == level } ?: return BattleDecorations("")
 
-        val waves = levelModel.monsters?.map { wave ->
-            MonsterWaveConfiguration(
-                monsters = wave.map { monster ->
-                    monsterService.getMonster(monster.skin).copy(level = monster.level)
-                }
-            )
-        } ?: throw IllegalStateException("Did not find waves of monsters")
-
         val character = profileService.getCharacters().first()
 
-        configuration = BattleConfiguration(
-            humans = listOf(
-                HumanConfiguration(
-                    configuration = monsterService.getMonster(UnitSkin.CHARACTER_VALERIAN),
-                    level = character.level.level,
-                    attributes = CharacterAttributes(mind = character.attributes.mind, body = character.attributes.body, spirit = character.attributes.spirit)
-                )
-            ),
-            waves = waves
+        game = SbGame(0, 1, 0, emptyList())
+        context = SbContext(
+            game = game,
+            balance = object : SbBalanceProvider {
+                override fun getBalance(key: String): JsonObject {
+                    TODO("Not yet implemented")
+                }
+
+                override fun getMonster(skin: String): SbMonsterConfiguration {
+                    TODO("Not yet implemented")
+                }
+            },
+            triggers = emptyList()
         )
-        battle = Battle(0, emptyList(), 1, waves, 0)
-        val createResults = processor.createBattle(configuration!!, battle, 0)
-        createResults.events.forEach { events.emit(it) }
-        battle = createResults.battle
         return BattleDecorations(levelModel.background)
     }
 
@@ -102,48 +98,17 @@ class BattleServiceImpl(
     }
 
     override suspend fun processSwipe(dx: Int, dy: Int) {
-        val result = processor.processSwipe(battle, 0, dx, dy)
-        result.events.forEach { event ->
-            handleEvent(event)
-        }
-        battle = result.battle
-        checkBattleEnd()
+
     }
 
     override suspend fun processUltimate() {
-        println("Processing ultimate")
-        val result = processor.processUltimate(battle, 0)
-        result.events.forEach { event ->
-            handleEvent(event)
-        }
-        battle = result.battle
-        checkBattleEnd()
+
     }
 
     override suspend fun battleEnd() = endBattle
 
     private suspend fun checkBattleEnd() {
-        val hasTeam0 = battle.characters.any { it.team == 0 && it.human }
-        val hasTeam1 = battle.characters.any { it.team == 1 }
-        val lastWave = battle.activeWave >= battle.waves.size - 1
-        println("CHECK: $hasTeam0 $hasTeam1")
-        if (!hasTeam0) {
-            endBattle.emit(BattleResult(victory = false, emptyList()))
-            events.resetReplayCache()
-            endBattle.resetReplayCache()
-        } else if (!hasTeam1) {
-            if (lastWave) {
-                endBattle.emit(BattleResult(victory = true, emptyList()))
-                profileService.markActComplete(actId, level)
-                events.resetReplayCache()
-                endBattle.resetReplayCache()
-            } else {
-                events.emit(BattleEvent.WaveEvent(battle.activeWave + 2))
-                val waveResult = processor.createBattle(configuration!!, battle, battle.activeWave + 1)
-                battle = waveResult.battle.copy(activeWave = waveResult.battle.activeWave + 1)
-                waveResult.events.forEach { events.emit(it) }
-            }
-        }
+
     }
 
     private suspend inline fun handleEvent(event: BattleEvent) = events.emit(event)

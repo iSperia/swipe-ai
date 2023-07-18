@@ -16,11 +16,11 @@ import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.screen.navpanel.NavigationPanel
-import com.pl00t.swipe_client.services.battle.UnitSkin
+import com.game7th.swipe.battle.UnitSkin
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelType
-import com.pl00t.swipe_client.services.monsters.MonsterService
+import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.ScreenTitle
@@ -251,15 +251,17 @@ class MapScreen(
     override fun pinchStop() {
     }
 
-    override fun processMonsterClicked(unitSkin: UnitSkin) {
+    override fun processMonsterClicked(unitSkin: String) {
         KtxAsync.launch {
-            val monsterDetailActor = MonsterDetailPanel(
-                monsterConfiguration = monsterService.getMonster(unitSkin),
-                context = this@MapScreen,
-                skin = skin
-            )
-            root.addActor(monsterDetailActor)
-            monsterDetailActor.raiseFromBehind(root.height)
+            monsterService.getMonster(unitSkin.toString())?.let { config ->
+                val monsterDetailActor = MonsterDetailPanel(
+                    monsterConfiguration = config,
+                    context = this@MapScreen,
+                    skin = skin
+                )
+                root.addActor(monsterDetailActor)
+                monsterDetailActor.raiseFromBehind(root.height)
+            }
         }
     }
 

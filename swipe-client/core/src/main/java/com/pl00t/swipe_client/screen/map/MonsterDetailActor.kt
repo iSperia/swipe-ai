@@ -1,6 +1,5 @@
 package com.pl00t.swipe_client.screen.map
 
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -10,10 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
+import com.game7th.swipe.battle.SbMonsterConfiguration
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.screen.reward.CurrencyRewardEntryActor
-import com.pl00t.swipe_client.services.battle.MonsterConfiguration
+import com.game7th.swipe.battle.SbMonsterEntry
 import com.pl00t.swipe_client.services.profile.CollectedReward
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
@@ -30,7 +30,7 @@ private enum class DisplayMode {
 
 class MonsterDetailActor(
     private val spaceHeight: Float,
-    private val monsterInfo: MonsterConfiguration,
+    private val monsterInfo: SbMonsterConfiguration,
     private var character: SwipeCharacter?,
     private val context: SwipeContext,
     private val skin: Skin,
@@ -219,7 +219,7 @@ class MonsterDetailActor(
                         setAlignment(Align.right)
                     }
                     sideTable.add(titleLabel).width(260f).pad(5f)
-                    val valueLabel = Label(row.formatDescription(ability.attributes), skin, "text_small_accent").apply {
+                    val valueLabel = Label(row.formatDescription(monsterInfo), skin, "text_small_accent").apply {
                         wrap = true
                         width = 50f
                         setAlignment(Align.left)

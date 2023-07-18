@@ -1,7 +1,7 @@
 package com.pl00t.swipe_client.services.profile
 
-import com.pl00t.swipe_client.services.battle.UnitSkin
-import com.pl00t.swipe_client.services.battle.logic.CharacterAttributes
+import com.game7th.swipe.battle.UnitSkin
+import com.game7th.swipe.battle.CharacterAttributes
 
 enum class SwipeCurrency {
     ETHERIUM_COIN, ESSENCE_FRAGMENT, TIME_SHARD, SPARK_OF_INSIGHT, EXPERIENCE_CRYSTAL, EXPERIENCE_RELIC
@@ -34,7 +34,7 @@ data class ActCollectedReward(
 
 data class SwipeCharacter(
     val name: String,
-    val skin: UnitSkin,
+    val skin: String,
     val attributes: CharacterAttributes,
     val level: SwipeCharacterLevelInfo,
 )
@@ -56,14 +56,14 @@ data class SwipeProfile(
 
     fun getBalance(currency: SwipeCurrency) = balances.firstOrNull { it.currency == currency }?.amount ?: 0
 
-    fun updateLevel(skin: UnitSkin, level: SwipeCharacterLevelInfo): SwipeProfile {
+    fun updateLevel(skin: String, level: SwipeCharacterLevelInfo): SwipeProfile {
         return copy(characters = characters.map { c ->
             if (c.skin == skin) c.copy(level = level) else c
         })
     }
 
     fun isRewardCollected(act: SwipeAct, level: String) = getRewardsCollectedOrEmpty().none { it.act == act && it.level == level }
-    fun modifyAttributes(skin: UnitSkin, attributes: CharacterAttributes): SwipeProfile {
+    fun modifyAttributes(skin: String, attributes: CharacterAttributes): SwipeProfile {
         return copy(characters = characters.map { c ->
             if (c.skin == skin) c.copy(attributes = attributes) else c
         })

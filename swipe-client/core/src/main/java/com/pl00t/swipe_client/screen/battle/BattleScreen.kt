@@ -21,8 +21,8 @@ import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.services.battle.BattleDecorations
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.battle.BattleService
-import com.pl00t.swipe_client.services.battle.logic.BattleEvent
-import com.pl00t.swipe_client.services.battle.logic.processor.TarotAnimation
+import com.game7th.swipe.battle.BattleEvent
+import com.game7th.swipe.battle.processor.TarotAnimation
 import com.pl00t.swipe_client.services.levels.DialogEntryModel
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.profile.ProfileService
@@ -31,7 +31,6 @@ import com.pl00t.swipe_client.ux.require
 import kotlinx.coroutines.launch
 import ktx.actors.*
 import ktx.async.KtxAsync
-import kotlin.math.max
 import kotlin.random.Random
 
 class BattleScreen(
@@ -246,15 +245,15 @@ class BattleScreen(
             is BattleEvent.AnimateTarotEvent -> {
                 when (event.animation) {
                     is TarotAnimation.TarotFromSourceTargets -> {
-                        processTargetedAnimation(event.animation, event)
+                        processTargetedAnimation(event.animation as TarotAnimation.TarotFromSourceTargets, event)
                     }
 
                     is TarotAnimation.TarotFromSourceDirected -> {
-                        processDirectedAnimation(event.animation, event)
+                        processDirectedAnimation(event.animation as TarotAnimation.TarotFromSourceDirected, event)
                     }
 
                     is TarotAnimation.TarotAtSourceRotate -> {
-                        processStaticAnimation(event.animation, event)
+                        processStaticAnimation(event.animation as TarotAnimation.TarotAtSourceRotate, event)
                     }
 
                     else -> {}
@@ -523,7 +522,7 @@ class BattleScreen(
     private fun processMergeTileEvent(event: BattleEvent.MergeTileEvent) {
         val tile1 = tilesGroup[event.layer].findActor<TileActor>(event.id.toString())
         val tile2 = tilesGroup[event.layer].findActor<TileActor>(event.to.toString())
-        //                    placeTile(tile1)
+        if (tile1 == null || tile2 == null) return
         tile1.updateXY(event.tox, event.toy)
         tile1.zIndex = 0
         tile1.addAction(

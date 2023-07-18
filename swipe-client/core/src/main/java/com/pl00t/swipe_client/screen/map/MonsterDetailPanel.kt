@@ -4,15 +4,16 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.Scaling
+import com.game7th.swipe.battle.SbMonsterConfiguration
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.services.battle.MonsterConfiguration
+import com.game7th.swipe.battle.SbMonsterEntry
 import com.pl00t.swipe_client.ux.Buttons
 import com.pl00t.swipe_client.ux.hideToBehindAndRemove
 import ktx.actors.onClick
 
 class MonsterDetailPanel(
-    private val monsterConfiguration: MonsterConfiguration,
+    private val monsterConfiguration: SbMonsterConfiguration,
     private val context: SwipeContext,
     private val skin: Skin,
 ) : Group() {

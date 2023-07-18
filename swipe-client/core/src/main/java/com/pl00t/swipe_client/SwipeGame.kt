@@ -13,8 +13,8 @@ import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.battle.BattleServiceImpl
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
-import com.pl00t.swipe_client.services.monsters.MonsterService
-import com.pl00t.swipe_client.services.monsters.MonsterServiceImpl
+import com.game7th.swipe.monsters.MonsterService
+import com.pl00t.swipe_client.services.MonsterServiceImpl
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.ProfileServiceImpl
 import com.pl00t.swipe_client.services.profile.SwipeAct

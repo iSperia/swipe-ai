@@ -3,7 +3,7 @@ package com.pl00t.swipe_client.services.levels
 import com.badlogic.gdx.Gdx
 import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
-import com.pl00t.swipe_client.services.monsters.MonsterService
+import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 
 class LevelServiceImpl(private val monsterService: MonsterService) : LevelService {
@@ -31,9 +31,10 @@ class LevelServiceImpl(private val monsterService: MonsterService) : LevelServic
             locationId = l.id,
             type = l.type,
             enabled = true,
-            waves = l.monsters?.map { it.map { e ->
-                val monster = monsterService.getMonster(e.skin)
-                FrontMonsterEntryModel(monster.skin, monster.name, e.level)
+            waves = l.monsters?.map { it.mapNotNull { e ->
+                monsterService.getMonster(e.skin)?.let { monster ->
+                    FrontMonsterEntryModel(monster.skin, monster.name, e.level)
+                }
             } } ?: emptyList(),
             act = act,
             locationBackground = l.background,

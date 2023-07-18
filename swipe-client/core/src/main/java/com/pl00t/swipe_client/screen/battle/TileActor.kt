@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.services.battle.logic.TileType
+import com.game7th.swipe.battle.TileType
 import com.pl00t.swipe_client.ux.require
 import ktx.actors.along
 import ktx.actors.alpha

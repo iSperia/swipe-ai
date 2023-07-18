@@ -1,0 +1,67 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Battle {
+    +units: List<Personage>
+    +maxPersonageId: Int
+}
+
+class Personage {
+    +health
+    +maxHealth
+    +effects: List<PersonageEffect>
+    +id: Int
+    +maxTileId
+    +tiles: List<Tile>
+}
+
+class PersonageEffect {
+    +resist: ElementalConfig
+    +vulnerability: ElementalConfig
+    +ticksLeft: Int
+
+}
+
+class Tile {
+    +x: Int
+    +y: Int
+    +layer: Int
+    +id: Int
+}
+
+class ElementalConfig {
+    +phys
+    +fire
+    +cold
+    +light
+    +shock
+    +dark
+}
+
+Personage *-- Tile
+
+PersonageEffect *-- ElementalConfig
+
+Battle *-- Personage
+
+Personage *-- PersonageEffect
+
+class BattleContext {
+   +battle: Battle
+   +events: List<BattleEvent>
+   +balance: BattleBalance
+}
+
+interface BattleBalance {
+    +int(key)
+    +float(key)
+}
+
+BattleContext o-- Battle
+BattleContext o-- BattleBalance
+
+interface BattleBehavior {
+    +invoke(context)
+}
+
+@enduml

@@ -11,14 +11,14 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.services.battle.UnitSkin
+import com.game7th.swipe.battle.UnitSkin
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.ux.Buttons
 import com.pl00t.swipe_client.ux.ScreenTitle
 import ktx.actors.onClick
 
 interface LevelDetailsCallback {
-    fun processMonsterClicked(skin: UnitSkin)
+    fun processMonsterClicked(skin: String)
 }
 
 class LevelDetailsActor(
@@ -132,7 +132,7 @@ class LevelDetailsActor(
         addActor(scroll)
     }
 
-    override fun processMonsterClicked(skin: UnitSkin) {
+    override fun processMonsterClicked(skin: String) {
         callback?.processMonsterClicked(skin)
     }
 }
