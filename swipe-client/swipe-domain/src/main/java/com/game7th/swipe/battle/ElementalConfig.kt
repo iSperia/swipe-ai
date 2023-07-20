@@ -17,6 +17,10 @@ data class ElementalConfig(
         dark = (this.dark * (1f - resist.dark)).normalize0(),
     )
 
+    fun multiply(multiplier: Float) = ElementalConfig(
+
+    )
+
     fun totalDamage() = (physical + cold + fire + shock + light + dark).toInt()
 
     fun iconsIfPositive() = listOfNotNull(

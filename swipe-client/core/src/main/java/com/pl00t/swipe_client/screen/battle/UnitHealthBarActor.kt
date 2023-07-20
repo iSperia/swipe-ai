@@ -52,6 +52,7 @@ class UnitHealthBarActor(
     fun updateHealth(health: Int) = updateHealth(health, this.maxHealth)
 
     fun updateHealth(health: Int, maxHealth: Int) {
+        if (this.health == health && this.maxHealth == maxHealth) return
         this.health = health
         this.maxHealth = maxHealth
         val progress = health.toFloat() / maxHealth

@@ -1,7 +1,7 @@
 package com.game7th.swipe.battle
 
 import com.google.gson.JsonObject
-import com.game7th.swipe.battle.processor.TileGeneratorConfig
+import com.game7th.swipe.game.SbTileTemplate
 
 enum class UnitSkin {
     CHARACTER_VALERIAN,
@@ -46,9 +46,8 @@ data class SbMonsterConfiguration(
     val lore: String,
     val balance: JsonObject,
     val triggers: List<String>,
-    val tiles: List<TileGeneratorConfig>,
+    val tiles: List<SbTileTemplate>,
     val attributes: CharacterAttributes,
-    val tileConfig: TileGeneratorConfig,
     val scale: Float,
     val level: Int,
     val abilities: List<SbMonsterAbilityConfiguration>?,

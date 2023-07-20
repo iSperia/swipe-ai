@@ -1,6 +1,7 @@
 package com.game7th.swipe.battle
 
 import com.game7th.swipe.battle.processor.TarotAnimation
+import com.game7th.swipe.game.SbDisplayTileType
 
 data class UnitPopup(
     val icons: List<String>,
@@ -32,7 +33,7 @@ sealed interface BattleEvent {
         val stack: Int,
         val maxStack: Int,
         val layer: Int,
-        val type: TileType,
+        val type: SbDisplayTileType,
     ) : BattleEvent
 
     data class MoveTileEvent(

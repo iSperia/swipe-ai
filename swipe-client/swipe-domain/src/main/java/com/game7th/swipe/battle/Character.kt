@@ -1,7 +1,5 @@
 package com.game7th.swipe.battle
 
-import com.game7th.swipe.battle.processor.TileGeneratorConfig
-
 data class Character(
     val id: Int,
     val field: TileField,
@@ -19,7 +17,6 @@ data class Character(
     val combo: Int,
     val ultimateBehavior: TileSkin,
     val scale: Float,
-    val tileConfig: TileGeneratorConfig
 ) {
 
     override fun toString(): String {

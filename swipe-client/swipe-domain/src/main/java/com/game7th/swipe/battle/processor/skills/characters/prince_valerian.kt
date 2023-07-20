@@ -7,6 +7,7 @@ import com.game7th.swipe.battle.processor.animateMeleeAttack
 import com.game7th.swipe.battle.processor.animateSelfStatic
 import com.game7th.swipe.battle.processor.skills.AoeSkillBehavior
 import com.game7th.swipe.battle.processor.skills.MeleeAttackSkillBehavior
+import com.game7th.swipe.game.SbDisplayTileType
 import kotlin.math.min
 
 class RadiantStrikeBehaviour(config: SbMonsterAbilityConfiguration) : SkillBehavior() {
@@ -63,7 +64,7 @@ class SigilOfRenewalBehavior(config: SbMonsterAbilityConfiguration) : SkillBehav
                 id = tileId++,
                 layer = 0,
                 mobility = 0,
-                type = TileType.BACKGROUND
+                type = SbDisplayTileType.BACKGROUND
             )
             field = field.copy(tiles = field.tiles + tile, maxTileId = tileId)
             events.add(

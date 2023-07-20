@@ -3,27 +3,6 @@ package com.game7th.swipe.battle.processor
 import com.game7th.swipe.battle.TileSkin
 import kotlin.random.Random
 
-data class GenerationWeight(
-    val tile: TileSkin,
-    val weight: Int,
-)
-
-data class TileGeneratorConfig(
-    val entries: List<GenerationWeight>
-) {
-    var totalWeight: Int? = null
-    private fun total() = totalWeight ?: entries.sumOf { it.weight }.also { totalWeight = it }
-
-    fun generate(): TileSkin {
-        val random = Random.nextInt(total())
-        var w = 0
-        return entries.first {
-            w += it.weight
-            w > random
-        }.tile
-    }
-}
-
 object TileGeneratorConfigFactory {
 
     val MAX_STACKS = mapOf<TileSkin, Int>(

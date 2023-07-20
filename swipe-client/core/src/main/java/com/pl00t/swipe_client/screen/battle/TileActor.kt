@@ -9,10 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
-import com.game7th.swipe.battle.TileType
+import com.game7th.swipe.game.SbDisplayTileType
 import com.pl00t.swipe_client.ux.require
 import ktx.actors.along
 import ktx.actors.alpha
+import ktx.actors.then
 
 class TileActor(
     var sectors: Int,
@@ -25,7 +26,7 @@ class TileActor(
     private val polygonBatch: PolygonSpriteBatch,
     var gridX: Int,
     var gridY: Int,
-    val type: TileType,
+    val type: SbDisplayTileType,
 ) : Group() {
 
     private val progressActiveTexture = taBattle.findRegion("progress_active").require()
@@ -39,7 +40,7 @@ class TileActor(
 
     init {
         when (type) {
-            TileType.TAROT -> {
+            SbDisplayTileType.TAROT -> {
                 tarotImage = generateTarot()
                 addActor(tarotImage)
                 tarotImage.addAction(RepeatAction().apply {
@@ -56,7 +57,7 @@ class TileActor(
                     )
                 })
             }
-            TileType.BACKGROUND -> {
+            SbDisplayTileType.BACKGROUND -> {
                 tarotImage = generateBackground()
                 addActor(tarotImage)
             }
@@ -79,14 +80,8 @@ class TileActor(
             rotation = -5f
         }
 
-    fun increaseSectors(target: Int) {
-        if (sectors < target) {
-            sectors = target
-        }
-    }
-
-    fun decreaseSectors(target: Int) {
-        if (sectors > target) {
+    fun updateSectors(target: Int) {
+        if (sectors != target) {
             sectors = target
         }
     }
@@ -128,11 +123,12 @@ class TileActor(
 
     fun animateAppear() {
         when (type) {
-            TileType.TAROT -> {
+            SbDisplayTileType.TAROT -> {
+                arcVisible = false
                 tarotImage.alpha = 0f
                 tarotImage.setScale(2f)
                 tarotImage.rotation = 175f
-                val action = AlphaAction().apply {
+                val action = DelayAction(0.1f).then(AlphaAction().apply {
                     alpha = 1f
                     duration = 0.4f
                 }.along(RotateByAction().apply {
@@ -142,10 +138,10 @@ class TileActor(
                     duration = 0.4f
                     setScale(1f)
                     interpolation = Interpolation.SwingOut(2f)
-                })
+                }).along(Actions.run { arcVisible = true }))
                 tarotImage.addAction(action)
             }
-            TileType.BACKGROUND -> {
+            SbDisplayTileType.BACKGROUND -> {
                 tarotImage.alpha = 0f
                 tarotImage.setScale(1.2f)
                 tarotImage.addAction(Actions.parallel(

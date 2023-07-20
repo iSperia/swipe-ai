@@ -2,6 +2,7 @@ package com.game7th.swipe.battle.processor.skills
 
 import com.game7th.swipe.battle.*
 import com.game7th.swipe.battle.processor.SkillBehavior
+import com.game7th.swipe.game.SbDisplayTileType
 
 class InflictPoisonBehavior(
     val getTargets: (Battle, Character) -> List<Character>,
@@ -29,7 +30,7 @@ class InflictPoisonBehavior(
                         id = targetCharacter.field.maxTileId,
                         layer = 5,
                         mobility = 5,
-                        type = TileType.TAROT,
+                        type = SbDisplayTileType.TAROT,
                         meta = PoisonBehavior.Meta(amount)
                     )
                     targetCharacter = targetCharacter.addTile(tile)

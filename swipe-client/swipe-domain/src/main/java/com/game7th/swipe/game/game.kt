@@ -22,6 +22,7 @@ data class SbCharacter(
     val human: Boolean,
     val health: Int,
     val maxHealth: Int,
+    val scale: Float,
     val attributes: CharacterAttributes,
     val ultimateProgress: Int,
     val maxUltimateProgress: Int,
@@ -40,6 +41,7 @@ data class SbCharacter(
     fun withAddedEffect(effect: SbEffect) = copy(maxEffectId = maxEffectId + 1, effects = effects + effect.copy(id = maxEffectId))
     fun withRemovedEffect(effectId: Int) = copy(effects = effects.filter { it.id != effectId })
     fun withUpdatedEffect(effect: SbEffect) = copy(effects = effects.map { e -> if (e.id == effect.id) effect else e })
+    fun removeEffects(skin: String) = copy(effects = effects.filter { it.skin != skin })
     fun withUpdatedHealth(health: Int) = copy(health = health)
     fun <T> collect(key: String): List<T> = effects.mapNotNull { it.data[key] as? T }
 
@@ -59,12 +61,14 @@ data class SbCharacter(
         maxHealth = maxHealth,
         ultimateProgress = ultimateProgress,
         maxUltimateProgress = maxUltimateProgress,
-        effects = emptyList()
+        effects = emptyList(),
+        team = team,
+        scale = scale,
     )
 }
 
 enum class SbTileMergeStrategy {
-    SIMPLE
+    SIMPLE, NONE
 }
 
 data class SbTileTemplate(
@@ -82,6 +86,7 @@ data class SbTile(
     val x: Int,
     val y: Int,
     val z: Int,
+    val skill: Boolean = false,
     val mobility: Int,
     val mergeStrategy: SbTileMergeStrategy,
     val progress: Int,
@@ -98,7 +103,11 @@ data class SbTile(
         id = id,
         skin = skin,
         type = if (z == LAYER_BACKGROUND) SbDisplayTileType.BACKGROUND else SbDisplayTileType.TAROT,
-        layer = z
+        x = x,
+        y = y,
+        z = z,
+        progress = progress,
+        maxProgress = maxProgress,
     )
 
     companion object {
@@ -109,6 +118,7 @@ data class SbTile(
 
 data class SbEffect(
     val id: Int,
+    val skin: String,
     val data: Map<String, Any>
 ) {
     fun withProperty(key: String, value: Any) = copy(data = data + (key to value))
@@ -116,6 +126,8 @@ data class SbEffect(
 
 data class SbDisplayCharacter(
     val id: Int,
+    val team: Int,
+    val scale: Float,
     val skin: String,
     val health: Int,
     val maxHealth: Int,
@@ -131,12 +143,12 @@ data class SbCharacterDisplayEffect(
 )
 
 data class SbElemental(
-    val phys: Float,
-    val dark: Float,
-    val light: Float,
-    val shock: Float,
-    val fire: Float,
-    val cold: Float
+    val phys: Float = 0f,
+    val dark: Float = 0f,
+    val light: Float = 0f,
+    val shock: Float = 0f,
+    val fire: Float = 0f,
+    val cold: Float = 0f
 ) {
     fun reducedByResist(resist: SbElemental) = copy(
         phys = phys * (1f - resist.phys),
@@ -156,13 +168,22 @@ data class SbElemental(
         cold = cold + other.cold
     )
 
-    fun scaledBy(scale: SbElemental) = copy(
+    fun scaledBy(scale: SbElemental): SbElemental = copy(
         phys = phys * (1f + scale.phys),
         dark = dark * (1f + scale.dark),
         light = light * (1f + scale.light),
         shock = shock * (1f + scale.shock),
         fire = fire * (1f + scale.fire),
         cold = cold * (1f + scale.cold),
+    )
+
+    fun multipledBy(scale: Float): SbElemental = copy(
+        phys = phys * (1f + scale),
+        dark = dark * (1f + scale),
+        light = light * (1f + scale),
+        shock = shock * (1f + scale),
+        fire = fire * (1f + scale),
+        cold = cold * (1f + scale),
     )
 
     fun total() = phys + dark + light + shock + fire + cold
@@ -176,12 +197,17 @@ data class SbDisplayTile(
     val id: Int,
     val skin: String,
     val type: SbDisplayTileType,
-    val layer: Int,
+    val progress: Int,
+    val maxProgress: Int,
+    val x: Int,
+    val y: Int,
+    val z: Int,
 )
 
 sealed interface SbBattleFieldDisplayEffect {
     data class TarotSimpleAttack(val skin: String, val from: Int, val to: Int): SbBattleFieldDisplayEffect
     data class TarotDirectedAoe(val skin: String, val from: Int, val team: Int): SbBattleFieldDisplayEffect
+    data class TarotStatic(val skin: String, val at: Int): SbBattleFieldDisplayEffect
     data class TarotUltimate(val skin: String): SbBattleFieldDisplayEffect
 }
 
@@ -200,7 +226,10 @@ sealed interface SbDisplayEvent {
     data class SbShowPopup(val characterId: Int, val text: String, val icons: List<String>): SbDisplayEvent
     data class SbShowTarotEffect(val effect: SbBattleFieldDisplayEffect): SbDisplayEvent
 
+    data class SbWave(val wave: Int): SbDisplayEvent
+
     data class SbShowTileFieldEffect(override val characterId: Int, val effect: SbTileFieldDisplayEffect): SbCharacterSpecificEvent
     data class SbCreateTile(override val characterId: Int, val tile: SbDisplayTile) : SbCharacterSpecificEvent
-    data class SbMoveTile(override val characterId: Int, val tileId: Int, val tox: Int, val toy: Int, val remainder: SbDisplayTile?) : SbCharacterSpecificEvent
+    data class SbDestroyTile(override val characterId: Int, val z: Int, val tileId: Int): SbCharacterSpecificEvent
+    data class SbMoveTile(override val characterId: Int, val z: Int, val tileId: Int, val tox: Int, val toy: Int, val remainder: SbDisplayTile?, val targetTile: SbDisplayTile?) : SbCharacterSpecificEvent
 }

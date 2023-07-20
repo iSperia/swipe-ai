@@ -1,5 +1,7 @@
 package com.game7th.swipe.battle
 
+import com.game7th.swipe.game.SbDisplayTileType
+
 enum class TileSkin {
     COMMON_POISON,
     COMMON_WEAKNESS,
@@ -29,10 +31,6 @@ enum class TileSkin {
     THALENDROS_CORRUPTED_ROOTS
 }
 
-enum class TileType {
-    TAROT, BACKGROUND
-}
-
 data class Tile(
     val skin: TileSkin,
     val progress: Int,
@@ -42,7 +40,7 @@ data class Tile(
     val id: Int,
     val layer: Int,
     val mobility: Int,
-    val type: TileType,
+    val type: SbDisplayTileType,
     val meta: Any? = null,
 ) {
     override fun toString(): String {
@@ -59,6 +57,6 @@ val EMPTY_TILE = Tile(
     -1,
     -1,
     0,
-    TileType.TAROT,
+    SbDisplayTileType.TAROT,
     null
 )

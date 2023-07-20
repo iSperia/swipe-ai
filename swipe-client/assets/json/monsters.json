@@ -7,7 +7,6 @@
       "attributes": {"mind":  0, "spirit":  0, "body":  0},
       "balance": {
         "base_health": 1000,
-        "radiant_strike.weight": 3,
         "radiant_strike.base_physical_damage": 100,
         "radiant_strike.scale_physical_damage_per_body": 10,
         "luminous_beam.base_light_damage": 60,
@@ -119,13 +118,35 @@
       "skin": "MONSTER_THORNED_CRAWLER",
       "name": "Thorned Crawler",
       "lore": "Beneath the forest floor, the Thorned Crawlers scuttle and slither, their spiky carapaces blending seamlessly with the shadows. These menacing creatures boast an armored exoskeleton adorned with razor-sharp thorns, serving as both protection and weaponry. Their movements are swift and calculated, often ambushing their prey by bursting forth from the undergrowth. With formidable strength and agility, they are formidable opponents in close-quarters combat. Legends speak of their ability to sense vibrations in the earth, granting them an uncanny ability to navigate even the darkest of subterranean passages.",
-      "baseHealth": 200,
+      "baseHealth": 350,
       "attributes": {"mind":  30, "spirit":  30, "body":  40},
-      "tileConfig": { "entries": [
-        {"tile": "THORNED_CRAWLER_VICIOUS_PINCERS", "weight":  5},
-        {"tile": "THORNED_CRAWLER_DEBILIATING_STRIKE", "weight":  2},
-        {"tile": "THORNED_CRAWLER_LEECHING_SHADOWS", "weight":  3}
-      ] },
+      "tiles": [
+        { "weight": 5, "skin": "THORNED_CRAWLER_VICIOUS_PINCERS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+        { "weight": 2, "skin": "THORNED_CRAWLER_DEBILIATING_STRIKE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+        { "weight": 3, "skin": "THORNED_CRAWLER_LEECHING_SHADOWS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
+      ],
+      "triggers": [
+
+      ],
+      "balance": {
+        "base_health": 200,
+        "radiant_strike.weight": 3,
+        "radiant_strike.base_physical_damage": 100,
+        "radiant_strike.scale_physical_damage_per_body": 10,
+        "luminous_beam.base_light_damage": 60,
+        "luminous_beam.scale_light_damage_per_spirit": 10,
+        "sigil_of_renewal.weight": 3,
+        "sigil_of_renewal.sigil_tiles_count": 2,
+        "sigil_of_renewal.base_heal": 50,
+        "sigil_of_renewal.scale_heal_per_spirit": 10,
+        "divine_convergence.weight": 3,
+        "divine_convergence.base_light_damage_per_sigil": 50,
+        "divine_convergence.base_heal_per_sigil": 50,
+        "divine_convergence.scale_light_damage_per_spirit": 10,
+        "divine_convergence.scale_heal_per_spirit": 10,
+        "divine_convergence.scale_heal_per_body": 10
+      },
+
       "scale": 0.6,
       "abilities": [
         {
@@ -257,11 +278,24 @@
       "lore": "Deep within the enchanted groves, the Thornstalkers roam with their sinewy forms and razor-sharp thorns. These elusive creatures embody the untamed spirit of the forest, blending seamlessly with the verdant surroundings. They strike swiftly and silently, relying on their natural camouflage to ambush unsuspecting prey. Legends whisper of their ability to communicate with the ancient trees and harness the raw power of nature. Caution is advised when venturing into their territory, for the Thornstalkers are fierce protectors of the groves and will not hesitate to defend their realm with untamed ferocity.",
       "baseHealth": 250,
       "attributes": {"mind":  25, "spirit":  25, "body":  50},
-      "tileConfig": { "entries": [
-        {"tile": "THORNSTALKER_PRIMAL_ASSAULT", "weight":  5},
-        {"tile": "THORNSTALKER_RESILIENT_GROWTH", "weight":  3},
-        {"tile": "THORNSTALKER_VENOMOUS_BARRAGE", "weight":  2}
-      ] },
+      "tiles": [
+        { "weight": 5, "skin": "THORNSTALKER_PRIMAL_ASSAULT", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+        { "weight": 3, "skin": "THORNSTALKER_RESILIENT_GROWTH", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+        { "weight": 200, "skin": "THORNSTALKER_VENOMOUS_BARRAGE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
+      ],
+      "triggers": [
+        "thornstalker.primal_assault", "thornstalker.resilient_growth", "thornstalker.venomous_barrage"
+      ],
+      "balance": {
+        "base_health": 400,
+        "pa_base": 40,
+        "pa_scale": 10,
+        "vb_base": 10,
+        "vb_scale": 10,
+        "rg_base": 30,
+        "rg_scale": 10
+
+      },
       "affixes": {
         "RESIST_PHYSICAL": 20
       },
@@ -279,18 +313,11 @@
           "descriptionTable": [
             {
               "title": "Base physical damage",
-              "description": "{physDamage}"
+              "description": "{pa_base}"
             },
             {
               "title": "Physical damage increase, per BODY",
-              "description": "{physPerBody}%"
-            }
-          ],
-          "calculateTable": [
-            {
-              "title": "Physical damage",
-              "description": "{_physDamage}",
-              "id": "_physDamage"
+              "description": "{pa_scale}%"
             }
           ]
         },
@@ -306,18 +333,11 @@
           "descriptionTable": [
             {
               "title": "Poison tile dark damage, per turn",
-              "description": "{poisonDamage}"
+              "description": "{vb_base}"
             },
             {
               "title": "Poison damage increase, per SPIRIT",
-              "description": "{poisonPerSpirit}%"
-            }
-          ],
-          "calculateTable": [
-            {
-              "title": "Poison damage",
-              "description": "{_poisonDamage}",
-              "id": "_poisonDamage"
+              "description": "{vb_scale}%"
             }
           ]
         },
@@ -333,11 +353,11 @@
           "descriptionTable": [
             {
               "title": "HEALING base amount",
-              "description": "{heal}"
+              "description": "{rg_base}"
             },
             {
               "title": "HEALING increase, per SPIRIT",
-              "description": "{healPerSpirit}%"
+              "description": "{rg_scale}%"
             }
           ],
           "calculateTable": [
@@ -356,11 +376,31 @@
       "lore": "Once the graceful guardians of the forest, the Corrupted Dryads now bear a twisted visage, consumed by darkness and despair. Once embodying nature's harmony and beauty, they have succumbed to corruption, their essence tainted by an unknown malevolence. Their once melodious voices now echo with haunting wails, and their graceful movements have been replaced by unsettling contortions. Beware their deceitful allure, for they will stop at nothing to lure unsuspecting wanderers into their sinister grasp. Redemption seems but a distant memory as they cling desperately to their fading connection with the natural world.",
       "baseHealth": 200,
       "attributes": {"mind":  20, "spirit":  40, "body":  40},
-      "tileConfig": { "entries": [
-        {"tile": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "weight":  4},
-        {"tile": "CORRUPTED_DRYAD_VILE_SIPHON", "weight":  4},
-        {"tile": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION", "weight":  2}
-      ] },
+      "triggers": [
+        "valerian.radiant_strike", "valerian.luminous_beam", "valerian.sigil_of_renewal", "valerian.divine_convergence"
+      ],
+      "tiles": [
+        { "weight": 4, "skin": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
+        { "weight": 4, "skin": "CORRUPTED_DRYAD_VILE_SIPHON", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+        { "weight": 2, "skin": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
+      ],
+      "balance": {
+        "base_health": 300,
+        "radiant_strike.base_physical_damage": 100,
+        "radiant_strike.scale_physical_damage_per_body": 10,
+        "luminous_beam.base_light_damage": 60,
+        "luminous_beam.scale_light_damage_per_spirit": 10,
+        "sigil_of_renewal.weight": 3,
+        "sigil_of_renewal.sigil_tiles_count": 2,
+        "sigil_of_renewal.base_heal": 50,
+        "sigil_of_renewal.scale_heal_per_spirit": 10,
+        "divine_convergence.weight": 3,
+        "divine_convergence.base_light_damage_per_sigil": 50,
+        "divine_convergence.base_heal_per_sigil": 50,
+        "divine_convergence.scale_light_damage_per_spirit": 10,
+        "divine_convergence.scale_heal_per_spirit": 10,
+        "divine_convergence.scale_heal_per_body": 10
+      },
       "scale": 0.92,
       "abilities": [
         {

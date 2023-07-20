@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.game7th.swipe.battle.Effect
+import com.game7th.swipe.game.SbCharacterDisplayEffect
 import com.pl00t.swipe_client.ux.require
 import ktx.actors.along
 import ktx.actors.repeatForever
@@ -19,7 +20,7 @@ class UnitActor(
     val id: Int,
     health: Int,
     maxHealth: Int,
-    var effects: List<Effect>,
+    var effects: List<SbCharacterDisplayEffect>,
     val context: SwipeContext,
     val skin: Skin,
     val texture: String,

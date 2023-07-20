@@ -6,6 +6,7 @@ import com.game7th.swipe.battle.processor.TarotAnimation
 import com.game7th.swipe.battle.processor.animateMeleeAttack
 import com.game7th.swipe.battle.processor.skills.MeleeAttackSkillBehavior
 import com.game7th.swipe.battle.processor.skills.dealDamage
+import com.game7th.swipe.game.SbDisplayTileType
 
 class ThornedWhipBehavior(
     config: SbMonsterAbilityConfiguration
@@ -57,7 +58,7 @@ class EarthquakeSlam(
                 id = enemy.field.maxTileId,
                 layer = 5,
                 mobility = 5,
-                type = TileType.TAROT,
+                type = SbDisplayTileType.TAROT,
                 meta = null
             )
             enemy = enemy.addTile(tile)
@@ -103,7 +104,7 @@ class DarkAura(
                 layer = 0,
                 mobility = 0,
                 meta = darkDamage + darkPerSpirit * character.attributes.spirit,
-                type = TileType.BACKGROUND
+                type = SbDisplayTileType.BACKGROUND
             )
             field = field.copy(tiles = field.tiles + tile, maxTileId = tileId)
             events.add(

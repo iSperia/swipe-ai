@@ -4,11 +4,6 @@ object CommonKeys {
     object Generator {
         const val GENERATOR = "generator"
     }
-    object Attributes {
-        const val BODY = "attribute.body"
-        const val SPIRIT = "attribute.spirit"
-        const val MIND = "attribute.mind"
-    }
     object Resist {
         const val PHYS = "resist.phys"
         const val DARK = "resist.dark"

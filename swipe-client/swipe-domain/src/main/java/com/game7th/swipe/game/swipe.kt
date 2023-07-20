@@ -1,26 +1,29 @@
 package com.game7th.swipe.game
 
-import com.game7th.swipe.battle.Battle
-import com.game7th.swipe.battle.BattleEvent
-import com.game7th.swipe.battle.ProcessResult
 import kotlin.math.min
 import kotlin.random.Random
 
 private fun inb(x: Int, y: Int) = x > -1 && x < 5 && y > -1 && y < 5
 
+fun SbContext.freePositions(characterId: Int, z: Int, count: Int): List<Int> {
+    return game.character(characterId)?.let { character ->
+        return (0 until 25).shuffled().filter { p -> character.tileAt(p % 5, p / 5, SbTile.LAYER_TILE) == null}.take(count)
+    } ?: emptyList()
+}
+
 fun SbContext.generateTiles(characterId: Int, tiles: Int) {
     var character = game.character(characterId) ?: return
-    val config = character.collect<Pair<SbTileTemplate, Int>>(CommonKeys.Generator.GENERATOR)
-    val total = config.sumOf { it.second }
+    val config = character.collect<SbTileTemplate>(CommonKeys.Generator.GENERATOR)
+    val total = config.sumOf { it.weight }
 
-    val positions = (0 until 25).filter { p -> character.tileAt(p % 5, p / 5, SbTile.LAYER_TILE) == null}.take(tiles)
+    val positions = freePositions(characterId, SbTile.LAYER_TILE, tiles)
     positions.forEach { p ->
         val random = Random.nextInt(total)
         var w = 0
         val tileTemplate = config.first {
-            w += it.second
+            w += it.weight
             w > random
-        }.first
+        }
         val tile = SbTile(
             id = 0,
             skin = tileTemplate.skin,
@@ -55,6 +58,7 @@ fun SbContext.swipe(characterId: Int, dx: Int, dy: Int) {
         else -> character.tiles.shuffled()
     }
     var mergedCount = 0
+    val tilesComplete = mutableListOf<Int>()
     tilesToProcess.forEach { ttp ->
         character.tile(ttp.id)?.let { tile ->
             val maxDistance = min(5, tile.mobility)
@@ -75,16 +79,23 @@ fun SbContext.swipe(characterId: Int, dx: Int, dy: Int) {
                             merged = true
                             mergedCount++
                             val sumStack = t.progress + tile.progress
-                            //TODO: add remainder
+                            val newTile = t.copy(progress = min(sumStack, t.maxProgress))
+                            if (newTile.progress == t.maxProgress) {
+                                tilesComplete.add(newTile.id)
+                            }
+                            val progressLeft = sumStack - t.maxProgress
+                            val remainderTile = if (progressLeft <= 0) null else tile.copy(x = tx, y = ty, progress = progressLeft)
                             events.add(SbDisplayEvent.SbMoveTile(
                                 characterId = character.id,
                                 tileId = tile.id,
                                 tox = t.x,
                                 toy = t.y,
-                                remainder = null,
+                                remainder = remainderTile?.asDisplayed(),
+                                targetTile = newTile.asDisplayed(),
+                                z = tile.z,
                             ))
-                            val newTile = t.copy(progress = min(sumStack, t.maxProgress))
-                            character = character.withUpdatedTile(newTile).withRemovedTile(tile.id)
+                            character = character.withUpdatedTile(newTile)
+                            character = if (remainderTile == null) character.withRemovedTile(tile.id) else character.withUpdatedTile(remainderTile)
                         }
                         break
                     } else {
@@ -102,15 +113,24 @@ fun SbContext.swipe(characterId: Int, dx: Int, dy: Int) {
                     tileId = tile.id,
                     tox = tx,
                     toy = ty,
-                    remainder = newTile.asDisplayed()
+                    remainder = newTile.asDisplayed(),
+                    z = tile.z,
+                    targetTile = null
                 ))
                 character = character.withUpdatedTile(newTile)
             }
         }
     }
+    game = game.withUpdatedCharacter(character)
+
+    tilesComplete.forEach { tileId ->
+        handleEvent(SbEvent.TileReachedMaxProgress0(characterId, tileId))
+        handleEvent(SbEvent.TileReachedMaxProgress1(characterId, tileId))
+    }
+    game.character(characterId)?.let { character = it }
 
     if (mergedCount > 0) {
-        val comboAmount = (10f * (1f + 0.05f * character.sumInt(CommonKeys.Attributes.MIND))).toInt()
+        val comboAmount = (100f * (1f + 0.05f * character.attributes.mind)).toInt()
         val newUltimateProgress = min(character.maxUltimateProgress, character.ultimateProgress + comboAmount)
         character = character.withUpdatedUltimateProgress(newUltimateProgress)
         events.add(SbDisplayEvent.SbUpdateCharacter(character.asDisplayed()))
@@ -119,6 +139,7 @@ fun SbContext.swipe(characterId: Int, dx: Int, dy: Int) {
         if (newUltimateProgress >= character.maxUltimateProgress && !character.human) {
             generateTiles(character.id, 10)
             character = game.character(characterId)?.withUpdatedUltimateProgress(0) ?: return
+            game = game.withUpdatedCharacter(character)
         }
     }
     game = game.withUpdatedCharacter(character)
