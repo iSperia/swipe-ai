@@ -11,6 +11,8 @@ import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.game7th.swipe.monsters.MonsterService
+import com.pl00t.swipe_client.screen.Router
+import com.pl00t.swipe_client.screen.navpanel.NavigationPanel
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.ux.Buttons
@@ -21,6 +23,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class HeroesListActor(
+    private val router: NavigationPanel.Router,
     private val profileService: ProfileService,
     private val monsterService: MonsterService,
     private val context: SwipeContext,
@@ -48,6 +51,7 @@ class HeroesListActor(
             y = 12f
         }
         closeButton.onClick {
+            router.activeCharacterChanged()
             this@HeroesListActor.hideToBehindAndRemove(context.height())
         }
 

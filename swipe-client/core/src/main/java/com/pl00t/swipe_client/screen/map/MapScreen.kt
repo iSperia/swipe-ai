@@ -253,7 +253,7 @@ class MapScreen(
 
     override fun processMonsterClicked(unitSkin: String) {
         KtxAsync.launch {
-            monsterService.getMonster(unitSkin.toString())?.let { config ->
+            monsterService.getMonster(unitSkin)?.let { config ->
                 val monsterDetailActor = MonsterDetailPanel(
                     monsterConfiguration = config,
                     context = this@MapScreen,
@@ -266,9 +266,13 @@ class MapScreen(
     }
 
     override fun showHeroesList() {
-        val heroesListActor = HeroesListActor(profileService, monsterService,this@MapScreen, skin)
+        val heroesListActor = HeroesListActor(this@MapScreen, profileService, monsterService,this@MapScreen, skin)
         root.addActor(heroesListActor)
         heroesListActor.raiseFromBehind(height())
+    }
+
+    override fun activeCharacterChanged() {
+        navigationPanel.reloadActiveHeroLabel()
     }
 
     override fun showSelectKingdom() {

@@ -47,7 +47,7 @@ class BattleServiceImpl(
     private var level = "c1"
 
     override suspend fun createBattle(actId: SwipeAct, level: String): BattleDecorations {
-        events = MutableSharedFlow(20)
+        events = MutableSharedFlow(100)
         endBattle = MutableSharedFlow(5)
         processEnabled = true
         this.actId = actId

@@ -407,21 +407,21 @@ class BattleScreen(
         tarot.alpha = 0f
         val action = Actions.sequence(
             Actions.parallel(
-                Actions.scaleTo(1f, 1f, 0.3f),
-                Actions.alpha(0.8f, 0.3f),
-                Actions.moveBy(0f, -characterWidth * 0.2f, 0.3f)
+                Actions.scaleTo(1f, 1f, 0.6f),
+                Actions.alpha(0.8f, 0.6f),
+                Actions.moveBy(0f, -characterWidth * 0.2f, 0.6f)
             ),
             Actions.parallel(
                 Actions.repeat(
-                    4, Actions.sequence(
+                    8, Actions.sequence(
                         Actions.alpha(0.9f, 0.05f),
                         Actions.alpha(1f, 0.05f),
                     )
                 ),
-                Actions.moveBy(0f, characterWidth / 7f, 0.4f),
-                Actions.scaleBy(0.05f, -0.05f, 0.3f)
+                Actions.moveBy(0f, characterWidth / 7f, 0.8f),
+                Actions.scaleBy(0.05f, -0.05f, 0.6f)
             ),
-            Actions.alpha(0f, 0.05f),
+            Actions.alpha(0f, 0.1f),
             Actions.removeActor()
         )
         tarotEffectsGroup.addActor(tarot)
@@ -440,20 +440,16 @@ class BattleScreen(
             setOrigin(Align.center)
         }
         tarot.alpha = 0f
-        tarot.rotation = 270f
         val action = Actions.sequence(
             Actions.parallel(
-                Actions.alpha(1f, 0.2f),
-                Actions.rotateBy(-270f, 0.2f)
+                Actions.alpha(1f, 0.4f),
+                Actions.rotateBy(if (sourceUnit.team == 0) 90f else -90f, 0.4f)
             ),
             Actions.parallel(
-                Actions.rotateBy(if (sourceUnit.team == 0) -90f else 90f, 0.3f),
-                Actions.moveBy(if (sourceUnit.team == 0) characterWidth else -characterWidth, 0.3f)
+                Actions.scaleTo(0.1f, 10f, 0.2f),
+                Actions.moveBy(if (sourceUnit.team == 0) characterWidth else -characterWidth, 0.2f)
             ),
-            Actions.parallel(
-                Actions.scaleTo(0.1f, 10f, 0.1f),
-                Actions.alpha(0f, 0.2f)
-            ),
+            Actions.alpha(0f, 0.4f),
             Actions.removeActor()
         )
         tarot.addAction(action)
@@ -483,21 +479,21 @@ class BattleScreen(
                 val angle = if (targetActor.team == 0) 30f else -30f
                 Actions.sequence(
                     Actions.parallel(
-                        Actions.moveTo(rx, ry, 0.2f, SwingOut(1.6f)),
-                        Actions.rotateBy(angle, 0.06f, SwingOut(1.6f))
+                        Actions.moveTo(rx, ry, 0.4f, SwingOut(1.6f)),
+                        Actions.rotateBy(angle, 0.12f, SwingOut(1.6f))
                     ),
-                    Actions.rotateTo(-angle / 5f, 0.1f)
+                    Actions.rotateTo(-angle / 5f, 0.2f)
                 )
             }
         }
         val action = Actions.sequence(
             Actions.parallel(
-                Actions.rotateTo(0f, 0.2f, SwingOut(1.6f)),
-                Actions.alpha(1f, 0.2f),
+                Actions.rotateTo(0f, 0.4f, SwingOut(1.6f)),
+                Actions.alpha(1f, 0.4f),
                 Actions.scaleTo(1f, 1f)
             ),
             SequenceAction().apply { actions.forEach { a -> addAction(a) } },
-            Actions.alpha(0f, 0.1f),
+            Actions.alpha(0f, 0.2f),
             Actions.removeActor()
         )
         tarot.addAction(action)

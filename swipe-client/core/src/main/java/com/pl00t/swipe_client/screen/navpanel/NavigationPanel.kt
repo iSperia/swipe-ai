@@ -10,7 +10,9 @@ import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.game7th.swipe.battle.UnitSkin
+import kotlinx.coroutines.launch
 import ktx.actors.onClick
+import ktx.async.KtxAsync
 
 class NavigationPanel(
     private val context: SwipeContext,
@@ -22,6 +24,8 @@ class NavigationPanel(
         fun showHeroesList()
         fun showSelectKingdom()
         fun showInventory()
+
+        fun activeCharacterChanged()
     }
 
     val characterShadow = Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(UnitSkin.CHARACTER_VALERIAN.toString())).apply {
@@ -42,7 +46,7 @@ class NavigationPanel(
         scaleX = -1f
     }
 
-    val characterLabel = Label("Valerian\nLvl. 1", skin, "text_small").apply {
+    val characterLabel = Label("", skin, "text_small").apply {
         width = 72f
         height = 36f
         x = 408f
@@ -80,6 +84,8 @@ class NavigationPanel(
             router.showHeroesList()
         }
 
+        reloadActiveHeroLabel()
+
         addActor(characterShadow)
         addActor(characterBg)
         addActor(characterLabel)
@@ -95,6 +101,14 @@ class NavigationPanel(
         val padding = (wid - totalButtonWidth) / 2f
         buttons.forEachIndexed { index, button ->
             button.x = padding + index * 80f + 11f
+        }
+    }
+
+    fun reloadActiveHeroLabel() {
+        KtxAsync.launch {
+            context.profileService().getProfile().characters.first().let { character ->
+                characterLabel.setText("${character.name}\nLvl. ${character.level.level}")
+            }
         }
     }
 }
