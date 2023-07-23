@@ -1,0 +1,129 @@
+{
+  "skin": "MONSTER_THORNED_CRAWLER",
+  "name": "Thorned Crawler",
+  "lore": "Beneath the forest floor, the Thorned Crawlers scuttle and slither, their spiky carapaces blending seamlessly with the shadows. These menacing creatures boast an armored exoskeleton adorned with razor-sharp thorns, serving as both protection and weaponry. Their movements are swift and calculated, often ambushing their prey by bursting forth from the undergrowth. With formidable strength and agility, they are formidable opponents in close-quarters combat. Legends speak of their ability to sense vibrations in the earth, granting them an uncanny ability to navigate even the darkest of subterranean passages.",
+  "attributes": {"mind":  30, "spirit":  30, "body":  40},
+  "tiles": [
+    { "weight": 5, "skin": "THORNED_CRAWLER_VICIOUS_PINCERS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+    { "weight": 2, "skin": "THORNED_CRAWLER_DEBILIATING_STRIKE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+    { "weight": 3, "skin": "THORNED_CRAWLER_LEECHING_SHADOWS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
+  ],
+  "triggers": [
+    "thorned_crawler.vicious_pincers", "thorned_crawler.debiliating_stirke", "thorned_crawler.leeching_shadows", "common.weakness"
+  ],
+  "balance": {
+    "base_health": 20000,
+    "vp_base_phys": 10,
+    "vp_base_dark": 10,
+    "vp_scale_body": 10,
+    "vp_scale_spirit": 10,
+    "ds_base": 30,
+    "ds_scale": 10,
+    "ds_tiles": 2,
+    "ls_base": 20,
+    "ls_scale": 10,
+    "ls_heal_base": 20,
+    "ls_heal_scale": 10
+  },
+  "scale": 0.6,
+  "abilities": [
+    {
+      "title": "Vicious Pincers",
+      "skin": "THORNED_CRAWLER_VICIOUS_PINCERS",
+      "description": "Deals physical/darkness damage to single target",
+      "lore": "Sharp claws rend flesh, leaving scars of pain.",
+      "descriptionTable": [
+        {
+          "title": "Base physical damage",
+          "description": "{vp_base_phys}"
+        },
+        {
+          "title": "Physical damage increase, per BODY",
+          "description": "{vp_scale_body}%"
+        },
+        {
+          "title": "Base dark damage",
+          "description": "{vp_base_dark}"
+        },
+        {
+          "title": "Dark damage increase, per SPIRIT",
+          "description": "{vp_scale_spirit}%"
+        }
+      ],
+      "calculateTable": [
+        {
+          "title": "Physical damage",
+          "description": "{_physDamage}",
+          "id": "_physDamage"
+        },
+        {
+          "title": "Dark damage",
+          "description": "{_darkDamage}",
+          "id": "_darkDamage"
+        }
+      ]
+    },
+    {
+      "title": "Debilitating Strike",
+      "skin": "THORNED_CRAWLER_DEBILIATING_STRIKE",
+      "description": "Powerful physical single target attack, that inflicts weakness(each weakness tile reduced damage of character by 2,5%. Weakness tile is removed when skill is triggered on its position)",
+      "lore": "Strength wanes as thorns pierce the body.",
+      "descriptionTable": [
+        {
+          "title": "Base physical damage",
+          "description": "{sp_base}"
+        },
+        {
+          "title": "Physical damage increase, per BODY",
+          "description": "{ds_scale}%"
+        },
+        {
+          "title": "WEAKNESS tiles generated on target",
+          "description": "{ds_tiles} tiles"
+        }
+      ]
+    },
+    {
+      "title": "Leeching Shadows",
+      "skin": "THORNED_CRAWLER_LEECHING_SHADOWS",
+      "description": "Dark damage single target attack, that heals the crawler",
+      "lore": "Life fades as darkness drains vitality.",
+      "attributes": {
+        "darkDamage": 20,
+        "darkPerSpirit": 10,
+        "heal": 20,
+        "healPerSpirit": 10
+      },
+      "descriptionTable": [
+        {
+          "title": "Base dark damage",
+          "description": "{ls_base}"
+        },
+        {
+          "title": "Dark damage increase per SPIRIT",
+          "description": "{ls_scale}%"
+        },
+        {
+          "title": "HEALING base amount",
+          "description": "{ls_heal_base}"
+        },
+        {
+          "title": "HEALING increase, per SPIRIT",
+          "description": "{ls_heal_scale}%"
+        }
+      ],
+      "calculateTable": [
+        {
+          "title": "Dark damage",
+          "description": "{_darkDamage}",
+          "id": "_darkDamage"
+        },
+        {
+          "title": "Heal amount",
+          "description": "{_heal}",
+          "id": "_heal"
+        }
+      ]
+    }
+  ]
+}

@@ -4,24 +4,23 @@ import com.game7th.swipe.battle.floatAttribute
 import com.game7th.swipe.battle.intAttribute
 import com.game7th.swipe.game.*
 import com.google.gson.JsonObject
-import dagger.Module
-import dagger.Provides
-import dagger.multibindings.IntoMap
-import dagger.multibindings.StringKey
-import java.lang.IllegalStateException
-import javax.inject.Named
 
-@Module
-class CorruptedDryadModule {
+private const val CORRUPTED_DRYAD_ARBOREAL_FANGS = "CORRUPTED_DRYAD_ARBOREAL_FANGS"
+private const val CORRUPTED_DRYAD_VILE_SIPHON = "CORRUPTED_DRYAD_VILE_SIPHON"
+private const val CORRUPTED_DRYAD_SHADOWED_ANNIHILATION = "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION"
 
-    @Provides
-    @Named("MONSTER_CORRUPTED_DRYAD")
-    fun provideBalance(balances: Map<String, JsonObject>): JsonObject = balances["MONSTER_CORRUPTED_DRYAD"] ?: throw IllegalStateException("No balance")
+private const val af_base = "af_base"
+private const val af_scale = "af_scale"
+private const val vs_dmg_base = "vs_dmg_base"
+private const val vs_dmg_scale = "vs_dmg_scale"
+private const val vs_heal_base = "vs_heal_base"
+private const val vs_heal_scale = "vs_heal_scale"
+private const val sa_base = "sa_base"
+private const val sa_scale = "sa_scale"
+private const val sa_tiles = "sa_tiles"
 
-    @Provides
-    @IntoMap
-    @StringKey("corrupted_dryad.arboreal_fangs")
-    fun provideArborealFangs(@Named("MONSTER_CORRUPTED_DRYAD") balance: JsonObject): SbTrigger = { context, event ->
+fun provideCorruptedDryadTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
+    "corrupted_dryad.arboreal_fangs" to { context, event ->
         context.useOnComplete(event, CORRUPTED_DRYAD_ARBOREAL_FANGS) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
@@ -36,12 +35,9 @@ class CorruptedDryadModule {
                             CORRUPTED_DRYAD_ARBOREAL_FANGS, characterId, target)))
             }
         }
-    }
+    },
 
-    @Provides
-    @IntoMap
-    @StringKey("corrupted_dryad.vile_siphon")
-    fun provideVileSiphon(@Named("MONSTER_CORRUPTED_DRYAD") balance: JsonObject): SbTrigger = { context, event ->
+    "corrupted_dryad.vile_siphon" to  { context, event ->
         context.useOnComplete(event, CORRUPTED_DRYAD_VILE_SIPHON) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
@@ -60,12 +56,9 @@ class CorruptedDryadModule {
 
             healCharacter(character.id, healAmount.toInt())
         }
-    }
+    },
 
-    @Provides
-    @IntoMap
-    @StringKey("corrupted_dryad.shadowed_annihilation")
-    fun provideShadowedAnnihilation(@Named("MONSTER_CORRUPTED_DRYAD") balance: JsonObject): SbTrigger = { context, event ->
+    "corrupted_dryad.shadowed_annihilation" to { context, event ->
         context.useOnComplete(event, CORRUPTED_DRYAD_SHADOWED_ANNIHILATION) { characterId, tileId, lucky ->
             val character= game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
@@ -106,19 +99,4 @@ class CorruptedDryadModule {
             }
         }
     }
-}
-
-private const val CORRUPTED_DRYAD_ARBOREAL_FANGS = "CORRUPTED_DRYAD_ARBOREAL_FANGS"
-private const val CORRUPTED_DRYAD_VILE_SIPHON = "CORRUPTED_DRYAD_VILE_SIPHON"
-private const val CORRUPTED_DRYAD_SHADOWED_ANNIHILATION = "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION"
-
-private const val af_base = "af_base"
-private const val af_scale = "af_scale"
-private const val vs_dmg_base = "vs_dmg_base"
-private const val vs_dmg_scale = "vs_dmg_scale"
-private const val vs_heal_base = "vs_heal_base"
-private const val vs_heal_scale = "vs_heal_scale"
-private const val sa_base = "sa_base"
-private const val sa_scale = "sa_scale"
-private const val sa_tiles = "sa_tiles"
-
+)

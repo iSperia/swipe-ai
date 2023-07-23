@@ -4,24 +4,25 @@ import com.game7th.swipe.battle.floatAttribute
 import com.game7th.swipe.battle.intAttribute
 import com.game7th.swipe.game.*
 import com.google.gson.JsonObject
-import dagger.Module
-import dagger.Provides
-import dagger.multibindings.IntoMap
-import dagger.multibindings.StringKey
-import java.lang.IllegalStateException
-import javax.inject.Named
 
-@Module
-class ThalendrosModule {
+private const val THALENDROS_THORN_WHIP = "THALENDROS_THORN_WHIP"
+private const val THALENDROS_EARTHQUAKE_SLAM = "THALENDROS_EARTHQUAKE_SLAM"
+private const val THALENDROS_DARK_AURA = "THALENDROS_DARK_AURA"
+private const val THALENDROS_CORRUPTED_ROOTS = "THALENDROS_CORRUPTED_ROOTS"
+private const val THALENDROS_DARK_TILE = "THALENDROS_DARK_TILE"
 
-    @Provides
-    @Named("MONSTER_THALENDROS")
-    fun provideBalance(balances: Map<String, JsonObject>): JsonObject = balances["MONSTER_THALENDROS"] ?: throw IllegalStateException("No balance")
+private const val tw_base = "tw_base"
+private const val tw_scale = "tw_scale"
+private const val es_tiles = "es_tiles"
+private const val es_damage = "es_damage"
+private const val es_scale = "es_scale"
+private const val da_tiles = "da_tiles"
+private const val da_base = "da_base"
+private const val da_scale = "da_scale"
 
-    @Provides
-    @IntoMap
-    @StringKey("thalendros.thorn_whip")
-    fun provideThornWhip(@Named("MONSTER_THALENDROS") balance: JsonObject): SbTrigger = { context, event ->
+fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
+
+    "thalendros.thorn_whip" to { context, event ->
         context.useOnComplete(event, THALENDROS_THORN_WHIP) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
@@ -35,19 +36,19 @@ class ThalendrosModule {
                             THALENDROS_THORN_WHIP, characterId, target)))
             }
         }
-    }
+    },
 
-    @Provides
-    @IntoMap
-    @StringKey("thalendros.earthquake_slam")
-    fun provideEarthquakeSlam(@Named("MONSTER_THALENDROS") balance: JsonObject): SbTrigger = { context, event ->
+    "thalendros.earthquake_slam" to { context, event ->
         context.useOnComplete(event, THALENDROS_EARTHQUAKE_SLAM) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
             allEnemies(characterId).randomOrNull()?.let { targetId ->
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.TarotSimpleAttack(
-                            THALENDROS_EARTHQUAKE_SLAM, characterId, targetId)))
+                            THALENDROS_EARTHQUAKE_SLAM, characterId, targetId
+                        )
+                    )
+                )
 
                 val rootsCount = game.character(targetId)!!.tiles.count { it.skin == THALENDROS_CORRUPTED_ROOTS }
                 if (rootsCount <= 0) {
@@ -82,20 +83,16 @@ class ThalendrosModule {
                 } else {
                     val damage = SbElemental(
                         dark = rootsCount * balance.floatAttribute(es_damage) * (1f + 0.01f * balance.intAttribute(
-                            es_scale) * character.attributes.spirit)
+                            es_scale
+                        ) * character.attributes.spirit)
                     ).multipledBy(if (lucky) 2f else 1f)
                     dealDamage(characterId, targetId, damage)
                 }
             }
         }
+    },
 
-        context.useOnComplete(event, THALENDROS_CORRUPTED_ROOTS) { _, _, _ -> }
-    }
-
-    @Provides
-    @IntoMap
-    @StringKey("thalendros.dark_aura")
-    fun provideDarkAura(@Named("MONSTER_THALENDROS") balance: JsonObject): SbTrigger = { context, event ->
+    "thalendros.dark_aura" to { context, event ->
 
         context.useOnComplete(event, THALENDROS_DARK_AURA) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
@@ -137,19 +134,5 @@ class ThalendrosModule {
             events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotStatic(THALENDROS_DARK_AURA, characterId)))
         }
     }
-}
 
-private const val THALENDROS_THORN_WHIP = "THALENDROS_THORN_WHIP"
-private const val THALENDROS_EARTHQUAKE_SLAM = "THALENDROS_EARTHQUAKE_SLAM"
-private const val THALENDROS_DARK_AURA = "THALENDROS_DARK_AURA"
-private const val THALENDROS_CORRUPTED_ROOTS = "THALENDROS_CORRUPTED_ROOTS"
-private const val THALENDROS_DARK_TILE = "THALENDROS_DARK_TILE"
-
-private const val tw_base = "tw_base"
-private const val tw_scale = "tw_scale"
-private const val es_tiles = "es_tiles"
-private const val es_damage = "es_damage"
-private const val es_scale = "es_scale"
-private const val da_tiles = "da_tiles"
-private const val da_base = "da_base"
-private const val da_scale = "da_scale"
+)

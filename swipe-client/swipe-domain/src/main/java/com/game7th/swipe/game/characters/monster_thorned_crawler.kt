@@ -4,24 +4,25 @@ import com.game7th.swipe.battle.floatAttribute
 import com.game7th.swipe.battle.intAttribute
 import com.game7th.swipe.game.*
 import com.google.gson.JsonObject
-import dagger.Module
-import dagger.Provides
-import dagger.multibindings.IntoMap
-import dagger.multibindings.StringKey
-import java.lang.IllegalStateException
-import javax.inject.Named
 
-@Module
-class ThornedCrawlerModule {
+private const val THORNED_CRAWLER_VICIOUS_PINCERS = "THORNED_CRAWLER_VICIOUS_PINCERS"
+private const val THORNED_CRAWLER_DEBILIATING_STRIKE = "THORNED_CRAWLER_DEBILIATING_STRIKE"
+private const val THORNED_CRAWLER_LEECHING_SHADOWS = "THORNED_CRAWLER_LEECHING_SHADOWS"
 
-    @Provides
-    @Named("MONSTER_THORNED_CRAWLER")
-    fun provideBalance(balances: Map<String, JsonObject>): JsonObject = balances["MONSTER_THORNED_CRAWLER"] ?: throw IllegalStateException("No balance")
+private const val vp_base_phys = "vp_base_phys"
+private const val vp_base_dark = "vp_base_dark"
+private const val vp_scale_body = "vp_scale_body"
+private const val vp_scale_spirit = "vp_scale_spirit"
+private const val ds_base = "ds_base"
+private const val ds_scale = "ds_scale"
+private const val ds_tiles = "ds_tiles"
+private const val ls_base = "ls_base"
+private const val ls_scale = "ls_scale"
+private const val ls_heal_base = "ls_heal_base"
+private const val ls_heal_scale = "ls_heal_scale"
 
-    @Provides
-    @IntoMap
-    @StringKey("thorned_crawler.vicious_pincers")
-    fun provideViciousPincers(@Named("MONSTER_THORNED_CRAWLER") balance: JsonObject): SbTrigger = { context, event ->
+fun provideThornedCrawlerTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
+    "thorned_crawler.vicious_pincers" to { context, event ->
         context.useOnComplete(event, THORNED_CRAWLER_VICIOUS_PINCERS) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
@@ -36,12 +37,9 @@ class ThornedCrawlerModule {
                             THORNED_CRAWLER_VICIOUS_PINCERS, characterId, target)))
             }
         }
-    }
+    },
 
-    @Provides
-    @IntoMap
-    @StringKey("thorned_crawler.debiliating_stirke")
-    fun provideDebiliatingStrike(@Named("MONSTER_THORNED_CRAWLER") balance: JsonObject): SbTrigger = { context, event ->
+    "thorned_crawler.debiliating_stirke" to { context, event ->
         context.useOnComplete(event, THORNED_CRAWLER_DEBILIATING_STRIKE) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
@@ -74,22 +72,19 @@ class ThornedCrawlerModule {
                     var targetCharacter = game.character(target) ?: return@forEach
                     targetCharacter = targetCharacter.withAddedTile(tile).withAddedEffect(
                         SbEffect(
-                        id = 0,
-                        skin = "COMMON_WEAKNESS",
-                        emptyMap()
-                    ))
+                            id = 0,
+                            skin = "COMMON_WEAKNESS",
+                            emptyMap()
+                        ))
 
                     game = game.withUpdatedCharacter(targetCharacter)
                     events.add(SbDisplayEvent.SbCreateTile(characterId = target, tile = targetCharacter.tiles.last().asDisplayed()))
                 }
             }
         }
-    }
+    },
 
-    @Provides
-    @IntoMap
-    @StringKey("thorned_crawler.leeching_shadows")
-    fun provdeLeechingShadows(@Named("MONSTER_THORNED_CRAWLER") balance: JsonObject): SbTrigger = { context, event ->
+    "thorned_crawler.leeching_shadows" to { context, event ->
         context.useOnComplete(event, THORNED_CRAWLER_LEECHING_SHADOWS) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
@@ -109,21 +104,4 @@ class ThornedCrawlerModule {
             healCharacter(character.id, healAmount.toInt())
         }
     }
-
-}
-
-private const val THORNED_CRAWLER_VICIOUS_PINCERS = "THORNED_CRAWLER_VICIOUS_PINCERS"
-private const val THORNED_CRAWLER_DEBILIATING_STRIKE = "THORNED_CRAWLER_DEBILIATING_STRIKE"
-private const val THORNED_CRAWLER_LEECHING_SHADOWS = "THORNED_CRAWLER_LEECHING_SHADOWS"
-
-private const val vp_base_phys = "vp_base_phys"
-private const val vp_base_dark = "vp_base_dark"
-private const val vp_scale_body = "vp_scale_body"
-private const val vp_scale_spirit = "vp_scale_spirit"
-private const val ds_base = "ds_base"
-private const val ds_scale = "ds_scale"
-private const val ds_tiles = "ds_tiles"
-private const val ls_base = "ls_base"
-private const val ls_scale = "ls_scale"
-private const val ls_heal_base = "ls_heal_base"
-private const val ls_heal_scale = "ls_heal_scale"
+)

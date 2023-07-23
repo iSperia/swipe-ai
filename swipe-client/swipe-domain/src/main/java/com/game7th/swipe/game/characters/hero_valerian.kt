@@ -4,24 +4,30 @@ import com.game7th.swipe.battle.floatAttribute
 import com.game7th.swipe.battle.intAttribute
 import com.game7th.swipe.game.*
 import com.google.gson.JsonObject
-import dagger.Module
-import dagger.Provides
-import dagger.multibindings.IntoMap
-import dagger.multibindings.StringKey
-import java.lang.IllegalStateException
-import javax.inject.Named
 
-@Module
-class ValerianModule {
+private val VALERIAN_RADIANT_STRIKE = "VALERIAN_RADIANT_STRIKE"
+private val VALERIAN_LUMINOUS_BEAM = "VALERIAN_LUMINOUS_BEAM"
+private val VALERIAN_SIGIL_OF_RENEWAL = "VALERIAN_SIGIL_OF_RENEWAL"
+private val VALERIAN_SIGIL_OF_RENEWAL_BG = "VALERIAN_SIGIL_OF_RENEWAL_BG"
+private val VALERIAN_DIVINE_CONVERGENCE = "VALERIAN_DIVINE_CONVERGENCE"
 
-    @Provides
-    @Named("CHARACTER_VALERIAN")
-    fun provideBalance(balances: Map<String, JsonObject>): JsonObject = balances["CHARACTER_VALERIAN"] ?: throw IllegalStateException("No balance")
+private val RS_BASE = "radiant_strike.base_physical_damage"
+private val RS_SCALE = "radiant_strike.scale_physical_damage_per_body"
+private val LB_BASE = "luminous_beam.base_light_damage"
+private val LB_SCALE = "luminous_beam.scale_light_damage_per_spirit"
+private val SOR_TILES = "sigil_of_renewal.sigil_tiles_count"
+private val SOR_BASE = "sigil_of_renewal.base_heal"
+private val SOR_SCALE = "sigil_of_renewal.scale_heal_per_spirit"
+private val DC_BASE_DMG = "divine_convergence.base_light_damage_per_sigil"
+private val DC_SCALE_DMG = "divine_convergence.scale_light_damage_per_spirit"
+private val DC_BASE_HEAL = "divine_convergence.base_heal_per_sigil"
+private val DC_SCALE_HEAL_BODY = "divine_convergence.scale_heal_per_spirit"
+private val DC_SCALE_HEAL_SPIRIT = "divine_convergence.scale_heal_per_body"
 
-    @Provides
-    @IntoMap
-    @StringKey("valerian.radiant_strike")
-    fun provideRadiantStrike(@Named("CHARACTER_VALERIAN") balance: JsonObject): SbTrigger = { context, event ->
+fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
+
+    /**Radiant strike*/
+    "valerian.radiant_strike" to { context, event ->
         context.useOnComplete(event, VALERIAN_RADIANT_STRIKE) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
@@ -33,12 +39,10 @@ class ValerianModule {
                     VALERIAN_RADIANT_STRIKE, characterId, target)))
             }
         }
-    }
+    },
 
-    @Provides
-    @IntoMap
-    @StringKey("valerian.luminous_beam")
-    fun provideLuminousBeam(@Named("CHARACTER_VALERIAN") balance: JsonObject): SbTrigger = { context, event ->
+    /** Luminous beam*/
+    "valerian.luminous_beam" to { context, event ->
         context.useOnComplete(event, VALERIAN_LUMINOUS_BEAM) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
@@ -51,12 +55,10 @@ class ValerianModule {
                 ))
             }
         }
-    }
+    },
 
-    @Provides
-    @IntoMap
-    @StringKey("valerian.sigil_of_renewal")
-    fun provideSigilOfRenewal(@Named("CHARACTER_VALERIAN") balance: JsonObject): SbTrigger = { context, event ->
+    /** Sigil of renewal*/
+    "valerian.sigil_of_renewal" to { context, event ->
         context.useOnComplete(event, VALERIAN_SIGIL_OF_RENEWAL) { characterId, tileId, lucky ->
             var character = game.character(characterId) ?: return@useOnComplete
             val tilesCount = (if (lucky) 1 else 2) * balance.intAttribute(SOR_TILES)
@@ -90,12 +92,10 @@ class ValerianModule {
 
             healCharacter(character.id, healAmount.toInt())
         }
-    }
+    },
 
-    @Provides
-    @IntoMap
-    @StringKey("valerian.divine_convergence")
-    fun provideDivineConvergence(@Named("CHARACTER_VALERIAN") balance: JsonObject): SbTrigger = { context, event ->
+    /**divine convergence*/
+    "valerian.divine_convergence" to { context, event ->
         if (event is SbEvent.UltimateUse) {
             context.game.character(event.characterId)?.let { character ->
                 if (character.skin == "CHARACTER_VALERIAN") {
@@ -116,7 +116,8 @@ class ValerianModule {
 
                     tiles.forEach { t -> context.destroyTile(character.id, t.id) }
 
-                    context.events.add(SbDisplayEvent.SbShowTarotEffect(effect = SbBattleFieldDisplayEffect.TarotUltimate("VALERIAN_DIVINE_CONVERGENCE")))
+                    context.events.add(SbDisplayEvent.SbShowTarotEffect(effect = SbBattleFieldDisplayEffect.TarotUltimate(
+                        VALERIAN_DIVINE_CONVERGENCE)))
                     context.game.character(0)?.let { c ->
                         val cc = c.withUpdatedUltimateProgress(0)
                         context.game = context.game.withUpdatedCharacter(cc)
@@ -126,23 +127,5 @@ class ValerianModule {
             }
         }
     }
-}
+)
 
-private val VALERIAN_RADIANT_STRIKE = "VALERIAN_RADIANT_STRIKE"
-private val VALERIAN_LUMINOUS_BEAM = "VALERIAN_LUMINOUS_BEAM"
-private val VALERIAN_SIGIL_OF_RENEWAL = "VALERIAN_SIGIL_OF_RENEWAL"
-private val VALERIAN_SIGIL_OF_RENEWAL_BG = "VALERIAN_SIGIL_OF_RENEWAL_BG"
-private val VALERIAN_DIVINE_CONVERGENCE = "VALERIAN_DIVINE_CONVERGENCE"
-
-private val RS_BASE = "radiant_strike.base_physical_damage"
-private val RS_SCALE = "radiant_strike.scale_physical_damage_per_body"
-private val LB_BASE = "luminous_beam.base_light_damage"
-private val LB_SCALE = "luminous_beam.scale_light_damage_per_spirit"
-private val SOR_TILES = "sigil_of_renewal.sigil_tiles_count"
-private val SOR_BASE = "sigil_of_renewal.base_heal"
-private val SOR_SCALE = "sigil_of_renewal.scale_heal_per_spirit"
-private val DC_BASE_DMG = "divine_convergence.base_light_damage_per_sigil"
-private val DC_SCALE_DMG = "divine_convergence.scale_light_damage_per_spirit"
-private val DC_BASE_HEAL = "divine_convergence.base_heal_per_sigil"
-private val DC_SCALE_HEAL_BODY = "divine_convergence.scale_heal_per_spirit"
-private val DC_SCALE_HEAL_SPIRIT = "divine_convergence.scale_heal_per_body"

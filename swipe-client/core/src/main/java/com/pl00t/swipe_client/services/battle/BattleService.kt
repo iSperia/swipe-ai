@@ -2,7 +2,6 @@ package com.pl00t.swipe_client.services.battle
 
 import com.game7th.swipe.battle.*
 import com.game7th.swipe.game.*
-import com.game7th.swipe.game.SbComponent
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.JsonObject
@@ -38,7 +37,6 @@ class BattleServiceImpl(
     private val profileService: ProfileService,) : BattleService {
 
     private var configuration: BattleConfiguration? = null
-    lateinit var component: SbComponent
     lateinit var context: SbContext
     lateinit var waves: List<List<SbMonsterEntry>>
     val events = MutableSharedFlow<SbDisplayEvent>(200)
@@ -58,24 +56,21 @@ class BattleServiceImpl(
 
         val game = SbGame(0, 1, 0, emptyList())
         val triggers = mutableSetOf<String>()
-        val balances = monsterService.allBalances()
+
+        monsterService.loadTriggers(MonsterService.DEFAULT)
         monsterService.getMonster(character.skin)?.let { c ->
+            monsterService.loadTriggers(c.skin)
             triggers.addAll(c.triggers)
         }
         waves = levelModel.monsters ?: emptyList()
         levelModel.monsters?.forEach { wave ->
             wave.forEach { monster ->
                 monsterService.getMonster(monster.skin)?.let { c ->
+                    monsterService.loadTriggers(c.skin)
                     triggers.addAll(c.triggers)
                 }
             }
         }
-
-        component = DaggerSbComponent.builder()
-            .balances(balances)
-            .build()
-
-        val triggerMap = component.provideTriggers()
 
         context = SbContext(
             game = game,
@@ -88,10 +83,10 @@ class BattleServiceImpl(
                     return runBlocking { monsterService.getMonster(skin)!! }
                 }
             },
-            triggers = triggers.mapNotNull { triggerMap[it] }
+            triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
         ).apply {
-            initHumans(component, listOf(SbHumanEntry(character.skin, character.level.level, character.attributes)))
-            initWave(component, levelModel.monsters?.get(0)!!)
+            initHumans(listOf(SbHumanEntry(character.skin, character.level.level, character.attributes)))
+            initWave(levelModel.monsters?.get(0)!!)
         }
         handleContext()
         return BattleDecorations(levelModel.background)
@@ -130,7 +125,7 @@ class BattleServiceImpl(
             val wavesTotal = waves.size
             if (context.game.wave < wavesTotal - 1) {
                 context.game = context.game.copy(wave = context.game.wave + 1)
-                context.initWave(component, waves[context.game.wave])
+                context.initWave(waves[context.game.wave])
                 events.emit(SbDisplayEvent.SbWave(context.game.wave + 1))
             } else {
                 endBattle.emit(

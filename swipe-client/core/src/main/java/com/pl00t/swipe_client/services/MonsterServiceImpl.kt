@@ -2,31 +2,52 @@ package com.pl00t.swipe_client.services
 
 import com.badlogic.gdx.Gdx
 import com.game7th.swipe.battle.SbMonsterConfiguration
-import com.game7th.swipe.battle.SbMonsterEntry
-import com.game7th.swipe.battle.UnitSkin
-import com.game7th.swipe.monsters.MonsterConfigurationFile
+import com.game7th.swipe.game.SbTrigger
+import com.game7th.swipe.game.characters.*
 import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 
-class MonsterServiceImpl() : MonsterService {
+class MonsterServiceImpl : MonsterService {
 
-    val handle = Gdx.files.internal("json/monsters.json")
-    var config: MonsterConfigurationFile
+    val cache = mutableMapOf<String, SbMonsterConfiguration>()
+    val loadedTriggers = mutableSetOf<String>()
+    val triggerCache = mutableMapOf<String, SbTrigger>()
     val gson = Gson()
 
-    private val balanceCache = mutableMapOf<String, JsonObject>()
-
-    init {
-        config = gson.fromJson(handle.readString(), MonsterConfigurationFile::class.java)
-        config.monsters.forEach { monsterConfig ->
-            balanceCache[monsterConfig.skin] = monsterConfig.balance
-        }
-    }
-
     override suspend fun getMonster(skin: String): SbMonsterConfiguration? {
-        return config.monsters.firstOrNull { it.skin == skin }
+        return cache[skin] ?: loadMonster(skin)
     }
 
-    override suspend fun allBalances(): Map<String, JsonObject> = balanceCache
+    private fun loadMonster(skin: String): SbMonsterConfiguration? {
+        val handle = Gdx.files.local("assets/json/monsters/$skin.json")
+        if (!handle.exists()) return null
+        val config = gson.fromJson(handle.readString(), SbMonsterConfiguration::class.java)
+        cache[skin] = config
+        return config
+    }
+
+    override suspend fun loadTriggers(skin: String) {
+        if (loadedTriggers.contains(skin)) return
+        val balance = getMonster(skin)?.balance ?: JsonObject()
+        val map: Map<String, SbTrigger> = when(skin) {
+            MonsterService.DEFAULT -> provideDefaultTriggers()
+            MonsterService.CHARACTER_VALERIAN -> provideValerianTriggers(balance)
+            MonsterService.MONSTER_THALENDROS -> provideThalendrosTriggers(balance)
+            MonsterService.MONSTER_THORNSTALKER -> provideThornstalkerTriggers(balance)
+            MonsterService.MONSTER_CORRUPTED_DRYAD -> provideCorruptedDryadTriggers(balance)
+            MonsterService.MONSTER_THORNED_CRAWLER -> provideThornedCrawlerTriggers(balance)
+            else -> emptyMap()
+        }
+
+        map.forEach { (key, trigger) ->
+            triggerCache[key] = trigger
+        }
+
+        loadedTriggers.add(skin)
+    }
+
+    override suspend fun getTrigger(triggerId: String): SbTrigger? {
+        return triggerCache[triggerId]
+    }
 }

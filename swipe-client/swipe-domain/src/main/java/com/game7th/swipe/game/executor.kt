@@ -64,7 +64,7 @@ fun SbContext.createCharacter(skin: String): SbCharacter {
     )
 }
 
-fun SbContext.initHumans(component: SbComponent, humans: List<SbHumanEntry>) {
+fun SbContext.initHumans(humans: List<SbHumanEntry>) {
     humans.forEach { config ->
         val maxHealth = (balance.getMonster(config.skin).balance.intAttribute("base_health") * (1f + 0.1f * config.attributes.body)).toInt()
         val character = createCharacter(config.skin).copy(
@@ -82,7 +82,7 @@ fun SbContext.initHumans(component: SbComponent, humans: List<SbHumanEntry>) {
     }
 }
 
-fun SbContext.initWave(component: SbComponent, wave: List<SbMonsterEntry>) {
+fun SbContext.initWave(wave: List<SbMonsterEntry>) {
     wave.forEach { config ->
         val amountOfAttributes = (Math.pow(1.05, config.level.toDouble()).toFloat() * config.level * 3).toInt()
         var body = 0
