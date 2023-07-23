@@ -14,7 +14,7 @@
   ],
   "triggers": ["thalendros.thorn_whip", "thalendros.earthquake_slam", "thalendros.dark_aura"],
   "balance": {
-    "base_health": 1200,
+    "base_health": 1250,
     "tw_base": 70,
     "tw_scale": 10,
     "es_tiles": 4,

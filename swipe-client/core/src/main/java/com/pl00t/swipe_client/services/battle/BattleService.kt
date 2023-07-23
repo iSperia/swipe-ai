@@ -39,14 +39,17 @@ class BattleServiceImpl(
     private var configuration: BattleConfiguration? = null
     lateinit var context: SbContext
     lateinit var waves: List<List<SbMonsterEntry>>
-    val events = MutableSharedFlow<SbDisplayEvent>(200)
-    val endBattle = MutableSharedFlow<BattleResult>(5)
+    lateinit var events: MutableSharedFlow<SbDisplayEvent>
+    lateinit var endBattle: MutableSharedFlow<BattleResult>
+    private var processEnabled = false
 
     private var actId = SwipeAct.ACT_1
     private var level = "c1"
 
     override suspend fun createBattle(actId: SwipeAct, level: String): BattleDecorations {
-
+        events = MutableSharedFlow(20)
+        endBattle = MutableSharedFlow(5)
+        processEnabled = true
         this.actId = actId
         this.level = level
         val actModel = levelService.getAct(actId)
@@ -97,11 +100,13 @@ class BattleServiceImpl(
     }
 
     override suspend fun processSwipe(dx: Int, dy: Int) {
+        if (!processEnabled) return
         context.swipe(0, dx, dy)
         handleContext()
     }
 
     override suspend fun processUltimate() {
+        if (!processEnabled) return
         context.game.character(0)?.let { character ->
             if (character.ultimateProgress == character.maxUltimateProgress) {
                 context.useUltimate(0)
@@ -119,8 +124,7 @@ class BattleServiceImpl(
                 victory = false,
                 rewards = emptyList()
             ))
-            events.resetReplayCache()
-            endBattle.resetReplayCache()
+            processEnabled = false
         } else if (!context.game.teamAlive(1)) {
             val wavesTotal = waves.size
             if (context.game.wave < wavesTotal - 1) {
@@ -134,8 +138,7 @@ class BattleServiceImpl(
                     emptyList()
                 ))
                 profileService.markActComplete(actId, level)
-                events.resetReplayCache()
-                endBattle.resetReplayCache()
+                processEnabled = false
             }
         }
         val eventsToEmit = context.events.map { it.also { println(it) } }

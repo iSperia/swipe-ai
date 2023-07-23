@@ -30,6 +30,8 @@ import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.require
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.delayEach
 import kotlinx.coroutines.launch
 import ktx.actors.*
 import ktx.async.KtxAsync
@@ -119,7 +121,7 @@ class BattleScreen(
         }
         panelGroup.addActor(tileBackgroundsGroup)
         tilesGroup = mutableListOf()
-        (0..3).forEach { i ->
+        (0..4).forEach { i ->
             val tilesLayer = Group().apply {
                 x = 40f
                 y = 60f
@@ -186,6 +188,7 @@ class BattleScreen(
 
     private suspend fun observeEndBattle() {
         battleService.battleEnd().collect { event ->
+            delay(2_000L)
             processBattleEvent(event)
         }
     }
@@ -206,7 +209,7 @@ class BattleScreen(
         when (event) {
             is SbDisplayEvent.SbWave -> {
                 rightUnitsCount = 0
-                val wave = Label("Wave ${event.wave}", skin, "wave_caption").apply {
+                val wave = Label("Wave ${event.wave}", skin, "wave_popup").apply {
                     width = root.width
                     height = root.height * 0.2f
                     y = root.height * 0.2f
@@ -519,13 +522,12 @@ class BattleScreen(
         tilesGroup[event.z].findActor<TileActor>(event.tileId.toString())?.let { tileActor ->
             val tx = event.tox * tileSize
             val ty = event.toy * tileSize
-            tileActor.updateXY(event.tox, event.toy)
             if (event.targetTile != null) {
                 tilesGroup[event.targetTile!!.z].findActor<TileActor>(event.targetTile!!.id.toString())
                     ?.let { targetTile ->
                         targetTile.addAction(
                             Actions.sequence(
-                                Actions.delay(0.3f),
+                                Actions.delay(0.35f),
                                 Actions.run {
                                     targetTile.updateSectors(event.targetTile!!.progress)
                                 }
@@ -546,8 +548,8 @@ class BattleScreen(
                     val btx = event.remainder!!.x * tileSize
                     val bty = event.remainder!!.y * tileSize
                     tileActor.addAction(Actions.sequence(
-                        Actions.delay(0.2f),
-                        Actions.moveTo(btx, bty, 0.09f),
+                        Actions.delay(0.3f),
+                        Actions.moveTo(btx, bty, 0.05f),
                         Actions.run {
                             tileActor.updateSectors(event.remainder!!.progress)
                         }
@@ -567,12 +569,10 @@ class BattleScreen(
             taBattle = commonAtlas(Atlases.COMMON_BATTLE),
             taTarot = commonAtlas(Atlases.COMMON_TAROT),
             polygonBatch = polygonSpriteBatch,
-            gridX = event.tile.x,
-            gridY = event.tile.y,
             type = event.tile.type,
         )
         tile.name = event.tile.id.toString()
-        placeTile(tile)
+        placeTile(tile, event.tile.x, event.tile.y)
         tilesGroup[event.tile.z].addActor(tile)
         tile.animateAppear()
     }
@@ -597,10 +597,9 @@ class BattleScreen(
         unit.animateAppear()
     }
 
-    private fun placeTile(tile: TileActor) {
-//        tile.clearActions()
-        tile.x = tileSize * tile.gridX
-        tile.y = tileSize * tile.gridY
+    private fun placeTile(tile: TileActor, x: Int, y: Int) {
+        tile.x = tileSize * x
+        tile.y = tileSize * y
     }
 
     private fun placeUnit(unit: UnitActor) {

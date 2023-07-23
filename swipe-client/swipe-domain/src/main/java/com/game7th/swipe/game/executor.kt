@@ -84,7 +84,7 @@ fun SbContext.initHumans(humans: List<SbHumanEntry>) {
 
 fun SbContext.initWave(wave: List<SbMonsterEntry>) {
     wave.forEach { config ->
-        val amountOfAttributes = (Math.pow(1.05, config.level.toDouble()).toFloat() * config.level * 3).toInt()
+        val amountOfAttributes = ((1f + 0.01f * config.level) * config.level * 3).toInt()
         var body = 0
         var spirit = 0
         var mind = 0

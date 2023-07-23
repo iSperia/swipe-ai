@@ -24,8 +24,6 @@ class TileActor(
     private val taBattle: TextureAtlas,
     private val taTarot: TextureAtlas,
     private val polygonBatch: PolygonSpriteBatch,
-    var gridX: Int,
-    var gridY: Int,
     val type: SbDisplayTileType,
 ) : Group() {
 
@@ -150,11 +148,6 @@ class TileActor(
                 ))
             }
         }
-    }
-
-    fun updateXY(tx: Int, ty: Int) {
-        this.gridX = tx
-        this.gridY = ty
     }
 
     fun animateMerge(t: TileActor?, targetStack: Int, stackLeft: Int) {

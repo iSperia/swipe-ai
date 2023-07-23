@@ -25,6 +25,10 @@
       font: caption_regular
       fontColor: accent_color
     },
+    wave_popup: {
+      font: caption_regular
+      fontColor: main_color
+    }
     damage_popup: {
       font: caption_regular
       fontColor: white_color
