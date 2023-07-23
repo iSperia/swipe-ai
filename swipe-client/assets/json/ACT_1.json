@@ -209,6 +209,22 @@
           "text": "You know nothing of balance! Prepare to face the wrath of nature!",
           "title": "Dryad Guardian"
         }
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "EXPERIENCE_CRYSTAL"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 150,
+            "type": "ETHERIUM_COIN"
+          }
+        }
       ]
     },
     {
