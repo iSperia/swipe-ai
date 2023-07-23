@@ -24,6 +24,7 @@ import com.pl00t.swipe_client.services.battle.BattleService
 import com.game7th.swipe.battle.BattleEvent
 import com.game7th.swipe.game.SbBattleFieldDisplayEffect
 import com.game7th.swipe.game.SbDisplayEvent
+import com.game7th.swipe.game.SbTileFieldDisplayEffect
 import com.pl00t.swipe_client.services.levels.DialogEntryModel
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.profile.ProfileService
@@ -240,7 +241,7 @@ class BattleScreen(
             }
 
             is SbDisplayEvent.SbUpdateCharacter -> {
-                val personage = event.personage!!
+                val personage = event.personage
                 unitsGroup.findActor<UnitActor>(personage.id.toString())?.let { actor ->
                     actor.healthBar.updateHealth(personage.health, personage.maxHealth)
                     if (personage.id == 0) {
@@ -293,8 +294,48 @@ class BattleScreen(
                 }
             }
 
+            is SbDisplayEvent.SbShowTileFieldEffect -> {
+                when (event.effect) {
+                    is SbTileFieldDisplayEffect.TarotOverPosition -> processTarotOverAnimation(
+                        (event.effect as SbTileFieldDisplayEffect.TarotOverPosition).x,
+                        (event.effect as SbTileFieldDisplayEffect.TarotOverPosition).y,
+                        (event.effect as SbTileFieldDisplayEffect.TarotOverPosition).skin)
+                }
+            }
+
             else -> Unit
         }
+    }
+
+    private fun processTarotOverAnimation(
+        x: Int,
+        y: Int,
+        skin: String
+    ) {
+        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(skin)).apply {
+            height = tileSize
+            width = tileSize * 0.66f
+            this.x = tileSize * x + (tileSize - this.width) / 2f
+            this.y = tileSize * y
+            setOrigin(Align.center)
+            rotation = 45f
+            setScale(4f, 4f)
+            alpha = 0f
+        }
+        tarot.addAction(Actions.sequence(
+            Actions.parallel(
+                Actions.rotateBy(-60f, 0.4f),
+                Actions.scaleTo(1.5f, 1.5f, 0.4f),
+                Actions.alpha(1f)
+            ),
+            Actions.sequence(
+                Actions.scaleTo(1.55f, 1.55f, 0.03f),
+                Actions.scaleTo(1.44f, 1.44f, 0.03f)
+            ).repeat(3),
+            Actions.alpha(0f, 0.2f),
+            Actions.removeActor()
+        ))
+        tilesGroup.last().addActor(tarot)
     }
 
     private fun processUltimateAnimation(

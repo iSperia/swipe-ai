@@ -57,18 +57,16 @@ class BattleServiceImpl(
         val character = profileService.getCharacters().first()
 
         val game = SbGame(0, 1, 0, emptyList())
-        val triggers = mutableSetOf("common.poison")
-        val balances = mutableMapOf<String, JsonObject>()
+        val triggers = mutableSetOf<String>()
+        val balances = monsterService.allBalances()
         monsterService.getMonster(character.skin)?.let { c ->
             triggers.addAll(c.triggers)
-            balances[c.skin] = c.balance
         }
         waves = levelModel.monsters ?: emptyList()
         levelModel.monsters?.forEach { wave ->
             wave.forEach { monster ->
                 monsterService.getMonster(monster.skin)?.let { c ->
                     triggers.addAll(c.triggers)
-                    balances[c.skin] = c.balance
                 }
             }
         }
@@ -126,6 +124,8 @@ class BattleServiceImpl(
                 victory = false,
                 rewards = emptyList()
             ))
+            events.resetReplayCache()
+            endBattle.resetReplayCache()
         } else if (!context.game.teamAlive(1)) {
             val wavesTotal = waves.size
             if (context.game.wave < wavesTotal - 1) {
@@ -143,7 +143,9 @@ class BattleServiceImpl(
                 endBattle.resetReplayCache()
             }
         }
-        context.events.forEach { e -> events.emit(e) }
-        context.events.clear()
+        val eventsToEmit = context.events.map { it.also { println(it) } }
+        eventsToEmit.forEach { e -> events.emit(e) }
+        context.events.removeAll(eventsToEmit)
+        println("--------------------------------")
     }
 }

@@ -7,7 +7,7 @@ private fun inb(x: Int, y: Int) = x > -1 && x < 5 && y > -1 && y < 5
 
 fun SbContext.freePositions(characterId: Int, z: Int, count: Int): List<Int> {
     return game.character(characterId)?.let { character ->
-        return (0 until 25).shuffled().filter { p -> character.tileAt(p % 5, p / 5, SbTile.LAYER_TILE) == null}.take(count)
+        return (0 until 25).shuffled().filter { p -> character.tileAt(p % 5, p / 5, z) == null}.take(count)
     } ?: emptyList()
 }
 
@@ -35,6 +35,7 @@ fun SbContext.generateTiles(characterId: Int, tiles: Int) {
             progress = 1,
             maxProgress = tileTemplate.maxProgress,
             maxEffectId = 0,
+            skill = true,
             effects = emptyList()
         )
         character = character.withAddedTile(tile)

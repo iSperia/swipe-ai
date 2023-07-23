@@ -6,7 +6,7 @@
       "lore": "Prince Valerian, heir to the throne of the Kingdom of Harmony, is a courageous and noble warrior destined for greatness. Born with a deep sense of justice and a burning desire to protect his people, he possesses a natural affinity for the radiant powers of light.\n\nAs a young prince, Valerian received rigorous training in the arts of swordplay and combat, honing his skills to become a formidable warrior. His unwavering dedication to his kingdom and its people earned him the respect and admiration of his subjects.\n\nDriven by a strong sense of responsibility, Prince Valerian embarks on a perilous quest to restore balance and harmony to the fractured realms. With his sword, the radiant Sword of the Lightbearer, and the empowering sigils bestowed upon him, he stands as a beacon of hope against the encroaching darkness.\n\nValerian's unwavering determination is matched only by his unwavering sense of compassion. Along his journey, he forges deep bonds with allies and confronts the malevolent forces that threaten the realms. As the hero of prophecy, he embraces his destiny, facing formidable challenges and sacrificing his own well-being for the greater good.\n\nGuided by the wisdom of Saffron, his ethereal companion, Prince Valerian must rally the kingdoms and unite them against the encroaching shadows. With his unwavering resolve and the power of light pulsating within him, he strives to restore peace and harmony to a world on the brink of chaos.\n\nWill Prince Valerian emerge triumphant, fulfilling his destiny as the savior of the realms? Only time will tell, as he embarks on a journey that will test his mettle, shape his character, and ultimately determine the fate of the kingdoms and all who inhabit them.",
       "attributes": {"mind":  0, "spirit":  0, "body":  0},
       "balance": {
-        "base_health": 1000,
+        "base_health": 10000,
         "radiant_strike.base_physical_damage": 100,
         "radiant_strike.scale_physical_damage_per_body": 10,
         "luminous_beam.base_light_damage": 60,
@@ -118,7 +118,6 @@
       "skin": "MONSTER_THORNED_CRAWLER",
       "name": "Thorned Crawler",
       "lore": "Beneath the forest floor, the Thorned Crawlers scuttle and slither, their spiky carapaces blending seamlessly with the shadows. These menacing creatures boast an armored exoskeleton adorned with razor-sharp thorns, serving as both protection and weaponry. Their movements are swift and calculated, often ambushing their prey by bursting forth from the undergrowth. With formidable strength and agility, they are formidable opponents in close-quarters combat. Legends speak of their ability to sense vibrations in the earth, granting them an uncanny ability to navigate even the darkest of subterranean passages.",
-      "baseHealth": 350,
       "attributes": {"mind":  30, "spirit":  30, "body":  40},
       "tiles": [
         { "weight": 5, "skin": "THORNED_CRAWLER_VICIOUS_PINCERS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
@@ -126,27 +125,22 @@
         { "weight": 3, "skin": "THORNED_CRAWLER_LEECHING_SHADOWS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
       ],
       "triggers": [
-
+        "thorned_crawler.vicious_pincers", "thorned_crawler.debiliating_stirke", "thorned_crawler.leeching_shadows", "common.weakness"
       ],
       "balance": {
-        "base_health": 200,
-        "radiant_strike.weight": 3,
-        "radiant_strike.base_physical_damage": 100,
-        "radiant_strike.scale_physical_damage_per_body": 10,
-        "luminous_beam.base_light_damage": 60,
-        "luminous_beam.scale_light_damage_per_spirit": 10,
-        "sigil_of_renewal.weight": 3,
-        "sigil_of_renewal.sigil_tiles_count": 2,
-        "sigil_of_renewal.base_heal": 50,
-        "sigil_of_renewal.scale_heal_per_spirit": 10,
-        "divine_convergence.weight": 3,
-        "divine_convergence.base_light_damage_per_sigil": 50,
-        "divine_convergence.base_heal_per_sigil": 50,
-        "divine_convergence.scale_light_damage_per_spirit": 10,
-        "divine_convergence.scale_heal_per_spirit": 10,
-        "divine_convergence.scale_heal_per_body": 10
+        "base_health": 20000,
+        "vp_base_phys": 10,
+        "vp_base_dark": 10,
+        "vp_scale_body": 10,
+        "vp_scale_spirit": 10,
+        "ds_base": 30,
+        "ds_scale": 10,
+        "ds_tiles": 2,
+        "ls_base": 20,
+        "ls_scale": 10,
+        "ls_heal_base": 20,
+        "ls_heal_scale": 10
       },
-
       "scale": 0.6,
       "abilities": [
         {
@@ -154,28 +148,22 @@
           "skin": "THORNED_CRAWLER_VICIOUS_PINCERS",
           "description": "Deals physical/darkness damage to single target",
           "lore": "Sharp claws rend flesh, leaving scars of pain.",
-          "attributes": {
-            "physDamage": 10,
-            "darkDamage": 10,
-            "physPerBody": 10,
-            "darkPerSpirit": 10
-          },
           "descriptionTable": [
             {
               "title": "Base physical damage",
-              "description": "{physDamage}"
+              "description": "{vp_base_phys}"
             },
             {
               "title": "Physical damage increase, per BODY",
-              "description": "{physPerBody}%"
+              "description": "{vp_scale_body}%"
             },
             {
               "title": "Base dark damage",
-              "description": "{darkDamage}"
+              "description": "{vp_base_dark}"
             },
             {
               "title": "Dark damage increase, per SPIRIT",
-              "description": "{darkPerSpirit}%"
+              "description": "{vp_scale_spirit}%"
             }
           ],
           "calculateTable": [
@@ -196,35 +184,18 @@
           "skin": "THORNED_CRAWLER_DEBILIATING_STRIKE",
           "description": "Powerful physical single target attack, that inflicts weakness(each weakness tile reduced damage of character by 2,5%. Weakness tile is removed when skill is triggered on its position)",
           "lore": "Strength wanes as thorns pierce the body.",
-          "attributes": {
-            "physDamage": 30,
-            "physPerBody": 10,
-            "weaknessTiles": 2
-          },
           "descriptionTable": [
             {
               "title": "Base physical damage",
-              "description": "{physDamage}"
+              "description": "{sp_base}"
             },
             {
               "title": "Physical damage increase, per BODY",
-              "description": "{physPerBody}%"
+              "description": "{ds_scale}%"
             },
             {
               "title": "WEAKNESS tiles generated on target",
-              "description": "{weaknessTiles} tiles"
-            }
-          ],
-          "calculateTable": [
-            {
-              "title": "Physical damage",
-              "description": "{_physDamage}",
-              "id": "_physDamage"
-            },
-            {
-              "title": "WEAKNESS tiles generated on target",
-              "description": "{_weaknessTiles}",
-              "id": "_weaknessTiles"
+              "description": "{ds_tiles} tiles"
             }
           ]
         },
@@ -242,19 +213,19 @@
           "descriptionTable": [
             {
               "title": "Base dark damage",
-              "description": "{darkDamage}"
+              "description": "{ls_base}"
             },
             {
               "title": "Dark damage increase per SPIRIT",
-              "description": "{darkPerSpirit}%"
+              "description": "{ls_scale}%"
             },
             {
               "title": "HEALING base amount",
-              "description": "{heal}"
+              "description": "{ls_heal_base}"
             },
             {
               "title": "HEALING increase, per SPIRIT",
-              "description": "{healPerSpirit}%"
+              "description": "{ls_heal_scale}%"
             }
           ],
           "calculateTable": [
@@ -284,7 +255,7 @@
         { "weight": 200, "skin": "THORNSTALKER_VENOMOUS_BARRAGE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
       ],
       "triggers": [
-        "thornstalker.primal_assault", "thornstalker.resilient_growth", "thornstalker.venomous_barrage"
+        "thornstalker.primal_assault", "thornstalker.resilient_growth", "thornstalker.venomous_barrage", "common.poison"
       ],
       "balance": {
         "base_health": 400,
@@ -377,7 +348,7 @@
       "baseHealth": 200,
       "attributes": {"mind":  20, "spirit":  40, "body":  40},
       "triggers": [
-        "valerian.radiant_strike", "valerian.luminous_beam", "valerian.sigil_of_renewal", "valerian.divine_convergence"
+        "corrupted_dryad.arboreal_fangs", "corrupted_dryad.vile_siphon", "corrupted_dryad.shadowed_annihilation"
       ],
       "tiles": [
         { "weight": 4, "skin": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
@@ -386,20 +357,15 @@
       ],
       "balance": {
         "base_health": 300,
-        "radiant_strike.base_physical_damage": 100,
-        "radiant_strike.scale_physical_damage_per_body": 10,
-        "luminous_beam.base_light_damage": 60,
-        "luminous_beam.scale_light_damage_per_spirit": 10,
-        "sigil_of_renewal.weight": 3,
-        "sigil_of_renewal.sigil_tiles_count": 2,
-        "sigil_of_renewal.base_heal": 50,
-        "sigil_of_renewal.scale_heal_per_spirit": 10,
-        "divine_convergence.weight": 3,
-        "divine_convergence.base_light_damage_per_sigil": 50,
-        "divine_convergence.base_heal_per_sigil": 50,
-        "divine_convergence.scale_light_damage_per_spirit": 10,
-        "divine_convergence.scale_heal_per_spirit": 10,
-        "divine_convergence.scale_heal_per_body": 10
+        "af_base": 50,
+        "af_scale": 10,
+        "vs_dmg_base": 40,
+        "vs_dmg_scale": 10,
+        "vs_heal_base": 40,
+        "vs_heal_scale": 10,
+        "sa_base": 10,
+        "sa_scale": 10,
+        "sa_tiles": 5
       },
       "scale": 0.92,
       "abilities": [
@@ -408,25 +374,14 @@
           "skin": "CORRUPTED_DRYAD_ARBOREAL_FANGS",
           "description": "Physical single target attack",
           "lore": "Nature's teeth rend with twisted malice.",
-          "attributes": {
-            "physDamage": 60,
-            "physPerBody": 10
-          },
           "descriptionTable": [
             {
               "title": "Base physical damage",
-              "description": "{physDamage}"
+              "description": "{af_base}"
             },
             {
               "title": "Physical damage increase, per BODY",
-              "description": "{physPerBody}%"
-            }
-          ],
-          "calculateTable": [
-            {
-              "title": "Physical damage",
-              "description": "{_physicalDamage}",
-              "id": "_physDamage"
+              "description": "{af_scale}%"
             }
           ]
         },
@@ -435,68 +390,42 @@
           "skin": "CORRUPTED_DRYAD_VILE_SIPHON",
           "description": "Single targeted physical attack, Corrupted Dryad is healed",
           "lore": "Life's essence drained, hope withers away.",
-          "attributes": {
-            "physDamage": 20,
-            "physPerBody": 10,
-            "heal": 20,
-            "healPerSpirit": 10
-          },
           "descriptionTable": [
             {
               "title": "Base physical damage",
-              "description": "{physDamage}"
+              "description": "{vs_dmg_base}"
             },
             {
               "title": "Physical damage increase, per BODY",
-              "description": "{physPerBody}%"
+              "description": "{vs_dmg_scale}%"
             },
             {
               "title": "Healing amount base",
-              "description": "{healPerSpirit}"
+              "description": "{vs_heal_base}"
             },
             {
               "title": "Healing increase, per SPIRIT",
-              "description": "{healPerSpirit}%"
-            }
-          ],
-          "calculateTable": [
-            {
-              "title": "Physical damage",
-              "description": "{_physDamage}",
-              "id": "_physDamage"
+              "description": "{vs_heal_scale}%"
             }
           ]
         },
         {
           "title": "Shadowed Annihilation",
           "skin": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION",
-          "description": "Mass attack. For each target all tiles are destroyed at random positions",
+          "description": "Mass attack. For each enemy, 5 random positions are chosen. Every skill tile at the position is destroyed. Dryad deals dark damage for every undestroyed tile this way",
           "lore": "Darkness descends, consuming all in its path.",
-          "attributes": {
-            "damage": 20,
-            "damagePerSpirit": 10,
-            "tiles": 5
-          },
           "descriptionTable": [
             {
-              "title": "Base physical damage",
-              "description": "{damage}"
-            },
-            {
-              "title": "Physical damage increase, per SPIRIT",
-              "description": "{damagePerSpirit}%"
-            },
-            {
-              "title": "Base dark damage",
-              "description": "{damage}"
+              "title": "Base dark damage, per undestroyed tile",
+              "description": "{sa_base}"
             },
             {
               "title": "Dark damage increase, per SPIRIT",
-              "description": "{damagePerSpirit}%"
+              "description": "{sa_scale}%"
             },
             {
               "title": "Amount of tile positions to destroy",
-              "description": "{tiles}"
+              "description": "{sa_tiles}"
             }
           ]
         }
@@ -506,24 +435,35 @@
       "skin": "MONSTER_THALENDROS",
       "name": "Thalendros",
       "lore": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
-      "baseHealth": 1200,
-      "attributes": {"mind":  20, "spirit":  20, "body":  60},
+      "attributes": {"mind":  20, "spirit":  30, "body":  50},
       "affixes": {
         "VULNERABLE_FIRE": 100,
         "RESIST_PHYSICAL": 50,
         "THALENDROS_ROOTS": 1
       },
-      "tileConfig": { "entries": [
-        {"tile": "THALENDROS_THORN_WHIP", "weight":  4},
-        {"tile": "THALENDROS_EARTHQUAKE_SLAM", "weight":  4},
-        {"tile": "THALENDROS_DARK_AURA", "weight":  2}
-      ] },
+      "tiles": [
+        { "weight": 4, "skin": "THALENDROS_THORN_WHIP", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
+        { "weight": 4, "skin": "THALENDROS_EARTHQUAKE_SLAM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+        { "weight": 2, "skin": "THALENDROS_DARK_AURA", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
+      ],
+      "triggers": ["thalendros.thorn_whip", "thalendros.earthquake_slam", "thalendros.dark_aura"],
+      "balance": {
+        "base_health": 10000,
+        "tw_base": 70,
+        "tw_scale": 10,
+        "es_tiles": 4,
+        "es_damage": 30,
+        "es_scale": 10,
+        "da_tiles": 3,
+        "da_base": 50,
+        "da_scale": 10
+      },
       "scale": 1.5,
       "abilities": [
         {
           "title": "Thorn Whip",
           "skin": "THALENDROS_THORN_WHIP",
-          "description": "Physical single target attack",
+          "description": "Massive physical damage melee attack",
           "lore": "Nature's grasp turns to thorny wrath, a reminder of the darkness that dwells within.",
           "attributes": {
             "physDamage": 60,
@@ -532,56 +472,51 @@
           "descriptionTable": [
             {
               "title": "Base physical damage",
-              "description": "{physDamage}"
+              "description": "{tw_base}"
             },
             {
               "title": "Physical damage increase, per BODY",
-              "description": "{physPerBody}%"
+              "description": "{tw_scale}%"
             }
           ]
         },
         {
           "title": "Earthquake Slam",
           "skin": "THALENDROS_EARTHQUAKE_SLAM",
-          "description": "Generates corrupted root tiles that increase Thalendros' physical resistance, while they are on the field. When roots appear, tiles they appear at are destroyed.",
+          "description": "Generates corrupted root tiles. When roots appear, they destroy tile they appear at. If there are root tiles, they deal dark damage.",
           "lore": "From the depths of his corrupted heart, Thalendros shakes the very foundations of nature.",
-          "attributes": {
-            "numTiles": 4,
-            "resistBuff": 50
-          },
           "descriptionTable": [
             {
               "title": "Corrupted root tiles generated",
-              "description": "{numTiles}"
+              "description": "{es_tiles}"
             },
             {
-              "title": "Physical resistance buff",
-              "description": "+{resistBuff}%"
+              "title": "Physical damage per root",
+              "description": "{es_damage}"
+            },
+            {
+              "title": "Physical damage increase, per BODY",
+              "description": "+{es_scale}%"
             }
           ]
         },
         {
           "title": "Dark Aura",
           "skin": "THALENDROS_DARK_AURA",
-          "description": "Corrupts some tiles of a target with dark aura. When the ability triggers on a corrupted tile, that character is dealt with massive darkness damage",
+          "description": "Corrupts some tiles of a random target with dark aura. When the ability triggers on a corrupted tile, that character is dealt with massive darkness damage",
           "lore": "Darkness takes hold, corrupting all it touches, turning allies into unwitting foes.",
-          "attributes": {
-            "numTiles": 3,
-            "darkDamage": 50,
-            "darkPerSpirit": 10
-          },
           "descriptionTable": [
             {
               "title": "Dark aura tiles generated",
-              "description": "{numTiles}"
+              "description": "{da_tiles}"
             },
             {
               "title": "Darkness damage of a tile",
-              "description": "{darkDamage}"
+              "description": "{da_base}"
             },
             {
               "title": "Darkness damage increased, per SPIRIT",
-              "description": "{darkPerSpirit}%"
+              "description": "{da_scale}%"
             }
           ]
         }

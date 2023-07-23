@@ -153,7 +153,7 @@
             "level": 3
           },
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_CORRUPTED_DRYAD",
             "level": 2
           }
         ],
@@ -163,11 +163,11 @@
             "level": 3
           },
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_CORRUPTED_DRYAD",
             "level": 3
           },
           {
-            "skin": "MONSTER_THORNED_CRAWLER",
+            "skin": "MONSTER_THORNSTALKER",
             "level": 3
           }
         ]

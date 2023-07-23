@@ -1,7 +1,6 @@
 package com.game7th.swipe.game
 
-import com.game7th.swipe.game.characters.ThornstalkerModule
-import com.game7th.swipe.game.characters.ValerianModule
+import com.game7th.swipe.game.characters.*
 import com.google.gson.JsonObject
 import dagger.BindsInstance
 import dagger.Component
@@ -33,7 +32,10 @@ interface SbComponent {
 
 @Module(includes = [
     ValerianModule::class,
-    ThornstalkerModule::class
+    ThornstalkerModule::class,
+    ThornedCrawlerModule::class,
+    CorruptedDryadModule::class,
+    ThalendrosModule::class,
 ])
 class SkillsModule {
     @Provides
@@ -54,6 +56,18 @@ class SkillsModule {
                     text = "Poison",
                     icons = emptyList()
                 ))
+            }
+        }
+    }
+
+    @Provides
+    @IntoMap
+    @StringKey("common.weakness")
+    fun provideWeakness(): SbTrigger = { context, event ->
+        context.triggerBackgroundLayerOnComplete(event, "COMMON_WEAKNESS") { characterId, tileId ->
+            val character = game.character(characterId) ?: return@triggerBackgroundLayerOnComplete
+            character.effects.firstOrNull { it.skin == "COMMON_WEAKNESS" }?.let { effect ->
+                game = game.withUpdatedCharacter(character.withRemovedEffect(effect.id))
             }
         }
     }

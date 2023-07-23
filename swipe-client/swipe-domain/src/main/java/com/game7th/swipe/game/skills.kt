@@ -9,7 +9,6 @@ fun SbContext.destroyTile(characterId: Int, tileId: Int) {
             events.add(SbDisplayEvent.SbDestroyTile(characterId, tile.z, tile.id))
         }
     }
-
 }
 
 fun SbContext.useUltimate(characterId: Int) {

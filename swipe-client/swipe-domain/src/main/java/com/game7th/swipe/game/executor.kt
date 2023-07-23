@@ -115,6 +115,16 @@ fun SbContext.initWave(component: SbComponent, wave: List<SbMonsterEntry>) {
 
 fun SbContext.dealDamage(sourceCharacterId: Int?, targetCharacterId: Int, damage: SbElemental) {
     var target = game.character(targetCharacterId) ?: return
+
+    //count weakness of source
+    val weaknessCoefficient: Float = 1f - (sourceCharacterId?.let {
+        val sourceCharacter = game.character(sourceCharacterId) ?: return@let 0f
+        val weaknessEffects = sourceCharacter.effects.count { it.skin == "COMMON_WEAKNESS" }
+        weaknessEffects * 0.025f
+    } ?: 0f)
+    val damageAfterWeakness = damage.multipledBy(weaknessCoefficient)
+
+    //count resist
     val targetResist = SbElemental(
         phys = target.sumFloat(CommonKeys.Resist.PHYS),
         cold = target.sumFloat(CommonKeys.Resist.COLD),
@@ -123,7 +133,9 @@ fun SbContext.dealDamage(sourceCharacterId: Int?, targetCharacterId: Int, damage
         shock = target.sumFloat(CommonKeys.Resist.SHOCK),
         fire = target.sumFloat(CommonKeys.Resist.FIRE),
     )
-    val damageAfterResist = damage.reducedByResist(targetResist)
+    val damageAfterResist = damageAfterWeakness.reducedByResist(targetResist)
+
+
     val damageTotal = damageAfterResist.total().toInt()
     val healthAfter = target.health - damageTotal
     target = target.withUpdatedHealth(healthAfter)
@@ -138,6 +150,7 @@ fun SbContext.dealDamage(sourceCharacterId: Int?, targetCharacterId: Int, damage
         if (damageAfterResist.fire > 0f) "fire" else null,
     ).mapNotNull { it }
 
+    events.add(SbDisplayEvent.SbUpdateCharacter(target.asDisplayed()))
     events.add(SbDisplayEvent.SbShowPopup(targetCharacterId, damageTotal.toString(), icons))
 
     if (target.health <= 0) {
