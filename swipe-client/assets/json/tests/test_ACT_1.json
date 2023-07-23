@@ -1,0 +1,36 @@
+{
+  "tests": [
+    {
+      "act": "ACT_1",
+      "level": "c1",
+      "characterAttributes": {"mind": 1, "spirit": 1, "body": 1},
+      "characterSkin": "CHARACTER_VALERIAN",
+      "characterLevel": 1,
+      "targetWinrate": 0.95
+    },
+    {
+      "act": "ACT_1",
+      "level": "c2",
+      "characterAttributes": {"mind": 2, "spirit": 2, "body": 2},
+      "characterSkin": "CHARACTER_VALERIAN",
+      "characterLevel": 2,
+      "targetWinrate": 0.8
+    },
+    {
+      "act": "ACT_1",
+      "level": "c3",
+      "characterAttributes": {"mind": 3, "spirit": 3, "body": 3},
+      "characterSkin": "CHARACTER_VALERIAN",
+      "characterLevel": 3,
+      "targetWinrate": 0.6
+    },
+    {
+      "act": "ACT_1",
+      "level": "c4",
+      "characterAttributes": {"mind": 4, "spirit": 4, "body": 4},
+      "characterSkin": "CHARACTER_VALERIAN",
+      "characterLevel": 4,
+      "targetWinrate": 0.25
+    }
+  ]
+}

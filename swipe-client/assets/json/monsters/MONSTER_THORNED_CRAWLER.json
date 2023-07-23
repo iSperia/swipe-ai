@@ -12,7 +12,7 @@
     "thorned_crawler.vicious_pincers", "thorned_crawler.debiliating_stirke", "thorned_crawler.leeching_shadows", "common.weakness"
   ],
   "balance": {
-    "base_health": 20000,
+    "base_health": 200,
     "vp_base_phys": 10,
     "vp_base_dark": 10,
     "vp_scale_body": 10,

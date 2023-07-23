@@ -8,19 +8,19 @@
     "corrupted_dryad.arboreal_fangs", "corrupted_dryad.vile_siphon", "corrupted_dryad.shadowed_annihilation"
   ],
   "tiles": [
-    { "weight": 4, "skin": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
+    { "weight": 4, "skin": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
     { "weight": 4, "skin": "CORRUPTED_DRYAD_VILE_SIPHON", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
     { "weight": 2, "skin": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
   ],
   "balance": {
-    "base_health": 300,
-    "af_base": 50,
+    "base_health": 120,
+    "af_base": 25,
     "af_scale": 10,
-    "vs_dmg_base": 40,
+    "vs_dmg_base": 20,
     "vs_dmg_scale": 10,
-    "vs_heal_base": 40,
+    "vs_heal_base": 20,
     "vs_heal_scale": 10,
-    "sa_base": 10,
+    "sa_base": 5,
     "sa_scale": 10,
     "sa_tiles": 5
   },

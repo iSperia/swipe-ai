@@ -1,6 +1,7 @@
 buildscript {
   repositories {
     gradlePluginPortal()
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") }
   }
   dependencies {
 // using jpackage only works if the JDK version is 14 or higher.
@@ -27,6 +28,14 @@ dependencies {
   implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
   implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
   implementation project(':core')
+  api project(':swipe-domain')
+
+  //Fill this in with the version of kotlinx in use in your project
+  def kotlinx_html_version = "0.9.1"
+  implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:${kotlinx_html_version}")
+  implementation("org.jetbrains.kotlinx:kotlinx-html:${kotlinx_html_version}")
+
+  implementation 'com.google.code.gson:gson:2.10.1'
 
 }
 

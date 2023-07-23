@@ -90,10 +90,11 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                 }
             }
         }
+
+        context.useOnComplete(event, THALENDROS_CORRUPTED_ROOTS) { _, _, _ -> }
     },
 
     "thalendros.dark_aura" to { context, event ->
-
         context.useOnComplete(event, THALENDROS_DARK_AURA) { characterId, tileId, lucky ->
             val character = game.character(characterId) ?: return@useOnComplete
             allEnemies(characterId).randomOrNull()?.let { targetId ->

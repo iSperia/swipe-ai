@@ -4,18 +4,18 @@
   "lore": "Prince Valerian, heir to the throne of the Kingdom of Harmony, is a courageous and noble warrior destined for greatness. Born with a deep sense of justice and a burning desire to protect his people, he possesses a natural affinity for the radiant powers of light.\n\nAs a young prince, Valerian received rigorous training in the arts of swordplay and combat, honing his skills to become a formidable warrior. His unwavering dedication to his kingdom and its people earned him the respect and admiration of his subjects.\n\nDriven by a strong sense of responsibility, Prince Valerian embarks on a perilous quest to restore balance and harmony to the fractured realms. With his sword, the radiant Sword of the Lightbearer, and the empowering sigils bestowed upon him, he stands as a beacon of hope against the encroaching darkness.\n\nValerian's unwavering determination is matched only by his unwavering sense of compassion. Along his journey, he forges deep bonds with allies and confronts the malevolent forces that threaten the realms. As the hero of prophecy, he embraces his destiny, facing formidable challenges and sacrificing his own well-being for the greater good.\n\nGuided by the wisdom of Saffron, his ethereal companion, Prince Valerian must rally the kingdoms and unite them against the encroaching shadows. With his unwavering resolve and the power of light pulsating within him, he strives to restore peace and harmony to a world on the brink of chaos.\n\nWill Prince Valerian emerge triumphant, fulfilling his destiny as the savior of the realms? Only time will tell, as he embarks on a journey that will test his mettle, shape his character, and ultimately determine the fate of the kingdoms and all who inhabit them.",
   "attributes": {"mind":  0, "spirit":  0, "body":  0},
   "balance": {
-    "base_health": 10000,
-    "radiant_strike.base_physical_damage": 100,
+    "base_health": 1000,
+    "radiant_strike.base_physical_damage": 50,
     "radiant_strike.scale_physical_damage_per_body": 10,
-    "luminous_beam.base_light_damage": 60,
+    "luminous_beam.base_light_damage": 30,
     "luminous_beam.scale_light_damage_per_spirit": 10,
     "sigil_of_renewal.weight": 3,
     "sigil_of_renewal.sigil_tiles_count": 2,
     "sigil_of_renewal.base_heal": 50,
     "sigil_of_renewal.scale_heal_per_spirit": 10,
     "divine_convergence.weight": 3,
-    "divine_convergence.base_light_damage_per_sigil": 50,
-    "divine_convergence.base_heal_per_sigil": 50,
+    "divine_convergence.base_light_damage_per_sigil": 25,
+    "divine_convergence.base_heal_per_sigil": 25,
     "divine_convergence.scale_light_damage_per_spirit": 10,
     "divine_convergence.scale_heal_per_spirit": 10,
     "divine_convergence.scale_heal_per_body": 10
@@ -24,9 +24,9 @@
     "valerian.radiant_strike", "valerian.luminous_beam", "valerian.sigil_of_renewal", "valerian.divine_convergence"
   ],
   "tiles": [
-    { "weight": 3, "skin": "VALERIAN_RADIANT_STRIKE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
-    { "weight": 3, "skin": "VALERIAN_LUMINOUS_BEAM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
-    { "weight": 3, "skin": "VALERIAN_SIGIL_OF_RENEWAL", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 }
+    { "weight": 3, "skin": "VALERIAN_RADIANT_STRIKE", "z": 2, "mobility": 5, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
+    { "weight": 3, "skin": "VALERIAN_LUMINOUS_BEAM", "z": 2, "mobility": 5, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+    { "weight": 3, "skin": "VALERIAN_SIGIL_OF_RENEWAL", "z": 2, "mobility": 5, "mergeStrategy": "SIMPLE", "maxProgress": 3 }
   ],
   "scale": 1,
   "abilities": [

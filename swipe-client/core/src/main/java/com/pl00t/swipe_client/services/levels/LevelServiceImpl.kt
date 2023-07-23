@@ -4,9 +4,13 @@ import com.badlogic.gdx.Gdx
 import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.game7th.swipe.monsters.MonsterService
+import com.pl00t.swipe_client.services.files.FileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 
-class LevelServiceImpl(private val monsterService: MonsterService) : LevelService {
+class LevelServiceImpl(
+    private val fileService: FileService,
+    private val monsterService: MonsterService
+) : LevelService {
 
     private val gson = Gson()
     private val acts = mutableMapOf<SwipeAct, ActModel>()
@@ -16,8 +20,7 @@ class LevelServiceImpl(private val monsterService: MonsterService) : LevelServic
     }
 
     private suspend fun loadAct(act: SwipeAct): ActModel {
-        val file = Gdx.files.local("assets/json/${act.name}.json")
-        val actModel = gson.fromJson<ActModel>(file.readString(), ActModel::class.java)
+        val actModel = gson.fromJson(fileService.internalFile("json/${act.name}.json"), ActModel::class.java)
         acts[act] = actModel
         return actModel
     }

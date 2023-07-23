@@ -2,26 +2,25 @@
   "skin": "MONSTER_THALENDROS",
   "name": "Thalendros",
   "lore": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
-  "attributes": {"mind":  20, "spirit":  30, "body":  50},
+  "attributes": {"mind":  25, "spirit":  35, "body":  40},
   "affixes": {
     "VULNERABLE_FIRE": 100,
-    "RESIST_PHYSICAL": 50,
-    "THALENDROS_ROOTS": 1
+    "RESIST_PHYSICAL": 50
   },
   "tiles": [
     { "weight": 4, "skin": "THALENDROS_THORN_WHIP", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
-    { "weight": 4, "skin": "THALENDROS_EARTHQUAKE_SLAM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+    { "weight": 4, "skin": "THALENDROS_EARTHQUAKE_SLAM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 },
     { "weight": 2, "skin": "THALENDROS_DARK_AURA", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
   ],
   "triggers": ["thalendros.thorn_whip", "thalendros.earthquake_slam", "thalendros.dark_aura"],
   "balance": {
-    "base_health": 10000,
+    "base_health": 1200,
     "tw_base": 70,
     "tw_scale": 10,
     "es_tiles": 4,
     "es_damage": 30,
     "es_scale": 10,
-    "da_tiles": 3,
+    "da_tiles": 4,
     "da_base": 50,
     "da_scale": 10
   },

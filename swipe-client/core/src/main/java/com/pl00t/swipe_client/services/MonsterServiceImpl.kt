@@ -1,14 +1,16 @@
 package com.pl00t.swipe_client.services
 
-import com.badlogic.gdx.Gdx
 import com.game7th.swipe.battle.SbMonsterConfiguration
 import com.game7th.swipe.game.SbTrigger
 import com.game7th.swipe.game.characters.*
 import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.pl00t.swipe_client.services.files.FileService
 
-class MonsterServiceImpl : MonsterService {
+class MonsterServiceImpl(
+    private val fileService: FileService,
+) : MonsterService {
 
     val cache = mutableMapOf<String, SbMonsterConfiguration>()
     val loadedTriggers = mutableSetOf<String>()
@@ -20,9 +22,8 @@ class MonsterServiceImpl : MonsterService {
     }
 
     private fun loadMonster(skin: String): SbMonsterConfiguration? {
-        val handle = Gdx.files.local("assets/json/monsters/$skin.json")
-        if (!handle.exists()) return null
-        val config = gson.fromJson(handle.readString(), SbMonsterConfiguration::class.java)
+        val monsterString = fileService.localFile("assets/json/monsters/$skin.json") ?: return null
+        val config = gson.fromJson(monsterString, SbMonsterConfiguration::class.java)
         cache[skin] = config
         return config
     }

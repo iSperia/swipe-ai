@@ -15,6 +15,8 @@ import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
 import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.services.MonsterServiceImpl
+import com.pl00t.swipe_client.services.files.FileService
+import com.pl00t.swipe_client.services.files.GdxFileService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.ProfileServiceImpl
 import com.pl00t.swipe_client.services.profile.SwipeAct
@@ -30,6 +32,7 @@ class SwipeGame : Game(), Router {
     lateinit var battleService: BattleService
     lateinit var monsterService: MonsterService
     lateinit var inputMultiplexer: InputMultiplexer
+    lateinit var fileService: FileService
 
     override fun create() {
         KtxAsync.initiate()
@@ -55,8 +58,9 @@ class SwipeGame : Game(), Router {
     private fun checkCoreLoading() {
         if (amCore.update()) {
             coreLoaded = true
-            monsterService = MonsterServiceImpl()
-            levelService = LevelServiceImpl(monsterService)
+            fileService = GdxFileService()
+            monsterService = MonsterServiceImpl(fileService)
+            levelService = LevelServiceImpl(fileService, monsterService)
             profileService = ProfileServiceImpl(levelService, monsterService)
             battleService = BattleServiceImpl(levelService, monsterService, profileService)
 
