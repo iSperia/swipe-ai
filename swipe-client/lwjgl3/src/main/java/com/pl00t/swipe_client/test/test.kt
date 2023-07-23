@@ -11,9 +11,10 @@ import com.pl00t.swipe_client.services.files.FileService
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
 import com.pl00t.swipe_client.services.profile.SwipeAct
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
+import ktx.async.newAsyncContext
 import java.io.File
 import kotlin.math.sqrt
 import kotlin.random.Random
@@ -39,7 +40,7 @@ data class TestResult(
     val delta: Float
 )
 
-private const val ITERATIONS = 500
+private const val ITERATIONS = 1000
 
 suspend fun testLevel(
     levelService: LevelService,
@@ -130,23 +131,30 @@ suspend fun testAct(
     levelService: LevelService,
     act: SwipeAct
 ) {
-    val progressionFile = gson.fromJson(fileService.localFile("assets/json/tests/test_$act.json"), ProgressionFile::class.java)
-    val resultMap = mutableMapOf<String, TestResult>()
-    progressionFile.tests.forEach { entry ->
-        val winrate = testLevel(levelService, monsterService, entry)
-        val humanWinrate = sqrt(winrate.toFloat())
-        println("$entry\n\nwinrate=$humanWinrate")
-        resultMap[entry.level] = TestResult(entry.act, entry.level, humanWinrate, entry.targetWinrate, humanWinrate - entry.targetWinrate)
-    }
-    val reportFile = File("$act balance report.html")
-    reportFile.createNewFile()
-    reportFile.outputStream().use {
+    coroutineScope {
+        launch(newFixedThreadPoolContext(10, "Async")) {
+            val progressionFile = gson.fromJson(fileService.localFile("assets/json/tests/test_$act.json"), ProgressionFile::class.java)
+            val resultMap = mutableMapOf<String, TestResult>()
+            val jobs = mutableListOf<Deferred<Unit>>()
+            progressionFile.tests.forEach { entry ->
+                jobs.add(async {
+                    val winrate = testLevel(levelService, monsterService, entry)
+                    val humanWinrate = sqrt(winrate.toFloat())
+                    println("$entry\nwinrate=$humanWinrate\nthread=${Thread.currentThread().name}\n\n")
+                    resultMap[entry.level] = TestResult(entry.act, entry.level, humanWinrate, entry.targetWinrate, humanWinrate - entry.targetWinrate)
+                })
+            }
+            jobs.forEach { it.await() }
+            println("Calculatations complete")
+            val reportFile = File("$act balance report.html")
+            reportFile.createNewFile()
+            reportFile.outputStream().use {
 
-        val report = createHTML(true).html {
-            head {
-                style {
-                    unsafe {
-                        raw("""
+                val report = createHTML(true).html {
+                    head {
+                        style {
+                            unsafe {
+                                raw("""
                             td.green {
                                 background-color: #57a237;
                             }
@@ -163,60 +171,62 @@ suspend fun testAct(
                                 background-color: #6639b3;
                             }
                         """.trimIndent())
-                    }
-                }
-            }
-            body {
-                table {
-                    thead {
-                        tr {
-                            td { text("Act") }
-                            td { text("Level") }
-                            td { text("Config") }
-                            td { text("Winrate") }
-                            td { text("Target Winrate") }
-                            td { text("Delta winrate") }
+                            }
                         }
                     }
-                    tbody {
-                        progressionFile.tests.forEach { progression ->
-                            tr {
-                                td {
-                                    text(progression.act.toString())
-                                }
-                                td {
-                                    text(progression.level.toString())
-                                }
-                                td {
-                                    text("${progression.characterSkin} ${progression.characterLevel} ${progression.characterAttributes}")
-                                }
-                                td {
-                                    text("${((resultMap[progression.level]?.winrate ?: 0f) * 100f).toInt()}%")
-                                }
-                                td {
-                                    text("${((resultMap[progression.level]?.targetWinrate ?: 0f) * 100f).toInt()}%")
-                                }
-                                val delta = ((resultMap[progression.level]?.delta ?: 0f) * 100f).toInt()
-                                val c = if (delta >= -5 && delta <= 5) "green"
-                                else if (delta in 6..10) "blue"
-                                else if (delta > 10) "violet"
-                                else if (delta >= -10 && delta < -5) "yellow"
-                                else if (delta < -10) "red"
-                                else "green"
-                                td(classes = c) {
-
-                                    text("$delta%")
+                    body {
+                        table {
+                            thead {
+                                tr {
+                                    td { text("Act") }
+                                    td { text("Level") }
+                                    td { text("Config") }
+                                    td { text("Winrate") }
+                                    td { text("Target Winrate") }
+                                    td { text("Delta winrate") }
                                 }
                             }
+                            tbody {
+                                progressionFile.tests.forEach { progression ->
+                                    tr {
+                                        td {
+                                            text(progression.act.toString())
+                                        }
+                                        td {
+                                            text(progression.level.toString())
+                                        }
+                                        td {
+                                            text("${progression.characterSkin} ${progression.characterLevel} ${progression.characterAttributes}")
+                                        }
+                                        td {
+                                            text("${((resultMap[progression.level]?.winrate ?: 0f) * 100f).toInt()}%")
+                                        }
+                                        td {
+                                            text("${((resultMap[progression.level]?.targetWinrate ?: 0f) * 100f).toInt()}%")
+                                        }
+                                        val delta = ((resultMap[progression.level]?.delta ?: 0f) * 100f).toInt()
+                                        val c = if (delta >= -5 && delta <= 5) "green"
+                                        else if (delta in 6..10) "blue"
+                                        else if (delta > 10) "violet"
+                                        else if (delta >= -10 && delta < -5) "yellow"
+                                        else if (delta < -10) "red"
+                                        else "green"
+                                        td(classes = c) {
 
+                                            text("$delta%")
+                                        }
+                                    }
+
+                                }
+                            }
                         }
                     }
-                }
+
+                }.toString()
+
+                reportFile.writeText(report)
             }
-
-        }.toString()
-
-        reportFile.writeText(report)
+        }
     }
 }
 
