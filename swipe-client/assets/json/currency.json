@@ -8,38 +8,31 @@
       "rarity": 1
     },
     {
-      "currency": "TIME_SHARD",
-      "name": "Time Shard",
-      "description": "The currency across the shattered kingdoms",
-      "lore": "Legends speak of the elusive Time Shards, crystalline fragments imbued with the essence of temporal energy. These shards are said to be remnants of the fabric of time itself, possessing the power to manipulate the flow of hours and minutes.",
-      "rarity": 4
-    },
-    {
-      "currency": "ESSENCE_FRAGMENT",
-      "name": "Essence Fragment",
-      "description": "The currency across the shattered kingdoms",
-      "lore": " Essence Fragments are valuable fragments of power scattered throughout the realms. By collecting these ethereal shards, you can unlock and access the abundant rewards and treasures hidden within the kingdom's depths. Utilize the Essence Fragments wisely to uncover the secrets and forge your path to victory.",
-      "rarity": 1
-    },
-    {
-      "currency": "SPARK_OF_INSIGHT",
-      "name": "Spark of Insight",
+      "currency": "SCROLL_OF_WISDOM",
+      "name": "Scroll of Wisdom",
       "description": "Adds 1 experience to the character",
       "lore": "A fragment imbued with the essence of knowledge, offering a glimpse into the mysteries of the world.",
-      "rarity": 1
+      "rarity": 2
     },
     {
-      "currency": "EXPERIENCE_CRYSTAL",
-      "name": "Essence of Growth",
+      "currency": "TOME_OF_ENLIGHTMENT",
+      "name": "Tome of Enlightment",
       "description": "Adds 10 experience to the character",
       "lore": "A crystal resonating with the life force of the world, bestowing its wisdom upon those who seek to grow.",
       "rarity": 3
     },
     {
-      "currency": "EXPERIENCE_RELIC",
-      "name": "Echoes of Legends",
+      "currency": "CODEX_OF_ASCENDANCY",
+      "name": "Codex of Ascendancy",
       "description": "Adds 100 experience to the character",
       "lore": "An artifact infused with the echoes of countless heroes, carrying their collective experience and stories within its core.",
+      "rarity": 4
+    },
+    {
+      "currency": "GRIMOIRE_OF_OMNISCENCE",
+      "name": "Grimoire of Omniscience",
+      "description": "Adds 1000 experience to the character",
+      "lore": "A fragment imbued with the essence of knowledge, offering a glimpse into the mysteries of the world.",
       "rarity": 5
     }
   ]

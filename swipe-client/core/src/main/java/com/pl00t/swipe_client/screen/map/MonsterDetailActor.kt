@@ -43,7 +43,7 @@ class MonsterDetailActor(
         KtxAsync.launch {
             val table = Table()
 
-            val blackBackground = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("opaque_black")).apply {
+            val blackBackground = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg")).apply {
                 width = context.width()
                 height = context.height()
             }
@@ -125,9 +125,10 @@ class MonsterDetailActor(
 
                 val profile = context.profileService().getProfile()
                 val expBalances = listOf(
-                    SwipeCurrency.SPARK_OF_INSIGHT,
-                    SwipeCurrency.EXPERIENCE_CRYSTAL,
-                    SwipeCurrency.EXPERIENCE_RELIC
+                    SwipeCurrency.SCROLL_OF_WISDOM,
+                    SwipeCurrency.TOME_OF_ENLIGHTMENT,
+                    SwipeCurrency.CODEX_OF_ASCENDANCY,
+                    SwipeCurrency.GRIMOIRE_OF_OMNISCENCE,
                 )
                 expBalances.map { context.profileService().getCurrency(it) }.map {
                     val balance = profile.getBalance(it.currency)

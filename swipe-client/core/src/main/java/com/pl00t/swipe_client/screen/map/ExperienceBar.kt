@@ -38,7 +38,7 @@ class ExperienceBar(
             }
         }
 
-        batch.draw(bgTexture, x, y, x + width, height)
+        batch.draw(bgTexture, x, y, width, height)
         batch.draw(activeTexture.texture, x, y, width * displayProgress, height, activeTexture.u, activeTexture.v, activeTexture.u + (activeTexture.u2 - activeTexture.u) * displayProgress, activeTexture.v2 )
     }
 

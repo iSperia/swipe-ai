@@ -1,10 +1,17 @@
 package com.pl00t.swipe_client.services.profile
 
-import com.game7th.swipe.battle.UnitSkin
 import com.game7th.swipe.battle.CharacterAttributes
 
 enum class SwipeCurrency {
-    ETHERIUM_COIN, ESSENCE_FRAGMENT, TIME_SHARD, SPARK_OF_INSIGHT, EXPERIENCE_CRYSTAL, EXPERIENCE_RELIC
+    ETHERIUM_COIN,
+    SCROLL_OF_WISDOM,
+    TOME_OF_ENLIGHTMENT,
+    CODEX_OF_ASCENDANCY,
+    GRIMOIRE_OF_OMNISCENCE,
+    INFUSION_ORB,
+    INFUSION_SHARD,
+    INFUSION_CRYSTAL,
+    ASCENDANT_ESSENCE,
 }
 
 enum class SwipeAct {

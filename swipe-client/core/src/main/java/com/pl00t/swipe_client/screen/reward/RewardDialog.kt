@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.services.profile.CollectedReward
@@ -36,9 +37,10 @@ class RewardDialog(
             height = 720f
             touchable = Touchable.disabled
         }
-        bg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("opaque_black")).apply {
+        bg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg")).apply {
             width = 400f
             height = 720f
+            setScaling(Scaling.stretch)
         }
 
         title = ScreenTitle.createScreenTitle(context, skin, "Rewards").apply {

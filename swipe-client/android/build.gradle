@@ -32,11 +32,11 @@ android {
     exclude '**/*.gwt.xml'
   }
   defaultConfig {
-    applicationId 'com.pl00t.swipe_client'
+    applicationId 'com.game7th.swipe_client'
     minSdkVersion 19
     targetSdkVersion 32
     versionCode 1
-    versionName "1.0"
+    versionName "0.1.1"
     multiDexEnabled true
   }
   namespace "com.pl00t.swipe_client"

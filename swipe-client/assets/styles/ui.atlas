@@ -1,96 +1,152 @@
 
 ui.png
-size: 2048, 1024
+size: 2048, 2048
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
 BELT_OF_FORTITUDE
   rotate: false
-  xy: 516, 254
+  xy: 1542, 1262
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+CODEX_OF_ASCENDANCY
+  rotate: false
+  xy: 514, 1010
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
 ESSENCE_FRAGMENT
   rotate: false
-  xy: 514, 512
+  xy: 0, 496
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 ETHERIUM_COIN
   rotate: false
-  xy: 1416, 584
+  xy: 1800, 1460
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 EXPERIENCE_CRYSTAL
   rotate: false
-  xy: 335, 124
+  xy: 1542, 657
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 EXPERIENCE_RELIC
   rotate: false
-  xy: 1802, 766
+  xy: 1542, 1047
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+FROSTGUARD_GAUNTLETS
+  rotate: false
+  xy: 1028, 1524
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+GRIMOIRE_OF_OMNISCENCE
+  rotate: false
+  xy: 1028, 1010
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+HELM_OF_IRON_WILL
+  rotate: false
+  xy: 1028, 496
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+RING_OF_ILLUMINATION
+  rotate: false
+  xy: 514, 496
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+SHADOWBANE_AMULET
+  rotate: false
+  xy: 0, 1524
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
 SPARK_OF_INSIGHT
   rotate: false
-  xy: 205, 122
+  xy: 1800, 1330
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 TIME_SHARD
   rotate: false
-  xy: 0, 512
+  xy: 0, 1010
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+TOME_OF_ENLIGHTMENT
+  rotate: false
+  xy: 514, 1524
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 attribute_body
   rotate: false
-  xy: 1286, 768
+  xy: 460, 238
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 attribute_mind
   rotate: false
-  xy: 1544, 768
+  xy: 718, 238
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 attribute_spirit
   rotate: false
-  xy: 258, 254
+  xy: 1542, 1520
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+bg
+  rotate: false
+  xy: 0, 134
+  size: 200, 360
+  orig: 200, 360
+  offset: 0, 0
+  index: -1
 black_pixel
   rotate: false
-  xy: 725, 251
+  xy: 1800, 1197
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 button_attack
   rotate: false
-  xy: 1028, 768
+  xy: 202, 238
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 button_pressed
   rotate: false
-  xy: 0, 32
+  xy: 644, 206
   size: 102, 30
   split: 13, 30, 14, 9
   orig: 102, 30
@@ -98,7 +154,7 @@ button_pressed
   index: -1
 button_simple
   rotate: false
-  xy: 0, 0
+  xy: 1234, 464
   size: 102, 30
   split: 18, 32, 12, 14
   orig: 102, 30
@@ -106,7 +162,7 @@ button_simple
   index: -1
 dialog_bubble
   rotate: false
-  xy: 1028, 629
+  xy: 1542, 1177
   size: 256, 83
   split: 124, 84, 29, 48
   orig: 256, 83
@@ -114,91 +170,91 @@ dialog_bubble
   index: -1
 ic_resist_fire
   rotate: false
-  xy: 774, 381
+  xy: 0, 3
   size: 129, 129
   orig: 129, 129
   offset: 0, 0
   index: -1
 ic_resist_phys
   rotate: false
-  xy: 1286, 584
+  xy: 1542, 917
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 ic_vuln_fire
   rotate: false
-  xy: 595, 124
+  xy: 1542, 527
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 ic_vuln_phys
   rotate: false
-  xy: 905, 382
+  xy: 1800, 1590
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 icon_inventory
   rotate: false
-  xy: 104, 2
+  xy: 1106, 402
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_inventory_pressed
   rotate: false
-  xy: 1078, 535
+  xy: 1930, 1714
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_map
   rotate: false
-  xy: 1932, 890
+  xy: 976, 272
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_map_pressed
   rotate: false
-  xy: 1028, 535
+  xy: 131, 72
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_party
   rotate: false
-  xy: 1676, 674
+  xy: 1672, 1115
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_party_pressed
   rotate: false
-  xy: 1676, 612
+  xy: 131, 10
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_star
   rotate: false
-  xy: 1932, 952
+  xy: 1930, 1776
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 opaque_black
   rotate: false
-  xy: 1470, 733
+  xy: 0, 0
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 panelBg
   rotate: false
-  xy: 0, 64
+  xy: 1800, 1850
   size: 203, 186
   split: 31, 33, 32, 39
   orig: 203, 186
@@ -206,79 +262,106 @@ panelBg
   index: -1
 panel_bg
   rotate: false
-  xy: 1546, 585
+  xy: 460, 163
   size: 78, 19
   orig: 78, 19
   offset: 0, 0
   index: -1
 panel_line
   rotate: false
-  xy: 205, 116
+  xy: 202, 146
   size: 78, 4
   orig: 78, 4
   offset: 0, 0
   index: -1
 progress_active
   rotate: false
-  xy: 1028, 597
+  xy: 202, 152
   size: 256, 30
   orig: 256, 30
   offset: 0, 0
   index: -1
 progress_inactive
   rotate: false
-  xy: 1470, 736
+  xy: 976, 464
   size: 256, 30
   orig: 256, 30
   offset: 0, 0
   index: -1
 shard_base_health
   rotate: false
-  xy: 774, 251
+  xy: 976, 334
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 shard_damage_fire
   rotate: false
-  xy: 465, 124
+  xy: 1800, 1200
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 shard_resist_fire
   rotate: false
-  xy: 1802, 896
+  xy: 1800, 1720
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 shard_resist_phys
   rotate: false
-  xy: 1546, 606
+  xy: 1542, 787
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 title_background
   rotate: false
-  xy: 1028, 714
+  xy: 202, 184
   size: 440, 52
   orig: 440, 52
   offset: 0, 0
   index: -1
 triangle_attributes
   rotate: false
-  xy: 0, 252
+  xy: 1542, 1778
   size: 256, 258
   orig: 256, 258
   offset: 0, 0
   index: -1
 white_border
   rotate: false
-  xy: 1728, 761
+  xy: 2005, 2031
   size: 5, 5
   split: 1, 1, 1, 1
   orig: 5, 5
+  offset: 0, 0
+  index: -1
+
+ui2.png
+size: 2048, 512
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: none
+FLAMEHEART_BELT
+  rotate: false
+  xy: 0, 0
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+SCROLL_OF_WISDOM
+  rotate: false
+  xy: 1028, 0
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+THEMPERSTRIDE_BOOTS
+  rotate: false
+  xy: 514, 0
+  size: 512, 512
+  orig: 512, 512
   offset: 0, 0
   index: -1

@@ -204,9 +204,10 @@ class ProfileServiceImpl(
             val balance = profile.getBalance(currency)
             if (balance > 0) {
                 val newExp = min(character.level.experience + when (currency) {
-                    SwipeCurrency.SPARK_OF_INSIGHT -> 1
-                    SwipeCurrency.EXPERIENCE_CRYSTAL -> 10
-                    SwipeCurrency.EXPERIENCE_RELIC -> 100
+                    SwipeCurrency.SCROLL_OF_WISDOM -> 1
+                    SwipeCurrency.TOME_OF_ENLIGHTMENT -> 10
+                    SwipeCurrency.CODEX_OF_ASCENDANCY -> 100
+                    SwipeCurrency.GRIMOIRE_OF_OMNISCENCE -> 1000
                     else -> throw IllegalArgumentException("Invalid experience currency")
                 }, character.level.maxExperience)
 

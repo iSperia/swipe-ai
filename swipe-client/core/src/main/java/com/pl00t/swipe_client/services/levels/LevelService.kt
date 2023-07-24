@@ -48,4 +48,6 @@ data class CurrencyReward(
 data class LevelReward(
     val type: LevelRewardType,
     val currency: CurrencyReward?,
+    val rarity: Int?,
+    val skin: String?
 )

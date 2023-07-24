@@ -41,7 +41,7 @@
           "type": "currency",
           "currency": {
             "amount": 2,
-            "type": "SPARK_OF_INSIGHT"
+            "type": "SCROLL_OF_WISDOM"
           }
         },
         {
@@ -108,7 +108,7 @@
           "type": "currency",
           "currency": {
             "amount": 3,
-            "type": "SPARK_OF_INSIGHT"
+            "type": "SCROLL_OF_WISDOM"
           }
         },
         {
@@ -215,7 +215,7 @@
           "type": "currency",
           "currency": {
             "amount": 1,
-            "type": "EXPERIENCE_CRYSTAL"
+            "type": "TOME_OF_ENLIGHTMENT"
           }
         },
         {

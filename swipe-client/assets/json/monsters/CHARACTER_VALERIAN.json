@@ -34,7 +34,7 @@
       "title": "Radiant strike",
       "skin": "VALERIAN_RADIANT_STRIKE",
       "description": "Melee physical strike",
-      "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
+      "lore": "Infused with the brilliance of the sun, the Radiant Strike channels the celestial might into a single, devastating sword thrust, searing adversaries with divine light.",
       "descriptionTable": [
         {
           "title": "Base physical damage",
@@ -50,7 +50,7 @@
       "title": "Luminous Beam",
       "skin": "VALERIAN_LUMINOUS_BEAM",
       "description": "Mass attack that deals damage with light",
-      "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
+      "lore": "Unleashing a torrent of radiant energy, the Luminous Beam cascades forth, piercing through darkness and scattering malevolence with its pure, luminous force.",
       "descriptionTable": [
         {
           "title": "Base light damage",
@@ -66,7 +66,7 @@
       "title": "Sigil of Renewal",
       "skin": "VALERIAN_SIGIL_OF_RENEWAL",
       "description": "Generates sigil tiles that heal character if ability triggers on a sigil tile",
-      "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
+      "lore": "The Sigil of Renewal etches the ancient symbols of healing, infusing the prince with revitalizing energy, mending wounds and restoring his resilience.",
       "descriptionTable": [
         {
           "title": "Sigil tiles amount",
@@ -86,7 +86,7 @@
       "title": "Divine Convergence",
       "skin": "VALERIAN_DIVINE_CONVERGENCE",
       "description": "ULTIMATE: consumes all sigils, heals the character and deals mass LIGHT damage for each sigil consumed",
-      "lore": "In the blaze of righteousness, the prince's sword shines, striking down darkness with unwavering conviction.",
+      "lore": "As a testament to his royal lineage, the Divine Convergence unifies all empowered sigils, unleashing a cataclysmic outpouring of divine energy, purging darkness, and heralding a new era of harmony.",
       "descriptionTable": [
         {
           "title": "Base light damage, per sigil",
