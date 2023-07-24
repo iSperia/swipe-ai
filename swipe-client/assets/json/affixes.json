@@ -1,0 +1,106 @@
+{
+  "affixes": [
+    {
+      "affix": "IMPLICIT_DARK_RESIST_FLAT",
+      "valuePerTier": 2.5
+    },
+    {
+      "affix": "IMPLICIT_COLD_RESIST_FLAT",
+      "valuePerTier": 2.5
+    },
+    {
+      "affix": "IMPLICIT_FIRE_RESIST_FLAT",
+      "valuePerTier": 2.5
+    },
+    {
+      "affix": "IMPLICIT_SHOCK_RESIST_FLAT",
+      "valuePerTier": 2.5
+    },
+    {
+      "affix": "IMPLICIT_PHYS_RESIST_FLAT",
+      "valuePerTier": 2.5
+    },
+    {
+      "affix": "IMPLICIT_LIGHT_RESIST_FLAT",
+      "valuePerTier": 2.5
+    },
+    {
+      "affix": "DARK_RESIST_FLAT",
+      "valuePerTier": 1.5,
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "AMULET"
+        }
+      ]
+    },
+    {
+      "affix": "COLD_RESIST_FLAT",
+      "valuePerTier": 1.5,
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "GLOVES"
+        }
+      ]
+    },
+    {
+      "affix": "FIRE_RESIST_FLAT",
+      "valuePerTier": 1.5,
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "BELT"
+        }
+      ]
+    },
+    {
+      "affix": "SHOCK_RESIST_FLAT",
+      "valuePerTier": 1.5,
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "BOOTS"
+        }
+      ]
+    },
+    {
+      "affix": "PHYS_RESIST_FLAT",
+      "valuePerTier": 1.5,
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "HELMET"
+        }
+      ]
+    },
+    {
+      "affix": "LIGHT_RESIST_FLAT",
+      "valuePerTier": 1.5,
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "RING"
+        }
+      ]
+    }
+  ]
+}

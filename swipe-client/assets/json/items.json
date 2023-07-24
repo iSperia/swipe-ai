@@ -4,67 +4,42 @@
       "skin": "HELM_OF_IRON_WILL",
       "name": "Helm of Iron Will",
       "lore": "Wrought from enchanted alloys, this helm grants the wearer unyielding defense against physical onslaughts",
-      "implicit": [{
-        "affix": "PHYS_RESIST_FLAT",
-        "min": 1,
-        "max": 5
-      }],
+      "implicit": ["IMPLICIT_PHYS_RESIST_FLAT"],
       "category": "HELMET"
     },
     {
       "skin": "RING_OF_ILLUMINATION",
       "name": "Ring of Illumination",
       "lore": "Embraced by the light's grace, this ring fortifies the spirit against the encroaching shadows",
-      "implicit": [
-        {
-          "affix": "PHYS_RESIST_FLAT",
-          "min": 1,
-          "max": 5
-        }],
+      "implicit": ["IMPLICIT_LIGHT_RESIST_FLAT"],
       "category": "RING"
     },
     {
       "skin": "SHADOWBANE_AMULET",
       "name": "Shadowbane Amulet",
       "lore": "A mystical talisman woven from ancient obsidian, providing protection against the sinister forces of darkness",
-      "implicit": [{
-        "affix": "PHYS_RESIST_FLAT",
-        "min": 1,
-        "max": 5
-      }],
+      "implicit": ["IMPLICIT_DARK_RESIST_FLAT"],
       "category": "AMULET"
     },
     {
       "skin": "FROSTGUARD_GAUNTLETS",
       "name": "Frostguard Gauntlets",
       "lore": "These gauntlets, crafted from the essence of ice, ward off the bitter chill and shield the hands from frosty harm.",
-      "implicit": [{
-        "affix": "PHYS_RESIST_FLAT",
-        "min": 1,
-        "max": 5
-      }],
+      "implicit": ["IMPLICIT_COLD_RESIST_FLAT"],
       "category": "GLOVES"
     },
     {
       "skin": "FLAMEHEART_BELT",
       "name": "Flameheart Belt",
       "lore": "Imbued with the essence of fire, this belt grants the wearer resilience against scorching flames",
-      "implicit": [{
-        "affix": "PHYS_RESIST_FLAT",
-        "min": 1,
-        "max": 5
-      }],
+      "implicit": ["IMPLICIT_FIRE_RESIST_FLAT"],
       "category": "BELT"
     },
     {
       "skin": "THEMPERSTRIDE_BOOTS",
       "name": "Tempeststride Boots",
       "lore": "Fashioned from stormy essence, these boots ground the wearer against the electric dance of thunderous fury",
-      "implicit": [{
-        "affix": "PHYS_RESIST_FLAT",
-        "min": 1,
-        "max": 5
-      }],
+      "implicit": ["IMPLICIT_SHOCK_RESIST_FLAT"],
       "category": "BOOTS"
     }
   ]

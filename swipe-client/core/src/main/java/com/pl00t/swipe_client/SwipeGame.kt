@@ -14,12 +14,16 @@ import com.pl00t.swipe_client.services.battle.BattleServiceImpl
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
 import com.game7th.swipe.monsters.MonsterService
+import com.google.gson.Gson
 import com.pl00t.swipe_client.services.MonsterServiceImpl
 import com.pl00t.swipe_client.services.files.FileService
 import com.pl00t.swipe_client.services.files.GdxFileService
+import com.pl00t.swipe_client.services.items.ItemService
+import com.pl00t.swipe_client.services.items.ItemServiceImpl
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.ProfileServiceImpl
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import kotlinx.coroutines.launch
 import ktx.async.KtxAsync
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
@@ -33,6 +37,7 @@ class SwipeGame : Game(), Router {
     lateinit var monsterService: MonsterService
     lateinit var inputMultiplexer: InputMultiplexer
     lateinit var fileService: FileService
+    lateinit var itemService: ItemService
 
     override fun create() {
         KtxAsync.initiate()
@@ -59,12 +64,18 @@ class SwipeGame : Game(), Router {
         if (amCore.update()) {
             coreLoaded = true
             fileService = GdxFileService()
+            itemService = ItemServiceImpl(Gson(), fileService)
             monsterService = MonsterServiceImpl(fileService)
             levelService = LevelServiceImpl(fileService, monsterService)
             profileService = ProfileServiceImpl(levelService, monsterService)
             battleService = BattleServiceImpl(levelService, monsterService, profileService)
 
             navigateMap(SwipeAct.ACT_1)
+
+            KtxAsync.launch {
+                println(itemService.generateItem("FLAMEHEART_BELT", 2))
+            }
+
         }
     }
 
