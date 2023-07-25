@@ -11,6 +11,7 @@ object Atlases {
     val COMMON_BATTLE = "atlases/battle.atlas"
     val COMMON_UNITS = "atlases/units.atlas"
     val COMMON_TAROT = "atlases/tarot.atlas"
+    val COMMON_SKILLS = "atlases/skills.atlas"
 
     fun ACT(act: SwipeAct) = "atlases/$act.atlas"
 }

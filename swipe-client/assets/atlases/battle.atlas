@@ -150,6 +150,20 @@ shock
   orig: 128, 128
   offset: 0, 0
   index: -1
+skill_progress_active
+  rotate: false
+  xy: 1412, 1775
+  size: 62, 22
+  orig: 62, 22
+  offset: 0, 0
+  index: -1
+skill_progress_inactive
+  rotate: false
+  xy: 1231, 1612
+  size: 62, 22
+  orig: 62, 22
+  offset: 0, 0
+  index: -1
 tile_bg
   rotate: false
   xy: 205, 481

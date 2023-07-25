@@ -11,28 +11,28 @@
       "currency": "SCROLL_OF_WISDOM",
       "name": "Scroll of Wisdom",
       "description": "Adds 1 experience to the character",
-      "lore": "A fragment imbued with the essence of knowledge, offering a glimpse into the mysteries of the world.",
+      "lore": "An illustrious scroll scribed with the profound insights of the ages, elevating the reader's understanding to new heights",
       "rarity": 2
     },
     {
       "currency": "TOME_OF_ENLIGHTMENT",
       "name": "Tome of Enlightment",
       "description": "Adds 10 experience to the character",
-      "lore": "A crystal resonating with the life force of the world, bestowing its wisdom upon those who seek to grow.",
+      "lore": "A humble tome filled with ancient teachings, granting a modest boon of knowledge to those who study its contents",
       "rarity": 3
     },
     {
       "currency": "CODEX_OF_ASCENDANCY",
       "name": "Codex of Ascendancy",
       "description": "Adds 100 experience to the character",
-      "lore": "An artifact infused with the echoes of countless heroes, carrying their collective experience and stories within its core.",
+      "lore": "A refined codex teeming with esoteric knowledge, providing a substantial source of wisdom for the eager seeker",
       "rarity": 4
     },
     {
       "currency": "GRIMOIRE_OF_OMNISCENCE",
       "name": "Grimoire of Omniscience",
       "description": "Adds 1000 experience to the character",
-      "lore": "A fragment imbued with the essence of knowledge, offering a glimpse into the mysteries of the world.",
+      "lore": "An unparalleled grimoire emanating with boundless wisdom and arcane revelations, unlocking the full potential of those who delve into its secrets.",
       "rarity": 5
     }
   ]

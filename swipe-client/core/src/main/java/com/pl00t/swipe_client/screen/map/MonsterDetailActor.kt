@@ -194,12 +194,12 @@ class MonsterDetailActor(
             val abilsTable = Table()
 
             monsterInfo.abilities?.forEach { ability ->
-                val tarot = Image(context.commonAtlas(Atlases.COMMON_TAROT).findRegion(ability.skin.toString())).apply {
+                val tarot = Image(context.commonAtlas(Atlases.COMMON_SKILLS).findRegion(ability.skin.toString())).apply {
                     width = 120f
-                    height = 200f
+                    height = 120f
                     setScaling(Scaling.stretch)
                 }
-                abilsTable.add(tarot).pad(5f).width(120f).height(200f).align(Align.left)
+                abilsTable.add(tarot).pad(5f).width(120f).height(120f).align(Align.topLeft)
 
                 val sideTable = Table()
                 sideTable.add(Label(ability.title, skin, "wave_caption").apply {

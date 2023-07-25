@@ -139,7 +139,7 @@ suspend fun testAct(
             progressionFile.tests.forEach { entry ->
                 jobs.add(async {
                     val winrate = testLevel(levelService, monsterService, entry)
-                    val humanWinrate = sqrt(winrate.toFloat())
+                    val humanWinrate = winrate
                     println("$entry\nwinrate=$humanWinrate\nthread=${Thread.currentThread().name}\n\n")
                     resultMap[entry.level] = TestResult(entry.act, entry.level, humanWinrate, entry.targetWinrate, humanWinrate - entry.targetWinrate)
                 })

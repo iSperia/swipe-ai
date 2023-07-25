@@ -14,7 +14,7 @@
       "characterAttributes": {"mind": 2, "spirit": 2, "body": 2},
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 2,
-      "targetWinrate": 0.8
+      "targetWinrate": 0.6
     },
     {
       "act": "ACT_1",
@@ -22,7 +22,7 @@
       "characterAttributes": {"mind": 3, "spirit": 3, "body": 3},
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 3,
-      "targetWinrate": 0.6
+      "targetWinrate": 0.3
     },
     {
       "act": "ACT_1",
@@ -30,7 +30,7 @@
       "characterAttributes": {"mind": 4, "spirit": 4, "body": 4},
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 4,
-      "targetWinrate": 0.25
+      "targetWinrate": 0.08
     }
   ]
 }

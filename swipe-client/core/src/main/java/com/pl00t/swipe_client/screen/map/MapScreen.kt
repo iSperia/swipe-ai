@@ -71,6 +71,7 @@ class MapScreen(
             load(Atlases.COMMON_UX, TextureAtlas::class.java)
             load(Atlases.COMMON_UNITS, TextureAtlas::class.java)
             load(Atlases.COMMON_TAROT, TextureAtlas::class.java)
+            load(Atlases.COMMON_SKILLS, TextureAtlas::class.java)
         }
         loadAm(mapAssetManager, this::mapLoaded)
         multiplexer.addProcessor(root)

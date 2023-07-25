@@ -43,7 +43,7 @@ class BattleDialogActor(
             x = if (dialog.side == DialogOrientation.left) 160f else 30f
             y = 200f
         }
-        titleLabel = Label(dialog.title, skin, "wave_caption").apply {
+        titleLabel = Label(dialog.title, skin, "dialog_title").apply {
             x = dialogBackground.x + 10f
             y = dialogBackground.y + 150f
             wrap = true

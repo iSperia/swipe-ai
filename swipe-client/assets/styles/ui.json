@@ -25,6 +25,10 @@
       font: caption_regular
       fontColor: accent_color
     },
+    dialog_title: {
+      font: caption_regular
+      fontColor: rarity_4
+    },
     wave_popup: {
       font: caption_regular
       fontColor: main_color

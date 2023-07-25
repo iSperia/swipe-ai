@@ -90,6 +90,7 @@ class BattleScreen(
                 load(Atlases.ACT(SwipeAct.ACT_1), TextureAtlas::class.java)
                 load(Atlases.COMMON_UNITS, TextureAtlas::class.java)
                 load(Atlases.COMMON_TAROT, TextureAtlas::class.java)
+                load(Atlases.COMMON_SKILLS, TextureAtlas::class.java)
                 load(Atlases.COMMON_UX, TextureAtlas::class.java)
             }
             loadAm(battleAssetManager) { amLoaded() }
@@ -395,11 +396,11 @@ class BattleScreen(
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.at.toString()) ?: return
         //ok, we have some crazy tarot stuff
-        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(animation.skin).require()).apply {
+        val tarot = Image(commonAtlas(Atlases.COMMON_SKILLS).findRegion(animation.skin).require()).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) characterWidth * 0.1f else -characterWidth * 1.1f
-            y = sourceUnit.y + characterWidth * 0.35f
+            y = sourceUnit.y + characterWidth * 0.55f
             width = characterWidth * 0.8f
-            height = characterWidth * 0.8f * 1.66f
+            height = characterWidth * 0.8f
             setOrigin(Align.center)
         }
         tarot.scaleX = 0.1f
@@ -432,17 +433,18 @@ class BattleScreen(
         animation: SbBattleFieldDisplayEffect.TarotDirectedAoe
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString()) ?: return
-        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(animation.skin).require()).apply {
+        val tarot = Image(commonAtlas(Atlases.COMMON_SKILLS).findRegion(animation.skin).require()).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) characterWidth * 0.1f else -characterWidth * 1.1f
-            y = sourceUnit.y + characterWidth * 0.35f
+            y = sourceUnit.y + characterWidth * 0.55f
             width = characterWidth * 0.8f
-            height = characterWidth * 0.8f * 1.66f
+            height = characterWidth * 0.8f
             setOrigin(Align.center)
         }
         tarot.alpha = 0f
         val action = Actions.sequence(
             Actions.parallel(
                 Actions.alpha(1f, 0.4f),
+                Actions.scaleTo(1.4f, 1.4f, 0.4f),
                 Actions.rotateBy(if (sourceUnit.team == 0) 90f else -90f, 0.4f)
             ),
             Actions.parallel(
@@ -461,11 +463,11 @@ class BattleScreen(
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString()) ?: return
         //ok, we have some crazy tarot stuff
-        val tarot = Image(commonAtlas(Atlases.COMMON_TAROT).findRegion(animation.skin.toString()).require()).apply {
+        val tarot = Image(commonAtlas(Atlases.COMMON_SKILLS).findRegion(animation.skin).require()).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) characterWidth * 0.1f else -characterWidth * 1.1f
-            y = sourceUnit.y + characterWidth * 0.15f
+            y = sourceUnit.y + characterWidth * 0.5f
             width = characterWidth * 0.8f
-            height = characterWidth * 0.8f * 1.66f
+            height = characterWidth * 0.8f
             setOrigin(Align.center)
         }
         tarot.setScale(0.1f)
@@ -474,15 +476,21 @@ class BattleScreen(
         tarotEffectsGroup.addActor(tarot)
         val actions = animation.to.let { listOf(it) }.mapNotNull { targetId ->
             unitsGroup.findActor<UnitActor>(targetId.toString())?.let { targetActor ->
-                val rx = targetActor.x + if (targetActor.team == 0) characterWidth * 0.1f else -characterWidth * 1.1f
-                val ry = targetActor.y + characterWidth * 0.3f * Random.nextFloat()
+                val rx = targetActor.x + if (targetActor.team == 0) characterWidth * 0.1f else -characterWidth * 0.8f
+                val ry = targetActor.y + characterWidth * (0.25f + 0.6f * Random.nextFloat())
                 val angle = if (targetActor.team == 0) 30f else -30f
                 Actions.sequence(
                     Actions.parallel(
+                        Actions.alpha(0.3f, 0.15f),
                         Actions.moveTo(rx, ry, 0.4f, SwingOut(1.6f)),
-                        Actions.rotateBy(angle, 0.12f, SwingOut(1.6f))
+                        Actions.rotateBy(angle, 0.12f, SwingOut(1.6f)),
+                        Actions.scaleTo(0.4f, 0.4f, 0.3f, SwingOut(1.6f))
                     ),
-                    Actions.rotateTo(-angle / 5f, 0.2f)
+                    Actions.parallel(
+                        Actions.alpha(1f, 0.15f),
+                        Actions.rotateTo(-angle / 5f, 0.2f),
+                        Actions.scaleTo(0.6f, 0.6f, 0.2f)
+                    )
                 )
             }
         }
@@ -490,7 +498,7 @@ class BattleScreen(
             Actions.parallel(
                 Actions.rotateTo(0f, 0.4f, SwingOut(1.6f)),
                 Actions.alpha(1f, 0.4f),
-                Actions.scaleTo(1f, 1f)
+                Actions.scaleTo(1.3f, 1.3f, 0.4f)
             ),
             SequenceAction().apply { actions.forEach { a -> addAction(a) } },
             Actions.alpha(0f, 0.2f),
@@ -504,7 +512,6 @@ class BattleScreen(
         actor?.addAction(
             Actions.sequence(
                 Actions.delay(0.2f),
-                Actions.run { actor.arcVisible = false },
                 Actions.parallel(
                     Actions.scaleBy(0.2f, 0.2f, 0.1f),
                     Actions.alpha(0f, 0.1f)
@@ -562,8 +569,7 @@ class BattleScreen(
             size = tileSize,
             strokeWidth = 9f,
             cardTexture = event.tile.skin,
-            taBattle = commonAtlas(Atlases.COMMON_BATTLE),
-            taTarot = commonAtlas(Atlases.COMMON_TAROT),
+            context = this@BattleScreen,
             polygonBatch = polygonSpriteBatch,
             type = event.tile.type,
         )

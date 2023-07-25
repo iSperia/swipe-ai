@@ -6,140 +6,168 @@ filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
 BELT_OF_FORTITUDE
   rotate: false
-  xy: 1542, 1262
+  xy: 0, 144
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 CODEX_OF_ASCENDANCY
   rotate: false
-  xy: 1028, 1524
-  size: 512, 512
-  orig: 512, 512
+  xy: 514, 1018
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 ESSENCE_FRAGMENT
   rotate: false
-  xy: 514, 1010
+  xy: 514, 1536
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 ETHERIUM_COIN
   rotate: false
-  xy: 514, 1524
+  xy: 0, 1022
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 EXPERIENCE_CRYSTAL
   rotate: false
-  xy: 1800, 1330
+  xy: 261, 33
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 EXPERIENCE_RELIC
   rotate: false
-  xy: 1542, 1047
+  xy: 1028, 1576
   size: 128, 128
   orig: 128, 128
+  offset: 0, 0
+  index: -1
+FLAMEHEART_BELT
+  rotate: false
+  xy: 258, 163
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 FROSTGUARD_GAUNTLETS
   rotate: false
-  xy: 514, 496
-  size: 512, 512
-  orig: 512, 512
+  xy: 1544, 1792
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 GRIMOIRE_OF_OMNISCENCE
   rotate: false
-  xy: 1028, 496
-  size: 512, 512
-  orig: 512, 512
+  xy: 460, 760
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+HELM_OF_IRON_WILL
+  rotate: false
+  xy: 258, 421
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 RING_OF_ILLUMINATION
   rotate: false
-  xy: 1028, 1010
-  size: 512, 512
-  orig: 512, 512
+  xy: 0, 402
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+SCROLL_OF_WISDOM
+  rotate: false
+  xy: 516, 502
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 SHADOWBANE_AMULET
   rotate: false
-  xy: 0, 1524
-  size: 512, 512
-  orig: 512, 512
+  xy: 1286, 1792
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 SPARK_OF_INSIGHT
   rotate: false
-  xy: 1542, 787
+  xy: 774, 240
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+THEMPERSTRIDE_BOOTS
+  rotate: false
+  xy: 718, 760
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
 TIME_SHARD
   rotate: false
-  xy: 0, 1010
+  xy: 0, 1536
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 TOME_OF_ENLIGHTMENT
   rotate: false
-  xy: 0, 496
-  size: 512, 512
-  orig: 512, 512
+  xy: 772, 1278
+  size: 256, 256
+  orig: 256, 256
   offset: 0, 0
   index: -1
 attribute_body
   rotate: false
-  xy: 460, 238
+  xy: 772, 1020
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 attribute_mind
   rotate: false
-  xy: 718, 238
+  xy: 516, 244
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 attribute_spirit
   rotate: false
-  xy: 1542, 1520
+  xy: 202, 764
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 bg
   rotate: false
-  xy: 0, 134
+  xy: 0, 660
   size: 200, 360
   orig: 200, 360
   offset: 0, 0
   index: -1
 black_pixel
   rotate: false
-  xy: 1800, 1197
+  xy: 258, 157
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 button_attack
   rotate: false
-  xy: 202, 238
+  xy: 1028, 1792
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 button_pressed
   rotate: false
-  xy: 644, 206
+  xy: 1802, 1830
   size: 102, 30
   split: 13, 30, 14, 9
   orig: 102, 30
@@ -147,7 +175,7 @@ button_pressed
   index: -1
 button_simple
   rotate: false
-  xy: 1234, 464
+  xy: 1028, 1544
   size: 102, 30
   split: 18, 32, 12, 14
   orig: 102, 30
@@ -155,99 +183,113 @@ button_simple
   index: -1
 dialog_bubble
   rotate: false
-  xy: 1542, 1177
+  xy: 202, 679
   size: 256, 83
   split: 124, 84, 29, 48
   orig: 256, 83
   offset: 0, 0
   index: -1
+gem_active
+  rotate: false
+  xy: 904, 697
+  size: 64, 61
+  orig: 64, 61
+  offset: 0, 0
+  index: -1
+gem_inactive
+  rotate: false
+  xy: 590, 181
+  size: 64, 61
+  orig: 64, 61
+  offset: 0, 0
+  index: -1
 ic_resist_fire
   rotate: false
-  xy: 0, 3
+  xy: 0, 13
   size: 129, 129
   orig: 129, 129
   offset: 0, 0
   index: -1
 ic_resist_phys
   rotate: false
-  xy: 1542, 917
+  xy: 1158, 1576
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 ic_vuln_fire
   rotate: false
-  xy: 1800, 1200
+  xy: 1288, 1608
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 ic_vuln_phys
   rotate: false
-  xy: 1800, 1590
+  xy: 774, 370
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 icon_inventory
   rotate: false
-  xy: 1106, 402
+  xy: 656, 182
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_inventory_pressed
   rotate: false
-  xy: 1542, 595
+  xy: 1418, 1614
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_map
   rotate: false
-  xy: 976, 272
+  xy: 904, 635
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_map_pressed
   rotate: false
-  xy: 131, 72
+  xy: 460, 698
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_party
   rotate: false
-  xy: 1672, 1115
+  xy: 1418, 1676
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_party_pressed
   rotate: false
-  xy: 1930, 1714
+  xy: 904, 573
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_star
   rotate: false
-  xy: 1930, 1776
+  xy: 516, 170
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 opaque_black
   rotate: false
-  xy: 0, 0
+  xy: 258, 160
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 panelBg
   rotate: false
-  xy: 1800, 1850
+  xy: 1802, 1862
   size: 203, 186
   split: 31, 33, 32, 39
   orig: 203, 186
@@ -255,113 +297,79 @@ panelBg
   index: -1
 panel_bg
   rotate: false
-  xy: 460, 163
+  xy: 1470, 1739
   size: 78, 19
   orig: 78, 19
   offset: 0, 0
   index: -1
 panel_line
   rotate: false
-  xy: 202, 146
+  xy: 0, 7
   size: 78, 4
   orig: 78, 4
   offset: 0, 0
   index: -1
 progress_active
   rotate: false
-  xy: 202, 152
+  xy: 1470, 1760
   size: 256, 30
   orig: 256, 30
   offset: 0, 0
   index: -1
 progress_inactive
   rotate: false
-  xy: 976, 464
+  xy: 1028, 1706
   size: 256, 30
   orig: 256, 30
   offset: 0, 0
   index: -1
 shard_base_health
   rotate: false
-  xy: 976, 334
+  xy: 774, 500
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 shard_damage_fire
   rotate: false
-  xy: 1542, 657
+  xy: 391, 33
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 shard_resist_fire
   rotate: false
-  xy: 1800, 1720
+  xy: 774, 630
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 shard_resist_phys
   rotate: false
-  xy: 1800, 1460
+  xy: 131, 14
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 title_background
   rotate: false
-  xy: 202, 184
+  xy: 1028, 1738
   size: 440, 52
   orig: 440, 52
   offset: 0, 0
   index: -1
 triangle_attributes
   rotate: false
-  xy: 1542, 1778
+  xy: 514, 1276
   size: 256, 258
   orig: 256, 258
   offset: 0, 0
   index: -1
 white_border
   rotate: false
-  xy: 2005, 2031
+  xy: 0, 0
   size: 5, 5
   split: 1, 1, 1, 1
   orig: 5, 5
-  offset: 0, 0
-  index: -1
-
-ui2.png
-size: 2048, 2048
-format: RGBA8888
-filter: MipMapLinearLinear, MipMapLinearLinear
-repeat: none
-FLAMEHEART_BELT
-  rotate: false
-  xy: 0, 514
-  size: 512, 512
-  orig: 512, 512
-  offset: 0, 0
-  index: -1
-HELM_OF_IRON_WILL
-  rotate: false
-  xy: 0, 1028
-  size: 512, 512
-  orig: 512, 512
-  offset: 0, 0
-  index: -1
-SCROLL_OF_WISDOM
-  rotate: false
-  xy: 0, 0
-  size: 512, 512
-  orig: 512, 512
-  offset: 0, 0
-  index: -1
-THEMPERSTRIDE_BOOTS
-  rotate: false
-  xy: 514, 1028
-  size: 512, 512
-  orig: 512, 512
   offset: 0, 0
   index: -1
