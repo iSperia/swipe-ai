@@ -1,6 +1,7 @@
 package com.pl00t.swipe_client.services.profile
 
 import com.badlogic.gdx.Gdx
+import com.game7th.items.InventoryItem
 import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.game7th.swipe.battle.UnitSkin
@@ -10,6 +11,7 @@ import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelRewardType
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.game7th.swipe.monsters.MonsterService
+import com.pl00t.swipe_client.services.items.ItemService
 import java.lang.IllegalArgumentException
 import kotlin.math.min
 
@@ -28,7 +30,9 @@ interface ProfileService {
     suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata
 
     suspend fun getCharacters(): List<SwipeCharacter>
-    abstract fun spendExperienceCurrency(currency: SwipeCurrency, skin: String): SpendExperienceCurrencyResult
+    fun spendExperienceCurrency(currency: SwipeCurrency, skin: String): SpendExperienceCurrencyResult
+
+    suspend fun addItem(item: InventoryItem)
 
     data class SpendExperienceCurrencyResult(
         val character: SwipeCharacter,
@@ -44,6 +48,14 @@ sealed interface CollectedReward {
         val rarity: Int,
         val description: String,
     ): CollectedReward
+
+    data class CollectedItem(
+        val skin: String,
+        val level: Int,
+        val title: String,
+        val rarity: Int,
+        val lore: String
+    ) : CollectedReward
 }
 
 data class CurrencyMetadata(
@@ -61,6 +73,7 @@ data class CurrenciesMetadata(
 class ProfileServiceImpl(
     val levelService: LevelService,
     val monsterService: MonsterService,
+    val itemService: ItemService,
 ) : ProfileService {
 
     val gson = Gson()
@@ -94,7 +107,8 @@ class ProfileServiceImpl(
                         attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
                         level = SwipeCharacterLevelInfo(0, 1, 1)
                     )
-                )
+                ),
+                items = emptyList()
             )
         }
     }
@@ -183,6 +197,20 @@ class ProfileServiceImpl(
                     profile = profile.addBalance(currency.currency, reward.currency.amount)
                     result.add(CollectedReward.CountedCurrency(reward.currency.type, reward.currency.amount, currency.name, currency.rarity, currency.description))
                 }
+                LevelRewardType.item -> {
+                    val item = itemService.generateItem(reward.skin ?: "", reward.rarity ?: 1)
+                    item?.let {
+                        addItem(it)
+                        val template = itemService.getItemTemplate(it.skin)!!
+                        result.add(CollectedReward.CollectedItem(
+                            skin = it.skin,
+                            level= it.level,
+                            title = template.name,
+                            rarity = it.rarity,
+                            lore = template.lore
+                        ))
+                    }
+                }
                 else -> {}
             }
         }
@@ -233,6 +261,11 @@ class ProfileServiceImpl(
                 return ProfileService.SpendExperienceCurrencyResult(profile.characters.first { it.skin == skin }, balance)
             }
         } ?: throw IllegalArgumentException("Character does not exist")
+    }
+
+    override suspend fun addItem(item: InventoryItem) {
+        profile = profile.addItem(item)
+        saveProfile()
     }
 
     companion object {

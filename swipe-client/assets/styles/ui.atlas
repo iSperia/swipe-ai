@@ -13,28 +13,28 @@ BELT_OF_FORTITUDE
   index: -1
 CODEX_OF_ASCENDANCY
   rotate: false
-  xy: 514, 1010
+  xy: 1028, 1524
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 ESSENCE_FRAGMENT
   rotate: false
-  xy: 0, 496
+  xy: 514, 1010
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 ETHERIUM_COIN
   rotate: false
-  xy: 1800, 1460
-  size: 128, 128
-  orig: 128, 128
+  xy: 514, 1524
+  size: 512, 512
+  orig: 512, 512
   offset: 0, 0
   index: -1
 EXPERIENCE_CRYSTAL
   rotate: false
-  xy: 1542, 657
+  xy: 1800, 1330
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -48,19 +48,12 @@ EXPERIENCE_RELIC
   index: -1
 FROSTGUARD_GAUNTLETS
   rotate: false
-  xy: 1028, 1524
+  xy: 514, 496
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 GRIMOIRE_OF_OMNISCENCE
-  rotate: false
-  xy: 1028, 1010
-  size: 512, 512
-  orig: 512, 512
-  offset: 0, 0
-  index: -1
-HELM_OF_IRON_WILL
   rotate: false
   xy: 1028, 496
   size: 512, 512
@@ -69,7 +62,7 @@ HELM_OF_IRON_WILL
   index: -1
 RING_OF_ILLUMINATION
   rotate: false
-  xy: 514, 496
+  xy: 1028, 1010
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
@@ -83,7 +76,7 @@ SHADOWBANE_AMULET
   index: -1
 SPARK_OF_INSIGHT
   rotate: false
-  xy: 1800, 1330
+  xy: 1542, 787
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -97,7 +90,7 @@ TIME_SHARD
   index: -1
 TOME_OF_ENLIGHTMENT
   rotate: false
-  xy: 514, 1524
+  xy: 0, 496
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
@@ -184,7 +177,7 @@ ic_resist_phys
   index: -1
 ic_vuln_fire
   rotate: false
-  xy: 1542, 527
+  xy: 1800, 1200
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -205,7 +198,7 @@ icon_inventory
   index: -1
 icon_inventory_pressed
   rotate: false
-  xy: 1930, 1714
+  xy: 1542, 595
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
@@ -233,7 +226,7 @@ icon_party
   index: -1
 icon_party_pressed
   rotate: false
-  xy: 131, 10
+  xy: 1930, 1714
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
@@ -297,7 +290,7 @@ shard_base_health
   index: -1
 shard_damage_fire
   rotate: false
-  xy: 1800, 1200
+  xy: 1542, 657
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -311,7 +304,7 @@ shard_resist_fire
   index: -1
 shard_resist_phys
   rotate: false
-  xy: 1542, 787
+  xy: 1800, 1460
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -340,27 +333,34 @@ white_border
   index: -1
 
 ui2.png
-size: 2048, 512
+size: 2048, 2048
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
 FLAMEHEART_BELT
   rotate: false
-  xy: 0, 0
+  xy: 0, 514
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+HELM_OF_IRON_WILL
+  rotate: false
+  xy: 0, 1028
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 SCROLL_OF_WISDOM
   rotate: false
-  xy: 1028, 0
+  xy: 0, 0
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 THEMPERSTRIDE_BOOTS
   rotate: false
-  xy: 514, 0
+  xy: 514, 1028
   size: 512, 512
   orig: 512, 512
   offset: 0, 0

@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.services.profile
 
+import com.game7th.items.InventoryItem
 import com.game7th.swipe.battle.CharacterAttributes
 
 enum class SwipeCurrency {
@@ -50,7 +51,8 @@ data class SwipeProfile(
     val balances: List<CurrencyBalance>,
     val actProgress: List<ActProgress>,
     val rewardsCollected: List<ActCollectedReward>?,
-    val characters: List<SwipeCharacter>
+    val characters: List<SwipeCharacter>,
+    val items: List<InventoryItem>,
 ) {
     private fun getRewardsCollectedOrEmpty() = rewardsCollected ?: emptyList()
 
@@ -59,6 +61,11 @@ data class SwipeProfile(
         val now = balances.firstOrNull { it.currency == currency } ?: CurrencyBalance(currency, 0).also { profile = profile.copy(balances = profile.balances + it) }
         val new = now.copy(amount = now.amount + amount)
         return profile.copy(balances = profile.balances.map { if (it.currency == currency) new else it })
+    }
+
+    fun addItem(item: InventoryItem): SwipeProfile {
+        val items = this.items + item
+        return copy(items = items)
     }
 
     fun getBalance(currency: SwipeCurrency) = balances.firstOrNull { it.currency == currency }?.amount ?: 0

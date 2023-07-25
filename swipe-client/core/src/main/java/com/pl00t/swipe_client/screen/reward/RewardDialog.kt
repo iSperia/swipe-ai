@@ -71,6 +71,12 @@ class RewardDialog(
                     rewardTable.add(entryActor).padBottom(5f).top()
                     rewardTable.row()
                 }
+
+                is CollectedReward.CollectedItem -> {
+                    val entryActor = ItemRewardEntryActor(reward, context, skin)
+                    rewardTable.add(entryActor).padBottom(5f).top()
+                    rewardTable.row()
+                }
             }
         }
 

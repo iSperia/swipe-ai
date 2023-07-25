@@ -25,7 +25,7 @@
     "ls_heal_base": 25,
     "ls_heal_scale": 10
   },
-  "scale": 0.6,
+  "scale": 1,
   "abilities": [
     {
       "title": "Vicious Pincers",

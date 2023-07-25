@@ -67,7 +67,7 @@ class SwipeGame : Game(), Router {
             itemService = ItemServiceImpl(Gson(), fileService)
             monsterService = MonsterServiceImpl(fileService)
             levelService = LevelServiceImpl(fileService, monsterService)
-            profileService = ProfileServiceImpl(levelService, monsterService)
+            profileService = ProfileServiceImpl(levelService, monsterService, itemService)
             battleService = BattleServiceImpl(levelService, monsterService, profileService)
 
             navigateMap(SwipeAct.ACT_1)

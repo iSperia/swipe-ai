@@ -50,6 +50,11 @@
             "amount": 100,
             "type": "ETHERIUM_COIN"
           }
+        },
+        {
+          "type": "item",
+          "skin": "HELM_OF_IRON_WILL",
+          "rarity": 4
         }
       ]
     },
@@ -233,7 +238,7 @@
       "type": "BOSS",
       "id": "c4",
       "title": "Thalendros, the Corrupted Treant",
-      "background": "enchanted_sanctuary",
+      "background": "groves",
       "description": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
       "monsters": [
         [
