@@ -191,16 +191,44 @@ dialog_bubble
   index: -1
 gem_active
   rotate: false
-  xy: 904, 697
+  xy: 904, 401
   size: 64, 61
   orig: 64, 61
   offset: 0, 0
   index: -1
 gem_inactive
   rotate: false
-  xy: 590, 181
+  xy: 904, 338
   size: 64, 61
   orig: 64, 61
+  offset: 0, 0
+  index: -1
+ic_body
+  rotate: false
+  xy: 904, 686
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+ic_health
+  rotate: false
+  xy: 516, 170
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+ic_luck
+  rotate: false
+  xy: 904, 538
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+ic_mind
+  rotate: false
+  xy: 904, 464
+  size: 72, 72
+  orig: 72, 72
   offset: 0, 0
   index: -1
 ic_resist_fire
@@ -217,6 +245,13 @@ ic_resist_phys
   orig: 128, 128
   offset: 0, 0
   index: -1
+ic_spirit
+  rotate: false
+  xy: 664, 170
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
 ic_vuln_fire
   rotate: false
   xy: 1288, 1608
@@ -231,23 +266,30 @@ ic_vuln_phys
   orig: 128, 128
   offset: 0, 0
   index: -1
-icon_inventory
+ic_wisdom
   rotate: false
-  xy: 656, 182
-  size: 48, 60
-  orig: 48, 60
+  xy: 904, 612
+  size: 72, 72
+  orig: 72, 72
   offset: 0, 0
   index: -1
-icon_inventory_pressed
+icon_inventory
   rotate: false
   xy: 1418, 1614
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
+icon_inventory_pressed
+  rotate: false
+  xy: 976, 958
+  size: 48, 60
+  orig: 48, 60
+  offset: 0, 0
+  index: -1
 icon_map
   rotate: false
-  xy: 904, 635
+  xy: 904, 276
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
@@ -268,16 +310,23 @@ icon_party
   index: -1
 icon_party_pressed
   rotate: false
-  xy: 904, 573
+  xy: 976, 896
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_star
   rotate: false
-  xy: 516, 170
+  xy: 590, 170
   size: 72, 72
   orig: 72, 72
+  offset: 0, 0
+  index: -1
+item_bg
+  rotate: false
+  xy: 2007, 2032
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 opaque_black

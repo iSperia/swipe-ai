@@ -10,6 +10,8 @@ import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.game7th.swipe.battle.UnitSkin
+import com.pl00t.swipe_client.screen.Router
+import com.pl00t.swipe_client.screen.map.MapScreenRouter
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
 import ktx.async.KtxAsync
@@ -17,16 +19,8 @@ import ktx.async.KtxAsync
 class NavigationPanel(
     private val context: SwipeContext,
     private val skin: Skin,
-    private val router: Router,
+    private val router: MapScreenRouter,
 ) : Group() {
-
-    interface Router {
-        fun showHeroesList()
-        fun showSelectKingdom()
-        fun showInventory()
-
-        fun activeCharacterChanged()
-    }
 
     val characterShadow = Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(UnitSkin.CHARACTER_VALERIAN.toString())).apply {
         width = 80f

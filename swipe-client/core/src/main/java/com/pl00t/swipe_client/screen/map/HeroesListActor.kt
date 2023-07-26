@@ -23,7 +23,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class HeroesListActor(
-    private val router: NavigationPanel.Router,
+    private val router: MapScreenRouter,
     private val profileService: ProfileService,
     private val monsterService: MonsterService,
     private val context: SwipeContext,
@@ -119,7 +119,7 @@ class HeroesListActor(
 
             val hero = heroes[index]
             val monster = monsterService.getMonster(hero.skin.toString()) ?: return
-            val actor = MonsterDetailActor(context.height() - 180f, monster, hero, context, skin)
+            val actor = MonsterDetailActor(context.height() - 180f, monster, hero, context, skin, router)
             if (heroContainer.hasChildren()) heroContainer.getChild(0)?.hideToBehindAndRemove(context.height() - 180f)
             heroContainer.addActor(actor)
             actor.raiseFromBehind(context.height() - 180f)

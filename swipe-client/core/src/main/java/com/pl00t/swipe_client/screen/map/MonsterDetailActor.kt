@@ -34,6 +34,7 @@ class MonsterDetailActor(
     private var character: SwipeCharacter?,
     private val context: SwipeContext,
     private val skin: Skin,
+    private val router: MapScreenRouter,
 ) : Group() {
 
     lateinit var scroll: ScrollPane
@@ -47,62 +48,74 @@ class MonsterDetailActor(
                 width = context.width()
                 height = context.height()
             }
-            val monsterImage =
-                Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(monsterInfo.skin.toString())).apply {
-                    name = "monster_image"
-                    width = 120f
-                    height = 200f
-                    setScaling(Scaling.stretch)
-                }
-
             val title = ScreenTitle.createScreenTitle(context, skin, monsterInfo.name).apply {
                 y = spaceHeight - 60f
                 x = 60f
             }
 
-            val paragraphIndex = monsterInfo.lore.indexOf("\n")
-            val needReadMore = paragraphIndex > 0
-            val text = if (needReadMore) monsterInfo.lore.take(paragraphIndex) else monsterInfo.lore
+            if (character != null) {
+                val label = Label("Character Info", skin, "wave_caption").apply {
+                    width = 480f
+                    setAlignment(Align.center)
+                }
+                table.add(label).padBottom(10f).row()
 
-            val monsterLore = Label(text, skin, "lore_small").apply {
-                name = "monster_lore"
-                width = 340f
-                wrap = true
-                setAlignment(Align.topLeft)
-            }
+                val actor = HeroAttributesEquipmentActor(context, skin, character!!, router)
+                table.add(actor).width(480f).colspan(2).row()
+            } else {
+                val monsterImage =
+                    Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(monsterInfo.skin.toString())).apply {
+                        name = "monster_image"
+                        width = 120f
+                        height = 200f
+                        setScaling(Scaling.stretch)
+                    }
 
-            val loreTable = Table()
-            val loreTextTable = Table()
-            loreTable.add(monsterImage).width(120f).padLeft(5f).padRight(5f).height(200f)
-            loreTextTable.add(monsterLore).padLeft(5f).padRight(5f).align(Align.bottomLeft).width(340f)
-            loreTextTable.row()
-            if (needReadMore) {
-                val readMore = Label("Read more...", skin, "text_small").apply {
+
+                val paragraphIndex = monsterInfo.lore.indexOf("\n")
+                val needReadMore = paragraphIndex > 0
+                val text = if (needReadMore) monsterInfo.lore.take(paragraphIndex) else monsterInfo.lore
+
+                val monsterLore = Label(text, skin, "lore_small").apply {
+                    name = "monster_lore"
                     width = 340f
-                    setAlignment(Align.topRight)
+                    wrap = true
+                    setAlignment(Align.topLeft)
                 }
 
-                readMore.onClick {
-                    readMore.isVisible = false
-                    readMore.remove()
-                    monsterLore.setText(monsterInfo.lore)
+                val loreTable = Table()
+                val loreTextTable = Table()
+                loreTable.add(monsterImage).width(120f).padLeft(5f).padRight(5f).height(200f)
+                loreTextTable.add(monsterLore).padLeft(5f).padRight(5f).align(Align.bottomLeft).width(340f)
+                loreTextTable.row()
+                if (needReadMore) {
+                    val readMore = Label("Read more...", skin, "text_small").apply {
+                        width = 340f
+                        setAlignment(Align.topRight)
+                    }
+
+                    readMore.onClick {
+                        readMore.isVisible = false
+                        readMore.remove()
+                        monsterLore.setText(monsterInfo.lore)
+                    }
+                    loreTextTable.add(readMore).align(Align.right)
                 }
-                loreTextTable.add(readMore).align(Align.right)
-            }
-            loreTable.add(loreTextTable)
+                loreTable.add(loreTextTable)
 
-            val loreLabel = Label("Description", skin, "wave_caption").apply {
-                width = 480f
-                setAlignment(Align.center)
-            }
-            table.add(loreLabel).padBottom(10f).row()
-            table.add(loreTable).row()
+                val loreLabel = Label("Description", skin, "wave_caption").apply {
+                    width = 480f
+                    setAlignment(Align.center)
+                }
+                table.add(loreLabel).padBottom(10f).row()
+                table.add(loreTable).row()
 
-            val attributesLabel = Label("Attributes", skin, "wave_caption").apply {
-                width = 480f
-                setAlignment(Align.center)
+                val attributesLabel = Label("Attributes", skin, "wave_caption").apply {
+                    width = 480f
+                    setAlignment(Align.center)
+                }
+                table.add(attributesLabel).padBottom(10f).row()
             }
-            table.add(attributesLabel).padBottom(10f).row()
 
             val char = character
             if (char != null) {

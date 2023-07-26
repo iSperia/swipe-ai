@@ -25,6 +25,7 @@ import com.game7th.swipe.battle.BattleEvent
 import com.game7th.swipe.game.SbBattleFieldDisplayEffect
 import com.game7th.swipe.game.SbDisplayEvent
 import com.game7th.swipe.game.SbTileFieldDisplayEffect
+import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.services.levels.DialogEntryModel
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.profile.ProfileService
@@ -45,6 +46,7 @@ class BattleScreen(
     private val levelService: LevelService,
     private val battleService: BattleService,
     private val profileService: ProfileService,
+    private val monsterService: MonsterService,
     private val router: Router,
 ) : StageScreen(amCore, inputMultiplexer), SimpleDirectionGestureDetector.DirectionListener {
 
@@ -641,6 +643,8 @@ class BattleScreen(
     override fun onDown() = processSwipe(0, -1)
 
     override fun profileService() = profileService
+
+    override fun monsterService() = monsterService
 
     private fun processSwipe(dx: Int, dy: Int) {
         KtxAsync.launch { battleService.processSwipe(dx, dy) }

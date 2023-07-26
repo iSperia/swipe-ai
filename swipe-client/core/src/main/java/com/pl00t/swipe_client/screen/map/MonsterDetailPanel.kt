@@ -16,6 +16,7 @@ class MonsterDetailPanel(
     private val monsterConfiguration: SbMonsterConfiguration,
     private val context: SwipeContext,
     private val skin: Skin,
+    private val router: MapScreenRouter,
 ) : Group() {
 
     init {
@@ -38,7 +39,8 @@ class MonsterDetailPanel(
             monsterConfiguration,
             character = null,
             context,
-            skin
+            skin,
+            router
         ).apply {
             y = 60f
         }

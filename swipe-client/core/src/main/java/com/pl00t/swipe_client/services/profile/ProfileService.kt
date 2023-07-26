@@ -34,6 +34,8 @@ interface ProfileService {
 
     suspend fun addItem(item: InventoryItem)
 
+    suspend fun getItems(): List<InventoryItem>
+
     data class SpendExperienceCurrencyResult(
         val character: SwipeCharacter,
         val balance: Int,
@@ -267,6 +269,8 @@ class ProfileServiceImpl(
         profile = profile.addItem(item)
         saveProfile()
     }
+
+    override suspend fun getItems(): List<InventoryItem> = profile.items
 
     companion object {
         fun getExperience(level: Int): Int = level * level

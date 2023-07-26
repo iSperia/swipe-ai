@@ -32,6 +32,13 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 import ktx.log.debug
 
+interface MapScreenRouter {
+    fun showSelectKingdom()
+    fun showInventory()
+    fun activeCharacterChanged()
+    fun showHeroesList()
+}
+
 class MapScreen(
     private val act: SwipeAct,
     amCore: AssetManager,
@@ -40,7 +47,7 @@ class MapScreen(
     private val levelService: LevelService,
     private val monsterService: MonsterService,
     private val router: Router,
-) : StageScreen(amCore, inputMultiplexer), GestureDetector.GestureListener, LevelDetailsCallback, NavigationPanel.Router {
+) : StageScreen(amCore, inputMultiplexer), GestureDetector.GestureListener, LevelDetailsCallback, MapScreenRouter {
 
     lateinit var mapAssetManager: AssetManager
     lateinit var skin: Skin
@@ -258,7 +265,8 @@ class MapScreen(
                 val monsterDetailActor = MonsterDetailPanel(
                     monsterConfiguration = config,
                     context = this@MapScreen,
-                    skin = skin
+                    skin = skin,
+                    router = this@MapScreen
                 )
                 root.addActor(monsterDetailActor)
                 monsterDetailActor.raiseFromBehind(root.height)
@@ -281,6 +289,8 @@ class MapScreen(
 
     override fun showInventory() {
     }
+
+    override fun monsterService() = monsterService
 
     override fun profileService() = profileService
 }
