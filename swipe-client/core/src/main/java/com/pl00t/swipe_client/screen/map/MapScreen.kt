@@ -21,6 +21,9 @@ import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.game7th.swipe.monsters.MonsterService
+import com.pl00t.swipe_client.screen.items.ItemBrowserAction
+import com.pl00t.swipe_client.screen.items.ItemBrowserActor
+import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.ScreenTitle
@@ -46,6 +49,7 @@ class MapScreen(
     private val profileService: ProfileService,
     private val levelService: LevelService,
     private val monsterService: MonsterService,
+    private val itemService: ItemService,
     private val router: Router,
 ) : StageScreen(amCore, inputMultiplexer), GestureDetector.GestureListener, LevelDetailsCallback, MapScreenRouter {
 
@@ -61,6 +65,7 @@ class MapScreen(
     lateinit var mapIconsGroup: Group
     lateinit var navigationPanel: NavigationPanel
     private var levelDetailsActor: LevelDetailsActor? = null
+    private var inventoryBroswerActor: ItemBrowserActor? = null
 
     lateinit var mapTitle: Group
 
@@ -288,9 +293,30 @@ class MapScreen(
     }
 
     override fun showInventory() {
+        this@MapScreen.inventoryBroswerActor = ItemBrowserActor(
+            categoryFilter = null,
+            selectedId = null,
+            browserWidth = 480f,
+            browserHeight = 360f,
+            context = this@MapScreen,
+            skin = skin,
+            actionsProvider = {
+                listOf(ItemBrowserAction.CLOSE)
+            },
+            actionsHandler = { action, item ->
+                when (action) {
+                    ItemBrowserAction.CLOSE -> inventoryBroswerActor?.hideToBehindAndRemove(760f)
+                    else -> {}
+                }
+            }
+        )
+        inventoryBroswerActor?.raiseFromBehind(640f)
+        root.addActor(inventoryBroswerActor)
     }
 
     override fun monsterService() = monsterService
+
+    override fun itemService() = itemService
 
     override fun profileService() = profileService
 }

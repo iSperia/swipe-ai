@@ -2,6 +2,7 @@ package com.pl00t.swipe_client.services.profile
 
 import com.badlogic.gdx.Gdx
 import com.game7th.items.InventoryItem
+import com.game7th.items.ItemCategory
 import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.game7th.swipe.battle.UnitSkin
@@ -35,6 +36,10 @@ interface ProfileService {
     suspend fun addItem(item: InventoryItem)
 
     suspend fun getItems(): List<InventoryItem>
+
+    suspend fun equipItem(skin: String, item: InventoryItem)
+
+    suspend fun unequipItem(id: String)
 
     data class SpendExperienceCurrencyResult(
         val character: SwipeCharacter,
@@ -271,6 +276,32 @@ class ProfileServiceImpl(
     }
 
     override suspend fun getItems(): List<InventoryItem> = profile.items
+
+    override suspend fun equipItem(skin: String, item: InventoryItem) {
+        val updatedItems = profile.items.map { itemToUpdate ->
+            if (itemToUpdate.id == item.id) {
+                itemToUpdate.copy(equippedBy = skin)
+            } else if (itemToUpdate.category == item.category && itemToUpdate.equippedBy == skin) {
+                itemToUpdate.copy(equippedBy = null)
+            } else {
+                itemToUpdate
+            }
+        }
+        profile = profile.copy(items = updatedItems)
+        saveProfile()
+    }
+
+    override suspend fun unequipItem(id: String) {
+        val updatedItems = profile.items.map { item ->
+            if (item.id == id) {
+                item.copy(equippedBy = null)
+            } else {
+                item
+            }
+        }
+        profile = profile.copy(items = updatedItems)
+        saveProfile()
+    }
 
     companion object {
         fun getExperience(level: Int): Int = level * level

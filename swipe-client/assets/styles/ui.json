@@ -21,9 +21,41 @@
       font: caption_bold
       fontColor: accent_color
     },
+    item_rarity_0: {
+      font: caption_bold
+      fontColor: white_color
+    },
+    item_rarity_1: {
+      font: caption_bold
+      fontColor: rarity_1
+    },
+    item_rarity_2: {
+      font: caption_bold
+      fontColor: rarity_2
+    },
+    item_rarity_3: {
+      font: caption_bold
+      fontColor: rarity_3
+    },
+    item_rarity_4: {
+      font: caption_bold
+      fontColor: rarity_4
+    },
+    item_rarity_5: {
+      font: caption_bold
+      fontColor: rarity_5
+    },
     wave_caption: {
       font: caption_regular
       fontColor: accent_color
+    },
+    implicit_text: {
+      font: text_large
+      fontColor: accent_color
+    },
+    affix_text: {
+      font: text_large
+      fontColor: white_color
     },
     dialog_title: {
       font: caption_regular

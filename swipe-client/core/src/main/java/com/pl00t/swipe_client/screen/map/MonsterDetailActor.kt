@@ -9,16 +9,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
+import com.game7th.items.InventoryItem
+import com.game7th.items.ItemCategory
 import com.game7th.swipe.battle.SbMonsterConfiguration
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.screen.reward.CurrencyRewardEntryActor
 import com.game7th.swipe.battle.SbMonsterEntry
+import com.pl00t.swipe_client.screen.items.ItemBrowserAction
+import com.pl00t.swipe_client.screen.items.ItemBrowserActor
+import com.pl00t.swipe_client.screen.items.ItemDetailsActor
 import com.pl00t.swipe_client.services.profile.CollectedReward
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.Buttons
 import com.pl00t.swipe_client.ux.ScreenTitle
+import com.pl00t.swipe_client.ux.hideToBehindAndRemove
+import com.pl00t.swipe_client.ux.raiseFromBehind
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
 import ktx.async.KtxAsync
@@ -35,16 +42,21 @@ class MonsterDetailActor(
     private val context: SwipeContext,
     private val skin: Skin,
     private val router: MapScreenRouter,
-) : Group() {
+) : Group(), (ItemCategory, String?) -> Unit {
 
     lateinit var scroll: ScrollPane
-    lateinit var attributesActor: AttributeActor
+    private var attributesActor: AttributeActor? = null
+    private var itemBrowser: ItemBrowserActor? = null
 
     init {
+        reloadData()
+    }
+
+    private fun reloadData() {
+        clearChildren()
         KtxAsync.launch {
             val table = Table()
-
-            val blackBackground = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg")).apply {
+            val blackBackground = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_dark_blue")).apply {
                 width = context.width()
                 height = context.height()
             }
@@ -53,6 +65,7 @@ class MonsterDetailActor(
                 x = 60f
             }
 
+
             if (character != null) {
                 val label = Label("Character Info", skin, "wave_caption").apply {
                     width = 480f
@@ -60,7 +73,7 @@ class MonsterDetailActor(
                 }
                 table.add(label).padBottom(10f).row()
 
-                val actor = HeroAttributesEquipmentActor(context, skin, character!!, router)
+                val actor = HeroAttributesEquipmentActor(context, skin, character!!, router, this@MonsterDetailActor)
                 table.add(actor).width(480f).colspan(2).row()
             } else {
                 val monsterImage =
@@ -161,8 +174,9 @@ class MonsterDetailActor(
                     table.add(group).padLeft(10f).padRight(10f).row()
 
                     useButton.onClick {
-                        val result = context.profileService().spendExperienceCurrency(currency.currency, monsterInfo.skin)
-                        attributesActor.updateAttributes(result.character.attributes)
+                        val result =
+                            context.profileService().spendExperienceCurrency(currency.currency, monsterInfo.skin)
+                        attributesActor?.updateAttributes(result.character.attributes)
 
                         val oldCharacter = character!!
                         character = result.character
@@ -189,14 +203,15 @@ class MonsterDetailActor(
                     }
                 }
             }
-            attributesActor = AttributeActor(
-                attributes = character?.attributes ?: monsterInfo.attributes,
-                mode = if (character == null) AttributeActor.Mode.PERCENT else AttributeActor.Mode.ABSOLUTE,
-                context = context,
-                skin = skin
-            )
-            table.add(attributesActor).align(Align.center).row()
-
+            if (char == null) {
+                attributesActor = AttributeActor(
+                    attributes = character?.attributes ?: monsterInfo.attributes,
+                    mode = if (character == null) AttributeActor.Mode.PERCENT else AttributeActor.Mode.ABSOLUTE,
+                    context = context,
+                    skin = skin
+                )
+                table.add(attributesActor).align(Align.center).row()
+            }
 
             val abilitiesLabel = Label("Abilities", skin, "wave_caption").apply {
                 width = 480f
@@ -207,11 +222,12 @@ class MonsterDetailActor(
             val abilsTable = Table()
 
             monsterInfo.abilities?.forEach { ability ->
-                val tarot = Image(context.commonAtlas(Atlases.COMMON_SKILLS).findRegion(ability.skin.toString())).apply {
-                    width = 120f
-                    height = 120f
-                    setScaling(Scaling.stretch)
-                }
+                val tarot =
+                    Image(context.commonAtlas(Atlases.COMMON_SKILLS).findRegion(ability.skin.toString())).apply {
+                        width = 120f
+                        height = 120f
+                        setScaling(Scaling.stretch)
+                    }
                 abilsTable.add(tarot).pad(5f).width(120f).height(120f).align(Align.topLeft)
 
                 val sideTable = Table()
@@ -262,6 +278,51 @@ class MonsterDetailActor(
 
             addActor(title)
             addActor(scroll)
+        }
+    }
+
+    override fun invoke(category: ItemCategory, itemId: String?) {
+        KtxAsync.launch {
+            itemBrowser?.let {
+                it.hideToBehindAndRemove(640f)
+            }
+            itemBrowser = ItemBrowserActor(
+                categoryFilter = category,
+                selectedId = itemId,
+                browserWidth = 480f,
+                browserHeight = 360f,
+                context = context,
+                skin = skin,
+                actionsProvider = { item ->
+                    val equippedItemId = context.profileService().getItems().firstOrNull { it.equippedBy == monsterInfo.skin }?.id
+                    val actions = mutableListOf(ItemBrowserAction.CLOSE)
+                    if (item.id == equippedItemId) {
+                        actions.add(ItemBrowserAction.UNEQUIP)
+                    } else {
+                        actions.add(ItemBrowserAction.EQUIP)
+                    }
+                    actions
+                },
+                actionsHandler = { action, item ->
+                    when (action) {
+                        ItemBrowserAction.CLOSE -> itemBrowser?.let { it.hideToBehindAndRemove(640f) }
+                        ItemBrowserAction.EQUIP -> {
+                            context.profileService().equipItem(monsterInfo.skin, item)
+                            reloadData()
+                        }
+                        ItemBrowserAction.UNEQUIP -> {
+                            context.profileService().unequipItem(item.id)
+                            reloadData()
+                        }
+                        else -> {}
+                    }
+                }
+            )
+            itemBrowser?.raiseFromBehind(640f)
+            context.profileService().getItems().firstOrNull { it.id == itemId }?.let { item ->
+
+            }
+            addActor(itemBrowser)
         }
     }
 }

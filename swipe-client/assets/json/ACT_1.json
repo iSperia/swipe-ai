@@ -54,32 +54,92 @@
         {
           "type": "item",
           "skin": "HELM_OF_IRON_WILL",
-          "rarity": 4
+          "rarity": 1
         },
         {
           "type": "item",
           "skin": "RING_OF_ILLUMINATION",
-          "rarity": 4
+          "rarity": 1
         },
         {
           "type": "item",
           "skin": "SHADOWBANE_AMULET",
-          "rarity": 4
+          "rarity": 1
         },
         {
           "type": "item",
           "skin": "FROSTGUARD_GAUNTLETS",
-          "rarity": 4
+          "rarity": 1
         },
         {
           "type": "item",
           "skin": "FLAMEHEART_BELT",
-          "rarity": 4
+          "rarity": 1
         },
         {
           "type": "item",
           "skin": "THEMPERSTRIDE_BOOTS",
-          "rarity": 4
+          "rarity": 1
+        },
+        {
+          "type": "item",
+          "skin": "HELM_OF_IRON_WILL",
+          "rarity": 2
+        },
+        {
+          "type": "item",
+          "skin": "RING_OF_ILLUMINATION",
+          "rarity": 2
+        },
+        {
+          "type": "item",
+          "skin": "SHADOWBANE_AMULET",
+          "rarity": 2
+        },
+        {
+          "type": "item",
+          "skin": "FROSTGUARD_GAUNTLETS",
+          "rarity": 2
+        },
+        {
+          "type": "item",
+          "skin": "FLAMEHEART_BELT",
+          "rarity": 2
+        },
+        {
+          "type": "item",
+          "skin": "THEMPERSTRIDE_BOOTS",
+          "rarity": 2
+        },
+        {
+          "type": "item",
+          "skin": "HELM_OF_IRON_WILL",
+          "rarity": 3
+        },
+        {
+          "type": "item",
+          "skin": "RING_OF_ILLUMINATION",
+          "rarity": 3
+        },
+        {
+          "type": "item",
+          "skin": "SHADOWBANE_AMULET",
+          "rarity": 3
+        },
+        {
+          "type": "item",
+          "skin": "FROSTGUARD_GAUNTLETS",
+          "rarity": 3
+        },
+        {
+          "type": "item",
+          "skin": "FLAMEHEART_BELT",
+          "rarity": 3
+        },
+        {
+          "type": "item",
+          "skin": "THEMPERSTRIDE_BOOTS",
+          "rarity": 3
         }
       ]
     },
@@ -263,7 +323,7 @@
       "type": "BOSS",
       "id": "c4",
       "title": "Thalendros, the Corrupted Treant",
-      "background": "groves",
+      "background": "enchanted_sanctuary",
       "description": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
       "monsters": [
         [

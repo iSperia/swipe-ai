@@ -57,7 +57,7 @@ class LevelDetailsActor(
             y = 570f
         }
 
-        val panel = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("panel_bg")).apply {
+        val panel = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_blue")).apply {
             width = 480f
             height = 60f
         }

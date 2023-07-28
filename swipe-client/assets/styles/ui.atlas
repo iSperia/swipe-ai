@@ -151,9 +151,79 @@ bg
   orig: 200, 360
   offset: 0, 0
   index: -1
-black_pixel
+bg_blue
+  rotate: false
+  xy: 2007, 2032
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+bg_dark_blue
+  rotate: false
+  xy: 261, 15
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+bg_gold
+  rotate: false
+  xy: 202, 661
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+bg_light_blue
+  rotate: false
+  xy: 1288, 1590
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+bg_rarity
+  rotate: false
+  xy: 258, 160
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 3
+bg_rarity
   rotate: false
   xy: 258, 157
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 0
+bg_rarity
+  rotate: false
+  xy: 258, 154
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 5
+bg_rarity
+  rotate: false
+  xy: 258, 151
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 2
+bg_rarity
+  rotate: false
+  xy: 258, 148
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 4
+bg_rarity
+  rotate: false
+  xy: 516, 167
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 1
+black_pixel
+  rotate: false
+  xy: 460, 1019
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -324,14 +394,14 @@ icon_star
   index: -1
 item_bg
   rotate: false
-  xy: 2007, 2032
+  xy: 1728, 1774
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 opaque_black
   rotate: false
-  xy: 258, 160
+  xy: 258, 145
   size: 1, 1
   orig: 1, 1
   offset: 0, 0

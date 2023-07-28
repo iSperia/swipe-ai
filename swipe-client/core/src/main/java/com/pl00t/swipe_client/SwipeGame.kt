@@ -80,10 +80,10 @@ class SwipeGame : Game(), Router {
     }
 
     override fun navigateBattle(act: SwipeAct, locationId: String) {
-        setScreen(BattleScreen(act, locationId, amCore, inputMultiplexer, levelService, battleService, profileService, monsterService, this))
+        setScreen(BattleScreen(act, locationId, amCore, inputMultiplexer, levelService, battleService, profileService, monsterService, itemService, this))
     }
 
     override fun navigateMap(act: SwipeAct) {
-        setScreen(MapScreen(act, amCore, inputMultiplexer, profileService, levelService, monsterService, this))
+        setScreen(MapScreen(act, amCore, inputMultiplexer, profileService, levelService, monsterService, itemService, this))
     }
 }

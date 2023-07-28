@@ -2,6 +2,7 @@ package com.pl00t.swipe_client
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.game7th.swipe.monsters.MonsterService
+import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 
@@ -28,4 +29,6 @@ interface SwipeContext {
     fun profileService(): ProfileService
 
     fun monsterService(): MonsterService
+
+    fun itemService(): ItemService
 }

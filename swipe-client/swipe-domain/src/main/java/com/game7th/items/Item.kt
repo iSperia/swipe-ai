@@ -1,5 +1,7 @@
 package com.game7th.items
 
+import com.game7th.swipe.battle.UnitSkin
+
 enum class ItemAffixType {
     IMPLICIT_DARK_RESIST_FLAT,
     IMPLICIT_COLD_RESIST_FLAT,
@@ -37,11 +39,13 @@ data class ItemTemplate(
 )
 
 data class InventoryItem(
+    val id: String,
     val skin: String,
     val implicit: List<ItemAffix>,
     val affixes: List<ItemAffix>,
     val level: Int,
     val rarity: Int,
-    val category: ItemCategory
+    val category: ItemCategory,
+    val equippedBy: String?,
 )
 

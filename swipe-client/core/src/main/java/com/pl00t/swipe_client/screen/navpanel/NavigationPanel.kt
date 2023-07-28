@@ -48,7 +48,7 @@ class NavigationPanel(
         setAlignment(Align.center)
     }
 
-    val panelBg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("panel_bg")).apply {
+    val panelBg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_dark_blue")).apply {
         width = 480f
         height = 72f
     }
@@ -76,6 +76,9 @@ class NavigationPanel(
     init {
         buttonParty.onClick {
             router.showHeroesList()
+        }
+        buttonInventory.onClick {
+            router.showInventory()
         }
 
         reloadActiveHeroLabel()

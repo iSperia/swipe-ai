@@ -10,6 +10,8 @@ import com.game7th.items.InventoryItem
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import ktx.actors.alpha
+import ktx.actors.repeatForever
+import javax.swing.GroupLayout.Alignment
 
 class InventoryCellActor(
     private val context: SwipeContext,
@@ -18,11 +20,21 @@ class InventoryCellActor(
     private val item: InventoryItem,
 ) : Group() {
 
+    private val itemImage: Image
+
     init {
-        val itemImage = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion(item.skin)).apply {
+        val rarityImage = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_rarity", item.rarity)).apply {
+            width = size - 2f
+            height = size - 2f
+            x = 1f
+            y = 1f
+        }
+        itemImage = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion(item.skin)).apply {
             width = size
             height = size
+            setOrigin(Align.center)
         }
+        addActor(rarityImage)
         addActor(itemImage)
 
         val starSize = size / 5f
@@ -51,5 +63,18 @@ class InventoryCellActor(
         }
         addActor(levelLabel)
 
+    }
+
+    fun setFocused(focused: Boolean) {
+        if (focused) {
+            itemImage.setScale(0.95f)
+            itemImage.addAction(Actions.sequence(
+                Actions.scaleTo(1.05f, 1.05f, 1f),
+                Actions.scaleTo(0.95f, 0.95f, 1f)
+            ).repeatForever())
+        } else {
+            itemImage.clearActions()
+            itemImage.setScale(1f)
+        }
     }
 }

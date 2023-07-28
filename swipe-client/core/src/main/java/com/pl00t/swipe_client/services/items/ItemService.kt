@@ -3,6 +3,7 @@ package com.pl00t.swipe_client.services.items
 import com.game7th.items.*
 import com.google.gson.Gson
 import com.pl00t.swipe_client.services.files.FileService
+import java.util.UUID
 import kotlin.random.Random
 
 interface ItemService {
@@ -27,7 +28,8 @@ data class AffixConfigEntry(
     val affix: ItemAffixType,
     val valuePerTier: Float,
     val weights: List<AffixWeightConfig>?,
-    val scalable: Boolean? = false
+    val scalable: Boolean? = false,
+    val description: String
 )
 
 data class AffixesFile(
@@ -82,14 +84,19 @@ class ItemServiceImpl(gson: Gson, fileService: FileService): ItemService {
 
         val affixes = mutableListOf<ItemAffix>()
 
+        val affixesFilled = mutableListOf<ItemAffixType>()
         (0 until affixesToGenerate).forEach { _ ->
-            val random = Random.nextInt(totalWeight)
-            var s = 0
-            val entry = weightMap.entries.first {
-                s += it.value
-                s >= random
+            var entry: ItemAffixType? = null
+            while (entry == null || affixesFilled.contains(entry)) {
+                val random = Random.nextInt(totalWeight)
+                var s = 0
+                entry = weightMap.entries.first {
+                    s += it.value
+                    s >= random
+                }.key
             }
-            this.affixes[entry.key]?.let { ace ->
+            affixesFilled.add(entry)
+            this.affixes[entry]?.let { ace ->
                 affixes.add(ItemAffix(
                     affix = ace.affix,
                     value = ace.valuePerTier,
@@ -101,6 +108,7 @@ class ItemServiceImpl(gson: Gson, fileService: FileService): ItemService {
 
         return getItemTemplate(skin)?.let { template ->
             InventoryItem(
+                id = UUID.randomUUID().toString(),
                 skin = skin,
                 implicit = template.implicit.mapNotNull { affixConfig ->
                     this.affixes[affixConfig]?.let {ace ->
@@ -115,7 +123,8 @@ class ItemServiceImpl(gson: Gson, fileService: FileService): ItemService {
                 affixes = affixes,
                 level = 1,
                 rarity = rarity,
-                category = template.category
+                category = template.category,
+                equippedBy = null,
             )
         }
     }

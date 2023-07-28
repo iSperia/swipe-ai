@@ -37,13 +37,19 @@ class HeroesListActor(
     private val heroBackgrounds = mutableListOf<Image>()
 
     init {
-        val background = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("opaque_black")).apply {
+        val background = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_dark_blue")).apply {
             width = context.height()
             height = context.height()
         }
-        val panelBg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("panel_bg")).apply {
+
+        val panelBg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_blue")).apply {
             height = 180f
             width = 480f
+        }
+        val line = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("panel_line")).apply {
+            y = panelBg.height - 4f
+            width = 480f
+            height = 4f
         }
 
         val closeButton = Buttons.createActionButton("Close", skin).apply {
@@ -58,6 +64,7 @@ class HeroesListActor(
         addActor(background)
         addActor(heroContainer)
         addActor(panelBg)
+        addActor(line)
         addActor(closeButton)
 
         loadHeroes()
@@ -73,7 +80,7 @@ class HeroesListActor(
                     width = 80f
                     height = 120f
                 }
-                val background = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("black_pixel")).apply {
+                val background = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("item_bg")).apply {
                     width = 80f
                     height = 120f
                     isVisible = false
@@ -104,7 +111,7 @@ class HeroesListActor(
                 width = 460f
                 height = 120f
                 x = 10f
-                y = 60f
+                y = 56f
 
             }
 

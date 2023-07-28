@@ -1,6 +1,7 @@
 package com.pl00t.swipe_client.screen.map
 
 import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
@@ -12,6 +13,7 @@ import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import kotlinx.coroutines.launch
+import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class HeroAttributesEquipmentActor(
@@ -19,6 +21,7 @@ class HeroAttributesEquipmentActor(
     private val skin: Skin,
     private var character: SwipeCharacter,
     private val router : MapScreenRouter,
+    private val onItemClicked: (ItemCategory, String?) -> Unit
 ) : Group() {
 
     init {
@@ -99,7 +102,8 @@ class HeroAttributesEquipmentActor(
         }
 
         categories.forEachIndexed { index, itemCategory ->
-            val bg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("item_bg")).apply {
+            val item = context.profileService().getItems().firstOrNull { it.category == itemCategory && it.equippedBy == character.skin }
+            val bg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_rarity", item?.rarity ?: 0)).apply {
                 width = 76f
                 height = 76f
                 x = 2f
@@ -107,10 +111,14 @@ class HeroAttributesEquipmentActor(
             }
             group.addActor(bg)
 
-            context.profileService().getItems().filter { it.category == itemCategory }.randomOrNull()?.let { item ->
+            bg.onClick { this@HeroAttributesEquipmentActor.onItemClicked(itemCategory, item?.id) }
+
+            item?.let { item ->
+
                 val actor = InventoryCellActor(context, skin, 76f, item)
                 actor.x = 2f
                 actor.y = index * 80f + 2f
+                actor.touchable = Touchable.disabled
                 group.addActor(actor)
             }
         }

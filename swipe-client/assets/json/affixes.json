@@ -1,32 +1,9 @@
 {
   "affixes": [
     {
-      "affix": "IMPLICIT_DARK_RESIST_FLAT",
-      "valuePerTier": 2.5
-    },
-    {
-      "affix": "IMPLICIT_COLD_RESIST_FLAT",
-      "valuePerTier": 2.5
-    },
-    {
-      "affix": "IMPLICIT_FIRE_RESIST_FLAT",
-      "valuePerTier": 2.5
-    },
-    {
-      "affix": "IMPLICIT_SHOCK_RESIST_FLAT",
-      "valuePerTier": 2.5
-    },
-    {
-      "affix": "IMPLICIT_PHYS_RESIST_FLAT",
-      "valuePerTier": 2.5
-    },
-    {
-      "affix": "IMPLICIT_LIGHT_RESIST_FLAT",
-      "valuePerTier": 2.5
-    },
-    {
       "affix": "DARK_RESIST_FLAT",
-      "valuePerTier": 1.5,
+      "valuePerTier": 2,
+      "description": "Dark resistance +$%",
       "weights": [
         {
           "weight": 100
@@ -39,7 +16,8 @@
     },
     {
       "affix": "COLD_RESIST_FLAT",
-      "valuePerTier": 1.5,
+      "valuePerTier": 2,
+      "description": "Cold resistance +$%",
       "weights": [
         {
           "weight": 100
@@ -52,7 +30,8 @@
     },
     {
       "affix": "FIRE_RESIST_FLAT",
-      "valuePerTier": 1.5,
+      "valuePerTier": 2,
+      "description": "Fire resistance +$%",
       "weights": [
         {
           "weight": 100
@@ -65,7 +44,8 @@
     },
     {
       "affix": "SHOCK_RESIST_FLAT",
-      "valuePerTier": 1.5,
+      "valuePerTier": 2,
+      "description": "Shock resistance +$%",
       "weights": [
         {
           "weight": 100
@@ -78,7 +58,8 @@
     },
     {
       "affix": "PHYS_RESIST_FLAT",
-      "valuePerTier": 1.5,
+      "valuePerTier": 2,
+      "description": "Physical resistance +$%",
       "weights": [
         {
           "weight": 100
@@ -91,7 +72,8 @@
     },
     {
       "affix": "LIGHT_RESIST_FLAT",
-      "valuePerTier": 1.5,
+      "valuePerTier": 2,
+      "description": "Light resistance +$%",
       "weights": [
         {
           "weight": 100
