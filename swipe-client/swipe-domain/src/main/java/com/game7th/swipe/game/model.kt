@@ -1,5 +1,7 @@
 package com.game7th.swipe.game
 
+import com.game7th.items.InventoryItem
+
 data class CharacterAttributes(
     val mind: Int,
     val body: Int,
@@ -13,7 +15,8 @@ data class CharacterAttributes(
 data class SbHumanEntry(
     val skin: String,
     val level: Int,
-    val attributes: CharacterAttributes
+    val attributes: CharacterAttributes,
+    val items: List<InventoryItem>
 )
 
 data class SbMonsterEntry(

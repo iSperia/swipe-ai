@@ -86,7 +86,7 @@ class BattleServiceImpl(
             },
             triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
         ).apply {
-            initHumans(listOf(SbHumanEntry(character.skin, character.level.level, character.attributes)))
+            initHumans(listOf(SbHumanEntry(character.skin, character.level.level, character.attributes, profileService.getItems().filter { it.equippedBy == character.skin })))
             initWave(levelModel.monsters?.get(0)!!)
         }
         handleContext()
@@ -139,9 +139,8 @@ class BattleServiceImpl(
                 processEnabled = false
             }
         }
-        val eventsToEmit = context.events.map { it.also { println(it) } }
+        val eventsToEmit = context.events.map { it }
         eventsToEmit.forEach { e -> events.emit(e) }
         context.events.removeAll(eventsToEmit)
-        println("--------------------------------")
     }
 }

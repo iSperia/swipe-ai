@@ -13,8 +13,8 @@
   ],
   "balance": {
     "base_health": 250,
-    "vp_base_phys": 10,
-    "vp_base_dark": 10,
+    "vp_base_phys": 12,
+    "vp_base_dark": 12,
     "vp_scale_body": 10,
     "vp_scale_spirit": 10,
     "ds_base": 30,

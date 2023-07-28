@@ -30,7 +30,7 @@
       "characterAttributes": {"mind": 4, "spirit": 4, "body": 4},
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 4,
-      "targetWinrate": 0.08
+      "targetWinrate": 0.25
     }
   ]
 }

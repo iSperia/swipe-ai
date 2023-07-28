@@ -73,7 +73,7 @@ suspend fun testLevel(
             },
             triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
         ).apply {
-            initHumans(listOf(SbHumanEntry(progression.characterSkin, progression.characterLevel, progression.characterAttributes)))
+            initHumans(listOf(SbHumanEntry(progression.characterSkin, progression.characterLevel, progression.characterAttributes, emptyList())))
             initWave(levelModel.monsters?.get(0)!!)
         }
 

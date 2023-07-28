@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.game7th.items.InventoryItem
 import com.game7th.items.ItemCategory
 import com.pl00t.swipe_client.Atlases
@@ -34,6 +35,7 @@ class ItemBrowserActor(
 
     private val detailsContainer = Group()
     private var detailsActor: ItemDetailsActor? = null
+    private var pityCloseButton: TextButton? = null
 
     init {
         val bg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_dark_blue")).apply {
@@ -71,21 +73,25 @@ class ItemBrowserActor(
             if (selectedId == null) {
                 selectedId = items.firstOrNull()?.id
             }
-            items.forEachIndexed { index, item ->
-                val actor = InventoryCellActor(context, skin, 96f, item)
-                actor.name = item.id
-                actor.onClick {
-                    println("Clicked ${item.id}")
-                    selectItem(this.name)
+            if (items.isNotEmpty()) {
+                items.forEachIndexed { index, item ->
+                    val actor = InventoryCellActor(context, skin, 96f, item)
+                    actor.name = item.id
+                    actor.onClick {
+                        println("Clicked ${item.id}")
+                        selectItem(this.name)
+                    }
+                    table.add(actor).width(96f).height(96f)
+                    if (index % 5 == 4) {
+                        table.row()
+                    }
                 }
-                table.add(actor).width(96f).height(96f)
-                if (index % 5 == 4) {
-                    table.row()
-                }
+                table.row()
+                table.add().growY()
+                selectItem(selectedId ?: "")
+            } else {
+
             }
-            table.row()
-            table.add().growY()
-            selectItem(selectedId ?: "")
         }
     }
 

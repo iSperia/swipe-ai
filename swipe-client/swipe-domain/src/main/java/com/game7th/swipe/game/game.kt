@@ -176,15 +176,17 @@ data class SbElemental(
     )
 
     fun multipledBy(scale: Float): SbElemental = copy(
-        phys = phys * (1f + scale),
-        dark = dark * (1f + scale),
-        light = light * (1f + scale),
-        shock = shock * (1f + scale),
-        fire = fire * (1f + scale),
-        cold = cold * (1f + scale),
+        phys = phys * scale,
+        dark = dark * scale,
+        light = light * scale,
+        shock = shock * scale,
+        fire = fire * scale,
+        cold = cold * scale,
     )
 
     fun total() = phys + dark + light + shock + fire + cold
+
+    override fun toString() = "P/D/L/S/F/C=$phys/$dark/$light/$shock/$fire/$cold"
 }
 
 enum class SbDisplayTileType {
