@@ -3,7 +3,7 @@ package com.pl00t.swipe_client.screen.map
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import com.game7th.swipe.battle.SbMonsterAbilityConfiguration
+import com.game7th.swipe.game.SbMonsterAbilityConfiguration
 
 class MonsterAbilityDetailActor(
     private val configuration: SbMonsterAbilityConfiguration,

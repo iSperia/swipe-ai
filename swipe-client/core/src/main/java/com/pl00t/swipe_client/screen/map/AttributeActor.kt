@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
+import com.game7th.swipe.game.CharacterAttributes
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.game7th.swipe.battle.CharacterAttributes
 import ktx.actors.alpha
 import ktx.actors.onClick
 

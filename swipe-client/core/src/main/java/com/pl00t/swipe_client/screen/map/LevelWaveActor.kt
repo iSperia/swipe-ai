@@ -2,7 +2,6 @@ package com.pl00t.swipe_client.screen.map
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
-import com.game7th.swipe.battle.UnitSkin
 import ktx.actors.onClick
 
 interface LevelWaveCallback {

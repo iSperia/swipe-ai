@@ -1,7 +1,7 @@
 package com.pl00t.swipe_client.services.profile
 
 import com.game7th.items.InventoryItem
-import com.game7th.swipe.battle.CharacterAttributes
+import com.game7th.swipe.game.CharacterAttributes
 
 enum class SwipeCurrency {
     ETHERIUM_COIN,

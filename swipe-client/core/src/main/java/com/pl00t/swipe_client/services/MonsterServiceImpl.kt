@@ -1,6 +1,6 @@
 package com.pl00t.swipe_client.services
 
-import com.game7th.swipe.battle.SbMonsterConfiguration
+import com.game7th.swipe.game.SbMonsterConfiguration
 import com.game7th.swipe.game.SbTrigger
 import com.game7th.swipe.game.characters.*
 import com.game7th.swipe.monsters.MonsterService

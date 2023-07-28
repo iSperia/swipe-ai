@@ -1,7 +1,6 @@
-package com.game7th.swipe.battle
+package com.game7th.swipe.game
 
 import com.google.gson.JsonObject
-import com.game7th.swipe.game.SbTileTemplate
 
 enum class UnitSkin {
     CHARACTER_VALERIAN,
@@ -33,7 +32,7 @@ data class MonsterAbilityDescriptionRow(
 
 data class SbMonsterAbilityConfiguration(
     val title: String,
-    val skin: TileSkin,
+    val skin: String,
     val descriptionTable: List<MonsterAbilityDescriptionRow>,
     val attributes: JsonObject,
     val description: String,

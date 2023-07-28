@@ -2,11 +2,9 @@ package com.pl00t.swipe_client.services.profile
 
 import com.badlogic.gdx.Gdx
 import com.game7th.items.InventoryItem
-import com.game7th.items.ItemCategory
+import com.game7th.swipe.game.CharacterAttributes
 import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
-import com.game7th.swipe.battle.UnitSkin
-import com.game7th.swipe.battle.CharacterAttributes
 import com.pl00t.swipe_client.services.levels.FrontActModel
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelRewardType

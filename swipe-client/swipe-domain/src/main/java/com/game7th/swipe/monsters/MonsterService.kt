@@ -1,8 +1,7 @@
 package com.game7th.swipe.monsters
 
-import com.game7th.swipe.battle.SbMonsterConfiguration
+import com.game7th.swipe.game.SbMonsterConfiguration
 import com.game7th.swipe.game.SbTrigger
-import com.google.gson.JsonObject
 
 interface MonsterService {
 

@@ -1,7 +1,7 @@
 package com.game7th.swipe.game.characters
 
-import com.game7th.swipe.battle.floatAttribute
-import com.game7th.swipe.battle.intAttribute
+import com.game7th.swipe.game.floatAttribute
+import com.game7th.swipe.game.intAttribute
 import com.game7th.swipe.game.*
 import com.google.gson.JsonObject
 

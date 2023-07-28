@@ -1,8 +1,6 @@
 package com.pl00t.swipe_client.test
 
-import com.game7th.swipe.battle.CharacterAttributes
-import com.game7th.swipe.battle.SbHumanEntry
-import com.game7th.swipe.battle.SbMonsterConfiguration
+import com.game7th.swipe.game.SbMonsterConfiguration
 import com.game7th.swipe.game.*
 import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.Gson
@@ -14,9 +12,7 @@ import com.pl00t.swipe_client.services.profile.SwipeAct
 import kotlinx.coroutines.*
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
-import ktx.async.newAsyncContext
 import java.io.File
-import kotlin.math.sqrt
 import kotlin.random.Random
 
 data class ProgressionEntry(

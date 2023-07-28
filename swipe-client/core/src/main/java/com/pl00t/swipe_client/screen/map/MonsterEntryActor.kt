@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
-import com.game7th.swipe.battle.UnitSkin
 
 data class FrontMonsterEntryModel(
     val skin: String,

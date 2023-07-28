@@ -1,6 +1,5 @@
 package com.pl00t.swipe_client.services.battle
 
-import com.game7th.swipe.battle.*
 import com.game7th.swipe.game.*
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.game7th.swipe.monsters.MonsterService
@@ -36,7 +35,6 @@ class BattleServiceImpl(
     private val monsterService: MonsterService,
     private val profileService: ProfileService,) : BattleService {
 
-    private var configuration: BattleConfiguration? = null
     lateinit var context: SbContext
     lateinit var waves: List<List<SbMonsterEntry>>
     lateinit var events: MutableSharedFlow<SbDisplayEvent>

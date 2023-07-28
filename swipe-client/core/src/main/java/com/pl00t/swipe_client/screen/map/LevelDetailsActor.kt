@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.game7th.swipe.battle.UnitSkin
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.ux.Buttons
 import com.pl00t.swipe_client.ux.ScreenTitle

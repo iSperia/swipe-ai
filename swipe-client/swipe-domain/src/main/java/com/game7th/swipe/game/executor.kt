@@ -1,6 +1,5 @@
 package com.game7th.swipe.game
 
-import com.game7th.swipe.battle.*
 import kotlin.math.min
 import kotlin.random.Random
 

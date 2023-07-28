@@ -1,7 +1,7 @@
 package com.pl00t.swipe_client.services.levels
 
-import com.game7th.swipe.battle.SbMonsterEntry
-import com.game7th.swipe.battle.UnitSkin
+import com.game7th.swipe.game.SbMonsterEntry
+import com.game7th.swipe.game.UnitSkin
 
 data class ActModel(
     val levels: List<LevelModel>,

@@ -9,8 +9,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.game7th.swipe.battle.UnitSkin
-import com.pl00t.swipe_client.screen.Router
+import com.game7th.swipe.game.UnitSkin
 import com.pl00t.swipe_client.screen.map.MapScreenRouter
 import kotlinx.coroutines.launch
 import ktx.actors.onClick

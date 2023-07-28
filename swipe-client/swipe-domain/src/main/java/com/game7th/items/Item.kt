@@ -1,7 +1,5 @@
 package com.game7th.items
 
-import com.game7th.swipe.battle.UnitSkin
-
 enum class ItemAffixType {
     IMPLICIT_DARK_RESIST_FLAT,
     IMPLICIT_COLD_RESIST_FLAT,

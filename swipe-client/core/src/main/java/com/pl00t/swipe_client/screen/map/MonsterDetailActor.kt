@@ -9,16 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
-import com.game7th.items.InventoryItem
 import com.game7th.items.ItemCategory
-import com.game7th.swipe.battle.SbMonsterConfiguration
+import com.game7th.swipe.game.SbMonsterConfiguration
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.screen.reward.CurrencyRewardEntryActor
-import com.game7th.swipe.battle.SbMonsterEntry
 import com.pl00t.swipe_client.screen.items.ItemBrowserAction
 import com.pl00t.swipe_client.screen.items.ItemBrowserActor
-import com.pl00t.swipe_client.screen.items.ItemDetailsActor
 import com.pl00t.swipe_client.services.profile.CollectedReward
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.services.profile.SwipeCurrency

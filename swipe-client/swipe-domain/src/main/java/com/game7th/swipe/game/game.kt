@@ -1,7 +1,5 @@
 package com.game7th.swipe.game
 
-import com.game7th.swipe.battle.CharacterAttributes
-
 data class SbGame(
     val wave: Int,
     val ticksUntilNpc: Int,

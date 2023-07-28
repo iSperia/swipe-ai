@@ -16,7 +16,6 @@ import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.screen.navpanel.NavigationPanel
-import com.game7th.swipe.battle.UnitSkin
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelType
