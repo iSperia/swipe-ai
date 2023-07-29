@@ -127,6 +127,11 @@ class MonsterDetailActor(
                 table.add(attributesLabel).padBottom(10f).row()
             }
 
+            scroll = ScrollPane(table).apply {
+                width = 480f
+                height = spaceHeight - 60f
+            }
+
             val char = character
             if (char != null) {
                 val experienceBar = ExperienceBar(context, skin).apply {
@@ -144,11 +149,6 @@ class MonsterDetailActor(
                     setAlignment(Align.left)
                 }
                 table.add(experienceLabel).padLeft(10f).padRight(10f).width(460f).minWidth(460f).row()
-
-                scroll = ScrollPane(table).apply {
-                    width = 480f
-                    height = spaceHeight - 60f
-                }
 
                 val profile = context.profileService().getProfile()
                 val expBalances = listOf(

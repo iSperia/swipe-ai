@@ -308,6 +308,13 @@
           }
         },
         {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "TOME_OF_ENLIGHTMENT"
+          }
+        },
+        {
           "type": "item",
           "skin": "FROSTGUARD_GAUNTLETS",
           "rarity": 1

@@ -202,7 +202,7 @@ bg_gold
   index: -1
 bg_light_blue
   rotate: false
-  xy: 516, 152
+  xy: 1106, 742
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -230,14 +230,14 @@ bg_rarity
   index: 5
 bg_rarity
   rotate: false
-  xy: 590, 178
+  xy: 86, 46
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 2
 bg_rarity
   rotate: false
-  xy: 656, 241
+  xy: 152, 109
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -251,7 +251,7 @@ bg_rarity
   index: 1
 black_pixel
   rotate: false
-  xy: 1742, 1715
+  xy: 1190, 831
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -317,21 +317,21 @@ fg_level_top
   index: -1
 gem_active
   rotate: false
-  xy: 590, 181
+  xy: 86, 49
   size: 64, 61
   orig: 64, 61
   offset: 0, 0
   index: -1
 gem_inactive
   rotate: false
-  xy: 1676, 1655
+  xy: 1124, 771
   size: 64, 61
   orig: 64, 61
   offset: 0, 0
   index: -1
 ic_body
   rotate: false
-  xy: 1676, 1718
+  xy: 1050, 760
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
@@ -345,14 +345,14 @@ ic_health
   index: -1
 ic_luck
   rotate: false
-  xy: 1032, 686
+  xy: 590, 170
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 ic_mind
   rotate: false
-  xy: 74, 38
+  xy: 1676, 1644
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
@@ -373,7 +373,7 @@ ic_resist_phys
   index: -1
 ic_spirit
   rotate: false
-  xy: 516, 170
+  xy: 1676, 1718
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
@@ -394,21 +394,21 @@ ic_vuln_phys
   index: -1
 ic_wisdom
   rotate: false
-  xy: 1050, 760
+  xy: 1032, 686
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 icon_inventory
   rotate: false
-  xy: 1124, 772
+  xy: 1032, 624
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_inventory_pressed
   rotate: false
-  xy: 1032, 624
+  xy: 664, 182
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
@@ -427,6 +427,13 @@ icon_map_pressed
   orig: 48, 60
   offset: 0, 0
   index: -1
+icon_padlock
+  rotate: false
+  xy: 0, 40
+  size: 84, 70
+  orig: 84, 70
+  offset: 0, 0
+  index: -1
 icon_party
   rotate: false
   xy: 1236, 902
@@ -436,14 +443,14 @@ icon_party
   index: -1
 icon_party_pressed
   rotate: false
-  xy: 148, 50
+  xy: 1676, 1582
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
   index: -1
 icon_star
   rotate: false
-  xy: 0, 38
+  xy: 516, 170
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
@@ -457,7 +464,7 @@ item_bg
   index: -1
 opaque_black
   rotate: false
-  xy: 1676, 1652
+  xy: 1124, 768
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -472,14 +479,14 @@ panelBg
   index: -1
 panel_bg
   rotate: false
-  xy: 0, 17
+  xy: 0, 19
   size: 78, 19
   orig: 78, 19
   offset: 0, 0
   index: -1
 panel_line
   rotate: false
-  xy: 1802, 1824
+  xy: 516, 164
   size: 78, 4
   orig: 78, 4
   offset: 0, 0
@@ -542,7 +549,7 @@ triangle_attributes
   index: -1
 white_border
   rotate: false
-  xy: 1106, 753
+  xy: 1802, 1823
   size: 5, 5
   split: 1, 1, 1, 1
   orig: 5, 5
