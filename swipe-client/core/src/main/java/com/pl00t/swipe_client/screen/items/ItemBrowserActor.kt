@@ -62,6 +62,7 @@ class ItemBrowserActor(
     }
 
     fun reloadData() {
+        table.clearChildren()
         KtxAsync.launch {
             val items = context.profileService().getItems().let {
                 if (categoryFilter != null) {
@@ -95,7 +96,7 @@ class ItemBrowserActor(
         }
     }
 
-    fun selectItem(id: String) {
+    fun selectItem(id: String?) {
         table.cells.forEach { cell ->
             if (cell.actor != null && cell.actor is InventoryCellActor) {
                 val actor = cell.actor as InventoryCellActor

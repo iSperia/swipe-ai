@@ -21,6 +21,7 @@ class InventoryCellActor(
 ) : Group() {
 
     private val itemImage: Image
+    private val levelLabel: Label
 
     init {
         val rarityImage = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_rarity", item.rarity)).apply {
@@ -54,7 +55,7 @@ class InventoryCellActor(
             )))
         }
 
-        val levelLabel = Label("Lvl. ${item.level}", skin, "text_small").apply {
+        levelLabel = Label("Lvl. ${item.level}", skin, "text_small").apply {
             x = 2f
             y = size - 22f
             width = size - 4f
@@ -76,5 +77,9 @@ class InventoryCellActor(
             itemImage.clearActions()
             itemImage.setScale(1f)
         }
+    }
+
+    fun updateLevel(level: Int) {
+        levelLabel.setText("Lvl. ${level}")
     }
 }

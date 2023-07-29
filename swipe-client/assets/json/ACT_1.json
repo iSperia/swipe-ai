@@ -323,7 +323,7 @@
       "type": "BOSS",
       "id": "c4",
       "title": "Thalendros, the Corrupted Treant",
-      "background": "enchanted_sanctuary",
+      "background": "groves",
       "description": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
       "monsters": [
         [
@@ -389,11 +389,11 @@
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_CRYSTAL_GUARDIAN",
             "level": 1
           },
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_CRYSTAL_GUARDIAN",
             "level": 1
           }
         ]
@@ -410,11 +410,11 @@
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
             "level": 1
           },
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_CRYSTAL_GUARDIAN",
             "level": 1
           }
         ]
@@ -431,11 +431,15 @@
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_STONE_GOLEM",
             "level": 1
           },
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_STONE_GOLEM",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
             "level": 1
           }
         ]
@@ -447,16 +451,12 @@
       "type": "BOSS",
       "id": "c8",
       "title": "Xalithar, the Crystal Goliath",
-      "background": "vines_of_earth",
+      "background": "crystal_coves",
       "description": "Description: Xalithar is a towering, crystalline behemoth formed from the fused shards of the shattered Ethereal Crystal. Its body emanates a pulsating glow, and shards of various colors protrude from its massive form. Xalithar's eyes glow with a malevolent energy, reflecting the corrupted power it has absorbed.",
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
-          },
-          {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_XALITHAR",
             "level": 1
           }
         ]

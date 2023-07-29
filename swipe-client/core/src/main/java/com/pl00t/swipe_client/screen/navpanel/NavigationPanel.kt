@@ -59,7 +59,7 @@ class NavigationPanel(
         y = 6f
     }
 
-    val buttonInventory = NavigationButton("nav_inventory", "Inventory", skin).apply {
+    val buttonInventory = NavigationButton("nav_inventory", "Crafting", skin).apply {
         width = 48f
         height = 60f
         x = 306f

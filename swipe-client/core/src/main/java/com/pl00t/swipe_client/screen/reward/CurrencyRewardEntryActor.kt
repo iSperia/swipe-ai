@@ -13,6 +13,7 @@ import com.pl00t.swipe_client.services.profile.CollectedReward
 
 
 class CurrencyRewardEntryActor(
+    private val actorWidth: Float,
     private val reward: CollectedReward.CountedCurrency,
     private val context: SwipeContext,
     private val skin: Skin,
@@ -23,7 +24,7 @@ class CurrencyRewardEntryActor(
     val amountLabel: Label
 
     init {
-        width = 360f
+        width = actorWidth
         height = 84f
 
         val leftGroup = Group().apply {
@@ -58,7 +59,7 @@ class CurrencyRewardEntryActor(
         val rightGroup = Group().apply {
             x = 90f
             height = 84f
-            width = 270f
+            width = actorWidth - 84f
         }
 
         title = Label(reward.title, skin, "wave_caption").apply {
@@ -69,7 +70,7 @@ class CurrencyRewardEntryActor(
 
         amountLabel = Label("x${reward.amount}", skin, "text_regular").apply {
             setAlignment(Align.topRight)
-            width = 270f
+            width = rightGroup.width
             y = 60f
         }
         rightGroup.addActor(amountLabel)
@@ -77,7 +78,7 @@ class CurrencyRewardEntryActor(
         val descriptionLabel = Label(reward.description, skin, "text_small").apply {
             setAlignment(Align.topLeft)
             wrap = true
-            width = 270f
+            width = rightGroup.width
             height = 58f
         }
         rightGroup.addActor(descriptionLabel)

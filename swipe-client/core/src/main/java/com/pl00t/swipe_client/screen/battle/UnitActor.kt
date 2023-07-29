@@ -50,11 +50,11 @@ class UnitActor(
         }
         addActor(healthBar)
         val breath = ScaleToAction().apply {
-            setScale(0.98f * characterImage.scaleX, 1.02f * characterImage.scaleY)
-            duration = 1.5f
+            setScale(0.99f * characterImage.scaleX, 1.01f * characterImage.scaleY)
+            duration = 2f
         }.then(ScaleToAction().apply {
             setScale(characterImage.scaleX, characterImage.scaleY)
-            duration = 1f
+            duration = 2f
         }).repeatForever()
 
         characterImage.addAction(breath)

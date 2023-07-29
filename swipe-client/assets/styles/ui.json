@@ -77,6 +77,10 @@
       font: text_small
       fontColor: white_color
     }
+    dark_small: {
+      font: text_small
+      fontColor: bg_color
+    }
     lore_medium: {
       font: text_large
       fontColor: rarity_5

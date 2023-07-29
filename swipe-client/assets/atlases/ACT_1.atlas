@@ -32,22 +32,22 @@ vines_of_earth
   orig: 1024, 1024
   offset: 0, 0
   index: -1
+
+ACT_12.png
+size: 2048, 1024
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: none
 crystal_coves
   rotate: false
-  xy: 1024, 1024
+  xy: 0, 0
   size: 1024, 1024
   orig: 1024, 1024
   offset: 0, 0
   index: -1
-
-ACT_12.png
-size: 1024, 1024
-format: RGBA8888
-filter: MipMapLinearLinear, MipMapLinearLinear
-repeat: none
 enchanted_sanctuary
   rotate: false
-  xy: 0, 0
+  xy: 1024, 0
   size: 1024, 1024
   orig: 1024, 1024
   offset: 0, 0

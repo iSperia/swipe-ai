@@ -22,7 +22,9 @@ import com.pl00t.swipe_client.services.levels.LevelType
 import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.screen.items.ItemBrowserAction
 import com.pl00t.swipe_client.screen.items.ItemBrowserActor
+import com.pl00t.swipe_client.screen.reward.RewardDialog
 import com.pl00t.swipe_client.services.items.ItemService
+import com.pl00t.swipe_client.services.profile.CollectedReward
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.ScreenTitle
@@ -300,11 +302,33 @@ class MapScreen(
             context = this@MapScreen,
             skin = skin,
             actionsProvider = {
-                listOf(ItemBrowserAction.CLOSE)
+                listOf(ItemBrowserAction.CLOSE, ItemBrowserAction.DUST)
             },
             actionsHandler = { action, item ->
                 when (action) {
                     ItemBrowserAction.CLOSE -> inventoryBroswerActor?.hideToBehindAndRemove(760f)
+                    ItemBrowserAction.DUST -> {
+                        KtxAsync.launch {
+                            val rewards = profileService.dustItem(item.id)
+                            val dialog = RewardDialog(rewards.rewards.map { reward ->
+                                profileService.getCurrency(reward.type).let { currency ->
+                                    CollectedReward.CountedCurrency(
+                                        currency = reward.type,
+                                        amount = reward.amount,
+                                        title = currency.name,
+                                        description = currency.lore,
+                                        rarity = currency.rarity
+                                    )
+                                }
+                            }, this@MapScreen, skin).apply {
+                                x = 40f
+                                y = (this@MapScreen.height() - 720f)/2f
+                            }
+                            root.addActor(dialog)
+                            this@MapScreen.inventoryBroswerActor?.reloadData()
+                            this@MapScreen.inventoryBroswerActor?.selectItem(null)
+                        }
+                    }
                     else -> {}
                 }
             }

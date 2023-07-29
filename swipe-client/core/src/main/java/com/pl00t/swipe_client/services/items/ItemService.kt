@@ -12,6 +12,8 @@ interface ItemService {
 
     suspend fun generateItem(skin: String, rarity: Int): InventoryItem?
 
+    suspend fun generateAffix(affixesFilled: List<ItemAffixType>, template: ItemTemplate): ItemAffixType
+
     suspend fun getAffix(affix: ItemAffixType): AffixConfigEntry?
 }
 
@@ -54,11 +56,7 @@ class ItemServiceImpl(gson: Gson, fileService: FileService): ItemService {
 
     override suspend fun getItemTemplate(skin: String): ItemTemplate? = templates[skin]
 
-    override suspend fun generateItem(skin: String, rarity: Int): InventoryItem? {
-
-        val affixesToGenerate = if (Random.nextFloat() < 0.5f) rarity - 1 else rarity - 2
-        val template = templates[skin] ?: return null
-
+    private fun generateAffixWeights(template: ItemTemplate): Pair<Map<ItemAffixType, Int>, Int> {
         val weightMap = mutableMapOf<ItemAffixType, Int>()
         var totalWeight = 0
         this.affixes.forEach { affix, entry ->
@@ -81,28 +79,43 @@ class ItemServiceImpl(gson: Gson, fileService: FileService): ItemService {
                 totalWeight += weight
             }
         }
+        return weightMap to totalWeight
+    }
+
+    override suspend fun generateAffix(affixesFilled: List<ItemAffixType>, template: ItemTemplate): ItemAffixType {
+        val weights = generateAffixWeights(template)
+        var entry: ItemAffixType? = null
+        while (entry == null || affixesFilled.contains(entry)) {
+            val random = Random.nextInt(weights.second)
+            var s = 0
+            entry = weights.first.entries.first {
+                s += it.value
+                s >= random
+            }.key
+        }
+        return entry
+    }
+
+    override suspend fun generateItem(skin: String, rarity: Int): InventoryItem? {
+
+        val affixesToGenerate = if (Random.nextFloat() < 0.5f) rarity - 1 else rarity - 2
+        val template = templates[skin] ?: return null
+
 
         val affixes = mutableListOf<ItemAffix>()
 
         val affixesFilled = mutableListOf<ItemAffixType>()
         (0 until affixesToGenerate).forEach { _ ->
-            var entry: ItemAffixType? = null
-            while (entry == null || affixesFilled.contains(entry)) {
-                val random = Random.nextInt(totalWeight)
-                var s = 0
-                entry = weightMap.entries.first {
-                    s += it.value
-                    s >= random
-                }.key
-            }
-            affixesFilled.add(entry)
-            this.affixes[entry]?.let { ace ->
-                affixes.add(ItemAffix(
-                    affix = ace.affix,
-                    value = ace.valuePerTier,
-                    level = 1,
-                    scalable = true
-                ))
+            generateAffix(affixesFilled, template)?.let { entry ->
+                affixesFilled.add(entry)
+                this.affixes[entry]?.let { ace ->
+                    affixes.add(ItemAffix(
+                        affix = ace.affix,
+                        value = ace.valuePerTier,
+                        level = 1,
+                        scalable = true
+                    ))
+                }
             }
         }
 
@@ -122,9 +135,11 @@ class ItemServiceImpl(gson: Gson, fileService: FileService): ItemService {
                 },
                 affixes = affixes,
                 level = 1,
+                maxLevel = rarity * 5,
                 rarity = rarity,
                 category = template.category,
                 equippedBy = null,
+                experience = 0
             )
         }
     }

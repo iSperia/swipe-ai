@@ -36,8 +36,10 @@ data class InventoryItem(
     val implicit: List<ItemAffix>,
     val affixes: List<ItemAffix>,
     val level: Int,
+    val maxLevel: Int,
     val rarity: Int,
     val category: ItemCategory,
     val equippedBy: String?,
+    val experience: Int,
 )
 

@@ -1,0 +1,87 @@
+{
+  "skin": "MONSTER_SHADOW_OF_CHAOS",
+  "name": "Shadow of Chaos",
+  "lore": "Dark manifestations born from the shattered Ethereal Crystal, the Shadows of Chaos are creatures of pure darkness. They haunt the depths of the Crystal Caverns, drawn to its residual energy. Their aggression towards Valerian arises from their desire to consume his life force and harness his essence to strengthen themselves.",
+  "baseHealth": 250,
+  "attributes": {"mind":  25, "spirit":  25, "body":  50},
+  "tiles": [
+    { "weight": 5, "skin": "THORNSTALKER_PRIMAL_ASSAULT", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+    { "weight": 3, "skin": "THORNSTALKER_RESILIENT_GROWTH", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+    { "weight": 3, "skin": "THORNSTALKER_VENOMOUS_BARRAGE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
+  ],
+  "triggers": [
+    "thornstalker.primal_assault", "thornstalker.resilient_growth", "thornstalker.venomous_barrage", "common.poison"
+  ],
+  "balance": {
+    "base_health": 12,
+    "pa_base": 30,
+    "pa_scale": 10,
+    "vb_base": 10,
+    "vb_scale": 10,
+    "rg_base": 30,
+    "rg_scale": 10
+
+  },
+  "affixes": {
+    "RESIST_PHYSICAL": 20
+  },
+  "scale": 0.8,
+  "abilities": [
+    {
+      "title": "Primal Assault",
+      "skin": "THORNSTALKER_PRIMAL_ASSAULT",
+      "description": "Heavy physical single target attack",
+      "lore": "Nature's fury strikes without mercy.",
+      "attributes": {
+        "physDamage": 40,
+        "physPerBody": 10
+      },
+      "descriptionTable": [
+        {
+          "title": "Base physical damage",
+          "description": "{pa_base}"
+        },
+        {
+          "title": "Physical damage increase, per BODY",
+          "description": "{pa_scale}%"
+        }
+      ]
+    },
+    {
+      "title": "Venomous Barrage",
+      "skin": "THORNSTALKER_VENOMOUS_BARRAGE",
+      "description": "Poisons the target with three poison tiles",
+      "lore": "Thorns of poison sow decay and despair.",
+      "attributes": {
+        "poisonDamage": 5,
+        "poisonPerSpirit": 10
+      },
+      "descriptionTable": [
+        {
+          "title": "Poison tile dark damage, per turn",
+          "description": "{vb_base}"
+        },
+        {
+          "title": "Poison damage increase, per SPIRIT",
+          "description": "{vb_scale}%"
+        }
+      ]
+    },
+    {
+      "title": "Resilient Growth",
+      "skin": "THORNSTALKER_RESILIENT_GROWTH",
+      "description": "Heals the thorstalker",
+      "lore": "Nature's embrace fortifies, defying all harm.",
+      "descriptionTable": [
+        {
+          "title": "HEALING base amount",
+          "description": "{rg_base}"
+        },
+        {
+          "title": "HEALING increase, per SPIRIT",
+          "description": "{rg_scale}%"
+        }
+      ]
+    }
+  ]
+}

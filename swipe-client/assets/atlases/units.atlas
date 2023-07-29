@@ -1,16 +1,82 @@
+
 units.png
-size:1800,2007
-filter:MipMapLinearLinear,MipMapLinearLinear
-repeat:none
-CHARACTER_SAFFRON
-bounds:1200,1007,600,1000
-CHARACTER_VALERIAN
-bounds:1200,7,600,1000
+size: 2048, 2048
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: xy
 MONSTER_CORRUPTED_DRYAD
-bounds:0,1000,600,1007
+  rotate: false
+  xy: 0, 1002
+  size: 600, 1007
+  orig: 600, 1007
+  offset: 0, 0
+  index: -1
+MONSTER_SHADOW_OF_CHAOS
+  rotate: false
+  xy: 1204, 1009
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1
 MONSTER_THALENDROS
-bounds:0,0,600,1000
+  rotate: false
+  xy: 0, 0
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1
 MONSTER_THORNED_CRAWLER
-bounds:600,7,600,1000
+  rotate: false
+  xy: 602, 1009
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1
 MONSTER_THORNSTALKER
-bounds:600,1007,600,1000
+  rotate: false
+  xy: 602, 7
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1
+MONSTER_XALITHAR
+  rotate: false
+  xy: 1204, 7
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1
+
+units2.png
+size: 2048, 2048
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: xy
+CHARACTER_SAFFRON
+  rotate: false
+  xy: 0, 1002
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1
+CHARACTER_VALERIAN
+  rotate: false
+  xy: 602, 1002
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1
+MONSTER_CRYSTAL_GUARDIAN
+  rotate: false
+  xy: 602, 0
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1
+MONSTER_STONE_GOLEM
+  rotate: false
+  xy: 0, 0
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1

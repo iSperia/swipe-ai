@@ -25,19 +25,13 @@ class RewardDialog(
 ): Group() {
 
     val bg: Image
-    val fg: Image
     val title: Actor
     val closeButton: TextButton
 
     val scroll: ScrollPane
 
     init {
-        fg = Image(context.commonAtlas(Atlases.COMMON_BATTLE).createPatch("panel_border")).apply {
-            width = 400f
-            height = 720f
-            touchable = Touchable.disabled
-        }
-        bg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg")).apply {
+        bg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_dark_blue")).apply {
             width = 400f
             height = 720f
             setScaling(Scaling.stretch)
@@ -64,10 +58,17 @@ class RewardDialog(
         }
 
         val rewardTable = Table()
+        scroll = ScrollPane(rewardTable).apply {
+            x = 20f
+            y = 50f
+            width = 360f
+            height = 640f
+        }
+
         rewards.forEach {  reward ->
             when (reward) {
                 is CollectedReward.CountedCurrency -> {
-                    val entryActor = CurrencyRewardEntryActor(reward, context, skin)
+                    val entryActor = CurrencyRewardEntryActor(scroll.width - 10f, reward, context, skin)
                     rewardTable.add(entryActor).padBottom(5f).top()
                     rewardTable.row()
                 }
@@ -80,17 +81,11 @@ class RewardDialog(
             }
         }
 
-        scroll = ScrollPane(rewardTable).apply {
-            x = 20f
-            y = 50f
-            width = 360f
-            height = 640f
-        }
+
 
         addActor(bg)
         addActor(closeButton)
         addActor(scroll)
-        addActor(fg)
         addActor(title)
 
         alpha = 0f

@@ -34,6 +34,34 @@
       "description": "Adds 1000 experience to the character",
       "lore": "An unparalleled grimoire emanating with boundless wisdom and arcane revelations, unlocking the full potential of those who delve into its secrets.",
       "rarity": 5
+    },
+    {
+      "currency": "INFUSION_ORB",
+      "name": "Infusion Orb",
+      "description": "Adds 1 experience to the item",
+      "lore": "A shimmering orb containing a faint glimmer of ancient knowledge, granting gentle nourishment to items seeking growth",
+      "rarity": 2
+    },
+    {
+      "currency": "INFUSION_SHARD",
+      "name": "Infusion Shard",
+      "description": "Adds 10 experience to the item",
+      "lore": "A radiant crystal resonating with magical energies, bestowing substantial strength to those who seek to enhance their artifacts",
+      "rarity": 3
+    },
+    {
+      "currency": "INFUSION_CRYSTAL",
+      "name": "Infusion Crystal",
+      "description": "Adds 100 experience to the item",
+      "lore": "A crystalline shard pulsating with immense power, capable of unlocking the full potential of even the most legendary items",
+      "rarity": 4
+    },
+    {
+      "currency": "ASCENDANT_ESSENCE",
+      "name": "Ascendant Essence",
+      "description": "Adds 1000 experience to the item",
+      "lore": "An ethereal essence that transcends the boundaries of time and space, empowering items with unparalleled might, reserved for only the most legendary crafts",
+      "rarity": 5
     }
   ]
 }

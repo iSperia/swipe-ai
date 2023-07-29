@@ -2,17 +2,16 @@ package com.pl00t.swipe_client.services.profile
 
 import com.badlogic.gdx.Gdx
 import com.game7th.items.InventoryItem
+import com.game7th.items.ItemAffix
 import com.game7th.swipe.game.CharacterAttributes
 import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
-import com.pl00t.swipe_client.services.levels.FrontActModel
-import com.pl00t.swipe_client.services.levels.FrontLevelDetails
-import com.pl00t.swipe_client.services.levels.LevelRewardType
-import com.pl00t.swipe_client.services.levels.LevelService
 import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.services.items.ItemService
+import com.pl00t.swipe_client.services.levels.*
 import java.lang.IllegalArgumentException
 import kotlin.math.min
+import kotlin.random.Random
 
 interface ProfileService {
 
@@ -39,9 +38,16 @@ interface ProfileService {
 
     suspend fun unequipItem(id: String)
 
+    suspend fun dustItem(id: String): DustItemResult
+    suspend fun spendCraftCurrency(id: String, currency: SwipeCurrency)
+
     data class SpendExperienceCurrencyResult(
         val character: SwipeCharacter,
         val balance: Int,
+    )
+
+    data class DustItemResult(
+        val rewards: List<CurrencyReward>
     )
 }
 
@@ -268,6 +274,57 @@ class ProfileServiceImpl(
         } ?: throw IllegalArgumentException("Character does not exist")
     }
 
+    override suspend fun spendCraftCurrency(id: String, currency: SwipeCurrency) {
+        profile.items.firstOrNull { it.id == id }?.let { item ->
+            val balance = profile.getBalance(currency)
+            if (balance > 0) {
+                val exp = when (currency) {
+                    SwipeCurrency.INFUSION_ORB -> 1
+                    SwipeCurrency.INFUSION_SHARD -> 10
+                    SwipeCurrency.INFUSION_CRYSTAL -> 100
+                    SwipeCurrency.ASCENDANT_ESSENCE -> 1000
+                    else -> 0
+                }
+                val expAfterIncrease = item.experience + exp
+                var newItem = item
+
+                if (expAfterIncrease >= item.level * item.level) {
+                    newItem = newItem.copy(level = newItem.level + 1, experience = 0)
+
+                    newItem = newItem.copy(implicit = newItem.implicit.map { implicit ->
+                        val affixTemplate = itemService.getAffix(implicit.affix)!!
+                        implicit.copy(level = implicit.level + 1, value = (implicit.level + 1) * affixTemplate.valuePerTier)
+                    })
+
+                    val maxAffixCount = item.rarity - 1
+                    if (maxAffixCount > 0) {
+                        val affixIndexToUpgrade = Random.nextInt(maxAffixCount)
+                        if (affixIndexToUpgrade >= item.affixes.size) {
+                            val affix = itemService.generateAffix(item.affixes.map { it.affix }, itemService.getItemTemplate(item.skin)!!)
+                            val affixTemplate = itemService.getAffix(affix)!!
+                            newItem = newItem.copy(affixes = item.affixes + ItemAffix(affix, affixTemplate.valuePerTier, 1, true))
+                        } else {
+                            newItem = newItem.copy(affixes = item.affixes.withIndex().map { (index, affix) ->
+                                if (index == affixIndexToUpgrade) {
+                                    val affixTemplate = itemService.getAffix(affix.affix)!!
+                                    affix.copy(level = affix.level + 1, value = affixTemplate.valuePerTier * (affix.level + 1))
+                                } else {
+                                    affix
+                                }
+                            })
+                        }
+                    }
+                } else {
+                    newItem = item.copy(experience = expAfterIncrease)
+                }
+                val updatedItems = profile.items.map { i -> if (i.id == newItem.id) newItem else i }
+                profile = profile.copy(items = updatedItems)
+                profile = profile.addBalance(currency, -1)
+            }
+            saveProfile()
+        }
+    }
+
     override suspend fun addItem(item: InventoryItem) {
         profile = profile.addItem(item)
         saveProfile()
@@ -299,6 +356,47 @@ class ProfileServiceImpl(
         }
         profile = profile.copy(items = updatedItems)
         saveProfile()
+    }
+
+    override suspend fun dustItem(id: String): ProfileService.DustItemResult {
+        return profile.items.firstOrNull { it.id == id }?.let { item ->
+            val level = item.level
+            var exp = 0
+            (1 until item.level).forEach { l ->
+                exp += l * l
+            }
+            val minExp = (exp * 0.1f * item.rarity).toInt()
+            var expCompensate = Random.nextInt(minExp, exp + 1)
+            if (expCompensate <= 0) expCompensate = 1
+            val c4 = expCompensate / 1000
+            val c3 = (expCompensate % 1000) / 100
+            val c2 = (expCompensate % 100) / 10
+            val c1 = (expCompensate % 10)
+
+            val result = mutableListOf<CurrencyReward>()
+            if (c4 > 0) {
+                profile = profile.addBalance(SwipeCurrency.ASCENDANT_ESSENCE, c4)
+                result.add(CurrencyReward(SwipeCurrency.ASCENDANT_ESSENCE, c4))
+            }
+            if (c3 > 0) {
+                profile = profile.addBalance(SwipeCurrency.INFUSION_CRYSTAL, c3)
+                result.add(CurrencyReward(SwipeCurrency.INFUSION_CRYSTAL, c3))
+            }
+            if (c2 > 0) {
+                profile = profile.addBalance(SwipeCurrency.INFUSION_SHARD, c2)
+                result.add(CurrencyReward(SwipeCurrency.INFUSION_SHARD, c2))
+            }
+            if (c1 > 0) {
+                profile = profile.addBalance(SwipeCurrency.INFUSION_ORB, c1)
+                result.add(CurrencyReward(SwipeCurrency.INFUSION_ORB, c1))
+            }
+
+            profile = profile.copy(items = profile.items.filter { it.id != id })
+
+            saveProfile()
+
+            ProfileService.DustItemResult(result)
+        } ?: ProfileService.DustItemResult(emptyList())
     }
 
     companion object {

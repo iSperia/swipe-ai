@@ -145,6 +145,10 @@ class MonsterDetailActor(
                 }
                 table.add(experienceLabel).padLeft(10f).padRight(10f).width(460f).minWidth(460f).row()
 
+                scroll = ScrollPane(table).apply {
+                    width = 480f
+                    height = spaceHeight - 60f
+                }
 
                 val profile = context.profileService().getProfile()
                 val expBalances = listOf(
@@ -157,7 +161,7 @@ class MonsterDetailActor(
                     val balance = profile.getBalance(it.currency)
                     CollectedReward.CountedCurrency(it.currency, balance, it.name, it.rarity, it.description)
                 }.filter { it.amount > 0 }.forEach { currency ->
-                    val currencyActor = CurrencyRewardEntryActor(currency, context, skin)
+                    val currencyActor = CurrencyRewardEntryActor(scroll.width - 30f, currency, context, skin)
                     val useButton = Buttons.createShortActionButton("Use", skin).apply {
                         x = 390f
                         y = 18f
@@ -266,10 +270,7 @@ class MonsterDetailActor(
 
             table.add(abilsTable).row()
 
-            scroll = ScrollPane(table).apply {
-                width = 480f
-                height = spaceHeight - 60f
-            }
+
 
             addActor(blackBackground)
 
