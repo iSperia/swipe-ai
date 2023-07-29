@@ -5,9 +5,9 @@
   "attributes": {"mind":  0, "spirit":  0, "body":  0},
   "balance": {
     "base_health": 700,
-    "radiant_strike.base_physical_damage": 50,
+    "radiant_strike.base_physical_damage": 500,
     "radiant_strike.scale_physical_damage_per_body": 10,
-    "luminous_beam.base_light_damage": 30,
+    "luminous_beam.base_light_damage": 300,
     "luminous_beam.scale_light_damage_per_spirit": 10,
     "sigil_of_renewal.weight": 3,
     "sigil_of_renewal.sigil_tiles_count": 2,

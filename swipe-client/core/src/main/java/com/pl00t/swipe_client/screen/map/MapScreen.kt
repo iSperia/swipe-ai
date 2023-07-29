@@ -229,8 +229,8 @@ class MapScreen(
 
     }
 
-    private fun onAttackClicked(locationId: String) {
-        router.navigateBattle(SwipeAct.ACT_1, locationId)
+    private fun onAttackClicked(locationId: String, tier: Int) {
+        router.navigateBattle(SwipeAct.ACT_1, locationId, tier)
     }
 
     private fun initMapImage() {
@@ -351,7 +351,7 @@ class MapScreen(
                                         rarity = currency.rarity
                                     )
                                 }
-                            }, this@MapScreen, skin).apply {
+                            }, this@MapScreen, skin, "Close") {}.apply {
                                 x = 40f
                                 y = (this@MapScreen.height() - 720f)/2f
                             }
@@ -373,4 +373,6 @@ class MapScreen(
     override fun itemService() = itemService
 
     override fun profileService() = profileService
+
+    override fun levelService() = levelService
 }

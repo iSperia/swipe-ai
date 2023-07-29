@@ -21,6 +21,7 @@ import com.pl00t.swipe_client.ux.IconedButton
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.Buttons
 import com.pl00t.swipe_client.ux.ScreenTitle
 import kotlinx.coroutines.launch
@@ -31,6 +32,7 @@ import ktx.async.KtxAsync
 class BattleFinishActor(
     private val actId: SwipeAct,
     private val locationId: String,
+    private val tier: Int,
     private val profileService: ProfileService,
     private val result: BattleResult,
     private val context: SwipeContext,
@@ -50,9 +52,8 @@ class BattleFinishActor(
     val subBlockGroup = Group()
     val subBlockbackground = Image(context.commonAtlas(Atlases.COMMON_BATTLE).createPatch("panel_border_no_top_filled"))
     lateinit var caption: Actor
-    lateinit var closeButton: TextButton
     lateinit var flavour: Label
-    lateinit var freeRewardButton: TextButton
+    var freeRewardButton: TextButton? = null
 
     init {
         topBlockSize = 400f
@@ -112,14 +113,6 @@ class BattleFinishActor(
         }
         subBlockGroup.addActor(flavour)
 
-        closeButton = Buttons.createActionButton("Continue Journey", skin).apply {
-            x = 100f
-            y = 24f
-            width = 200f
-        }
-
-        subBlockGroup.addActor(closeButton)
-
         resultBlockGroup.addActor(resultImage)
         resultBlockGroup.addActor(borderImage)
         addActor(caption)
@@ -129,40 +122,120 @@ class BattleFinishActor(
                 checkFreeRewardAvailable()
             }
         }
-
-        closeButton.onClick {
-            KtxAsync.launch {
-                router.navigateMap(SwipeAct.ACT_1)
-            }
-        }
     }
 
     private suspend fun checkFreeRewardAvailable() {
-        if (profileService.isFreeRewardAvailable(actId, locationId)) {
-            freeRewardButton = Buttons.createActionButton("Collect Rewards", skin)
-            freeRewardButton.apply {
-                x = closeButton.x
-                y = closeButton.y + 40f
-                width = 200f
+        if (tier == -1 && profileService.isFreeRewardAvailable(actId, locationId)) {
+            freeRewardButton = Buttons.createActionButton("Collect Rewards", skin).apply {
+                width = 300f
+                x = 50f
+                y = 14f
             }
-            freeRewardButton.onClick {
+            freeRewardButton?.onClick {
                 KtxAsync.launch {
-                    val rewards = profileService.collectFreeReward(actId, locationId)
+                    val rewards = profileService.collectFreeReward(actId, locationId, tier)
                     //we need to show somehow
                     val rewardsDialog = RewardDialog(
                         rewards = rewards,
                         context = context,
-                        skin = skin
-                    ).apply {
+                        skin = skin,
+                        closeButtonText = "Continue Journey"
+                    ) {
+                        KtxAsync.launch {
+                            router.navigateMap(SwipeAct.ACT_1)
+                        }
+                    }.apply {
                         x = this@BattleFinishActor.x
                         y = this@BattleFinishActor.y
                     }
                     stage.addActor(rewardsDialog)
-                    freeRewardButton.touchable = Touchable.disabled
-                    freeRewardButton.isVisible = false
+                    freeRewardButton?.touchable = Touchable.disabled
+                    freeRewardButton?.isVisible = false
                 }
             }
             subBlockGroup.addActor(freeRewardButton)
+        } else {
+            KtxAsync.launch {
+                val balance = context.profileService().getProfile().getBalance(SwipeCurrency.CELESTIAL_TOKEN)
+                var yy = 24f
+                if (balance > 0) {
+                    val richRewardButton = Buttons.createActionButton("Collect extra loot", skin).apply {
+                        width = 300f
+                        x = 50f
+                        y = yy
+                    }
+                    yy += 40f
+                    val tokenImage = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("CELESTIAL_TOKEN")).apply {
+                        width = 24f
+                        height = 24f
+                        x = richRewardButton.x + richRewardButton.width - 30f
+                        y = richRewardButton.y + 6f
+                        touchable = Touchable.disabled
+                    }
+                    val tokenBalance = Label("1/$balance", skin, "wave_caption").apply {
+                        width = 100f
+                        height = 24f
+                        touchable = Touchable.disabled
+                        setAlignment(Align.right)
+                        x = tokenImage.x - 105f
+                        y = tokenImage.y
+                    }
+                    richRewardButton?.onClick {
+                        KtxAsync.launch {
+                            val rewards = profileService.collectRichReward(actId, locationId, tier)
+                            //we need to show somehow
+                            val rewardsDialog = RewardDialog(
+                                rewards = rewards,
+                                context = context,
+                                skin = skin,
+                                closeButtonText = "Continue journey"
+                            ) {
+                                KtxAsync.launch {
+                                    router.navigateMap(SwipeAct.ACT_1)
+                                }
+                            }.apply {
+                                x = this@BattleFinishActor.x
+                                y = this@BattleFinishActor.y
+                            }
+                            stage.addActor(rewardsDialog)
+                            freeRewardButton?.touchable = Touchable.disabled
+                            freeRewardButton?.isVisible = false
+                        }
+                    }
+
+                    subBlockGroup.addActor(richRewardButton)
+                    subBlockGroup.addActor(tokenImage)
+                    subBlockGroup.addActor(tokenBalance)
+                }
+                freeRewardButton = Buttons.createActionButton("Collect basic rewards", skin).apply {
+                    width = 300f
+                    x = 50f
+                    y = yy
+                }
+                freeRewardButton?.onClick {
+                    KtxAsync.launch {
+                        val rewards = profileService.collectFreeReward(actId, locationId, tier)
+                        //we need to show somehow
+                        val rewardsDialog = RewardDialog(
+                            rewards = rewards,
+                            context = context,
+                            skin = skin,
+                            closeButtonText = "Continue journey"
+                        ) {
+                            KtxAsync.launch {
+                                router.navigateMap(SwipeAct.ACT_1)
+                            }
+                        }.apply {
+                            x = this@BattleFinishActor.x
+                            y = this@BattleFinishActor.y
+                        }
+                        stage.addActor(rewardsDialog)
+                        freeRewardButton?.touchable = Touchable.disabled
+                        freeRewardButton?.isVisible = false
+                    }
+                }
+                subBlockGroup.addActor(freeRewardButton)
+            }
         }
     }
 }

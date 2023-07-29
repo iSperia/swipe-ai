@@ -8,6 +8,13 @@
       "rarity": 1
     },
     {
+      "currency": "CELESTIAL_TOKEN",
+      "name": "Celestial Token",
+      "description": "Used to collect additional rewards after raids or boss fights",
+      "lore": "These mystical tokens hold the essence of the celestial realms, granting access to premium rewards raids and boss encounters.",
+      "rarity": 2
+    },
+    {
       "currency": "SCROLL_OF_WISDOM",
       "name": "Scroll of Wisdom",
       "description": "Adds 1 experience to the character",

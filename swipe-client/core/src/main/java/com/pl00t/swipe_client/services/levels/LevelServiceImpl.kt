@@ -14,6 +14,39 @@ class LevelServiceImpl(
 
     private val gson = Gson()
     private val acts = mutableMapOf<SwipeAct, ActModel>()
+    private val drops = mutableListOf<SbDropEntry>()
+
+    init {
+        val fileEntries = gson.fromJson(fileService.internalFile("json/droprate.json"), SbDropFile::class.java).entries
+        fileEntries.forEach { fileEntry ->
+            fileEntry.currency?.forEach { currency ->
+                drops.add(
+                    SbDropEntry(
+                    currency = currency,
+                    item = null,
+                    weight = fileEntry.weight,
+                    value = fileEntry.value,
+                    act = fileEntry.act,
+                    level = fileEntry.level,
+                    minLevel = fileEntry.minLevel,
+                    rarity = fileEntry.rarity
+                ))
+            }
+            fileEntry.items?.forEach { item ->
+                drops.add(
+                    SbDropEntry(
+                        currency = null,
+                        item = item,
+                        weight = fileEntry.weight,
+                        value = fileEntry.value,
+                        act = fileEntry.act,
+                        level = fileEntry.level,
+                        minLevel = fileEntry.minLevel,
+                        rarity = fileEntry.rarity
+                    ))
+            }
+        }
+    }
 
     override suspend fun getAct(act: SwipeAct): ActModel {
         return acts[act] ?: loadAct(act)
@@ -43,12 +76,29 @@ class LevelServiceImpl(
             locationBackground = l.background,
             locationTitle = l.title,
             locationDescription = l.description,
-            dialog = l.dialog ?: emptyList())
+            dialog = l.dialog ?: emptyList(),
+            monsterPool = l.monster_pool?.map { it.skin } ?: emptyList()
+        )
     }
 
     override suspend fun getFreeReward(act: SwipeAct, level: String): List<LevelReward> {
         val level = getAct(act).levels.firstOrNull { it.id == level } ?: return emptyList()
         val freeRewards = level.freeReward ?: emptyList()
         return freeRewards
+    }
+
+
+    override suspend fun getLevelSpecificDrops(act: SwipeAct, level: String, locationLevel: Int): List<SbDropEntry> {
+        return drops.filter { it.act == act && it.level == level && locationLevel >= it.minLevel}
+    }
+
+    override suspend fun getCommonDrops(locationLevel: Int): List<SbDropEntry> {
+        return drops.filter {
+            it.act == null && it.level == null && locationLevel >= it.minLevel
+        }
+    }
+
+    override suspend fun getLevelPremiumCost(act: SwipeAct, level: String, tier: Int): Int {
+        return 1
     }
 }

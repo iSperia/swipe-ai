@@ -4,12 +4,14 @@ import com.game7th.swipe.game.*
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.JsonObject
+import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
+import kotlin.random.Random
 
 data class BattleRewardConfig(
     val currency: SwipeCurrency,
@@ -22,7 +24,7 @@ data class BattleResult(
 )
 
 interface BattleService {
-    suspend fun createBattle(act: SwipeAct, level: String): BattleDecorations
+    suspend fun createBattle(act: SwipeAct, level: String, tier: Int): BattleDecorations
     suspend fun events(): Flow<SbDisplayEvent>
     suspend fun processSwipe(dx: Int, dy: Int)
     suspend fun processUltimate()
@@ -44,7 +46,8 @@ class BattleServiceImpl(
     private var actId = SwipeAct.ACT_1
     private var level = "c1"
 
-    override suspend fun createBattle(actId: SwipeAct, level: String): BattleDecorations {
+
+    override suspend fun createBattle(actId: SwipeAct, level: String, tier: Int): BattleDecorations {
         events = MutableSharedFlow(100)
         endBattle = MutableSharedFlow(5)
         processEnabled = true
@@ -58,19 +61,58 @@ class BattleServiceImpl(
         val game = SbGame(0, 1, 0, emptyList())
         val triggers = mutableSetOf<String>()
 
+        val monsterConfig = monsterService.getMonster(character.skin)!!
         monsterService.loadTriggers(MonsterService.DEFAULT)
-        monsterService.getMonster(character.skin)?.let { c ->
-            monsterService.loadTriggers(c.skin)
-            triggers.addAll(c.triggers)
-        }
-        waves = levelModel.monsters ?: emptyList()
-        levelModel.monsters?.forEach { wave ->
-            wave.forEach { monster ->
-                monsterService.getMonster(monster.skin)?.let { c ->
-                    monsterService.loadTriggers(c.skin)
-                    triggers.addAll(c.triggers)
+        monsterService.loadTriggers(monsterConfig.skin)
+        triggers.addAll(monsterConfig.triggers)
+
+        if (tier == -1) {
+            monsterService.loadTriggers(MonsterService.DEFAULT)
+            monsterService.getMonster(character.skin)?.let { c ->
+                monsterService.loadTriggers(c.skin)
+                triggers.addAll(c.triggers)
+            }
+            waves = levelModel.monsters ?: emptyList()
+            levelModel.monsters?.forEach { wave ->
+                wave.forEach { monster ->
+                    monsterService.getMonster(monster.skin)?.let { c ->
+                        monsterService.loadTriggers(c.skin)
+                        triggers.addAll(c.triggers)
+                    }
                 }
             }
+        } else if (levelModel.type == LevelType.BOSS) {
+            //it is a boss!
+            val monsterSkins = levelModel.monsters?.flatMap { it }?.map { it.skin } ?: emptyList()
+            val monsterConfigs = monsterSkins.mapNotNull { monsterService.getMonster(it) }
+            monsterConfigs.forEach {
+                monsterService.loadTriggers(it.skin)
+                triggers.addAll(it.triggers)
+            }
+            waves = listOf(monsterConfigs.map { SbMonsterEntry(it.skin, (tier + 1) * 5) })
+        } else if (levelModel.type == LevelType.RAID && levelModel.monster_pool != null) {
+            val totalWaves = if (Random.nextInt(20) < tier + 1) 1 else 1
+            val totalWeight = levelModel.monster_pool.sumOf { it.weight }
+
+            val waves = mutableListOf<List<SbMonsterEntry>>()
+            (0 until totalWaves).forEach { waveIndex ->
+                val waveMonsters = if (Random.nextFloat() < 0.25f) 1 else 1
+                val monsters = mutableListOf<SbMonsterEntry>()
+                (0 until waveMonsters).forEach { monsterIndex ->
+                    val roll = Random.nextInt(totalWeight)
+                    var sum = 0
+                    val nextSkin = levelModel.monster_pool.first {
+                        sum += it.weight
+                        sum > roll
+                    }.skin
+                    val monsterConfig = monsterService.getMonster(nextSkin)!!
+                    monsterService.loadTriggers(monsterConfig.skin)
+                    triggers.addAll(monsterConfig.triggers)
+                    monsters.add(SbMonsterEntry(monsterConfig.skin, (tier + 1) * 5))
+                }
+                waves.add(monsters)
+            }
+            this.waves = waves
         }
 
         context = SbContext(
@@ -87,7 +129,7 @@ class BattleServiceImpl(
             triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
         ).apply {
             initHumans(listOf(SbHumanEntry(character.skin, character.level.level, character.attributes, profileService.getItems().filter { it.equippedBy == character.skin })))
-            initWave(levelModel.monsters?.get(0)!!)
+            initWave(waves[0])
         }
         handleContext()
         return BattleDecorations(levelModel.background)

@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Scaling
 import com.game7th.items.ItemCategory
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
+import com.pl00t.swipe_client.screen.items.InventoryCellActor
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import kotlinx.coroutines.launch
 import ktx.actors.onClick

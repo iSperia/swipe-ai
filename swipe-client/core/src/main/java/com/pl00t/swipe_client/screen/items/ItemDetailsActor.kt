@@ -1,6 +1,5 @@
 package com.pl00t.swipe_client.screen.items
 
-import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
@@ -10,19 +9,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
 import com.game7th.items.InventoryItem
-import com.game7th.items.ItemAffix
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.screen.map.InventoryCellActor
-import com.pl00t.swipe_client.screen.reward.CurrencyRewardEntryActor
-import com.pl00t.swipe_client.services.profile.CollectedReward
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.Buttons
 import com.pl00t.swipe_client.ux.require
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
 import ktx.async.KtxAsync
-import java.lang.StringBuilder
 
 enum class ItemBrowserAction {
     CLOSE,

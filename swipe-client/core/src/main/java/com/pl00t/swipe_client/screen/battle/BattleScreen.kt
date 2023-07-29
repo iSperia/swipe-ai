@@ -40,6 +40,7 @@ import kotlin.random.Random
 class BattleScreen(
     private val actId: SwipeAct,
     private val levelId: String,
+    private val tier: Int,
     amCore: AssetManager,
     inputMultiplexer: InputMultiplexer,
     private val levelService: LevelService,
@@ -86,7 +87,7 @@ class BattleScreen(
         multiplexer.addProcessor(gestureDetector)
         Gdx.input.inputProcessor = multiplexer
         KtxAsync.launch {
-            decorations = battleService.createBattle(actId, levelId)
+            decorations = battleService.createBattle(actId, levelId, tier)
             battleAssetManager = AssetManager().apply {
                 load(Atlases.COMMON_BATTLE, TextureAtlas::class.java)
                 load(Atlases.ACT(SwipeAct.ACT_1), TextureAtlas::class.java)
@@ -201,7 +202,7 @@ class BattleScreen(
         //we are finished, remove multiplexor
         multiplexer.removeProcessor(gestureDetector)
 
-        val endActor = BattleFinishActor(actId, levelId, profileService, event, this@BattleScreen, skin, router).apply {
+        val endActor = BattleFinishActor(actId, levelId, tier, profileService, event, this@BattleScreen, skin, router).apply {
             x = 40f
             y = (height() - 720f) / 2f
         }
@@ -643,6 +644,8 @@ class BattleScreen(
     override fun onDown() = processSwipe(0, -1)
 
     override fun profileService() = profileService
+
+    override fun levelService() = levelService
 
     override fun monsterService() = monsterService
 

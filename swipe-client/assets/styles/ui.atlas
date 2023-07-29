@@ -18,6 +18,13 @@ BELT_OF_FORTITUDE
   orig: 256, 256
   offset: 0, 0
   index: -1
+CELESTIAL_TOKEN
+  rotate: false
+  xy: 1030, 1480
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
 CODEX_OF_ASCENDANCY
   rotate: false
   xy: 0, 402
@@ -41,14 +48,14 @@ ETHERIUM_COIN
   index: -1
 EXPERIENCE_CRYSTAL
   rotate: false
-  xy: 1546, 1532
+  xy: 1546, 1272
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 EXPERIENCE_RELIC
   rotate: false
-  xy: 1288, 962
+  xy: 976, 834
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -90,7 +97,7 @@ INFUSION_CRYSTAL
   index: -1
 INFUSION_ORB
   rotate: false
-  xy: 1288, 1480
+  xy: 1288, 1222
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -111,7 +118,7 @@ RING_OF_ILLUMINATION
   index: -1
 SCROLL_OF_WISDOM
   rotate: false
-  xy: 1030, 1480
+  xy: 1030, 1222
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -125,14 +132,14 @@ SHADOWBANE_AMULET
   index: -1
 SPARK_OF_INSIGHT
   rotate: false
-  xy: 1546, 1662
+  xy: 1546, 1402
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 THEMPERSTRIDE_BOOTS
   rotate: false
-  xy: 1030, 964
+  xy: 1288, 1480
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -160,7 +167,7 @@ attribute_body
   index: -1
 attribute_mind
   rotate: false
-  xy: 1030, 1222
+  xy: 1030, 964
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -181,28 +188,28 @@ bg
   index: -1
 bg_blue
   rotate: false
-  xy: 1546, 1222
+  xy: 2007, 2032
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 bg_dark_blue
   rotate: false
-  xy: 1470, 1774
+  xy: 1106, 742
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 bg_gold
   rotate: false
-  xy: 2007, 2032
+  xy: 202, 661
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 bg_light_blue
   rotate: false
-  xy: 1106, 742
+  xy: 1802, 1812
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -216,42 +223,49 @@ bg_rarity
   index: 3
 bg_rarity
   rotate: false
-  xy: 1906, 1859
+  xy: 1546, 977
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 0
 bg_rarity
   rotate: false
-  xy: 1650, 1269
+  xy: 86, 46
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 5
 bg_rarity
   rotate: false
-  xy: 86, 46
+  xy: 152, 109
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 2
 bg_rarity
   rotate: false
-  xy: 152, 109
+  xy: 1124, 768
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 4
 bg_rarity
   rotate: false
-  xy: 460, 695
+  xy: 510, 757
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 1
+bg_semi
+  rotate: false
+  xy: 1650, 1009
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
 black_pixel
   rotate: false
-  xy: 1190, 831
+  xy: 460, 695
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -273,7 +287,7 @@ button_pressed
   index: -1
 button_simple
   rotate: false
-  xy: 1546, 1240
+  xy: 1546, 980
   size: 102, 30
   split: 18, 32, 12, 14
   orig: 102, 30
@@ -289,14 +303,14 @@ dialog_bubble
   index: -1
 fg_complete
   rotate: false
-  xy: 976, 834
+  xy: 1546, 1662
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 fg_level
   rotate: false
-  xy: 1288, 1222
+  xy: 1288, 964
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -366,7 +380,7 @@ ic_resist_fire
   index: -1
 ic_resist_phys
   rotate: false
-  xy: 389, 1
+  xy: 1366, 834
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -380,14 +394,14 @@ ic_spirit
   index: -1
 ic_vuln_fire
   rotate: false
-  xy: 1546, 1272
+  xy: 1546, 1012
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 ic_vuln_phys
   rotate: false
-  xy: 1418, 962
+  xy: 1236, 834
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -436,7 +450,7 @@ icon_padlock
   index: -1
 icon_party
   rotate: false
-  xy: 1236, 902
+  xy: 1496, 902
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
@@ -457,14 +471,14 @@ icon_star
   index: -1
 item_bg
   rotate: false
-  xy: 202, 661
+  xy: 1470, 1774
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 opaque_black
   rotate: false
-  xy: 1124, 768
+  xy: 1190, 831
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -507,28 +521,28 @@ progress_inactive
   index: -1
 shard_base_health
   rotate: false
-  xy: 1418, 1092
+  xy: 1106, 834
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 shard_damage_fire
   rotate: false
-  xy: 1546, 1402
+  xy: 1546, 1142
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 shard_resist_fire
   rotate: false
-  xy: 1288, 1092
+  xy: 389, 1
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 shard_resist_phys
   rotate: false
-  xy: 1106, 834
+  xy: 1546, 1532
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -549,7 +563,7 @@ triangle_attributes
   index: -1
 white_border
   rotate: false
-  xy: 1802, 1823
+  xy: 1906, 1855
   size: 5, 5
   split: 1, 1, 1, 1
   orig: 5, 5

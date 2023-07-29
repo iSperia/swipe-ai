@@ -236,6 +236,13 @@
             "amount": 1,
             "type": "INFUSION_ORB"
           }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "CELESTIAL_TOKEN"
+          }
         }
       ]
     },
@@ -497,17 +504,11 @@
       "title": "The Enchanted Sanctuary",
       "background": "groves",
       "description": "Immerse yourself in the lush and mystical Verdant Groves, where ancient spirits dwell amidst towering trees. Harness the power of nature as you venture deeper into this sacred haven, seeking rare treasures and materials that hold the secrets of life itself.",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
-          },
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
-          }
-        ]
+      "monsters": [],
+      "monster_pool": [
+        {"skin": "MONSTER_THORNED_CRAWLER","value": 0.9, "weight": 20},
+        {"skin": "MONSTER_THORNSTALKER", "value": 1, "weight": 50},
+        {"skin": "MONSTER_CORRUPTED_DRYAD", "value": 1.5, "weight": 30}
       ]
     },
     {
@@ -518,17 +519,11 @@
       "title": "The Veins of the Earth",
       "background": "crystal_coves",
       "description": "Descend into the depths of the Crystal Caverns, a mesmerizing network of glittering crystals and treacherous pathways. These subterranean chambers are rich with precious minerals and hidden wonders, attracting adventurers seeking to harness the mystical energy pulsating within the crystalline walls.",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
-          },
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
-          }
-        ]
+      "monsters": [],
+      "monster_pool": [
+        {"skin": "MONSTER_CRYSTAL_GUARDIAN", "value": 0.9, "weight": 40},
+        {"skin": "MONSTER_SHADOW_OF_CHAOS","value": 2, "weight": 30},
+        {"skin": "MONSTER_STONE_GOLEM", "value": 1.5, "weight": 30}
       ]
     },
     {
@@ -539,17 +534,11 @@
       "title": "The Divine Stronghold",
       "background": "sacred_citadel",
       "description": "Within the Sacred Citadel, a magnificent fortress nestled in the heart of the Kingdom of Harmony, you'll find the Divine Stronghold. This ethereal location, adorned with intricate arches and celestial motifs, is a place of spiritual refuge and devotion. Journey through its hallowed halls, where echoes of prayers and hymns fill the air, and face the trials that guard the sacred artifacts and ancient wisdom of this revered sanctuary. Prepare to tread the path of the chosen one, for the fate of the realms rests within your hands.",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
-          },
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
-          }
-        ]
+      "monsters": [],
+      "monster_pool": [
+        {"skin": "MONSTER_CRYSTAL_GUARDIAN", "value": 0.9, "weight": 40},
+        {"skin": "MONSTER_SHADOW_OF_CHAOS","value": 2, "weight": 30},
+        {"skin": "MONSTER_STONE_GOLEM", "value": 1.5, "weight": 30}
       ]
     }
   ],

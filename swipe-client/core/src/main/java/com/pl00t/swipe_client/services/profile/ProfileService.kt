@@ -23,7 +23,9 @@ interface ProfileService {
 
     suspend fun isFreeRewardAvailable(act: SwipeAct, level: String): Boolean
 
-    suspend fun collectFreeReward(act: SwipeAct, level: String): List<CollectedReward>
+    suspend fun collectFreeReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward>
+
+    suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward>
 
     suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata
 
@@ -149,7 +151,8 @@ class ProfileServiceImpl(
                     locationBackground = l.background,
                     locationTitle = l.title,
                     locationDescription = l.description,
-                    dialog = l.dialog ?: emptyList())
+                    dialog = l.dialog ?: emptyList(),
+                    monsterPool = l.monster_pool?.map { it.skin } ?: emptyList())
             } + disabledLevels.map { l ->
                 FrontLevelDetails(
                     x = l.x,
@@ -166,7 +169,8 @@ class ProfileServiceImpl(
                     locationBackground = l.background,
                     locationTitle = l.title,
                     locationDescription = l.description,
-                    dialog = l.dialog ?: emptyList())
+                    dialog = l.dialog ?: emptyList(),
+                    monsterPool = l.monster_pool?.map { it.skin } ?: emptyList())
             },
             links = availableLinks
         )
@@ -198,18 +202,57 @@ class ProfileServiceImpl(
         return profile.rewardsCollected?.firstOrNull { it.act == act && it.level == level } == null
     }
 
-    override suspend fun collectFreeReward(act: SwipeAct, level: String): List<CollectedReward> {
+    override suspend fun collectFreeReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward> {
         val result = mutableListOf<CollectedReward>()
-        val rewards = levelService.getFreeReward(act, level)
-        rewards.forEach { reward ->
-            when (reward.type) {
-                LevelRewardType.currency -> {
-                    val currency = getCurrency(reward.currency!!.type)
-                    profile = profile.addBalance(currency.currency, reward.currency.amount)
-                    result.add(CollectedReward.CountedCurrency(reward.currency.type, reward.currency.amount, currency.name, currency.rarity, currency.description))
+
+        if (tier == -1) {
+            val rewards = levelService.getFreeReward(act, level)
+            rewards.forEach { reward ->
+                when (reward.type) {
+                    LevelRewardType.currency -> {
+                        val currency = getCurrency(reward.currency!!.type)
+                        profile = profile.addBalance(currency.currency, reward.currency.amount)
+                        result.add(CollectedReward.CountedCurrency(reward.currency.type, reward.currency.amount, currency.name, currency.rarity, currency.description))
+                    }
+                    LevelRewardType.item -> {
+                        val item = itemService.generateItem(reward.skin ?: "", reward.rarity ?: 1)
+                        item?.let {
+                            addItem(it)
+                            val template = itemService.getItemTemplate(it.skin)!!
+                            result.add(CollectedReward.CollectedItem(
+                                skin = it.skin,
+                                level= it.level,
+                                title = template.name,
+                                rarity = it.rarity,
+                                lore = template.lore
+                            ))
+                        }
+                    }
+                    else -> {}
                 }
-                LevelRewardType.item -> {
-                    val item = itemService.generateItem(reward.skin ?: "", reward.rarity ?: 1)
+            }
+        } else {
+            val lootPointsAvg = 5 + (tier + 1) * (tier + 1) * 5
+            var pointsLeft = Random.nextInt(lootPointsAvg / 2, lootPointsAvg * 2)
+
+            val pool = levelService.getLevelSpecificDrops(act, level, (tier + 1) * 5) +
+                levelService.getCommonDrops((tier + 1) * 5)
+            val totalWeight = pool.sumOf { it.weight }
+
+            val collectedCurrency = mutableMapOf<SwipeCurrency, Int>()
+            SwipeCurrency.values().forEach { collectedCurrency[it] = 0 }
+
+            while (pointsLeft > 0) {
+                val roll = Random.nextInt(totalWeight)
+                var sum = 0
+                val lootEntry = pool.first {
+                    sum += it.weight
+                    sum > roll
+                }
+                if (lootEntry.currency != null) {
+                    collectedCurrency[lootEntry.currency] = collectedCurrency[lootEntry.currency]!! + 1
+                } else if (lootEntry.item != null) {
+                    val item = itemService.generateItem(lootEntry.item, lootEntry.rarity)
                     item?.let {
                         addItem(it)
                         val template = itemService.getItemTemplate(it.skin)!!
@@ -222,10 +265,73 @@ class ProfileServiceImpl(
                         ))
                     }
                 }
-                else -> {}
+                pointsLeft -= lootEntry.value
+            }
+
+            collectedCurrency.entries.forEach { (currency, count) ->
+                if (count > 0) {
+                    val currencyMeta = getCurrency(currency)
+                    profile = profile.addBalance(currencyMeta.currency, count)
+                    result.add(CollectedReward.CountedCurrency(currencyMeta.currency, count, currencyMeta.name, currencyMeta.rarity, currencyMeta.description))
+                }
             }
         }
+
         profile = profile.copy(rewardsCollected = (profile.rewardsCollected ?: emptyList()) + ActCollectedReward(act, level))
+        saveProfile()
+        return result
+    }
+
+    override suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward> {
+        val result = mutableListOf<CollectedReward>()
+        val lootPointsAvg = 5 + (tier + 1) * (tier + 1) * 5
+        var pointsLeft = Random.nextInt(lootPointsAvg / 2, lootPointsAvg * 2) * 5
+
+        val pool = levelService.getLevelSpecificDrops(act, level, (tier + 1) * 5) +
+            levelService.getCommonDrops((tier + 1) * 5)
+        val totalWeight = pool.sumOf { it.weight }
+
+        val collectedCurrency = mutableMapOf<SwipeCurrency, Int>()
+        SwipeCurrency.values().forEach { collectedCurrency[it] = 0 }
+
+        while (pointsLeft > 0) {
+            val roll = Random.nextInt(totalWeight)
+            var sum = 0
+            val lootEntry = pool.first {
+                sum += it.weight
+                sum > roll
+            }
+            if (lootEntry.currency != null) {
+                collectedCurrency[lootEntry.currency] = collectedCurrency[lootEntry.currency]!! + 1
+            } else if (lootEntry.item != null) {
+                val item = itemService.generateItem(lootEntry.item, lootEntry.rarity)
+                item?.let {
+                    addItem(it)
+                    val template = itemService.getItemTemplate(it.skin)!!
+                    result.add(
+                        CollectedReward.CollectedItem(
+                            skin = it.skin,
+                            level = it.level,
+                            title = template.name,
+                            rarity = it.rarity,
+                            lore = template.lore
+                        )
+                    )
+                }
+            }
+            pointsLeft -= lootEntry.value
+        }
+
+        collectedCurrency.entries.forEach { (currency, count) ->
+            if (count > 0) {
+                val currencyMeta = getCurrency(currency)
+                profile = profile.addBalance(currencyMeta.currency, count)
+                result.add(CollectedReward.CountedCurrency(currencyMeta.currency, count, currencyMeta.name, currencyMeta.rarity, currencyMeta.description))
+            }
+        }
+
+        profile = profile.copy(rewardsCollected = (profile.rewardsCollected ?: emptyList()) + ActCollectedReward(act, level))
+        profile = profile.addBalance(SwipeCurrency.CELESTIAL_TOKEN, -1)
         saveProfile()
         return result
     }

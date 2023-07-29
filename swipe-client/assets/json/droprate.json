@@ -1,0 +1,86 @@
+{"entries": [
+  {
+    "currency": ["ETHERIUM_COIN"],
+    "weight": 8000,
+    "value": 1
+  },
+  {
+    "currency": ["SCROLL_OF_WISDOM", "INFUSION_ORB"],
+    "weight": 500,
+    "value": 1
+  },
+  {
+    "currency": ["TOME_OF_ENLIGHTMENT", "INFUSION_SHARD"],
+    "weight": 250,
+    "value": 10,
+    "minLevel": 5
+  },
+  {
+    "currency": ["CODEX_OF_ASCENDANCY", "INFUSION_CRYSTAL"],
+    "weight": 125,
+    "value": 100,
+    "minLevel": 10
+  },
+  {
+    "currency": ["GRIMOIRE_OF_OMNISCENCE", "ASCENDANT_ESSENCE"],
+    "weight": 60,
+    "value": 1000,
+    "minLevel": 30
+  },
+  {
+    "items": ["HELM_OF_IRON_WILL", "RING_OF_ILLUMINATION", "SHADOWBANE_AMULET", "FROSTGUARD_GAUNTLETS", "FLAMEHEART_BELT", "THEMPERSTRIDE_BOOTS"],
+    "weight": 500,
+    "rarity": 1,
+    "value": 1
+  },
+  {
+    "items": ["HELM_OF_IRON_WILL", "RING_OF_ILLUMINATION", "SHADOWBANE_AMULET", "FROSTGUARD_GAUNTLETS", "FLAMEHEART_BELT", "THEMPERSTRIDE_BOOTS"],
+    "weight": 500,
+    "rarity": 2,
+    "value": 10,
+    "minLevel": 5
+  },
+  {
+    "items": ["HELM_OF_IRON_WILL", "RING_OF_ILLUMINATION", "SHADOWBANE_AMULET", "FROSTGUARD_GAUNTLETS", "FLAMEHEART_BELT", "THEMPERSTRIDE_BOOTS"],
+    "weight": 400,
+    "rarity": 3,
+    "value": 100,
+    "minLevel": 15
+  },
+  {
+    "items": ["HELM_OF_IRON_WILL", "RING_OF_ILLUMINATION", "SHADOWBANE_AMULET", "FROSTGUARD_GAUNTLETS", "FLAMEHEART_BELT", "THEMPERSTRIDE_BOOTS"],
+    "weight": 300,
+    "rarity": 4,
+    "value": 1000,
+    "minLevel": 30
+  },
+  {
+    "items": ["HELM_OF_IRON_WILL", "RING_OF_ILLUMINATION", "SHADOWBANE_AMULET", "FROSTGUARD_GAUNTLETS", "FLAMEHEART_BELT", "THEMPERSTRIDE_BOOTS"],
+    "weight": 200,
+    "rarity": 5,
+    "value": 10000,
+    "minLevel": 50
+  },
+  {
+    "items": ["HELM_OF_IRON_WILL", "RING_OF_ILLUMINATION", "SHADOWBANE_AMULET", "FROSTGUARD_GAUNTLETS", "FLAMEHEART_BELT", "THEMPERSTRIDE_BOOTS"],
+    "weight": 400,
+    "value": 10,
+    "rarity": 2,
+    "act": "ACT_1",
+    "level": "c4"
+  },
+  {
+    "currency": ["SCROLL_OF_WISDOM", "INFUSION_ORB", "ETHERIUM_COIN"],
+    "weight": 400,
+    "value": 1,
+    "act": "ACT_1",
+    "level": "r1"
+  },
+  {
+    "currency": ["TOME_OF_ENLIGHTMENT", "INFUSION_SHARD"],
+    "weight": 400,
+    "value": 10,
+    "act": "ACT_1",
+    "level": "r1"
+  }
+]}

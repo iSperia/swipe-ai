@@ -10,7 +10,6 @@ import com.game7th.items.InventoryItem
 import com.game7th.items.ItemCategory
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.screen.map.InventoryCellActor
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
 import ktx.async.KtxAsync
