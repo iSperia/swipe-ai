@@ -106,7 +106,7 @@ class ItemServiceImpl(gson: Gson, fileService: FileService): ItemService {
 
         val affixesFilled = mutableListOf<ItemAffixType>()
         (0 until affixesToGenerate).forEach { _ ->
-            generateAffix(affixesFilled, template)?.let { entry ->
+            generateAffix(affixesFilled, template).let { entry ->
                 affixesFilled.add(entry)
                 this.affixes[entry]?.let { ace ->
                     affixes.add(ItemAffix(

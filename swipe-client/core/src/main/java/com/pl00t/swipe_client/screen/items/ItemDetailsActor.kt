@@ -175,6 +175,9 @@ class ItemDetailsActor(
 
                 if (item.level >= item.maxLevel) {
                     buttonSwitch.isVisible = false
+                    if (mode == ItemDetailsMode.UPGRADE) {
+                        showAffixes()
+                    }
                 }
             }
         }

@@ -12,6 +12,16 @@ object CommonKeys {
         const val FIRE = "resist.fire"
         const val COLD = "resist.cold"
     }
+
+    object Damage {
+        const val PHYS = "damage.phys"
+        const val DARK = "damage.dark"
+        const val LIGHT = "damage.light"
+        const val SHOCK = "damage.shock"
+        const val FIRE = "damage.fire"
+        const val COLD = "damage.cold"
+    }
+
     object Vulnerability {
         const val PHYS = "vuln.phys"
         const val DARK = "vuln.dark"

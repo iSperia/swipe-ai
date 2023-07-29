@@ -74,6 +74,12 @@ fun SbContext.initHumans(humans: List<SbHumanEntry>) {
         var fireResist = 0f
         var darkResist = 0f
         var shockResist = 0f
+        var physIncrease = 0f
+        var coldIncrease = 0f
+        var lightIncrease = 0f
+        var fireIncrease = 0f
+        var darkIncrease = 0f
+        var shockIncrease = 0f
         config.items.flatMap { it.affixes + it.implicit }.forEach { affix ->
             when (affix.affix) {
                 ItemAffixType.PHYS_RESIST_FLAT -> physResist += affix.value
@@ -82,6 +88,13 @@ fun SbContext.initHumans(humans: List<SbHumanEntry>) {
                 ItemAffixType.FIRE_RESIST_FLAT -> fireResist += affix.value
                 ItemAffixType.LIGHT_RESIST_FLAT -> lightResist += affix.value
                 ItemAffixType.SHOCK_RESIST_FLAT -> shockResist += affix.value
+                ItemAffixType.COLD_DAMAGE_INCREASE -> coldIncrease += affix.value
+                ItemAffixType.DARK_DAMAGE_INCREASE -> darkIncrease += affix.value
+                ItemAffixType.PHYS_DAMAGE_INCREASE -> physIncrease += affix.value
+                ItemAffixType.LIGHT_DAMAGE_INCREASE -> lightIncrease += affix.value
+                ItemAffixType.FIRE_DAMAGE_INCREASE -> fireIncrease += affix.value
+                ItemAffixType.SHOCK_DAMAGE_INCREASE -> shockIncrease += affix.value
+                else -> {}
             }
         }
 
@@ -103,7 +116,19 @@ fun SbContext.initHumans(humans: List<SbHumanEntry>) {
                 CommonKeys.Resist.FIRE to fireResist,
                 CommonKeys.Resist.SHOCK to shockResist,
             )
-        )
+        )).withAddedEffect(
+            SbEffect(
+                id = 0,
+                skin = "base.damage",
+                mapOf(
+                    CommonKeys.Damage.PHYS to physIncrease,
+                    CommonKeys.Damage.COLD to coldIncrease,
+                    CommonKeys.Damage.DARK to darkIncrease,
+                    CommonKeys.Damage.LIGHT to lightIncrease,
+                    CommonKeys.Damage.FIRE to fireIncrease,
+                    CommonKeys.Damage.SHOCK to shockIncrease,
+                )
+            )
         )
 
         println(character.effects)
@@ -150,13 +175,23 @@ fun SbContext.initWave(wave: List<SbMonsterEntry>) {
 fun SbContext.dealDamage(sourceCharacterId: Int?, targetCharacterId: Int, damage: SbElemental) {
     var target = game.character(targetCharacterId) ?: return
 
+    val damageCoefficient = sourceCharacterId?.let { game.character(sourceCharacterId) }?.let { source ->
+        SbElemental(
+            phys = source.sumFloat(CommonKeys.Damage.PHYS) / 100f,
+            cold = source.sumFloat(CommonKeys.Damage.COLD) / 100f,
+            light = source.sumFloat(CommonKeys.Damage.LIGHT) / 100f,
+            dark = source.sumFloat(CommonKeys.Damage.DARK) / 100f,
+            shock = source.sumFloat(CommonKeys.Damage.SHOCK) / 100f,
+            fire = source.sumFloat(CommonKeys.Damage.FIRE) / 100f,
+        )
+    } ?: SbElemental(0f,0f,0f,0f,0f,0f)
     //count weakness of source
     val weaknessCoefficient: Float = 1f - (sourceCharacterId?.let {
         val sourceCharacter = game.character(sourceCharacterId) ?: return@let 0f
         val weaknessEffects = sourceCharacter.effects.count { it.skin == "COMMON_WEAKNESS" }
         weaknessEffects * 0.025f
     } ?: 0f)
-    val damageAfterWeakness = damage.multipledBy(weaknessCoefficient)
+    val damageAfterWeakness = damage.scaledBy(damageCoefficient).multipledBy(weaknessCoefficient)
 
     //count resist
     val targetResist = SbElemental(

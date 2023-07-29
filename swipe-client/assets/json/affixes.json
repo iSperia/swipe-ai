@@ -1,6 +1,90 @@
 {
   "affixes": [
     {
+      "affix": "DARK_DAMAGE_INCREASE",
+      "valuePerTier": 3,
+      "description": "Dark damage increase +$%",
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "AMULET"
+        }
+      ]
+    },
+    {
+      "affix": "COLD_DAMAGE_INCREASE",
+      "valuePerTier": 3,
+      "description": "Cold damage increase +$%",
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "RING"
+        }
+      ]
+    },
+    {
+      "affix": "PHYS_DAMAGE_INCREASE",
+      "valuePerTier": 3,
+      "description": "Physical damage increase +$%",
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "BELT"
+        }
+      ]
+    },
+    {
+      "affix": "SHOCK_DAMAGE_INCREASE",
+      "valuePerTier": 3,
+      "description": "Shock damage increase +$%",
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "RING"
+        }
+      ]
+    },
+    {
+      "affix": "FIRE_DAMAGE_INCREASE",
+      "valuePerTier": 3,
+      "description": "Fire damage increase +$%",
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "BELT"
+        }
+      ]
+    },
+    {
+      "affix": "LIGHT_DAMAGE_INCREASE",
+      "valuePerTier": 3,
+      "description": "Light damage increase +$%",
+      "weights": [
+        {
+          "weight": 100
+        },
+        {
+          "weight": 200,
+          "category": "AMULET"
+        }
+      ]
+    },
+    {
       "affix": "DARK_RESIST_FLAT",
       "valuePerTier": 2,
       "description": "Dark resistance +$%",
