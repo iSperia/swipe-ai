@@ -26,6 +26,8 @@ import com.pl00t.swipe_client.ux.ScreenTitle
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
 import ktx.async.KtxAsync
+import kotlin.math.max
+import kotlin.math.min
 
 interface LevelDetailsCallback {
     fun processMonsterClicked(skin: String)
@@ -162,8 +164,10 @@ class LevelDetailsActor(
                 setAlignment(Align.left)
             }
             addActor(tierRecomendation)
-            tier = 0
-//            tier = max(0, character.level.level / 5 - 1)
+
+            val maxTier = context.profileService().getTierUnlocked(levelDetails.act, levelDetails.locationId)
+            tier = min(maxTier, max(0, character.level.level / 5 - 1))
+
             tierGroup?.clearChildren()
             tierGroup?.remove()
             tierGroup = Group().apply {
@@ -197,8 +201,7 @@ class LevelDetailsActor(
                 tierGroup?.addActor(bg)
                 tierGroup?.addActor(fg)
 
-                if (index > 0) {
-                    //TODO: add chek what tiers are available
+                if (index > maxTier) {
                     val padlock = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("icon_padlock")).apply {
                         width = 30f
                         height = 24f
@@ -220,7 +223,7 @@ class LevelDetailsActor(
             val regionName = if (actor.name == tier.toString()) "bg_blue" else "bg_dark_blue"
             val recommendedLevel = tier * 5 + 5
             tierRecomendation?.setText("Level recommended: $recommendedLevel")
-            if (actor is Image && actor.name == tier.toString()) {
+            if (actor is Image && actor.name != null) {
                 actor.drawable = TextureRegionDrawable(context.commonAtlas(Atlases.COMMON_UX).findRegion(regionName))
             }
         }
@@ -335,7 +338,10 @@ class LevelDetailsActor(
                 setAlignment(Align.left)
             }
             addActor(tierRecomendation)
-            tier = 0
+
+            val maxTier = context.profileService().getTierUnlocked(levelDetails.act, levelDetails.locationId)
+            tier = min(maxTier, max(0, character.level.level / 5 - 1))
+
             tierGroup?.clearChildren()
             tierGroup?.remove()
             tierGroup = Group().apply {
@@ -369,8 +375,7 @@ class LevelDetailsActor(
                 tierGroup?.addActor(bg)
                 tierGroup?.addActor(fg)
 
-                if (index > 0) {
-                    //TODO: add chek what tiers are available
+                if (index > maxTier) {
                     val padlock = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("icon_padlock")).apply {
                         width = 30f
                         height = 24f

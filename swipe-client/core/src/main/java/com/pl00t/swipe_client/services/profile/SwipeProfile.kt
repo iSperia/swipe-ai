@@ -48,10 +48,17 @@ data class SwipeCharacter(
     val level: SwipeCharacterLevelInfo,
 )
 
+data class LevelTierUnlocked(
+    val tier: Int,
+    val level: String,
+    val act: SwipeAct
+)
+
 data class SwipeProfile(
     val balances: List<CurrencyBalance>,
     val actProgress: List<ActProgress>,
     val rewardsCollected: List<ActCollectedReward>?,
+    val tiersUnlocked: List<LevelTierUnlocked>?,
     val characters: List<SwipeCharacter>,
     val items: List<InventoryItem>,
 ) {

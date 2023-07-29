@@ -43,6 +43,10 @@ interface ProfileService {
     suspend fun dustItem(id: String): DustItemResult
     suspend fun spendCraftCurrency(id: String, currency: SwipeCurrency)
 
+    suspend fun getTierUnlocked(act: SwipeAct, level: String): Int
+
+    suspend fun unlockTier(act: SwipeAct, level: String, tier: Int)
+
     data class SpendExperienceCurrencyResult(
         val character: SwipeCharacter,
         val balance: Int,
@@ -121,7 +125,8 @@ class ProfileServiceImpl(
                         level = SwipeCharacterLevelInfo(0, 1, 1)
                     )
                 ),
-                items = emptyList()
+                items = emptyList(),
+                tiersUnlocked = emptyList()
             )
         }
     }
@@ -503,6 +508,27 @@ class ProfileServiceImpl(
 
             ProfileService.DustItemResult(result)
         } ?: ProfileService.DustItemResult(emptyList())
+    }
+
+    override suspend fun getTierUnlocked(act: SwipeAct, level: String): Int {
+        return profile.tiersUnlocked?.firstOrNull { it.act == act && it.level == level }?.let {
+            it.tier
+        } ?: 0
+    }
+
+    override suspend fun unlockTier(act: SwipeAct, level: String, tier: Int) {
+        val nowTiers = profile.tiersUnlocked ?: emptyList()
+        val tiersUpdated = if (nowTiers.none { it.act == act && it.level == level }) {
+            nowTiers + LevelTierUnlocked(tier, level, act)
+        } else nowTiers.map {
+            if (it.act == act && it.level == level && it.tier < tier) {
+                it.copy(tier = tier)
+            } else {
+                it
+            }
+        }
+        profile = profile.copy(tiersUnlocked = tiersUpdated)
+        saveProfile()
     }
 
     companion object {

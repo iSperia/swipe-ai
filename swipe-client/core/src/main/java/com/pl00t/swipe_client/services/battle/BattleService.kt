@@ -45,6 +45,7 @@ class BattleServiceImpl(
 
     private var actId = SwipeAct.ACT_1
     private var level = "c1"
+    private var tier = -1
 
 
     override suspend fun createBattle(actId: SwipeAct, level: String, tier: Int): BattleDecorations {
@@ -53,6 +54,7 @@ class BattleServiceImpl(
         processEnabled = true
         this.actId = actId
         this.level = level
+        this.tier = tier
         val actModel = levelService.getAct(actId)
         val levelModel = actModel.levels.firstOrNull { it.id == level } ?: return BattleDecorations("")
 
@@ -91,12 +93,12 @@ class BattleServiceImpl(
             }
             waves = listOf(monsterConfigs.map { SbMonsterEntry(it.skin, (tier + 1) * 5) })
         } else if (levelModel.type == LevelType.RAID && levelModel.monster_pool != null) {
-            val totalWaves = if (Random.nextInt(20) < tier + 1) 1 else 1
+            val totalWaves = if (Random.nextInt(20) < tier + 1) 4 else 3
             val totalWeight = levelModel.monster_pool.sumOf { it.weight }
 
             val waves = mutableListOf<List<SbMonsterEntry>>()
             (0 until totalWaves).forEach { waveIndex ->
-                val waveMonsters = if (Random.nextFloat() < 0.25f) 1 else 1
+                val waveMonsters = if (Random.nextFloat() < 0.25f) 2 else 3
                 val monsters = mutableListOf<SbMonsterEntry>()
                 (0 until waveMonsters).forEach { monsterIndex ->
                     val roll = Random.nextInt(totalWeight)
@@ -178,6 +180,9 @@ class BattleServiceImpl(
                     emptyList()
                 ))
                 profileService.markActComplete(actId, level)
+                if (tier >= 0) {
+                    profileService.unlockTier(actId, level, tier + 1)
+                }
                 processEnabled = false
             }
         }
