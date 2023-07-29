@@ -175,10 +175,8 @@ class LevelDetailsActor(
                     this.y = y
                     this.name = index.toString()
                     this.setOrigin(Align.center)
-                    println("this.name = ${this.name}")
                 }
                 bg.onClick {
-                    println("bg.onClick { ${this.name} }")
                     tier = this.name.toInt()
                     selectTier()
                 }
@@ -211,7 +209,6 @@ class LevelDetailsActor(
     }
 
     private fun selectTier() {
-        println("selectTier($tier)")
         tierGroup?.children?.forEach { actor ->
             val regionName = if (actor.name == tier.toString()) "bg_blue" else "bg_dark_blue"
             val recommendedLevel = tier * 5 + 5

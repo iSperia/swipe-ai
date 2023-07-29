@@ -13,7 +13,7 @@
     "thornstalker.primal_assault", "thornstalker.resilient_growth", "thornstalker.venomous_barrage", "common.poison"
   ],
   "balance": {
-    "base_health": 400,
+    "base_health": 190,
     "pa_base": 30,
     "pa_scale": 10,
     "vb_base": 10,

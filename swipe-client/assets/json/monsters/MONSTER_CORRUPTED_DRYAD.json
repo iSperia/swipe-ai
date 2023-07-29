@@ -12,7 +12,7 @@
     { "weight": 2, "skin": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
   ],
   "balance": {
-    "base_health": 100,
+    "base_health": 115,
     "af_base": 25,
     "af_scale": 10,
     "vs_dmg_base": 20,

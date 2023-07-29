@@ -61,7 +61,7 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
     "valerian.sigil_of_renewal" to { context, event ->
         context.useOnComplete(event, VALERIAN_SIGIL_OF_RENEWAL) { characterId, tileId, lucky ->
             var character = game.character(characterId) ?: return@useOnComplete
-            val tilesCount = (if (lucky) 1 else 2) * balance.intAttribute(SOR_TILES)
+            val tilesCount = (if (lucky) 2 else 1) * balance.intAttribute(SOR_TILES)
             val positions = freePositions(characterId, SbTile.LAYER_BACKGROUND, tilesCount)
 
             positions.forEach { p ->

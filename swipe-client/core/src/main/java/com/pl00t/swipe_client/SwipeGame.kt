@@ -71,11 +71,6 @@ class SwipeGame : Game(), Router {
             battleService = BattleServiceImpl(levelService, monsterService, profileService)
 
             navigateMap(SwipeAct.ACT_1)
-
-            KtxAsync.launch {
-                println(itemService.generateItem("FLAMEHEART_BELT", 2))
-            }
-
         }
     }
 

@@ -131,8 +131,6 @@ fun SbContext.initHumans(humans: List<SbHumanEntry>) {
             )
         )
 
-        println(character.effects)
-
         game = game.withAddedCharacter(character)
         events.add(SbDisplayEvent.SbCreateCharacter(
             personage = game.characters.last().asDisplayed()
