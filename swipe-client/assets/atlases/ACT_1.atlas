@@ -4,16 +4,16 @@ size: 2048, 2048
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
-groves
+crystal_coves
   rotate: false
   xy: 1024, 0
   size: 1024, 1024
   orig: 1024, 1024
   offset: 0, 0
   index: -1
-harmony_citadel
+groves
   rotate: false
-  xy: 0, 0
+  xy: 1024, 1024
   size: 1024, 1024
   orig: 1024, 1024
   offset: 0, 0
@@ -25,30 +25,37 @@ map
   orig: 1024, 1024
   offset: 0, 0
   index: -1
-vines_of_earth
-  rotate: false
-  xy: 1024, 1024
-  size: 1024, 1024
-  orig: 1024, 1024
-  offset: 0, 0
-  index: -1
-
-ACT_12.png
-size: 2048, 1024
-format: RGBA8888
-filter: MipMapLinearLinear, MipMapLinearLinear
-repeat: none
-crystal_coves
+sacred_citadel
   rotate: false
   xy: 0, 0
   size: 1024, 1024
   orig: 1024, 1024
   offset: 0, 0
   index: -1
-enchanted_sanctuary
+
+ACT_12.png
+size: 512, 128
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: none
+crystal_coves_preview
   rotate: false
-  xy: 1024, 0
-  size: 1024, 1024
-  orig: 1024, 1024
+  xy: 0, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+groves_preview
+  rotate: false
+  xy: 128, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+sacred_citadel_preview
+  rotate: false
+  xy: 256, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1

@@ -225,7 +225,7 @@ class ProfileServiceImpl(
                 else -> {}
             }
         }
-//        profile = profile.copy(rewardsCollected = (profile.rewardsCollected ?: emptyList()) + ActCollectedReward(act, level))
+        profile = profile.copy(rewardsCollected = (profile.rewardsCollected ?: emptyList()) + ActCollectedReward(act, level))
         saveProfile()
         return result
     }

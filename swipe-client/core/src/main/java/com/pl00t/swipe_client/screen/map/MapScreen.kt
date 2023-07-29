@@ -30,8 +30,8 @@ import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.ScreenTitle
 import com.pl00t.swipe_client.ux.hideToBehindAndRemove
 import com.pl00t.swipe_client.ux.raiseFromBehind
+import com.pl00t.swipe_client.ux.require
 import kotlinx.coroutines.launch
-import ktx.actors.alpha
 import ktx.actors.onClick
 import ktx.async.KtxAsync
 import ktx.log.debug
@@ -73,7 +73,7 @@ class MapScreen(
     private val gestureDetector = GestureDetector(this)
 
     private val mapSmallIconSize = root.height / 15f
-    private val mapIconSize = root.height / 10f
+    private val mapIconSize = root.height / 12f
     private var _mapScale = 1f
 
     override fun show() {
@@ -144,34 +144,65 @@ class MapScreen(
 
 
             act.levels.forEach { level ->
-                val texture = when (level.type) {
-                    LevelType.RAID -> commonAtlas(Atlases.COMMON_MAP).findRegion("map_icon_farm")
-                    LevelType.CAMPAIGN -> commonAtlas(Atlases.COMMON_MAP).findRegion("map_icon_shield")
-                    LevelType.BOSS -> commonAtlas(Atlases.COMMON_MAP).findRegion("map_icon_boss")
-                }
                 val iconSize = when (level.type) {
                     LevelType.RAID -> mapIconSize
                     LevelType.CAMPAIGN -> mapSmallIconSize
                     LevelType.BOSS -> mapIconSize
                 }
+
                 val iconX = level.x * _mapScale
                 val iconY = level.y * _mapScale
-                val icon = Image(texture).apply {
-                    originX = 0.5f
-                    originY = 0.5f
-                    x = iconX - iconSize / 2f
-                    y = iconY - iconSize / 2f
-                    name = level.locationId
+
+                println(level.locationBackground)
+                val bg = Image(commonAtlas(Atlases.ACT(level.act)).findRegion("${level.locationBackground}_preview").require()).apply {
                     width = iconSize
                     height = iconSize
-                    alpha = if (level.enabled) 1f else 0.5f
                 }
-                if (level.enabled) {
-                    icon.onClick {
-                        showLevelDetails(level)
+                val fgTop = Image(commonAtlas(Atlases.COMMON_UX).findRegion("fg_level_top").require()).apply {
+                    width = bg.width
+                    height = bg.height
+                }
+                val fgBottom = Image(commonAtlas(Atlases.COMMON_UX).findRegion("fg_level_bottom").require()).apply {
+                    width = bg.width
+                    height = bg.height
+                }
+                val group = Group().apply {
+                    width = mapIconSize
+                    height = mapIconSize
+                    x = iconX - iconSize / 2f
+                    y = iconY - iconSize / 2f
+                }
+
+                group.addActor(bg)
+                group.addActor(fgTop)
+
+                if (level.type == LevelType.BOSS) {
+                    val fgBoss = Image(commonAtlas(Atlases.COMMON_UNITS).findRegion(level.waves[0][0].skin)).apply {
+                        height = iconSize * 1.2f
+                        width = this.height * 0.66f
+                        x = (iconSize - this.width) / 2f
+                        y = 5f
+                    }
+                    group.addActor(fgBoss)
+                }
+                if (level.type == LevelType.CAMPAIGN && !profileService.isFreeRewardAvailable(level.act, level.locationId)) {
+                    val fgCheckmark = Image(commonAtlas(Atlases.COMMON_UX).findRegion("fg_complete")).apply {
+                        height = iconSize * 0.9f
+                        width = iconSize * 0.9f
+                        x = iconSize * 0.05f
+                        y = iconSize * 0.05f
+                    }
+                    group.addActor(fgCheckmark)
+                } else {
+                    if (level.enabled) {
+                        group.onClick {
+                            showLevelDetails(level)
+                        }
                     }
                 }
-                mapIconsGroup.addActor(icon)
+                group.addActor(fgBottom)
+
+                mapIconsGroup.addActor(group)
             }
         }
 
