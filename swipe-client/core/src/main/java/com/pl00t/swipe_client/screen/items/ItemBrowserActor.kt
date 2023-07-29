@@ -37,6 +37,10 @@ class ItemBrowserActor(
     private var pityCloseButton: TextButton? = null
 
     init {
+        KtxAsync.launch {
+            val itemCount = context.profileService().getItems().count { categoryFilter == null || it.category == categoryFilter }
+            if (itemCount == 0) remove()
+        }
         val bg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_dark_blue")).apply {
             width = browserWidth
             height = browserHeight + 280f

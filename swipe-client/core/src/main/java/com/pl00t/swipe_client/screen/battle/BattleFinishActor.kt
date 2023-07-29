@@ -121,6 +121,16 @@ class BattleFinishActor(
             KtxAsync.launch {
                 checkFreeRewardAvailable()
             }
+        } else {
+            val closeButton = Buttons.createActionButton("Continue Journey", skin).apply {
+                width = 300f
+                x = 50f
+                y = 24f
+            }
+            closeButton.onClick {
+                router.navigateMap(actId)
+            }
+            addActor(closeButton)
         }
     }
 
@@ -129,7 +139,7 @@ class BattleFinishActor(
             freeRewardButton = Buttons.createActionButton("Collect Rewards", skin).apply {
                 width = 300f
                 x = 50f
-                y = 14f
+                y = 24f
             }
             freeRewardButton?.onClick {
                 KtxAsync.launch {
