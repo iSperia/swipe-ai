@@ -253,6 +253,7 @@
       "id": "c4",
       "title": "Thalendros, the Corrupted Treant",
       "background": "groves",
+      "music": "theme_boss",
       "description": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
       "monsters": [
         [

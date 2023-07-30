@@ -33,7 +33,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.TarotSimpleAttack(
-                            THALENDROS_THORN_WHIP, characterId, target)))
+                            THALENDROS_THORN_WHIP, characterId, target), SbSoundType.WOOSH_TREE_ATTACK))
             }
         }
     },
@@ -46,7 +46,8 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.TarotSimpleAttack(
                             THALENDROS_EARTHQUAKE_SLAM, characterId, targetId
-                        )
+                        ),
+                        SbSoundType.WOOSH_TREE_ATTACK
                     )
                 )
 
@@ -101,7 +102,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.TarotSimpleAttack(
-                            THALENDROS_DARK_AURA, characterId, targetId)))
+                            THALENDROS_DARK_AURA, characterId, targetId), SbSoundType.AOE_SPELL))
 
                 val auraTilesCount = balance.intAttribute(da_tiles) * (if (lucky) 2 else 1)
                 val positions = freePositions(targetId, SbTile.LAYER_BACKGROUND, auraTilesCount)
@@ -132,7 +133,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
             val thalendrosSpirit = game.characters.firstOrNull { it.skin == "MONSTER_THALENDROS" }?.attributes?.spirit ?: 0
             val damage = balance.floatAttribute(da_base) * (1f + 0.01f * balance.intAttribute(da_scale) * thalendrosSpirit)
             dealDamage(null, characterId, SbElemental(dark = damage))
-            events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotStatic(THALENDROS_DARK_AURA, characterId)))
+            events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotStatic(THALENDROS_DARK_AURA, characterId), SbSoundType.AOE_SPELL))
         }
     }
 

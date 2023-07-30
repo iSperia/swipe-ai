@@ -29,7 +29,7 @@ fun provideThornstalkerTriggers(balance: JsonObject): Map<String, SbTrigger> = m
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.TarotSimpleAttack(
-                            THORNSTALKER_PRIMAL_ASSAULT, characterId, target)))
+                            THORNSTALKER_PRIMAL_ASSAULT, characterId, target), SbSoundType.WOOSH_ATTACK))
             }
         }
     },
@@ -40,7 +40,7 @@ fun provideThornstalkerTriggers(balance: JsonObject): Map<String, SbTrigger> = m
                 val amount = balance.floatAttribute(rg_base) * (1f + 0.01f * balance.intAttribute(rg_scale) * character.attributes.spirit)
                 healCharacter(characterId, amount.toInt())
                 events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotStatic(
-                    THORNSTALKER_RESILIENT_GROWTH, characterId)))
+                    THORNSTALKER_RESILIENT_GROWTH, characterId), SbSoundType.HEAL_MONSTER))
             }
         }
     },
@@ -51,6 +51,8 @@ fun provideThornstalkerTriggers(balance: JsonObject): Map<String, SbTrigger> = m
                 val poisonAmount = balance.floatAttribute(vb_base) * (1f + 0.01f * balance.intAttribute(vb_scale) * character.attributes.spirit)
                 meleeTarget(characterId).forEach { targetId ->
                     inflictPoison(targetId, poisonAmount.toInt())
+                    events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotStatic(
+                        THORNSTALKER_VENOMOUS_BARRAGE, characterId), SbSoundType.WOOSH_TREE_ATTACK))
                 }
             }
         }

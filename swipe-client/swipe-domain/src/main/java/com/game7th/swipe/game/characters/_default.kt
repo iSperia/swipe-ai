@@ -20,7 +20,8 @@ fun provideDefaultTriggers(): Map<String, SbTrigger> = mapOf(
                     SbDisplayEvent.SbShowPopup(
                         characterId = characterId,
                         text = "Poison",
-                        icons = emptyList()
+                        icons = emptyList(),
+                        sound = SbSoundType.HISS_POISON
                     )
                 )
             }

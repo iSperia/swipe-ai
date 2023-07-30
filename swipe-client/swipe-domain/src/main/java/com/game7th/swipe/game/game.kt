@@ -223,8 +223,8 @@ sealed interface SbDisplayEvent {
     data class SbCreateCharacter(val personage: SbDisplayCharacter): SbDisplayEvent
     data class SbDestroyCharacter(val id: Int): SbDisplayEvent
     data class SbUpdateCharacter(val personage: SbDisplayCharacter): SbDisplayEvent
-    data class SbShowPopup(val characterId: Int, val text: String, val icons: List<String>): SbDisplayEvent
-    data class SbShowTarotEffect(val effect: SbBattleFieldDisplayEffect): SbDisplayEvent
+    data class SbShowPopup(val characterId: Int, val text: String, val icons: List<String>, val sound: SbSoundType? = null): SbDisplayEvent
+    data class SbShowTarotEffect(val effect: SbBattleFieldDisplayEffect, val sound: SbSoundType? = null): SbDisplayEvent
 
     data class SbWave(val wave: Int): SbDisplayEvent
 

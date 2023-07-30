@@ -48,6 +48,7 @@ data class LevelModel(
     val title: String,
     val description: String,
     val background: String,
+    val music: String?,
     val monsters: List<List<SbMonsterEntry>>?,
     val monster_pool: List<SbMonsterPoolEntry>?,
     val dialog: List<DialogEntryModel>?,

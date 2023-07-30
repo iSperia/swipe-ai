@@ -32,7 +32,7 @@ fun provideCorruptedDryadTriggers(balance: JsonObject): Map<String, SbTrigger> =
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.TarotSimpleAttack(
-                            CORRUPTED_DRYAD_ARBOREAL_FANGS, characterId, target)))
+                            CORRUPTED_DRYAD_ARBOREAL_FANGS, characterId, target), SbSoundType.WOOSH_ATTACK))
             }
         }
     },
@@ -51,7 +51,7 @@ fun provideCorruptedDryadTriggers(balance: JsonObject): Map<String, SbTrigger> =
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.TarotSimpleAttack(
-                            CORRUPTED_DRYAD_VILE_SIPHON, characterId, target)))
+                            CORRUPTED_DRYAD_VILE_SIPHON, characterId, target), SbSoundType.WOOSH_TREE_ATTACK))
             }
 
             healCharacter(character.id, healAmount.toInt())
@@ -72,7 +72,7 @@ fun provideCorruptedDryadTriggers(balance: JsonObject): Map<String, SbTrigger> =
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.TarotSimpleAttack(
-                            CORRUPTED_DRYAD_SHADOWED_ANNIHILATION, characterId, target)))
+                            CORRUPTED_DRYAD_SHADOWED_ANNIHILATION, characterId, target), SbSoundType.AOE_SPELL))
 
                 game.character(target)?.let { targetCharacter ->
                     var missedCount = 0

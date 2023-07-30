@@ -237,7 +237,7 @@ fun SbContext.healCharacter(characterId: Int, amount: Int) {
     target = target.withUpdatedHealth(healthAfter)
     game = game.withUpdatedCharacter(target)
 
-    events.add(SbDisplayEvent.SbShowPopup(characterId, amount.toString(), listOf("heal")))
+    events.add(SbDisplayEvent.SbShowPopup(characterId, amount.toString(), listOf("heal"), SbSoundType.HEAL_SPELL))
 }
 
 fun SbContext.inflictPoison(characterId: Int, amount: Int) {

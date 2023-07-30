@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
+import com.game7th.swipe.game.SbSoundType
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.screen.Router
@@ -56,6 +57,7 @@ class BattleFinishActor(
     var freeRewardButton: TextButton? = null
 
     init {
+        if (result.victory) context.playSound(SbSoundType.FANFARE) else context.playSound(SbSoundType.DEFEAT_MUSIC)
         topBlockSize = 400f
         val subBlockHeight = 320f
         dialogHeight = topBlockSize + subBlockHeight

@@ -8,11 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
-import com.badlogic.gdx.utils.viewport.ExtendViewport
-import com.badlogic.gdx.utils.viewport.FitViewport
-import com.badlogic.gdx.utils.viewport.ScreenViewport
 import com.badlogic.gdx.utils.viewport.StretchViewport
-import com.badlogic.gdx.utils.viewport.Viewport
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import ktx.app.KtxScreen

@@ -36,7 +36,7 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
             meleeTarget(characterId).forEach { target ->
                 dealDamage(characterId, target, damage)
                 events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotSimpleAttack(
-                    VALERIAN_RADIANT_STRIKE, characterId, target)))
+                    VALERIAN_RADIANT_STRIKE, characterId, target), SbSoundType.SWORD_ATTACK))
             }
         }
     },
@@ -51,7 +51,7 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
             allEnemies(characterId).forEach { target ->
                 dealDamage(characterId, target, damage)
                 events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotDirectedAoe(
-                    VALERIAN_LUMINOUS_BEAM, characterId, 0)
+                    VALERIAN_LUMINOUS_BEAM, characterId, 0), SbSoundType.AOE_SPELL
                 ))
             }
         }
@@ -83,7 +83,7 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
                 events.add(SbDisplayEvent.SbCreateTile(characterId = character.id, tile = character.tiles.last().asDisplayed()))
             }
             events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotStatic(
-                VALERIAN_SIGIL_OF_RENEWAL, characterId)))
+                VALERIAN_SIGIL_OF_RENEWAL, characterId), SbSoundType.HEAL_MONSTER))
         }
 
         context.triggerBackgroundLayerOnComplete(event, VALERIAN_SIGIL_OF_RENEWAL_BG) { characterId, tileId ->
@@ -117,7 +117,7 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
                     tiles.forEach { t -> context.destroyTile(character.id, t.id) }
 
                     context.events.add(SbDisplayEvent.SbShowTarotEffect(effect = SbBattleFieldDisplayEffect.TarotUltimate(
-                        VALERIAN_DIVINE_CONVERGENCE)))
+                        VALERIAN_DIVINE_CONVERGENCE), SbSoundType.ULTIMATE))
                     context.game.character(0)?.let { c ->
                         val cc = c.withUpdatedUltimateProgress(0)
                         context.game = context.game.withUpdatedCharacter(cc)

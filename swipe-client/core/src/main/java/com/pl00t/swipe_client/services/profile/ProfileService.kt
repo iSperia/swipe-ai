@@ -560,7 +560,8 @@ class ProfileServiceImpl(
         profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -10)
 
         val token = SbDropEntry(SwipeCurrency.CELESTIAL_TOKEN, null, 1000, 20, null, null, 0, 2)
-        val commonDrops = levelService.getCommonDrops(0).filter { it.currency != SwipeCurrency.ETHERIUM_COIN }
+        val maxLevel = profile.characters.maxOf { it.level.level }
+        val commonDrops = levelService.getCommonDrops(maxLevel).filter { it.currency != SwipeCurrency.ETHERIUM_COIN }
         val tokens = Random.nextInt(1, 3)
         val items = (0 until 12).map { index ->
             val drop = if (index > tokens - 1) commonDrops.random() else token

@@ -3,6 +3,8 @@ package com.pl00t.swipe_client.screen.battle
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.audio.Music
+import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.Interpolation.SwingOut
@@ -23,6 +25,7 @@ import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.battle.BattleService
 import com.game7th.swipe.game.SbBattleFieldDisplayEffect
 import com.game7th.swipe.game.SbDisplayEvent
+import com.game7th.swipe.game.SbSoundType
 import com.game7th.swipe.game.SbTileFieldDisplayEffect
 import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.services.items.ItemService
@@ -81,6 +84,16 @@ class BattleScreen(
 
     private val preBattleDialogs: MutableList<DialogEntryModel> = mutableListOf()
 
+    lateinit var music: Music
+    private val soundMap: Map<SbSoundType, Sound> = SbSoundType.values().map {
+        val sound = Gdx.audio.newSound(Gdx.files.internal("sfx/$it.ogg"))
+        it to sound
+    }.toMap()
+
+    override fun playSound(sound: SbSoundType) {
+        soundMap[sound]?.play()
+    }
+
     override fun show() {
         gestureDetector = SimpleDirectionGestureDetector(this)
         multiplexer.addProcessor(root)
@@ -88,6 +101,8 @@ class BattleScreen(
         Gdx.input.inputProcessor = multiplexer
         KtxAsync.launch {
             decorations = battleService.createBattle(actId, levelId, tier)
+            music = Gdx.audio.newMusic(Gdx.files.internal("music/${decorations.music}.ogg"))
+            music.play()
             battleAssetManager = AssetManager().apply {
                 load(Atlases.COMMON_BATTLE, TextureAtlas::class.java)
                 load(Atlases.ACT(SwipeAct.ACT_1), TextureAtlas::class.java)
@@ -280,10 +295,12 @@ class BattleScreen(
                     unitActor.popupDelay += 0.4f
                     popupActor.addAction(action)
                 }
+                event.sound?.let { playSound(it) }
             }
 
             is SbDisplayEvent.SbDestroyCharacter -> {
                 unitsGroup.findActor<UnitActor>(event.id.toString())?.let { actor ->
+                    playSound(if (actor.team == 0) SbSoundType.DEATH_HERO else SbSoundType.DEATH)
                     val action = Actions.sequence(
                         Actions.alpha(0f, 0.4f),
                         Actions.removeActor()
@@ -299,6 +316,7 @@ class BattleScreen(
                     is SbBattleFieldDisplayEffect.TarotUltimate -> processUltimateAnimation(event.effect as SbBattleFieldDisplayEffect.TarotUltimate)
                     is SbBattleFieldDisplayEffect.TarotStatic -> processStaticAnimation(event.effect as SbBattleFieldDisplayEffect.TarotStatic)
                 }
+                event.sound?.let { playSound(it) }
             }
 
             is SbDisplayEvent.SbShowTileFieldEffect -> {
@@ -511,6 +529,7 @@ class BattleScreen(
     }
 
     private fun processDestroyTile(event: SbDisplayEvent.SbDestroyTile) {
+        playSound(SbSoundType.TILE_COMPLETE)
         val actor = tilesGroup[event.z].findActor<TileActor>(event.tileId.toString())
         actor?.addAction(
             Actions.sequence(
@@ -529,6 +548,7 @@ class BattleScreen(
             val tx = event.tox * tileSize
             val ty = event.toy * tileSize
             if (event.targetTile != null) {
+                playSound(SbSoundType.TILE_JOIN)
                 tilesGroup[event.targetTile!!.z].findActor<TileActor>(event.targetTile!!.id.toString())
                     ?.let { targetTile ->
                         targetTile.addAction(
@@ -634,6 +654,12 @@ class BattleScreen(
 
     override fun dispose() {
         super.dispose()
+        music.stop()
+        music.dispose()
+        soundMap.values.forEach {
+            it.stop()
+            it.dispose()
+        }
         multiplexer.removeProcessor(gestureDetector)
         battleAssetManager.dispose()
     }

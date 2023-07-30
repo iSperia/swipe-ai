@@ -56,7 +56,7 @@ class BattleServiceImpl(
         this.level = level
         this.tier = tier
         val actModel = levelService.getAct(actId)
-        val levelModel = actModel.levels.firstOrNull { it.id == level } ?: return BattleDecorations("")
+        val levelModel = actModel.levels.firstOrNull { it.id == level } ?: return BattleDecorations("", "")
 
         val character = profileService.getCharacters().first()
 
@@ -134,7 +134,7 @@ class BattleServiceImpl(
             initWave(waves[0])
         }
         handleContext()
-        return BattleDecorations(levelModel.background)
+        return BattleDecorations(levelModel.background, levelModel.music ?: "theme_verdant_grove")
     }
 
     override suspend fun events(): Flow<SbDisplayEvent> = events.filter { event ->
