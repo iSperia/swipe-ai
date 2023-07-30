@@ -4,6 +4,13 @@ size: 2048, 2048
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: xy
+CHARACTER_ZEPHYR
+  rotate: false
+  xy: 0, 0
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1
 MONSTER_CORRUPTED_DRYAD
   rotate: false
   xy: 0, 1002
@@ -13,35 +20,28 @@ MONSTER_CORRUPTED_DRYAD
   index: -1
 MONSTER_SHADOW_OF_CHAOS
   rotate: false
-  xy: 1204, 1009
+  xy: 1204, 7
   size: 600, 1000
   orig: 600, 1000
   offset: 0, 0
   index: -1
 MONSTER_THALENDROS
   rotate: false
-  xy: 0, 0
+  xy: 602, 1009
   size: 600, 1000
   orig: 600, 1000
   offset: 0, 0
   index: -1
 MONSTER_THORNED_CRAWLER
   rotate: false
-  xy: 602, 1009
+  xy: 602, 7
   size: 600, 1000
   orig: 600, 1000
   offset: 0, 0
   index: -1
 MONSTER_THORNSTALKER
   rotate: false
-  xy: 602, 7
-  size: 600, 1000
-  orig: 600, 1000
-  offset: 0, 0
-  index: -1
-MONSTER_XALITHAR
-  rotate: false
-  xy: 1204, 7
+  xy: 1204, 1009
   size: 600, 1000
   orig: 600, 1000
   offset: 0, 0
@@ -54,28 +54,35 @@ filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: xy
 CHARACTER_SAFFRON
   rotate: false
-  xy: 0, 1002
+  xy: 0, 0
   size: 600, 1000
   orig: 600, 1000
   offset: 0, 0
   index: -1
 CHARACTER_VALERIAN
   rotate: false
-  xy: 602, 1002
+  xy: 602, 0
   size: 600, 1000
   orig: 600, 1000
   offset: 0, 0
   index: -1
 MONSTER_CRYSTAL_GUARDIAN
   rotate: false
-  xy: 602, 0
+  xy: 1204, 1002
   size: 600, 1000
   orig: 600, 1000
   offset: 0, 0
   index: -1
 MONSTER_STONE_GOLEM
   rotate: false
-  xy: 0, 0
+  xy: 602, 1002
+  size: 600, 1000
+  orig: 600, 1000
+  offset: 0, 0
+  index: -1
+MONSTER_XALITHAR
+  rotate: false
+  xy: 0, 1002
   size: 600, 1000
   orig: 600, 1000
   offset: 0, 0

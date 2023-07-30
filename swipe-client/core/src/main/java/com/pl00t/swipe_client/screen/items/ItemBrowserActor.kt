@@ -73,7 +73,7 @@ class ItemBrowserActor(
                 } else {
                     it
                 }
-            }
+            }.sortedByDescending { it.level * 10 + it.rarity }
             if (selectedId == null) {
                 selectedId = items.firstOrNull()?.id
             }

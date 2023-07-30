@@ -47,7 +47,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 100,
+            "amount": 10,
             "type": "ETHERIUM_COIN"
           }
         }
@@ -114,7 +114,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 100,
+            "amount": 10,
             "type": "ETHERIUM_COIN"
           }
         },
@@ -226,7 +226,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 150,
+            "amount": 10,
             "type": "ETHERIUM_COIN"
           }
         },

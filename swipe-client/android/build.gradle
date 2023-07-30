@@ -36,7 +36,7 @@ android {
     minSdkVersion 19
     targetSdkVersion 32
     versionCode 4
-    versionName "0.1.4"
+    versionName "0.1.5"
     multiDexEnabled true
   }
   namespace "com.pl00t.swipe_client"

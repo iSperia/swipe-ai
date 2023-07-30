@@ -28,7 +28,7 @@ enum class DialogOrientation {
 }
 
 data class DialogEntryModel(
-    val actor: UnitSkin,
+    val actor: String,
     val side: DialogOrientation,
     val text: String,
     val title: String,

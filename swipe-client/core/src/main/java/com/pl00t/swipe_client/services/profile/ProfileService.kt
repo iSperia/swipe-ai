@@ -10,6 +10,7 @@ import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.levels.*
 import java.lang.IllegalArgumentException
+import java.util.UUID
 import kotlin.math.min
 import kotlin.random.Random
 
@@ -47,6 +48,12 @@ interface ProfileService {
 
     suspend fun unlockTier(act: SwipeAct, level: String, tier: Int)
 
+    suspend fun getMysteryShop(): List<SbMysteryItem>
+
+    suspend fun rerollMysteryShop()
+
+    suspend fun buyMysteryItem(id: String): List<CollectedReward>
+
     data class SpendExperienceCurrencyResult(
         val character: SwipeCharacter,
         val balance: Int,
@@ -56,6 +63,15 @@ interface ProfileService {
         val rewards: List<CurrencyReward>
     )
 }
+
+data class SbMysteryItem(
+    val id: String,
+    val currency: SwipeCurrency?,
+    val item: String?,
+    val rarity: Int,
+    val price: Int,
+    val title: String,
+)
 
 sealed interface CollectedReward {
     data class CountedCurrency(
@@ -126,7 +142,8 @@ class ProfileServiceImpl(
                     )
                 ),
                 items = emptyList(),
-                tiersUnlocked = emptyList()
+                tiersUnlocked = emptyList(),
+                mysteryShop = null
             )
         }
     }
@@ -529,6 +546,58 @@ class ProfileServiceImpl(
         }
         profile = profile.copy(tiersUnlocked = tiersUpdated)
         saveProfile()
+    }
+
+    override suspend fun getMysteryShop(): List<SbMysteryItem> {
+        if (profile.mysteryShop == null) {
+            rerollMysteryShop()
+        }
+        return profile.mysteryShop ?: emptyList()
+    }
+
+    override suspend fun rerollMysteryShop() {
+        if (profile.getBalance(SwipeCurrency.ETHERIUM_COIN) < 10) return
+        profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -10)
+
+        val token = SbDropEntry(SwipeCurrency.CELESTIAL_TOKEN, null, 1000, 20, null, null, 0, 2)
+        val commonDrops = levelService.getCommonDrops(0).filter { it.currency != SwipeCurrency.ETHERIUM_COIN }
+        val tokens = Random.nextInt(1, 3)
+        val items = (0 until 12).map { index ->
+            val drop = if (index > tokens - 1) commonDrops.random() else token
+
+            val price = Random.nextInt(drop.value, drop.value * 3)
+            val title = if (drop.currency != null) {
+                getCurrency(drop.currency).name
+            } else {
+                itemService.getItemTemplate(drop.item!!)!!.name
+            }
+            SbMysteryItem(UUID.randomUUID().toString(), drop.currency, drop.item, drop.rarity, price, title)
+        }
+        profile = profile.copy(mysteryShop = items)
+        saveProfile()
+    }
+
+    override suspend fun buyMysteryItem(id: String): List<CollectedReward> {
+        return profile.mysteryShop?.firstOrNull { it.id == id }?.let { mysteryItem ->
+            if (profile.getBalance(SwipeCurrency.ETHERIUM_COIN) >= mysteryItem.price) {
+                profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -mysteryItem.price)
+                profile = profile.copy(mysteryShop = profile.mysteryShop?.filter { it.id != id }?.shuffled())
+                if (mysteryItem.currency != null) {
+                    profile = profile.addBalance(mysteryItem.currency, 1)
+                    val meta = getCurrency(mysteryItem.currency)
+                    saveProfile()
+                    listOf(CollectedReward.CountedCurrency(meta.currency, 1, meta.name, meta.rarity, meta.description))
+                } else {
+                    val item = itemService.generateItem(mysteryItem.item!!, mysteryItem.rarity)!!
+                    profile = profile.addItem(item)
+                    saveProfile()
+                    val meta = itemService.getItemTemplate(mysteryItem.item)!!
+                    listOf(CollectedReward.CollectedItem(meta.skin, 1, meta.name, mysteryItem.rarity, meta.lore))
+                }
+            } else {
+                emptyList()
+            }
+        } ?: emptyList()
     }
 
     companion object {

@@ -223,49 +223,49 @@ bg_rarity
   index: 3
 bg_rarity
   rotate: false
-  xy: 1546, 977
+  xy: 1650, 1009
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 0
 bg_rarity
   rotate: false
-  xy: 86, 46
+  xy: 152, 109
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 5
 bg_rarity
   rotate: false
-  xy: 152, 109
+  xy: 1124, 768
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 2
 bg_rarity
   rotate: false
-  xy: 1124, 768
+  xy: 1190, 831
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 4
 bg_rarity
   rotate: false
-  xy: 510, 757
+  xy: 513, 757
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 1
 bg_semi
   rotate: false
-  xy: 1650, 1009
+  xy: 86, 46
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 black_pixel
   rotate: false
-  xy: 460, 695
+  xy: 510, 757
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -441,6 +441,13 @@ icon_map_pressed
   orig: 48, 60
   offset: 0, 0
   index: -1
+icon_mystic_dealer
+  rotate: false
+  xy: 1676, 1582
+  size: 48, 60
+  orig: 48, 60
+  offset: 0, 0
+  index: -1
 icon_padlock
   rotate: false
   xy: 0, 40
@@ -457,7 +464,7 @@ icon_party
   index: -1
 icon_party_pressed
   rotate: false
-  xy: 1676, 1582
+  xy: 1546, 918
   size: 48, 60
   orig: 48, 60
   offset: 0, 0
@@ -478,7 +485,7 @@ item_bg
   index: -1
 opaque_black
   rotate: false
-  xy: 1190, 831
+  xy: 460, 695
   size: 1, 1
   orig: 1, 1
   offset: 0, 0

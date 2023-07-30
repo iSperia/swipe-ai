@@ -111,5 +111,9 @@
       down: icon_map_pressed, up: icon_map,
       font: text_small, fontColor: white_color, downFontColor: accent_color
     }
+    nav_shop: {
+      down: icon_mystic_dealer, up: icon_mystic_dealer,
+      font: text_small, fontColor: white_color, downFontColor: accent_color
+    }
   }
 }

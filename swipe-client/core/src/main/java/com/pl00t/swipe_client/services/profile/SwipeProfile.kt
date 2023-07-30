@@ -61,6 +61,7 @@ data class SwipeProfile(
     val tiersUnlocked: List<LevelTierUnlocked>?,
     val characters: List<SwipeCharacter>,
     val items: List<InventoryItem>,
+    val mysteryShop: List<SbMysteryItem>?,
 ) {
     private fun getRewardsCollectedOrEmpty() = rewardsCollected ?: emptyList()
 

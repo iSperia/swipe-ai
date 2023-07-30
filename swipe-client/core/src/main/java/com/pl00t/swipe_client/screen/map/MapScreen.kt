@@ -23,6 +23,7 @@ import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.screen.items.ItemBrowserAction
 import com.pl00t.swipe_client.screen.items.ItemBrowserActor
 import com.pl00t.swipe_client.screen.reward.RewardDialog
+import com.pl00t.swipe_client.screen.shop.ShopActor
 import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.profile.CollectedReward
 import com.pl00t.swipe_client.services.profile.ProfileService
@@ -41,6 +42,8 @@ interface MapScreenRouter {
     fun showInventory()
     fun activeCharacterChanged()
     fun showHeroesList()
+
+    fun showShop()
 }
 
 class MapScreen(
@@ -315,6 +318,12 @@ class MapScreen(
         val heroesListActor = HeroesListActor(this@MapScreen, profileService, monsterService,this@MapScreen, skin)
         root.addActor(heroesListActor)
         heroesListActor.raiseFromBehind(height())
+    }
+
+    override fun showShop() {
+        val shopActor = ShopActor(this@MapScreen, skin, this)
+        root.addActor(shopActor)
+        shopActor.raiseFromBehind(600f)
     }
 
     override fun activeCharacterChanged() {

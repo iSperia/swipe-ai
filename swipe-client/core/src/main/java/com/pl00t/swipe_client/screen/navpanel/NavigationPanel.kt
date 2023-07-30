@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
@@ -55,29 +56,42 @@ class NavigationPanel(
     val buttonParty = NavigationButton("nav_party", "Heroes", skin).apply {
         width = 48f
         height = 60f
-        x = 360f
-        y = 6f
     }
 
     val buttonInventory = NavigationButton("nav_inventory", "Crafting", skin).apply {
         width = 48f
         height = 60f
-        x = 306f
-        y = 6f
     }
 
     val buttonMap = NavigationButton("nav_map", "Kingdoms", skin).apply {
         width = 48f
         height = 60f
-        y = 6f
+    }
+
+    val buttonShop = NavigationButton("nav_shop", "Mystic Shop", skin).apply {
+        width = 48f
+        height = 60f
     }
 
     init {
+        val table = Table().apply {
+            height = 60f
+            width = 460f
+        }
+
+        table.add(buttonMap).width(48f).padLeft(8f).padRight(8f)
+        table.add(buttonShop).width(48f).padLeft(8f).padRight(8f)
+        table.add(buttonInventory).width(48f).padLeft(8f).padRight(8f)
+        table.add(buttonParty).width(48f).padLeft(8f).padRight(8f)
+
         buttonParty.onClick {
             router.showHeroesList()
         }
         buttonInventory.onClick {
             router.showInventory()
+        }
+        buttonShop.onClick {
+            router.showShop()
         }
 
         reloadActiveHeroLabel()
@@ -86,9 +100,7 @@ class NavigationPanel(
         addActor(characterBg)
         addActor(characterLabel)
 //        addActor(panelBg)
-        addActor(buttonParty)
-        addActor(buttonInventory)
-        addActor(buttonMap)
+        addActor(table)
 
         val buttons = listOf(buttonMap, buttonInventory, buttonParty)
         val buttonCount = buttons.size
