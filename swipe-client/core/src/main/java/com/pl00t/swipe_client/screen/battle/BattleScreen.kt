@@ -103,6 +103,7 @@ class BattleScreen(
             decorations = battleService.createBattle(actId, levelId, tier)
             music = Gdx.audio.newMusic(Gdx.files.internal("music/${decorations.music}.ogg"))
             music.play()
+            music.isLooping = true
             battleAssetManager = AssetManager().apply {
                 load(Atlases.COMMON_BATTLE, TextureAtlas::class.java)
                 load(Atlases.ACT(SwipeAct.ACT_1), TextureAtlas::class.java)
