@@ -20,9 +20,8 @@ import com.pl00t.swipe_client.screen.items.CurrencyCellActor
 import com.pl00t.swipe_client.screen.items.InventoryCellActor
 import com.pl00t.swipe_client.services.levels.FrontLevelDetails
 import com.pl00t.swipe_client.services.levels.LevelType
-import com.pl00t.swipe_client.services.profile.CollectedReward
 import com.pl00t.swipe_client.ux.Buttons
-import com.pl00t.swipe_client.ux.ScreenTitle
+import com.pl00t.swipe_client.ux.LabelFactory
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
 import ktx.async.KtxAsync
@@ -74,7 +73,7 @@ class LevelDetailsActor(
                 height = 600f
                 setScaling(Scaling.stretch)
             }
-            locationTitle = ScreenTitle.createScreenTitle(context, skin, levelDetails.locationTitle).apply {
+            locationTitle = LabelFactory.createScreenTitle(context, skin, levelDetails.locationTitle).apply {
                 x = 60f
                 y = 570f
             }

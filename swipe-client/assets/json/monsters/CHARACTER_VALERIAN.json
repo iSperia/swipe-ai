@@ -34,7 +34,7 @@
       "title": "Radiant strike",
       "skin": "VALERIAN_RADIANT_STRIKE",
       "description": "Melee physical strike",
-      "lore": "Infused with the brilliance of the sun, the Radiant Strike channels the celestial might into a single, devastating sword thrust, searing adversaries with divine light.",
+      "lore": "Наполненный сиянием солнца, Сияющий удар направляет небесную мощь в один сокрушительный удар меча, обжигая противников божественным светом.",
       "descriptionTable": [
         {
           "title": "Base physical damage",

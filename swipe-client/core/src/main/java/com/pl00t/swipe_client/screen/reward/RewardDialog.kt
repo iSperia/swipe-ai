@@ -6,14 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.services.profile.CollectedReward
 import com.pl00t.swipe_client.ux.Buttons
-import com.pl00t.swipe_client.ux.ScreenTitle
+import com.pl00t.swipe_client.ux.LabelFactory
 import ktx.actors.alpha
 import ktx.actors.onClick
 import kotlin.math.max
@@ -39,7 +38,7 @@ class RewardDialog(
             setScaling(Scaling.stretch)
         }
 
-        title = ScreenTitle.createScreenTitle(context, skin, "Rewards").apply {
+        title = LabelFactory.createScreenTitle(context, skin, "Rewards").apply {
             x = 20f
             y = 690f
         }

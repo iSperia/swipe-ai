@@ -1,10 +1,8 @@
 package com.pl00t.swipe_client.screen.battle
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.Interpolation.SwingOut
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
-import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -18,13 +16,12 @@ import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.screen.Router
 import com.pl00t.swipe_client.screen.reward.RewardDialog
-import com.pl00t.swipe_client.ux.IconedButton
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.Buttons
-import com.pl00t.swipe_client.ux.ScreenTitle
+import com.pl00t.swipe_client.ux.LabelFactory
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
@@ -97,7 +94,7 @@ class BattleFinishActor(
             y = resultImage.y
         }
 
-        caption = ScreenTitle.createScreenTitle(context, skin, if (result.victory) "Victory" else "Defeat").apply {
+        caption = LabelFactory.createScreenTitle(context, skin, if (result.victory) "Victory" else "Defeat").apply {
             y = subBlockHeight - 15f
             x = 20f
         }

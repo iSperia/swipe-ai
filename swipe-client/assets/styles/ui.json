@@ -11,109 +11,107 @@
     rarity_5: {r: 0.86, g: 0.64, b: 0.25}
   }
   BitmapFont: {
-    caption_bold: { file: caption_bold.fnt }
-    caption_regular: { file: caption_regular.fnt }
-    text_large: { file: text_large.fnt }
-    text_small: { file: text_small.fnt }
+    caption: { file: seminaria.fnt }
+    regular: { file: uni.fnt }
   }
   LabelStyle: {
     window_title: {
-      font: caption_bold
+      font: caption
       fontColor: accent_color
     },
     item_rarity_0: {
-      font: caption_bold
+      font: caption
       fontColor: white_color
     },
     item_rarity_1: {
-      font: caption_bold
+      font: caption
       fontColor: rarity_1
     },
     item_rarity_2: {
-      font: caption_bold
+      font: caption
       fontColor: rarity_2
     },
     item_rarity_3: {
-      font: caption_bold
+      font: caption
       fontColor: rarity_3
     },
     item_rarity_4: {
-      font: caption_bold
+      font: caption
       fontColor: rarity_4
     },
     item_rarity_5: {
-      font: caption_bold
+      font: caption
       fontColor: rarity_5
     },
     wave_caption: {
-      font: caption_regular
+      font: caption
       fontColor: accent_color
     },
     implicit_text: {
-      font: text_large
+      font: regular
       fontColor: accent_color
     },
     affix_text: {
-      font: text_large
+      font: regular
       fontColor: white_color
     },
     dialog_title: {
-      font: caption_regular
+      font: caption
       fontColor: rarity_4
     },
     wave_popup: {
-      font: caption_regular
+      font: caption
       fontColor: main_color
     }
     damage_popup: {
-      font: caption_regular
+      font: caption
       fontColor: white_color
     },
     text_regular: {
-      font: text_large
+      font: regular
       fontColor: main_color
     }
     text_small: {
-      font: text_small
+      font: regular
       fontColor: white_color
     }
     dark_small: {
-      font: text_small
+      font: regular
       fontColor: bg_color
     }
     lore_medium: {
-      font: text_large
+      font: regular
       fontColor: rarity_5
     }
     text_small_accent: {
-      font: text_small
+      font: regular
       fontColor: accent_color
     }
     lore_small: {
-      font: text_small
+      font: regular
       fontColor: rarity_5
     }
   }
   TextButtonStyle: {
     default: {
       down: button_pressed, up: button_simple,
-      font: text_large, fontColor: white_color, downFontColor: accent_color
+      font: regular, fontColor: white_color, downFontColor: accent_color
     }
     nav_party: {
       down: icon_party_pressed, up: icon_party,
-      font: text_small, fontColor: white_color, downFontColor: accent_color
+      font: regular, fontColor: white_color, downFontColor: accent_color
     }
     nav_inventory: {
       down: icon_inventory_pressed, up: icon_inventory,
-      font: text_small, fontColor: white_color, downFontColor: accent_color
+      font: regular, fontColor: white_color, downFontColor: accent_color
     }
     nav_map: {
       down: icon_map_pressed, up: icon_map,
-      font: text_small, fontColor: white_color, downFontColor: accent_color
+      font: regular, fontColor: white_color, downFontColor: accent_color
     }
     nav_shop: {
       down: icon_mystic_dealer, up: icon_mystic_dealer,
-      font: text_small, fontColor: white_color, downFontColor: accent_color
+      font: regular, fontColor: white_color, downFontColor: accent_color
     }
   }
 }

@@ -6,23 +6,18 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.game7th.items.InventoryItem
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.screen.battle.BattleDialogActor
 import com.pl00t.swipe_client.screen.items.CurrencyCellActor
 import com.pl00t.swipe_client.screen.items.InventoryCellActor
 import com.pl00t.swipe_client.screen.map.MapScreenRouter
-import com.pl00t.swipe_client.screen.navpanel.NavigationPanel
 import com.pl00t.swipe_client.screen.reward.RewardDialog
-import com.pl00t.swipe_client.services.levels.DialogEntryModel
-import com.pl00t.swipe_client.services.levels.DialogOrientation
 import com.pl00t.swipe_client.services.profile.CurrencyMetadata
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.Buttons
-import com.pl00t.swipe_client.ux.ScreenTitle
+import com.pl00t.swipe_client.ux.LabelFactory
 import com.pl00t.swipe_client.ux.hideToBehindAndRemove
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
@@ -92,7 +87,7 @@ class ShopActor(
             }
             addActor(line)
 
-            val title = ScreenTitle.createScreenTitle(context, skin, "Mystery Shop").apply {
+            val title = LabelFactory.createScreenTitle(context, skin, "Mystery Shop").apply {
                 y = bg.height - 28f
                 x = 60f
             }

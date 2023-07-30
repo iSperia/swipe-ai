@@ -28,7 +28,7 @@ import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.profile.CollectedReward
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
-import com.pl00t.swipe_client.ux.ScreenTitle
+import com.pl00t.swipe_client.ux.LabelFactory
 import com.pl00t.swipe_client.ux.hideToBehindAndRemove
 import com.pl00t.swipe_client.ux.raiseFromBehind
 import com.pl00t.swipe_client.ux.require
@@ -107,10 +107,10 @@ class MapScreen(
             addRegions(commonAtlas(Atlases.COMMON_UX))
         }
 
-        mapTitle = ScreenTitle.createScreenTitle(
+        mapTitle = LabelFactory.createScreenTitle(
             context = this,
             skin = skin,
-            text = "Kingdom Of Harmony"
+            text = "Королевство Гармонии"
         ).apply {
             y = root.height - 60f
             x = 60f

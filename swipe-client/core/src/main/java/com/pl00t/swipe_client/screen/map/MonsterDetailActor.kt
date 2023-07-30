@@ -20,7 +20,7 @@ import com.pl00t.swipe_client.services.profile.CollectedReward
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.Buttons
-import com.pl00t.swipe_client.ux.ScreenTitle
+import com.pl00t.swipe_client.ux.LabelFactory
 import com.pl00t.swipe_client.ux.hideToBehindAndRemove
 import com.pl00t.swipe_client.ux.raiseFromBehind
 import kotlinx.coroutines.launch
@@ -57,7 +57,7 @@ class MonsterDetailActor(
                 width = context.width()
                 height = context.height()
             }
-            val title = ScreenTitle.createScreenTitle(context, skin, monsterInfo.name).apply {
+            val title = LabelFactory.createScreenTitle(context, skin, monsterInfo.name).apply {
                 y = spaceHeight - 60f
                 x = 60f
             }
@@ -262,6 +262,7 @@ class MonsterDetailActor(
                 sideTable.add(Label(ability.lore, skin, "lore_small").apply {
                     wrap = true
                     setAlignment(Align.left)
+                    setFontScale(0.66f)
                 }).width(330f).pad(5f).colspan(2)
 
                 abilsTable.add(sideTable).width(340f).maxWidth(340f).minHeight(120f).align(Align.topLeft)
