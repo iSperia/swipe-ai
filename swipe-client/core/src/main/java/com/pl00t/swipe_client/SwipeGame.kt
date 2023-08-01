@@ -22,6 +22,7 @@ import com.pl00t.swipe_client.services.items.ItemServiceImpl
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.ProfileServiceImpl
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import kotlinx.coroutines.launch
 import ktx.async.KtxAsync
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
@@ -38,7 +39,6 @@ class SwipeGame : Game(), ScreenRouter {
         r = R().apply {
             width = 480f
             height = 480f / ratio
-            inputMultiplexer = InputMultiplexer()
             router = this@SwipeGame
             fileService = GdxFileService()
             itemService = ItemServiceImpl(Gson(), fileService)
@@ -47,8 +47,6 @@ class SwipeGame : Game(), ScreenRouter {
             profileService = ProfileServiceImpl(levelService, monsterService, itemService)
             battleService = BattleServiceImpl(levelService, monsterService, profileService)
         }
-
-        Gdx.input.inputProcessor = r.inputMultiplexer
 
         navigateMap()
     }
@@ -63,6 +61,7 @@ class SwipeGame : Game(), ScreenRouter {
     }
 
     override fun navigateBattle() {
+        setScreen(BattleScreen(r, this@SwipeGame))
     }
 
     override fun navigateMap() {

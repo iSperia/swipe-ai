@@ -28,6 +28,7 @@ import com.game7th.swipe.game.SbDisplayEvent
 import com.game7th.swipe.game.SbSoundType
 import com.game7th.swipe.game.SbTileFieldDisplayEffect
 import com.game7th.swipe.monsters.MonsterService
+import com.pl00t.swipe_client.R
 import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.levels.DialogEntryModel
 import com.pl00t.swipe_client.services.levels.LevelService
@@ -41,18 +42,9 @@ import ktx.async.KtxAsync
 import kotlin.random.Random
 
 class BattleScreen(
-    private val actId: SwipeAct,
-    private val levelId: String,
-    private val tier: Int,
-    amCore: AssetManager,
-    inputMultiplexer: InputMultiplexer,
-    private val levelService: LevelService,
-    private val battleService: BattleService,
-    private val profileService: ProfileService,
-    private val monsterService: MonsterService,
-    private val itemService: ItemService,
+    private val r: R,
     private val router: ScreenRouter,
-) : StageScreen(amCore, inputMultiplexer), SimpleDirectionGestureDetector.DirectionListener {
+) : StageScreen(r.assetManager, r.inputMultiplexer), SimpleDirectionGestureDetector.DirectionListener {
 
     lateinit var decorations: BattleDecorations
 
@@ -82,6 +74,9 @@ class BattleScreen(
     val locationHeight = height() - 510f
     val characterWidth = 160f
 
+    lateinit var actId: SwipeAct
+    lateinit var levelId: String
+
     private val preBattleDialogs: MutableList<DialogEntryModel> = mutableListOf()
 
     lateinit var music: Music
@@ -95,12 +90,12 @@ class BattleScreen(
     }
 
     override fun show() {
+        super.show()
         gestureDetector = SimpleDirectionGestureDetector(this)
         multiplexer.addProcessor(root)
         multiplexer.addProcessor(gestureDetector)
-        Gdx.input.inputProcessor = multiplexer
         KtxAsync.launch {
-            decorations = battleService.createBattle(actId, levelId, tier)
+            decorations = r.battleService.getDecorations()
             music = Gdx.audio.newMusic(Gdx.files.internal("music/${decorations.music}.ogg"))
             music.play()
             music.isLooping = true
@@ -125,6 +120,8 @@ class BattleScreen(
         popupsGroup = Group()
         locationGroup.y = 510f
         popupsGroup.y = tarotEffectsGroup.y
+
+        KtxAsync.launch {
 
         skin = Skin(Gdx.files.internal("styles/ux.json")).apply {
             addRegions(commonAtlas(Atlases.COMMON_UX))
@@ -152,7 +149,10 @@ class BattleScreen(
         root.addActor(locationGroup)
         root.addActor(panelGroup)
 
-        val locationImage = Image(commonAtlas(Atlases.ACT(actId)).findRegion(decorations.background).require()).apply {
+        actId = r.battleService.getActId()
+        levelId = r.battleService.getLevelId()
+
+        val locationImage = r.image(R.actAtlas(actId), decorations.background).apply {
             width = 480f
             height = root.height - 480f
             setScaling(Scaling.fit)
@@ -165,7 +165,7 @@ class BattleScreen(
 
         addTileBackgrounds()
 
-        ultimateActor = UltimateProgressActor(this, skin).apply {
+        ultimateActor = UltimateProgressActor(this@BattleScreen, skin).apply {
             x = 105f
             y = 10f
             touchable = Touchable.enabled
@@ -173,13 +173,13 @@ class BattleScreen(
         ultimateActor.onClick {
             println("Ultimate clicked ${ultimateActor.progress}")
             if (ultimateActor.progress == 1f) {
-                KtxAsync.launch { battleService.processUltimate() }
+                KtxAsync.launch { r.battleService.processUltimate() }
             }
         }
         panelGroup.addActor(ultimateActor)
 
-        KtxAsync.launch {
-            val level = levelService.getLevelDetails(actId, levelId, true)
+
+            val level = r.levelService.getLevelDetails(actId, levelId, true)
             preBattleDialogs.addAll(level.dialog)
             resolvePreBattleDialogs()
         }
@@ -201,13 +201,13 @@ class BattleScreen(
     }
 
     private suspend fun observeBattleEvents() {
-        battleService.events().collect { event ->
+        r.battleService.events().collect { event ->
             processEvent(event)
         }
     }
 
     private suspend fun observeEndBattle() {
-        battleService.battleEnd().collect { event ->
+        r.battleService.battleEnd().collect { event ->
             delay(2_000L)
             processBattleEvent(event)
         }
@@ -218,7 +218,7 @@ class BattleScreen(
         //we are finished, remove multiplexor
         multiplexer.removeProcessor(gestureDetector)
 
-        val endActor = BattleFinishActor(actId, levelId, tier, profileService, event, this@BattleScreen, skin, router).apply {
+        val endActor = BattleFinishActor(actId, levelId, -1, r.profileService, event, this@BattleScreen, skin, router).apply {
             x = 40f
             y = (height() - 720f) / 2f
         }
@@ -229,7 +229,7 @@ class BattleScreen(
         when (event) {
             is SbDisplayEvent.SbWave -> {
                 rightUnitsCount = 0
-                val wave = Label("Wave ${event.wave}", skin, "wave_popup").apply {
+                val wave = Label("Wave ${event.wave}", skin, "window_title").apply {
                     width = root.width
                     height = root.height * 0.2f
                     y = root.height * 0.2f
@@ -670,15 +670,15 @@ class BattleScreen(
     override fun onUp() = processSwipe(0, 1)
     override fun onDown() = processSwipe(0, -1)
 
-    override fun profileService() = profileService
+    override fun profileService() = r.profileService
 
-    override fun levelService() = levelService
+    override fun levelService() = r.levelService
 
-    override fun monsterService() = monsterService
+    override fun monsterService() = r.monsterService
 
-    override fun itemService() = itemService
+    override fun itemService() = r.itemService
 
     private fun processSwipe(dx: Int, dy: Int) {
-        KtxAsync.launch { battleService.processSwipe(dx, dy) }
+        KtxAsync.launch { r.battleService.processSwipe(dx, dy) }
     }
 }

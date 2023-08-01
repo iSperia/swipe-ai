@@ -102,7 +102,7 @@ class BattleFinishActor(
         val captionText = if (result.victory) "Victory shines upon the brave, as heroes forge their destiny amidst the shattered kingdoms."
         else "Defeat is but a stepping stone on the path to greatness, as the journey continues."
 
-        flavour = Label(captionText, skin, "lore_medium").apply {
+        flavour = Label(captionText, skin, "lore_text").apply {
             width = 360f
             height = 220f
             wrap = true
@@ -181,7 +181,7 @@ class BattleFinishActor(
                         y = richRewardButton.y + 6f
                         touchable = Touchable.disabled
                     }
-                    val tokenBalance = Label("1/$balance", skin, "wave_caption").apply {
+                    val tokenBalance = Label("1/$balance", skin, "regular24_white").apply {
                         width = 100f
                         height = 24f
                         touchable = Touchable.disabled

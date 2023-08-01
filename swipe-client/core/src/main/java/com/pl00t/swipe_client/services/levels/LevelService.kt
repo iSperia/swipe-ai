@@ -56,8 +56,8 @@ data class FrontLevelModel(
     val act: SwipeAct,
     val locationId: String,
     val locationBackground: String,
-    val locationTitle: String,
-    val locationDescription: String,
+    val locationTitle: SbText,
+    val locationDescription: SbText,
     val dialog: List<DialogEntryModel>,
     val waves: List<List<FrontMonsterEntryModel>>,
     val monsterPool: List<String>,
@@ -65,12 +65,7 @@ data class FrontLevelModel(
     val type: LevelType,
     val x: Float,
     val y: Float,
-) {
-    companion object {
-        val DEFAULT = FrontLevelModel(SwipeAct.ACT_1, "", "", "", "", emptyList(), emptyList(), emptyList(),
-            false, LevelType.CAMPAIGN, 0f, 0f)
-    }
-}
+)
 
 enum class LevelRewardType {
     currency, item

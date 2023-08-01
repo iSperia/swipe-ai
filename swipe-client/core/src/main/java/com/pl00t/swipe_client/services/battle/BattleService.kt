@@ -11,6 +11,7 @@ import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
+import java.lang.IllegalStateException
 import kotlin.random.Random
 
 data class BattleRewardConfig(
@@ -24,11 +25,14 @@ data class BattleResult(
 )
 
 interface BattleService {
-    suspend fun createBattle(act: SwipeAct, level: String, tier: Int): BattleDecorations
+    suspend fun createBattle(act: SwipeAct, level: String, tier: Int)
     suspend fun events(): Flow<SbDisplayEvent>
     suspend fun processSwipe(dx: Int, dy: Int)
     suspend fun processUltimate()
     suspend fun battleEnd(): Flow<BattleResult>
+    suspend fun getDecorations(): BattleDecorations
+    suspend fun getActId(): SwipeAct
+    suspend fun getLevelId(): String
 }
 
 @ExperimentalCoroutinesApi
@@ -47,8 +51,16 @@ class BattleServiceImpl(
     private var level = "c1"
     private var tier = -1
 
+    override suspend fun getDecorations(): BattleDecorations {
+        val level = levelService.getAct(actId).levels.firstOrNull { it.id == level } ?: throw IllegalStateException("No decorations found")
+        return BattleDecorations(level.background, level.music ?: "theme_verdant_grove")
+    }
 
-    override suspend fun createBattle(actId: SwipeAct, level: String, tier: Int): BattleDecorations {
+    override suspend fun getActId() = actId
+
+    override suspend fun getLevelId() = level
+
+    override suspend fun createBattle(actId: SwipeAct, level: String, tier: Int) {
         events = MutableSharedFlow(100)
         endBattle = MutableSharedFlow(5)
         processEnabled = true
@@ -56,7 +68,7 @@ class BattleServiceImpl(
         this.level = level
         this.tier = tier
         val actModel = levelService.getAct(actId)
-        val levelModel = actModel.levels.firstOrNull { it.id == level } ?: return BattleDecorations("", "")
+        val levelModel = actModel.levels.firstOrNull { it.id == level } ?: throw IllegalStateException("No level found")
 
         val character = profileService.getCharacters().first()
 
@@ -134,7 +146,6 @@ class BattleServiceImpl(
             initWave(waves[0])
         }
         handleContext()
-        return BattleDecorations(levelModel.background, levelModel.music ?: "theme_verdant_grove")
     }
 
     override suspend fun events(): Flow<SbDisplayEvent> = events.filter { event ->

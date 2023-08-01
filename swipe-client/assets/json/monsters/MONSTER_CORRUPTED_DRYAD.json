@@ -1,6 +1,9 @@
 {
   "skin": "MONSTER_CORRUPTED_DRYAD",
-  "name": "Corrupted Dryad",
+  "name": {
+    "en": "Corrupted Dryad",
+    "ru": "Оскверненная Дриада"
+  },
   "lore": "Once the graceful guardians of the forest, the Corrupted Dryads now bear a twisted visage, consumed by darkness and despair. Once embodying nature's harmony and beauty, they have succumbed to corruption, their essence tainted by an unknown malevolence. Their once melodious voices now echo with haunting wails, and their graceful movements have been replaced by unsettling contortions. Beware their deceitful allure, for they will stop at nothing to lure unsuspecting wanderers into their sinister grasp. Redemption seems but a distant memory as they cling desperately to their fading connection with the natural world.",
   "attributes": {"mind":  20, "spirit":  40, "body":  40},
   "triggers": [

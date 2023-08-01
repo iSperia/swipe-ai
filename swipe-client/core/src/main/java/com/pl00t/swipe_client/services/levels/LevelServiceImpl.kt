@@ -5,6 +5,7 @@ import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.services.files.FileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import java.lang.IllegalArgumentException
 
 class LevelServiceImpl(
     private val fileService: FileService,
@@ -59,7 +60,7 @@ class LevelServiceImpl(
 
     override suspend fun getLevelDetails(act: SwipeAct, level: String, enabled: Boolean): FrontLevelModel {
         val actModel = getAct(act)
-        val l = actModel.levels.firstOrNull { it.id == level } ?: return FrontLevelModel.DEFAULT
+        val l = actModel.levels.firstOrNull { it.id == level } ?: throw IllegalArgumentException("$act invalid act")
         return FrontLevelModel(
             x = l.x,
             y = 1024 - l.y,
@@ -68,7 +69,7 @@ class LevelServiceImpl(
             enabled = enabled,
             waves = l.monsters?.map { it.mapNotNull { e ->
                 monsterService.getMonster(e.skin)?.let {
-                    FrontMonsterEntryModel(it.skin, it.name, it.level)
+                    FrontMonsterEntryModel(it.skin, it.name, e.level)
                 }
             } } ?: emptyList(),
             act = act,

@@ -58,7 +58,7 @@ class MonsterDetailActor(
                 height = context.height()
                 setScaling(Scaling.fill)
             }
-            val title = LabelFactory.createScreenTitle(context, skin, monsterInfo.name).apply {
+            val title = LabelFactory.createScreenTitle(context, skin, monsterInfo.name.en).apply {
                 y = spaceHeight - 60f
                 x = 60f
             }

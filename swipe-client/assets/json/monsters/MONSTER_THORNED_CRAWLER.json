@@ -1,6 +1,9 @@
 {
   "skin": "MONSTER_THORNED_CRAWLER",
-  "name": "Thorned Crawler",
+  "name": {
+    "en": "Thorned Crawler",
+    "ru": "Шипастый Ползун"
+  },
   "lore": "Beneath the forest floor, the Thorned Crawlers scuttle and slither, their spiky carapaces blending seamlessly with the shadows. These menacing creatures boast an armored exoskeleton adorned with razor-sharp thorns, serving as both protection and weaponry. Their movements are swift and calculated, often ambushing their prey by bursting forth from the undergrowth. With formidable strength and agility, they are formidable opponents in close-quarters combat. Legends speak of their ability to sense vibrations in the earth, granting them an uncanny ability to navigate even the darkest of subterranean passages.",
   "attributes": {"mind":  30, "spirit":  30, "body":  40},
   "tiles": [

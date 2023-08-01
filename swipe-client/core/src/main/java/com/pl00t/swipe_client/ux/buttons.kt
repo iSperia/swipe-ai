@@ -9,7 +9,7 @@ object Buttons {
         text: String,
         skin: Skin
     ): TextButton {
-        val button = TextButton(text, skin).apply {
+        val button = TextButton(text, skin, "regular24_white").apply {
             width = 170f
             height = 36f
             pad(5f)
@@ -22,7 +22,7 @@ object Buttons {
         text: String,
         skin: Skin
     ): TextButton {
-        val button = TextButton(text, skin).apply {
+        val button = TextButton(text, skin, "regular24_white").apply {
             width = 80f
             height = 36f
             pad(5f)

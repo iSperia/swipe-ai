@@ -1,6 +1,9 @@
 {
   "skin": "CHARACTER_VALERIAN",
-  "name": "Prince Valerian",
+  "name": {
+    "en": "Prince Valerian",
+    "ru": "Принц Валериан"
+  },
   "lore": "Prince Valerian, heir to the throne of the Kingdom of Harmony, is a courageous and noble warrior destined for greatness. Born with a deep sense of justice and a burning desire to protect his people, he possesses a natural affinity for the radiant powers of light.\n\nAs a young prince, Valerian received rigorous training in the arts of swordplay and combat, honing his skills to become a formidable warrior. His unwavering dedication to his kingdom and its people earned him the respect and admiration of his subjects.\n\nDriven by a strong sense of responsibility, Prince Valerian embarks on a perilous quest to restore balance and harmony to the fractured realms. With his sword, the radiant Sword of the Lightbearer, and the empowering sigils bestowed upon him, he stands as a beacon of hope against the encroaching darkness.\n\nValerian's unwavering determination is matched only by his unwavering sense of compassion. Along his journey, he forges deep bonds with allies and confronts the malevolent forces that threaten the realms. As the hero of prophecy, he embraces his destiny, facing formidable challenges and sacrificing his own well-being for the greater good.\n\nGuided by the wisdom of Saffron, his ethereal companion, Prince Valerian must rally the kingdoms and unite them against the encroaching shadows. With his unwavering resolve and the power of light pulsating within him, he strives to restore peace and harmony to a world on the brink of chaos.\n\nWill Prince Valerian emerge triumphant, fulfilling his destiny as the savior of the realms? Only time will tell, as he embarks on a journey that will test his mettle, shape his character, and ultimately determine the fate of the kingdoms and all who inhabit them.",
   "attributes": {"mind":  0, "spirit":  0, "body":  0},
   "balance": {

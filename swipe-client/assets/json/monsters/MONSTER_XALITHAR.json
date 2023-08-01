@@ -1,6 +1,9 @@
 {
   "skin": "MONSTER_XALITHAR",
-  "name": "Xalithar",
+  "name": {
+    "en": "Xalithar, Crystal Goliath",
+    "ru": "Ксалитар, Кристальное Чудовище"
+  },
   "lore": "Xalithar is a towering, crystalline behemoth formed from the fused shards of the shattered Ethereal Crystal. Its body emanates a pulsating glow, and shards of various colors protrude from its massive form. Xalithar's eyes glow with a malevolent energy, reflecting the corrupted power it has absorbed.",
   "attributes": {"mind":  25, "spirit":  35, "body":  40},
   "affixes": {

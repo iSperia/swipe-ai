@@ -1,6 +1,5 @@
 package com.pl00t.swipe_client
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetManager
@@ -23,7 +22,7 @@ typealias SbAssetLoadedCallback = (R) -> Unit
 class R {
     var width: Float = 0f
     var height: Float = 0f
-    var l: Language = Language.RU
+    var l: Language = Language.EN
     lateinit var inputMultiplexer: InputMultiplexer
 
     lateinit var router: ScreenRouter
@@ -34,7 +33,7 @@ class R {
     lateinit var fileService: FileService
     lateinit var itemService: ItemService
 
-    private val assetManager = AssetManager()
+    val assetManager = AssetManager()
     private val queue = mutableListOf<SbAssetLoadedCallback>()
 
     fun loadAtlas(name: String) {
@@ -81,8 +80,14 @@ class R {
 
     fun skin() = assetManager.get(SKIN, Skin::class.java)
 
-    fun windowTitle(text: String) = Label(text, skin(), "window_title")
-    fun smallLabel(text: String) = Label(text, skin(), "action_label")
+    fun labelWindowTitle(text: String) = Label(text, skin(), "window_title")
+    fun labelFocusedCaption(text: String) = Label(text, skin(), "caption_focus")
+    fun labelAction(text: String) = Label(text, skin(), "action_label")
+    fun labelLore(text: String) = Label(text, skin(), "lore_text").apply { wrap = true }
+    fun regular24Focus(text: String) = Label(text, skin(), "regular24_focus").apply { wrap = true }
+    fun regular24White(text: String) = Label(text, skin(), "regular24_white").apply { wrap = true }
+    fun regular20Focus(text: String) = Label(text, skin(), "regular20_focus").apply { wrap = true }
+    fun regular20White(text: String) = Label(text, skin(), "regular20_white").apply { wrap = true }
 
     companion object {
         const val ui_atlas = "styles/ui.atlas"

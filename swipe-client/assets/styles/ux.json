@@ -6,6 +6,7 @@
     accent_color: { hex: 0A369D }
     error_color: { hex: DE3C4B }
     white: { hex: FFFFFF }
+    black: { hex: 000000 }
 
     rarity_1: { hex: 707377 }
     rarity_2: { hex: 5b8f7a }
@@ -15,15 +16,68 @@
   }
   BitmapFont: {
     caption: { file: medieval.fnt }
+    caption30: { file: medieval30.fnt }
     regular: { file: uni.fnt }
+    regular20: { file: uni20.fnt }
+    regular24: { file: uni24.fnt }
   }
   LabelStyle: {
     window_title: {
       font: caption
-      fontColor: main_color
+      fontColor: white
     },
     action_label: {
       font: regular
+      fontColor: white
+    },
+    lore_text: {
+      font: regular20
+      fontColor: focus_color
+    },
+    regular20_focus: {
+      font: regular20
+      fontColor: focus_color
+    }
+    regular20_white: {
+      font: regular20
+      fontColor: white
+    }
+    regular24_focus: {
+      font: regular24
+      fontColor: focus_color
+    }
+    regular24_accent: {
+      font: regular24
+      fontColor: accent_color
+    }
+    regular24_white: {
+      font: regular24
+      fontColor: white
+    }
+    caption_focus: {
+      font: caption30
+      fontColor: focus_color
+    },
+    caption_accent: {
+      font: caption30
+      fontColor: accent_color
+    },
+    caption_main: {
+      font: caption30
+      fontColor: main_color
+    },
+    caption_white: {
+      font: caption30
+      fontColor: white
+    },
+    caption_error: {
+      font: caption30
+      fontColor: error_color
+    }
+  },
+  TextButtonStyle: {
+    regular24_white: {
+      font: regular24
       fontColor: white
     }
   }

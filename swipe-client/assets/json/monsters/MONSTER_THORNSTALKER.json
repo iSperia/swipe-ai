@@ -1,6 +1,9 @@
 {
   "skin": "MONSTER_THORNSTALKER",
-  "name": "Thornstalker",
+  "name": {
+    "en": "Thornstalker",
+    "ru": "Шипастый Охотник"
+  },
   "lore": "Deep within the enchanted groves, the Thornstalkers roam with their sinewy forms and razor-sharp thorns. These elusive creatures embody the untamed spirit of the forest, blending seamlessly with the verdant surroundings. They strike swiftly and silently, relying on their natural camouflage to ambush unsuspecting prey. Legends whisper of their ability to communicate with the ancient trees and harness the raw power of nature. Caution is advised when venturing into their territory, for the Thornstalkers are fierce protectors of the groves and will not hesitate to defend their realm with untamed ferocity.",
   "baseHealth": 250,
   "attributes": {

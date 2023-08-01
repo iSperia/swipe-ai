@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.game7th.items.InventoryItem
 import com.game7th.items.ItemCategory
+import com.game7th.swipe.Language
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.screen.items.CurrencyCellActor
@@ -73,7 +74,7 @@ class LevelDetailsActor(
                 height = 600f
                 setScaling(Scaling.stretch)
             }
-            locationTitle = LabelFactory.createScreenTitle(context, skin, levelDetails.locationTitle).apply {
+            locationTitle = LabelFactory.createScreenTitle(context, skin, levelDetails.locationTitle.value(Language.EN)).apply {
                 x = 60f
                 y = 570f
             }
@@ -310,7 +311,7 @@ class LevelDetailsActor(
                         processMonsterClicked(skin)
                     }
                 }
-                val monsterLabel = Label(context.monsterService().getMonster(skin)?.name, this.skin, "affix_text").apply {
+                val monsterLabel = Label(context.monsterService().getMonster(skin)?.name?.en, this.skin, "affix_text").apply {
                     width = 120f
                     x = 0f
                     y = monstersRoot.height - (index + 1) * 120f
@@ -394,7 +395,7 @@ class LevelDetailsActor(
     private fun drawCampaign() {
         val needWaveLabel = levelDetails.waves.size > 1
 
-        val loreLabel = Label(levelDetails.locationDescription, skin, "lore_small").apply {
+        val loreLabel = Label(levelDetails.locationDescription.value(Language.EN), skin, "lore_small").apply {
             wrap = true
             width = 360f
             setAlignment(Align.topLeft)

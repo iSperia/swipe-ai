@@ -1,6 +1,9 @@
 {
   "skin": "MONSTER_CRYSTAL_GUARDIAN",
-  "name": "Crystal Guardian",
+  "name": {
+    "en": "Crystal Guardian",
+    "ru": "Кристальный Страж"
+  },
   "lore": "These mystical crystalline beings are the guardians of the Crystal Caverns, charged with protecting its ancient secrets. However, the shattering of the Ethereal Crystal has caused a disruption in their guardianship. They mistake Valerian as a threat to the balance and attack him in an attempt to defend the caverns and the knowledge they hold.",
   "attributes": {"mind":  25, "spirit":  35, "body":  40},
   "affixes": {

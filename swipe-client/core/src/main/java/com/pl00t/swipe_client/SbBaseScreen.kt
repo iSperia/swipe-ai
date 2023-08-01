@@ -1,5 +1,7 @@
 package com.pl00t.swipe_client
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -26,6 +28,9 @@ abstract class SbBaseScreen(
             root.addActor(splashActor)
             loadScreenContent()
         }
+
+        r.inputMultiplexer = InputMultiplexer()
+        Gdx.input.inputProcessor = r.inputMultiplexer
 
         r.inputMultiplexer.addProcessor(root)
     }

@@ -44,7 +44,7 @@ class CurrencyRewardEntryActor(
             width = actorWidth - 90f
         }
 
-        title = Label(reward.title, skin, "wave_caption").apply {
+        title = Label(reward.title, skin, "regular24_white").apply {
             setAlignment(Align.topLeft)
             y = 60f
             height = 24f
@@ -52,7 +52,7 @@ class CurrencyRewardEntryActor(
         }
         rightGroup.addActor(title)
 
-        amountLabel = Label("x${reward.amount}", skin, "text_regular").apply {
+        amountLabel = Label("x${reward.amount}", skin, "regular24_white").apply {
             setAlignment(Align.topRight)
             width = rightGroup.width
             height = 24f
@@ -60,7 +60,7 @@ class CurrencyRewardEntryActor(
         }
         rightGroup.addActor(amountLabel)
 
-        val descriptionLabel = Label(reward.description, skin, "text_small").apply {
+        val descriptionLabel = Label(reward.description, skin, "regular24_white").apply {
             setAlignment(Align.topLeft)
             wrap = true
             width = rightGroup.width

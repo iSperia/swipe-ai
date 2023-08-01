@@ -32,7 +32,7 @@ class UnitHealthBarActor(
         x = 7f
         y = 7f
     }
-    val healthText: Label = Label("$health", skin, "text_small").apply {
+    val healthText: Label = Label("$health", skin, "regular24_white").apply {
         width = w
         height = h
         setAlignment(Align.center)

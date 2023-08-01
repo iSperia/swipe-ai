@@ -4,10 +4,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
+import com.game7th.swipe.SbText
 
 data class FrontMonsterEntryModel(
     val skin: String,
-    val name: String,
+    val name: SbText,
     val level: Int,
 )
 

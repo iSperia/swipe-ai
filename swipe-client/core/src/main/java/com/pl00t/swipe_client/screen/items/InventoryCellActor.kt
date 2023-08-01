@@ -55,7 +55,7 @@ class InventoryCellActor(
         }
 
         val levelLabelText = if (item.level > 0) "Lvl. ${item.level}" else ""
-        levelLabel = Label(levelLabelText, skin, "text_small").apply {
+        levelLabel = Label(levelLabelText, skin, "regular24_white").apply {
             x = 2f
             y = size - 22f
             width = size - 4f

@@ -55,13 +55,13 @@ class ItemRewardEntryActor(
             width = actorWidth - 85f
         }
 
-        title = Label(reward.title, skin, "wave_caption").apply {
+        title = Label(reward.title, skin, "regular24_white").apply {
             setAlignment(Align.topLeft)
             wrap = true
         }
         rightGroup.add(title).width(actorWidth - 85f).padLeft(5f).row()
 
-        val descriptionLabel = Label(reward.lore, skin, "text_small").apply {
+        val descriptionLabel = Label(reward.lore, skin, "regular24_white").apply {
             setAlignment(Align.topLeft)
             wrap = true
             width = actorWidth - 85f

@@ -1,6 +1,9 @@
 {
   "skin": "MONSTER_STONE_GOLEM",
-  "name": "Stone Golem",
+  "name": {
+    "en": "Stone Golem",
+    "ru": "Каменный Голем"
+  },
   "lore": "Massive constructs formed from enchanted stone, Stone Golems can be found in the Crystal Caverns or even guarding the entrance to the King's Castle. These hulking creatures are formidable adversaries, possessing immense strength and resilience. They attack with powerful, crushing blows and can withstand a significant amount of damage.",
   "attributes": {"mind":  25, "spirit":  35, "body":  40},
   "affixes": {

@@ -1,5 +1,6 @@
 package com.game7th.swipe.game
 
+import com.game7th.swipe.SbText
 import com.google.gson.JsonObject
 
 fun JsonObject.intAttribute(key: String) = this.get(key).asInt
@@ -32,7 +33,7 @@ data class SbMonsterAbilityConfiguration(
 
 data class SbMonsterConfiguration(
     val skin: String,
-    val name: String,
+    val name: SbText,
     val lore: String,
     val balance: JsonObject,
     val triggers: List<String>,

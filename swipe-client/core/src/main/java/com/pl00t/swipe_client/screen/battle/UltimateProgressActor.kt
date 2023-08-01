@@ -41,7 +41,7 @@ class UltimateProgressActor(
             setOrigin(Align.center)
         }
         addActor(iProgress)
-        description = Label("Fill for ultimate", skin, "text_small").apply {
+        description = Label("Fill for ultimate", skin, "regular20_white").apply {
             this.width = 270f
             this.height = 45f
             setAlignment(Align.center)

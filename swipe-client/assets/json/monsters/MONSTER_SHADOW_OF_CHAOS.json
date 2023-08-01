@@ -1,6 +1,9 @@
 {
   "skin": "MONSTER_SHADOW_OF_CHAOS",
-  "name": "Shadow of Chaos",
+  "name": {
+    "en": "Shadow of Chaos",
+    "ru": "Тень Хаоса"
+  },
   "lore": "Dark manifestations born from the shattered Ethereal Crystal, the Shadows of Chaos are creatures of pure darkness. They haunt the depths of the Crystal Caverns, drawn to its residual energy. Their aggression towards Valerian arises from their desire to consume his life force and harness his essence to strengthen themselves.",
   "baseHealth": 250,
   "attributes": {"mind":  25, "spirit":  25, "body":  50},

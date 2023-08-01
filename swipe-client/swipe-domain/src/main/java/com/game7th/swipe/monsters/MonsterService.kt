@@ -5,7 +5,7 @@ import com.game7th.swipe.game.SbTrigger
 
 interface MonsterService {
 
-    suspend fun getMonster(skin: String): SbMonsterConfiguration
+    suspend fun getMonster(skin: String): SbMonsterConfiguration?
 
     suspend fun getTrigger(skin: String): SbTrigger?
 
