@@ -17,6 +17,9 @@ enum class Action(val icon: String) {
     SETTINGS("action_icon_settings"),
     CLOSE("action_icon_close"),
     ATTACK("action_icon_attack"),
+    STATS("action_icon_stats"),
+    SKILLSET("action_icon_skillset"),
+    STORY("action_icon_story")
 }
 
 sealed interface Mode {

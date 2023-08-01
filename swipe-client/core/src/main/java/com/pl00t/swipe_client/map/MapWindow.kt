@@ -1,4 +1,4 @@
-package com.pl00t.swipe_client.home
+package com.pl00t.swipe_client.map
 
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable

@@ -86,8 +86,10 @@ class R {
     fun labelLore(text: String) = Label(text, skin(), "lore_text").apply { wrap = true }
     fun regular24Focus(text: String) = Label(text, skin(), "regular24_focus").apply { wrap = true }
     fun regular24White(text: String) = Label(text, skin(), "regular24_white").apply { wrap = true }
+    fun regular24Accent(text: String) = Label(text, skin(), "regular24_accent").apply { wrap = true }
     fun regular20Focus(text: String) = Label(text, skin(), "regular20_focus").apply { wrap = true }
     fun regular20White(text: String) = Label(text, skin(), "regular20_white").apply { wrap = true }
+    fun regular20Accent(text: String) = Label(text, skin(), "regular20_accent").apply { wrap = true }
 
     companion object {
         const val ui_atlas = "styles/ui.atlas"

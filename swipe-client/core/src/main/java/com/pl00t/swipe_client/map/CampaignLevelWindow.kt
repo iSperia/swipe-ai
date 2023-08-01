@@ -1,4 +1,4 @@
-package com.pl00t.swipe_client.home
+package com.pl00t.swipe_client.map
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Group
@@ -18,7 +18,8 @@ import ktx.async.KtxAsync
 class CampaignLevelWindow(
     private val r: R,
     private val model: FrontLevelModel,
-    private val onClose: () -> Unit
+    private val onClose: () -> Unit,
+    private val onMonsterClicked: (String) -> Unit,
 ) : Group() {
 
     lateinit var title: WindowTitleActor
@@ -109,7 +110,9 @@ class CampaignLevelWindow(
                 content.add(r.labelFocusedCaption(UiTexts.WaveTemplate.value(r.l).replace("$", (1 + waveIndex).toString()))).colspan(3).row()
             }
             wave.forEach { monster ->
-                content.add(MonsterShortDetailsCell(r, monster)).size(150f, 310f).pad(4f)
+                content.add(MonsterShortDetailsCell(r, monster).apply {
+                    onClick { onMonsterClicked(monster.skin) }
+                }).size(150f, 310f).pad(4f)
             }
             content.row()
         }

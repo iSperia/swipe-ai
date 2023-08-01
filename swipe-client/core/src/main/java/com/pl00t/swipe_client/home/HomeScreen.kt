@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.pl00t.swipe_client.R
 import com.pl00t.swipe_client.SbBaseScreen
+import com.pl00t.swipe_client.map.CampaignLevelWindow
+import com.pl00t.swipe_client.map.MapWindow
+import com.pl00t.swipe_client.monster.MonsterDetailWindow
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import kotlinx.coroutines.launch
@@ -34,6 +37,7 @@ class HomeScreen(
             root.addActor(background)
 
             r.skin().getFont("caption").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+            r.skin().getFont("caption30").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             r.skin().getFont("regular").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             r.skin().getFont("regular20").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             r.skin().getFont("regular24").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
@@ -53,6 +57,20 @@ class HomeScreen(
                                 model = levelModel,
                                 onClose = {
                                     stack.moveBack()
+                                },
+                                onMonsterClicked = { skin ->
+                                    KtxAsync.launch {
+                                        r.monsterService.getMonster(skin)?.let { monsterModel ->
+                                            val window = MonsterDetailWindow(
+                                                r = r,
+                                                model = monsterModel,
+                                                onClose = {
+                                                    stack.moveBack()
+                                                }
+                                            )
+                                            stack.showScreen(window)
+                                        }
+                                    }
                                 }
                             )
                             stack.showScreen(window)

@@ -6,140 +6,245 @@ filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
 action_icon_attack
   rotate: false
-  xy: 262, 8
+  xy: 522, 124
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 action_icon_close
   rotate: false
-  xy: 392, 8
+  xy: 652, 122
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 action_icon_settings
   rotate: false
-  xy: 2, 8
+  xy: 2, 124
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+action_icon_skillset
+  rotate: false
+  xy: 392, 124
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+action_icon_stats
+  rotate: false
+  xy: 262, 124
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+action_icon_story
+  rotate: false
+  xy: 776, 252
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 action_icon_vault
   rotate: false
-  xy: 776, 266
+  xy: 776, 382
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 background_accent
   rotate: false
-  xy: 909, 393
+  xy: 29, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_error
   rotate: false
-  xy: 776, 260
+  xy: 20, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_focus
   rotate: false
-  xy: 2, 5
+  xy: 2, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_main
   rotate: false
-  xy: 522, 132
+  xy: 32, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_solid
   rotate: false
-  xy: 525, 135
+  xy: 35, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_transparent50
   rotate: false
-  xy: 522, 135
+  xy: 11, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_white
   rotate: false
-  xy: 906, 393
+  xy: 8, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 circle_button_foreground
   rotate: false
-  xy: 518, 138
+  xy: 518, 254
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 fg_complete
   rotate: false
-  xy: 132, 8
+  xy: 132, 124
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 fg_level_bottom
   rotate: false
-  xy: 2, 138
+  xy: 2, 254
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 fg_level_top
   rotate: false
-  xy: 260, 138
+  xy: 260, 254
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
+icon_attr_body
+  rotate: false
+  xy: 782, 176
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+icon_attr_health
+  rotate: false
+  xy: 949, 474
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+icon_attr_luck
+  rotate: false
+  xy: 2, 5
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+icon_attr_mind
+  rotate: false
+  xy: 83, 86
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+icon_attr_spirit
+  rotate: false
+  xy: 782, 214
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+icon_attr_ult
+  rotate: false
+  xy: 2, 43
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+icon_resist_cold
+  rotate: false
+  xy: 906, 393
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+icon_resist_dark
+  rotate: false
+  xy: 2, 81
+  size: 41, 41
+  orig: 41, 41
+  offset: 0, 0
+  index: -1
+icon_resist_fire
+  rotate: false
+  xy: 906, 431
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+icon_resist_light
+  rotate: false
+  xy: 45, 86
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+icon_resist_phys
+  rotate: false
+  xy: 820, 214
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+icon_resist_shock
+  rotate: false
+  xy: 906, 469
+  size: 41, 41
+  orig: 41, 41
+  offset: 0, 0
+  index: -1
 item_background
   rotate: false
-  xy: 776, 263
+  xy: 5, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 3
 item_background
   rotate: false
-  xy: 2, 2
+  xy: 14, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 0
 item_background
   rotate: false
-  xy: 5, 5
+  xy: 17, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 2
 item_background
   rotate: false
-  xy: 779, 263
+  xy: 23, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 4
 item_background
   rotate: false
-  xy: 906, 390
+  xy: 26, 2
   size: 1, 1
   orig: 1, 1
   offset: 0, 0

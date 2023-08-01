@@ -1,4 +1,4 @@
-package com.pl00t.swipe_client.home
+package com.pl00t.swipe_client.map
 
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -11,8 +11,6 @@ import com.pl00t.swipe_client.ux.require
 import kotlinx.coroutines.launch
 import ktx.actors.onExit
 import ktx.actors.onTouchDown
-import ktx.actors.onTouchEvent
-import ktx.actors.onTouchUp
 import ktx.async.KtxAsync
 
 class MapLevelActor(

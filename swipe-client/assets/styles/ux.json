@@ -42,6 +42,10 @@
       font: regular20
       fontColor: white
     }
+    regular20_accent: {
+      font: regular20
+      fontColor: accent_color
+    }
     regular24_focus: {
       font: regular24
       fontColor: focus_color
