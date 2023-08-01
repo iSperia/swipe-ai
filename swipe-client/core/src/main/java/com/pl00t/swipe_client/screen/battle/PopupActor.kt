@@ -19,6 +19,7 @@ class PopupActor(
 
     private val label = Label(text, skin, "damage_popup").apply {
         setAlignment(Align.left)
+        setFontScale(0.66f)
     }
 
     init {

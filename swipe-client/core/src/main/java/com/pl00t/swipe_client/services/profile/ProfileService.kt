@@ -152,47 +152,16 @@ class ProfileServiceImpl(
 
     override suspend fun getAct(act: SwipeAct): FrontActModel {
         val actModel = levelService.getAct(act)
-        val progress = profile.actProgress.firstOrNull { it.act == act } ?: return FrontActModel(emptyList(), emptyList())
+        val progress = profile.actProgress.firstOrNull { it.act == act } ?: throw IllegalArgumentException("No act $act found")
         val availableLevels = actModel.levels.filter { progress.levelsAvailable.contains(it.id) }
         val availableLinks = actModel.links.filter { progress.levelsAvailable.contains(it.n1) || progress.levelsAvailable.contains(it.n2) }
         val disabledLevels = actModel.levels.filter { l -> !progress.levelsAvailable.contains(l.id) && availableLinks.any { it.n1 == l.id || it.n2 == l.id } }
         return FrontActModel(
+            title = actModel.title,
             levels = availableLevels.map { l ->
-                FrontLevelDetails(
-                    x = l.x,
-                    y = 1024 - l.y,
-                    locationId = l.id,
-                    type = l.type,
-                    enabled = true,
-                    waves = l.monsters?.map { it.mapNotNull { e ->
-                        monsterService.getMonster(e.skin)?.let { config ->
-                            FrontMonsterEntryModel(config.skin, config.name, e.level)
-                        }
-                    } } ?: emptyList(),
-                    act = act,
-                    locationBackground = l.background,
-                    locationTitle = l.title,
-                    locationDescription = l.description,
-                    dialog = l.dialog ?: emptyList(),
-                    monsterPool = l.monster_pool?.map { it.skin } ?: emptyList())
+                levelService.getLevelDetails(act, l.id, true)
             } + disabledLevels.map { l ->
-                FrontLevelDetails(
-                    x = l.x,
-                    y = 1024 - l.y,
-                    locationId = l.id,
-                    type = l.type,
-                    enabled = false,
-                    waves = l.monsters?.map { it.mapNotNull { e ->
-                        monsterService.getMonster(e.skin)?.let { monster ->
-                            FrontMonsterEntryModel(monster.skin, monster.name, e.level)
-                        }
-                    } } ?: emptyList(),
-                    act = act,
-                    locationBackground = l.background,
-                    locationTitle = l.title,
-                    locationDescription = l.description,
-                    dialog = l.dialog ?: emptyList(),
-                    monsterPool = l.monster_pool?.map { it.skin } ?: emptyList())
+                levelService.getLevelDetails(act, l.id, false)
             },
             links = availableLinks
         )

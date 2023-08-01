@@ -13,14 +13,14 @@ class GdxFileService: FileService {
     override fun internalFile(name: String): String? {
         val handle = Gdx.files.internal(name)
         return try {
-            handle.readString()
+            handle.readString("UTF-8")
         } catch (t: Throwable) {
             null
         }
     }
 
     override fun localFile(name: String): String? {
-        val handle = Gdx.files.local(name)
+        val handle = Gdx.files.local("UTF-8")
         return try {
             handle.readString()
         } catch (t: Throwable) {

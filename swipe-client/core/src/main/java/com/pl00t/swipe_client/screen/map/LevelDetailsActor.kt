@@ -18,7 +18,7 @@ import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.screen.items.CurrencyCellActor
 import com.pl00t.swipe_client.screen.items.InventoryCellActor
-import com.pl00t.swipe_client.services.levels.FrontLevelDetails
+import com.pl00t.swipe_client.services.levels.FrontLevelModel
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.ux.Buttons
 import com.pl00t.swipe_client.ux.LabelFactory
@@ -35,7 +35,7 @@ interface LevelDetailsCallback {
 private val tiers = arrayOf("I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX")
 
 class LevelDetailsActor(
-    private val levelDetails: FrontLevelDetails,
+    private val levelDetails: FrontLevelModel,
     private val context: SwipeContext,
     private val skin: Skin,
     private val attackAction: (String, Int) -> Unit

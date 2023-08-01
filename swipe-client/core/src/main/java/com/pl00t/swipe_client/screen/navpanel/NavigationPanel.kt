@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.game7th.swipe.game.UnitSkin
 import com.pl00t.swipe_client.screen.map.MapScreenRouter
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
@@ -22,7 +21,7 @@ class NavigationPanel(
     private val router: MapScreenRouter,
 ) : Group() {
 
-    val characterShadow = Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(UnitSkin.CHARACTER_VALERIAN.toString())).apply {
+    val characterShadow = Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion("CHARACTER_VALERIAN")).apply {
         width = 80f
         height = 116f
         setScaling(Scaling.stretch)
@@ -32,7 +31,7 @@ class NavigationPanel(
         color = Color.BLACK
     }
 
-    val characterBg = Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion(UnitSkin.CHARACTER_VALERIAN.toString())).apply {
+    val characterBg = Image(context.commonAtlas(Atlases.COMMON_UNITS).findRegion("CHARACTER_VALERIAN")).apply {
         width = 72f
         height = 108f
         setScaling(Scaling.stretch)

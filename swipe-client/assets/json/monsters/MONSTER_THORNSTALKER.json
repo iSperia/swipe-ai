@@ -3,14 +3,42 @@
   "name": "Thornstalker",
   "lore": "Deep within the enchanted groves, the Thornstalkers roam with their sinewy forms and razor-sharp thorns. These elusive creatures embody the untamed spirit of the forest, blending seamlessly with the verdant surroundings. They strike swiftly and silently, relying on their natural camouflage to ambush unsuspecting prey. Legends whisper of their ability to communicate with the ancient trees and harness the raw power of nature. Caution is advised when venturing into their territory, for the Thornstalkers are fierce protectors of the groves and will not hesitate to defend their realm with untamed ferocity.",
   "baseHealth": 250,
-  "attributes": {"mind":  25, "spirit":  25, "body":  50},
+  "attributes": {
+    "mind": 25,
+    "spirit": 25,
+    "body": 50
+  },
   "tiles": [
-    { "weight": 5, "skin": "THORNSTALKER_PRIMAL_ASSAULT", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
-    { "weight": 3, "skin": "THORNSTALKER_RESILIENT_GROWTH", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
-    { "weight": 3, "skin": "THORNSTALKER_VENOMOUS_BARRAGE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
+    {
+      "weight": 5,
+      "skin": "THORNSTALKER_PRIMAL_ASSAULT",
+      "z": 2,
+      "mobility": 100,
+      "mergeStrategy": "SIMPLE",
+      "maxProgress": 4
+    },
+    {
+      "weight": 3,
+      "skin": "THORNSTALKER_RESILIENT_GROWTH",
+      "z": 2,
+      "mobility": 100,
+      "mergeStrategy": "SIMPLE",
+      "maxProgress": 4
+    },
+    {
+      "weight": 3,
+      "skin": "THORNSTALKER_VENOMOUS_BARRAGE",
+      "z": 2,
+      "mobility": 100,
+      "mergeStrategy": "SIMPLE",
+      "maxProgress": 4
+    }
   ],
   "triggers": [
-    "thornstalker.primal_assault", "thornstalker.resilient_growth", "thornstalker.venomous_barrage", "common.poison"
+    "thornstalker.primal_assault",
+    "thornstalker.resilient_growth",
+    "thornstalker.venomous_barrage",
+    "common.poison"
   ],
   "balance": {
     "base_health": 190,
@@ -20,7 +48,6 @@
     "vb_scale": 10,
     "rg_base": 30,
     "rg_scale": 10
-
   },
   "affixes": {
     "RESIST_PHYSICAL": 20

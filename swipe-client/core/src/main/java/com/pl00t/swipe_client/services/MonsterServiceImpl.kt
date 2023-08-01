@@ -17,12 +17,12 @@ class MonsterServiceImpl(
     val triggerCache = mutableMapOf<String, SbTrigger>()
     val gson = Gson()
 
-    override suspend fun getMonster(skin: String): SbMonsterConfiguration? {
+    override suspend fun getMonster(skin: String): SbMonsterConfiguration {
         return cache[skin] ?: loadMonster(skin)
     }
 
-    private fun loadMonster(skin: String): SbMonsterConfiguration? {
-        val monsterString = fileService.localFile("assets/json/monsters/$skin.json") ?: return null
+    private fun loadMonster(skin: String): SbMonsterConfiguration {
+        val monsterString = fileService.internalFile("json/monsters/$skin.json") ?: throw IllegalStateException("No monster file $skin")
         val config = gson.fromJson(monsterString, SbMonsterConfiguration::class.java)
         cache[skin] = config
         return config

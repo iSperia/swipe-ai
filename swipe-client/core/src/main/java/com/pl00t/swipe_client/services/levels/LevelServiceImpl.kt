@@ -1,6 +1,5 @@
 package com.pl00t.swipe_client.services.levels
 
-import com.badlogic.gdx.Gdx
 import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.game7th.swipe.monsters.MonsterService
@@ -58,18 +57,18 @@ class LevelServiceImpl(
         return actModel
     }
 
-    override suspend fun getLevelDetails(act: SwipeAct, level: String): FrontLevelDetails {
+    override suspend fun getLevelDetails(act: SwipeAct, level: String, enabled: Boolean): FrontLevelModel {
         val actModel = getAct(act)
-        val l = actModel.levels.firstOrNull { it.id == level } ?: return FrontLevelDetails.DEFAULT
-        return FrontLevelDetails(
+        val l = actModel.levels.firstOrNull { it.id == level } ?: return FrontLevelModel.DEFAULT
+        return FrontLevelModel(
             x = l.x,
             y = 1024 - l.y,
             locationId = l.id,
             type = l.type,
-            enabled = true,
+            enabled = enabled,
             waves = l.monsters?.map { it.mapNotNull { e ->
-                monsterService.getMonster(e.skin)?.let { monster ->
-                    FrontMonsterEntryModel(monster.skin, monster.name, e.level)
+                monsterService.getMonster(e.skin)?.let {
+                    FrontMonsterEntryModel(it.skin, it.name, it.level)
                 }
             } } ?: emptyList(),
             act = act,

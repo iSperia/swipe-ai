@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.services.levels
 
+import com.game7th.swipe.SbText
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
@@ -34,7 +35,7 @@ interface LevelService {
 
     suspend fun getAct(act: SwipeAct): ActModel
 
-    suspend fun getLevelDetails(act: SwipeAct, level: String): FrontLevelDetails
+    suspend fun getLevelDetails(act: SwipeAct, level: String, enabled: Boolean): FrontLevelModel
 
     suspend fun getFreeReward(act: SwipeAct, level: String): List<LevelReward>
 
@@ -47,10 +48,11 @@ interface LevelService {
 }
 
 data class FrontActModel(
-    val levels: List<FrontLevelDetails>,
+    val title: SbText,
+    val levels: List<FrontLevelModel>,
     val links: List<LinkModel>
 )
-data class FrontLevelDetails(
+data class FrontLevelModel(
     val act: SwipeAct,
     val locationId: String,
     val locationBackground: String,
@@ -65,7 +67,7 @@ data class FrontLevelDetails(
     val y: Float,
 ) {
     companion object {
-        val DEFAULT = FrontLevelDetails(SwipeAct.ACT_1, "", "", "", "", emptyList(), emptyList(), emptyList(),
+        val DEFAULT = FrontLevelModel(SwipeAct.ACT_1, "", "", "", "", emptyList(), emptyList(), emptyList(),
             false, LevelType.CAMPAIGN, 0f, 0f)
     }
 }

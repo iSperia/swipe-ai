@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.input.GestureDetector
-import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -13,10 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Stack
 import com.pl00t.swipe_client.Atlases
-import com.pl00t.swipe_client.screen.Router
+import com.pl00t.swipe_client.screen.ScreenRouter
 import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.screen.navpanel.NavigationPanel
-import com.pl00t.swipe_client.services.levels.FrontLevelDetails
+import com.pl00t.swipe_client.services.levels.FrontLevelModel
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.game7th.swipe.monsters.MonsterService
@@ -54,8 +52,8 @@ class MapScreen(
     private val levelService: LevelService,
     private val monsterService: MonsterService,
     private val itemService: ItemService,
-    private val router: Router,
-) : StageScreen(amCore, inputMultiplexer), GestureDetector.GestureListener, LevelDetailsCallback, MapScreenRouter {
+    private val router: ScreenRouter,
+) : StageScreen(amCore, inputMultiplexer), LevelDetailsCallback, MapScreenRouter {
 
     lateinit var mapAssetManager: AssetManager
     lateinit var skin: Skin
@@ -73,8 +71,6 @@ class MapScreen(
 
     lateinit var mapTitle: Group
 
-    private val gestureDetector = GestureDetector(this)
-
     private val mapSmallIconSize = root.height / 15f
     private val mapIconSize = root.height / 12f
     private var _mapScale = 1f
@@ -91,7 +87,6 @@ class MapScreen(
         }
         loadAm(mapAssetManager, this::mapLoaded)
         multiplexer.addProcessor(root)
-        multiplexer.addProcessor(gestureDetector)
         Gdx.input.inputProcessor = multiplexer
     }
 
@@ -103,7 +98,7 @@ class MapScreen(
     private fun mapLoaded() {
         debug("MapScreen") { "Map screen is loaded" }
 
-        skin = Skin(Gdx.files.internal("styles/ui.json")).apply {
+        skin = Skin(Gdx.files.internal("styles/ux.json")).apply {
             addRegions(commonAtlas(Atlases.COMMON_UX))
         }
 
@@ -213,9 +208,9 @@ class MapScreen(
         root.addActor(navigationPanel)
     }
 
-    private fun showLevelDetails(level: FrontLevelDetails) {
+    private fun showLevelDetails(level: FrontLevelModel) {
         KtxAsync.launch {
-            val details = levelService.getLevelDetails(SwipeAct.ACT_1, level.locationId)
+            val details = levelService.getLevelDetails(SwipeAct.ACT_1, level.locationId, true)
             levelDetailsActor?.hideToBehindAndRemove(root.width)
             levelDetailsActor = null
 
@@ -233,7 +228,7 @@ class MapScreen(
     }
 
     private fun onAttackClicked(locationId: String, tier: Int) {
-        router.navigateBattle(SwipeAct.ACT_1, locationId, tier)
+        router.navigateBattle()
     }
 
     private fun initMapImage() {
@@ -254,50 +249,10 @@ class MapScreen(
     override fun dispose() {
         super.dispose()
         multiplexer.removeProcessor(root)
-        multiplexer.removeProcessor(gestureDetector)
         mapAssetManager.dispose()
     }
 
-    override fun touchDown(x: Float, y: Float, pointer: Int, button: Int): Boolean {
-        return false
-    }
 
-    override fun tap(x: Float, y: Float, count: Int, button: Int): Boolean {
-        return false
-    }
-
-    override fun longPress(x: Float, y: Float): Boolean {
-        return false
-    }
-
-    override fun fling(velocityX: Float, velocityY: Float, button: Int): Boolean {
-        return false
-    }
-
-    override fun pan(x: Float, y: Float, deltaX: Float, deltaY: Float): Boolean {
-//        mapActor.x = max(root.width - mapImage.imageWidth, min(0f, mapActor.x + deltaX))
-        return false
-    }
-
-    override fun panStop(x: Float, y: Float, pointer: Int, button: Int): Boolean {
-        return false
-    }
-
-    override fun zoom(initialDistance: Float, distance: Float): Boolean {
-        return false
-    }
-
-    override fun pinch(
-        initialPointer1: Vector2?,
-        initialPointer2: Vector2?,
-        pointer1: Vector2?,
-        pointer2: Vector2?
-    ): Boolean {
-        return true
-    }
-
-    override fun pinchStop() {
-    }
 
     override fun processMonsterClicked(unitSkin: String) {
         KtxAsync.launch {

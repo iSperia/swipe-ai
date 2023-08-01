@@ -1,0 +1,98 @@
+
+ux.png
+size: 1024, 2048
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: none
+action_area
+  rotate: false
+  xy: 852, 1817
+  size: 128, 128
+  split: 43, 42, 44, 48
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+action_icon_settings
+  rotate: false
+  xy: 260, 133
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+background_transparent50
+  rotate: false
+  xy: 852, 1814
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
+circle_button_foreground
+  rotate: false
+  xy: 260, 263
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+fg_complete
+  rotate: false
+  xy: 518, 391
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+fg_level_bottom
+  rotate: false
+  xy: 2, 263
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+fg_level_top
+  rotate: false
+  xy: 2, 5
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+item_background
+  rotate: false
+  xy: 2, 2
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 3
+item_background
+  rotate: false
+  xy: 982, 1944
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 0
+item_background
+  rotate: false
+  xy: 260, 130
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 2
+item_background
+  rotate: false
+  xy: 390, 260
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 4
+item_background
+  rotate: false
+  xy: 518, 388
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: 1
+solid_window_background
+  rotate: false
+  xy: 2, 521
+  size: 848, 1424
+  orig: 848, 1424
+  offset: 0, 0
+  index: -1

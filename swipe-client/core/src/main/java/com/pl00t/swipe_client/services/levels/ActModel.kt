@@ -1,12 +1,13 @@
 package com.pl00t.swipe_client.services.levels
 
+import com.game7th.swipe.SbText
 import com.game7th.swipe.game.SbMonsterEntry
-import com.game7th.swipe.game.UnitSkin
 
 data class ActModel(
     val levels: List<LevelModel>,
     val links: List<LinkModel>,
     val background: String,
+    val title: SbText
 )
 
 enum class LevelType {
@@ -16,11 +17,6 @@ enum class LevelType {
 data class LinkModel(
     val n1: String,
     val n2: String
-)
-
-data class MonsterEntryModel(
-    val skin: UnitSkin,
-    val level: Int,
 )
 
 enum class DialogOrientation {

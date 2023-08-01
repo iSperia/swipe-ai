@@ -1,0 +1,30 @@
+{
+  Color: {
+    main_color: { hex: 8FBFE0 }
+    bg_color: { hex: 14342B }
+    focus_color: { hex: F3FFBD }
+    accent_color: { hex: 0A369D }
+    error_color: { hex: DE3C4B }
+    white: { hex: FFFFFF }
+
+    rarity_1: { hex: 707377 }
+    rarity_2: { hex: 5b8f7a }
+    rarity_3: { hex: 607ea4 }
+    rarity_4: { hex: 9e75c2 }
+    rarity_5: { hex: d08025 }
+  }
+  BitmapFont: {
+    caption: { file: medieval.fnt }
+    regular: { file: uni.fnt }
+  }
+  LabelStyle: {
+    window_title: {
+      font: caption
+      fontColor: main_color
+    },
+    action_label: {
+      font: regular
+      fontColor: white
+    }
+  }
+}

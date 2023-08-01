@@ -53,9 +53,10 @@ class MonsterDetailActor(
         clearChildren()
         KtxAsync.launch {
             val table = Table()
-            val blackBackground = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_dark_blue")).apply {
+            val blackBackground = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("solid_window_background")).apply {
                 width = context.width()
                 height = context.height()
+                setScaling(Scaling.fill)
             }
             val title = LabelFactory.createScreenTitle(context, skin, monsterInfo.name).apply {
                 y = spaceHeight - 60f

@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Scaling
 import com.game7th.swipe.game.SbSoundType
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.screen.Router
+import com.pl00t.swipe_client.screen.ScreenRouter
 import com.pl00t.swipe_client.screen.reward.RewardDialog
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.profile.ProfileService
@@ -35,7 +35,7 @@ class BattleFinishActor(
     private val result: BattleResult,
     private val context: SwipeContext,
     private val skin: Skin,
-    private val router: Router
+    private val router: ScreenRouter
 ) : Group() {
 
     var topBlockSize = 0f
@@ -127,7 +127,7 @@ class BattleFinishActor(
                 y = 24f
             }
             closeButton.onClick {
-                router.navigateMap(actId)
+                router.navigateMap()
             }
             addActor(closeButton)
         }
@@ -151,7 +151,7 @@ class BattleFinishActor(
                         closeButtonText = "Continue Journey"
                     ) {
                         KtxAsync.launch {
-                            router.navigateMap(SwipeAct.ACT_1)
+                            router.navigateMap()
                         }
                     }.apply {
                         x = this@BattleFinishActor.x
@@ -200,7 +200,7 @@ class BattleFinishActor(
                                 closeButtonText = "Continue journey"
                             ) {
                                 KtxAsync.launch {
-                                    router.navigateMap(SwipeAct.ACT_1)
+                                    router.navigateMap()
                                 }
                             }.apply {
                                 x = this@BattleFinishActor.x
@@ -232,7 +232,7 @@ class BattleFinishActor(
                             closeButtonText = "Continue journey"
                         ) {
                             KtxAsync.launch {
-                                router.navigateMap(SwipeAct.ACT_1)
+                                router.navigateMap()
                             }
                         }.apply {
                             x = this@BattleFinishActor.x

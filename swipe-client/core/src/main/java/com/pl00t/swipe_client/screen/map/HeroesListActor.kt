@@ -8,11 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.game7th.swipe.monsters.MonsterService
-import com.pl00t.swipe_client.screen.Router
-import com.pl00t.swipe_client.screen.navpanel.NavigationPanel
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.ux.Buttons
@@ -42,14 +41,16 @@ class HeroesListActor(
             height = context.height()
         }
 
-        val panelBg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("bg_blue")).apply {
+        val panelBg = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("horizontal_scroll_panel")).apply {
             height = 180f
             width = 480f
+            setScaling(Scaling.fill)
         }
         val line = Image(context.commonAtlas(Atlases.COMMON_UX).findRegion("panel_line")).apply {
             y = panelBg.height - 4f
             width = 480f
             height = 4f
+            isVisible = false
         }
 
         val closeButton = Buttons.createActionButton("Close", skin).apply {

@@ -2,15 +2,6 @@ package com.game7th.swipe.game
 
 import com.google.gson.JsonObject
 
-enum class UnitSkin {
-    CHARACTER_VALERIAN,
-    CHARACTER_SAFFRON,
-    MONSTER_THORNSTALKER,
-    MONSTER_CORRUPTED_DRYAD,
-    MONSTER_THALENDROS,
-    MONSTER_THORNED_CRAWLER
-}
-
 fun JsonObject.intAttribute(key: String) = this.get(key).asInt
 fun JsonObject.floatAttribute(key: String) = this.get(key).asFloat
 fun JsonObject.stringAttribute(key: String) = this.get(key)?.asString ?: ""

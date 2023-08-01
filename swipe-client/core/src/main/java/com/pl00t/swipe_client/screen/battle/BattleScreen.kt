@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.game7th.swipe.gestures.SimpleDirectionGestureDetector
 import com.pl00t.swipe_client.Atlases
-import com.pl00t.swipe_client.screen.Router
+import com.pl00t.swipe_client.screen.ScreenRouter
 import com.pl00t.swipe_client.screen.StageScreen
 import com.pl00t.swipe_client.services.battle.BattleDecorations
 import com.pl00t.swipe_client.services.battle.BattleResult
@@ -51,7 +51,7 @@ class BattleScreen(
     private val profileService: ProfileService,
     private val monsterService: MonsterService,
     private val itemService: ItemService,
-    private val router: Router,
+    private val router: ScreenRouter,
 ) : StageScreen(amCore, inputMultiplexer), SimpleDirectionGestureDetector.DirectionListener {
 
     lateinit var decorations: BattleDecorations
@@ -126,7 +126,7 @@ class BattleScreen(
         locationGroup.y = 510f
         popupsGroup.y = tarotEffectsGroup.y
 
-        skin = Skin(Gdx.files.internal("styles/ui.json")).apply {
+        skin = Skin(Gdx.files.internal("styles/ux.json")).apply {
             addRegions(commonAtlas(Atlases.COMMON_UX))
         }
 
@@ -179,7 +179,7 @@ class BattleScreen(
         panelGroup.addActor(ultimateActor)
 
         KtxAsync.launch {
-            val level = levelService.getLevelDetails(actId, levelId)
+            val level = levelService.getLevelDetails(actId, levelId, true)
             preBattleDialogs.addAll(level.dialog)
             resolvePreBattleDialogs()
         }
