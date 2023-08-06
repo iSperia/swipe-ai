@@ -1,9 +1,11 @@
 package com.pl00t.swipe_client.monster
 
 import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.game7th.swipe.game.SbMonsterConfiguration
-import com.game7th.swipe.mapAsMonster
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.utils.Scaling
+import com.game7th.swipe.game.FrontMonsterConfiguration
 import com.pl00t.swipe_client.R
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
@@ -12,22 +14,29 @@ import ktx.actors.alpha
 import ktx.actors.onClick
 import ktx.async.KtxAsync
 
-class MonsterDetailWindow(
-    private val r: R,
-    private val model: SbMonsterConfiguration,
+open class MonsterDetailWindow(
+    protected val r: R,
+    protected var model: FrontMonsterConfiguration,
     private val onClose: () -> Unit
 ): Group() {
 
     lateinit var title: WindowTitleActor
     lateinit var bottomPanel: BottomActionPanel
+    lateinit protected var background: Image
+    lateinit protected var backgroundShadow: Image
 
-    private var root = Group()
-    private var attributesActor: AttributesActor? = null
+    protected var root = Group()
+    protected var attributesActor: AttributesActor? = null
+    private var loreActor: LoreActor? = null
+    private var abilitiesActor: MonsterAbiltiesActor? = null
 
     init {
         setSize(r.width, r.height)
-        val background = r.image(R.ux_atlas, "background_solid").apply { setSize(r.width, r.height) }
-        val backgroundShadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
+
+        val texture = r.image(R.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); setScaling(Scaling.fillY) }
+        background = r.image(R.ux_atlas, "background_solid").apply { setSize(r.width, r.height); alpha = 0.5f }
+        backgroundShadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
+        addActor(texture)
         addActor(background)
         addActor(backgroundShadow)
 
@@ -39,57 +48,113 @@ class MonsterDetailWindow(
         showAttributes()
     }
 
+    protected open suspend fun createAttributesActor(): AttributesActor {
+        val attributesActor = MonsterAttributesActor(r, model).apply {
+            y = 110f
+        }
+        return attributesActor
+    }
+
     private fun addTitle() {
-        val closeButton = ActionCompositeButton(r, Action.CLOSE, Mode.NoText).apply {
+        val closeButton = ActionCompositeButton(r, Action.Close, Mode.NoText).apply {
             setSize(80f, 80f)
         }
         closeButton.onClick {
             onClose()
         }
-        title = WindowTitleActor(r, model.name.value(r.l), closeButton, null, 2).apply {
+        val titleText = model.name.value(r.l)
+        title = WindowTitleActor(r, titleText, closeButton, null, 2).apply {
             y = r.height - this.height
         }
 
         addActor(title)
     }
 
-    private fun addBottomPanel() {
-        val actions = listOf(
-            ActionCompositeButton(r, Action.STORY, Mode.SingleLine(UiTexts.ButtonStory.value(r.l)))
-                .apply { onClick { showStory() } },
-            ActionCompositeButton(r, Action.SKILLSET, Mode.SingleLine(UiTexts.ButtonSkillset.value(r.l)))
-                .apply { onClick { showSkillset() } },
-            ActionCompositeButton(r, Action.STATS, Mode.SingleLine(UiTexts.ButtonStats.value(r.l)))
-                .apply { onClick { showAttributes() } },
-        )
-        bottomPanel = BottomActionPanel(r, actions, 2)
-        addActor(bottomPanel)
+    protected suspend open fun fillBottomPanelActions(list: MutableList<ActionCompositeButton>) {
+        list.add(ActionCompositeButton(r, Action.Stats, Mode.SingleLine(UiTexts.ButtonStats.value(r.l)))
+            .apply { onClick { showAttributes() } })
+        list.add(ActionCompositeButton(r, Action.Skillset, Mode.SingleLine(UiTexts.ButtonSkillset.value(r.l)))
+            .apply { onClick { showSkillset() } })
+        list.add(ActionCompositeButton(r, Action.Story, Mode.SingleLine(UiTexts.ButtonStory.value(r.l)))
+            .apply { onClick { showStory() } })
     }
 
-    private fun showAttributes() {
+    private fun addBottomPanel() {
+        KtxAsync.launch {
+            val actions = mutableListOf<ActionCompositeButton>()
+            fillBottomPanelActions(actions)
+            bottomPanel = BottomActionPanel(r, actions, 2)
+            addActor(bottomPanel)
+        }
+    }
+
+    protected open fun showAttributes() {
         KtxAsync.launch {
             if (attributesActor == null) {
-                attributesActor = AttributesActor(r, model.mapAsMonster(), model.skin).apply {
-                    y = 110f
-                }
+                attributesActor = createAttributesActor()
                 root.addActor(attributesActor)
             }
             attributesActor?.apply {
+                touchable = Touchable.enabled
                 alpha = 0f
                 addAction(Actions.alpha(1f, 0.4f))
             }
         }
+
+        hideAbilities()
+        hideStory()
     }
 
-    private fun showSkillset() {
+    protected open fun showSkillset() {
+        KtxAsync.launch {
+            if (abilitiesActor == null) {
+                abilitiesActor = MonsterAbiltiesActor(r, model).apply {
+                    y = 110f
+                }
+                root.addActor(abilitiesActor)
+            }
+            abilitiesActor?.apply {
+                touchable = Touchable.enabled
+                alpha = 0f
+                addAction(Actions.alpha(1f, 0.4f))
+            }
+        }
+
         hideAttributes()
+        hideStory()
     }
 
-    private fun showStory() {
+    protected open fun showStory() {
+        KtxAsync.launch {
+            if (loreActor == null) {
+                loreActor = LoreActor(r, model.lore).apply {
+                    y = 110f
+                }
+                root.addActor(loreActor)
+            }
+            loreActor?.apply {
+                touchable = Touchable.enabled
+                alpha = 0f
+                addAction(Actions.alpha(1f, 0.4f))
+            }
+        }
+
         hideAttributes()
+        hideAbilities()
     }
 
-    private fun hideAttributes() {
+    protected open fun hideAttributes() {
         attributesActor?.addAction(Actions.alpha(0f, 0.4f))
+        attributesActor?.touchable = Touchable.disabled
+    }
+
+    protected open fun hideStory() {
+        loreActor?.addAction(Actions.alpha(0f, 0.4f))
+        loreActor?.touchable = Touchable.disabled
+    }
+
+    protected open fun hideAbilities() {
+        abilitiesActor?.addAction(Actions.alpha(0f, 0.4f))
+        abilitiesActor?.touchable = Touchable.disabled
     }
 }

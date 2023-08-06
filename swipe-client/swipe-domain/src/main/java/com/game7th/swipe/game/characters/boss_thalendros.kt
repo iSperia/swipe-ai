@@ -1,5 +1,6 @@
 package com.game7th.swipe.game.characters
 
+import com.game7th.swipe.SbText
 import com.game7th.swipe.game.floatAttribute
 import com.game7th.swipe.game.intAttribute
 import com.game7th.swipe.game.*
@@ -20,14 +21,61 @@ private const val da_tiles = "da_tiles"
 private const val da_base = "da_base"
 private const val da_scale = "da_scale"
 
+fun provideThalendrosAbilities(balance: JsonObject, attributes: CharacterAttributes) = listOf(
+    FrontMonsterAbility(
+        title = SbText(en = "Thorn Whip", ru = "Терновый Кнут"),
+        skin = THALENDROS_THORN_WHIP,
+        description = SbText(en = "Melee attack\nDeals physical damage", ru = "Рукопашная атака\nНаносит физический урон"),
+        fields = listOf(
+            FrontMonsterAbilityField(
+                title = SbText(en = "Physical damage", ru = "Физический урон"),
+                value = (balance.floatAttribute(tw_base) * (1f + 0.01f * balance.intAttribute(tw_scale) * attributes.body)).toInt().toString()
+            ),
+        )
+    ),
+    FrontMonsterAbility(
+        title = SbText(en = "Corrupted Roots", ru = "Оскверенные Корни"),
+        skin = THALENDROS_EARTHQUAKE_SLAM,
+        description = SbText(en = "Random target attack\nGenerates corrupted roots symbols if there aren't any on field, else deals dark damage for each corrupted root on the field",
+            ru = "Атака по случайной цели\nЕсли на поле цели нет символов оскверненных корней, создает их; иначе наносит урон тьмой за каждый символ оскверненных корней на поле"),
+        fields = listOf(
+            FrontMonsterAbilityField(
+                title = SbText(en = "Corrupted roots symbols amount", ru = "Количество символов оскверненных корней"),
+                value = balance.intAttribute(es_tiles).toString()
+            ),
+            FrontMonsterAbilityField(
+                title = SbText(en = "Dark damage per corrupted roots tile", ru = "Урон тьмой за каждый символ оскверненных корней"),
+                value = (balance.floatAttribute(es_damage) * (1f + 0.01f * balance.intAttribute(es_scale) * attributes.spirit)).toInt().toString()
+            ),
+        )
+    ),
+    FrontMonsterAbility(
+        title = SbText(en = "Dark Aura", ru = "Тёмная Аура"),
+        skin = THALENDROS_DARK_AURA,
+        description = SbText(en = "Random target attack\nGenerates dark aura tiles on target's field\nWhen the skill is used on that tile, character is deald dark damage and dark aura tile is destroyed",
+            ru = "Атака по случайной цели\nНа поле цели создаются клетки тёмной ауры\nКогда навык срабатывает на такой клетке, персонажу наносится урон тьмой"),
+        fields = listOf(
+            FrontMonsterAbilityField(
+                title = SbText(en = "Dark aura tiles generated", ru = "Количество клеток тёмной ауры"),
+                value = balance.intAttribute(da_tiles).toString()
+            ),
+            FrontMonsterAbilityField(
+                title = SbText(en = "Dark damage", ru = "Урон тьмой"),
+                value = (balance.floatAttribute(da_base) * (1f + 0.01f * balance.intAttribute(da_base) * attributes.spirit)).toInt().toString()
+            ),
+        )
+    ),
+
+)
+
 fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
 
     "thalendros.thorn_whip" to { context, event ->
-        context.useOnComplete(event, THALENDROS_THORN_WHIP) { characterId, tileId, lucky ->
+        context.useOnComplete(event, THALENDROS_THORN_WHIP) { characterId, tileId, koef ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
                 phys = balance.floatAttribute(tw_base) * (1f + 0.01f * balance.intAttribute(tw_scale) * character.attributes.body)
-            ).multipledBy(if (lucky) 2f else 1f)
+            ).multipledBy(koef)
             meleeTarget(characterId).forEach { target ->
                 dealDamage(characterId, target, damage)
                 events.add(
@@ -39,7 +87,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
     },
 
     "thalendros.earthquake_slam" to { context, event ->
-        context.useOnComplete(event, THALENDROS_EARTHQUAKE_SLAM) { characterId, tileId, lucky ->
+        context.useOnComplete(event, THALENDROS_EARTHQUAKE_SLAM) { characterId, tileId, koef ->
             val character = game.character(characterId) ?: return@useOnComplete
             allEnemies(characterId).randomOrNull()?.let { targetId ->
                 events.add(
@@ -86,7 +134,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                         dark = rootsCount * balance.floatAttribute(es_damage) * (1f + 0.01f * balance.intAttribute(
                             es_scale
                         ) * character.attributes.spirit)
-                    ).multipledBy(if (lucky) 2f else 1f)
+                    ).multipledBy(koef)
                     dealDamage(characterId, targetId, damage)
                 }
             }
@@ -96,7 +144,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
     },
 
     "thalendros.dark_aura" to { context, event ->
-        context.useOnComplete(event, THALENDROS_DARK_AURA) { characterId, tileId, lucky ->
+        context.useOnComplete(event, THALENDROS_DARK_AURA) { characterId, tileId, koef ->
             val character = game.character(characterId) ?: return@useOnComplete
             allEnemies(characterId).randomOrNull()?.let { targetId ->
                 events.add(
@@ -104,7 +152,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                         SbBattleFieldDisplayEffect.TarotSimpleAttack(
                             THALENDROS_DARK_AURA, characterId, targetId), SbSoundType.AOE_SPELL))
 
-                val auraTilesCount = balance.intAttribute(da_tiles) * (if (lucky) 2 else 1)
+                val auraTilesCount = (balance.intAttribute(da_tiles) * koef).toInt()
                 val positions = freePositions(targetId, SbTile.LAYER_BACKGROUND, auraTilesCount)
                 positions.forEach { p ->
                     val tile = SbTile(

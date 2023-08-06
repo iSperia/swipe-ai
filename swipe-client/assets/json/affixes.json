@@ -1,170 +1,223 @@
 {
   "affixes": [
     {
+      "affix": "FLAT_HP",
+      "valuePerTier": 100,
+      "description": {
+        "en": "Base Health +$",
+        "ru": "Базовое здоровье +$"
+      },
+      "weights": [
+        {
+          "weight": 150
+        }
+      ]
+    },
+    {
+      "affix": "PERCENT_HP",
+      "valuePerTier": 20,
+      "description": {
+        "en": "Health +$%",
+        "ru": "Здоровье +$%"
+      },
+      "weights": [
+        {
+          "weight": 150
+        }
+      ]
+    },
+    {
+      "affix": "FLAT_BODY",
+      "valuePerTier": 2,
+      "description": {
+        "en": "Body +$",
+        "ru": "Тело +$"
+      },
+      "weights": [
+        {
+          "weight": 200
+        }
+      ]
+    },
+    {
+      "affix": "FLAT_SPIRIT",
+      "valuePerTier": 2,
+      "description": {
+        "en": "Spirit +$",
+        "ru": "Дух +$"
+      },
+      "weights": [
+        {
+          "weight": 200
+        }
+      ]
+    },
+    {
+      "affix": "FLAT_MIND",
+      "valuePerTier": 2,
+      "description": {
+        "en": "Mind +$",
+        "ru": "Разум +$"
+      },
+      "weights": [
+        {
+          "weight": 200
+        }
+      ]
+    },
+    {
       "affix": "DARK_DAMAGE_INCREASE",
-      "valuePerTier": 3,
-      "description": "Dark damage increase +$%",
+      "valuePerTier": 25,
+      "description": {
+        "en": "Dark damage increase +$%",
+        "ru": "Увеличение урона тьмой +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "AMULET"
         }
       ]
     },
     {
       "affix": "COLD_DAMAGE_INCREASE",
-      "valuePerTier": 3,
-      "description": "Cold damage increase +$%",
+      "valuePerTier": 25,
+      "description": {
+        "en": "Cold damage increase +$%",
+        "ru": "Увеличение урона холодом +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "RING"
         }
       ]
     },
     {
       "affix": "PHYS_DAMAGE_INCREASE",
-      "valuePerTier": 3,
-      "description": "Physical damage increase +$%",
+      "valuePerTier": 25,
+      "description": {
+        "en": "Physical damage increase +$%",
+        "ru": "Увеличение физ. урона +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "BELT"
         }
       ]
     },
     {
       "affix": "SHOCK_DAMAGE_INCREASE",
-      "valuePerTier": 3,
-      "description": "Shock damage increase +$%",
+      "valuePerTier": 25,
+      "description": {
+        "en": "Shock damage increase +$%",
+        "ru": "Увеличение урона шоком +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "RING"
         }
       ]
     },
     {
       "affix": "FIRE_DAMAGE_INCREASE",
-      "valuePerTier": 3,
-      "description": "Fire damage increase +$%",
+      "valuePerTier": 25,
+      "description": {
+        "en": "Fire damage increase +$%",
+        "ru": "Увеличение урона огнём +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "BELT"
         }
       ]
     },
     {
       "affix": "LIGHT_DAMAGE_INCREASE",
-      "valuePerTier": 3,
-      "description": "Light damage increase +$%",
+      "valuePerTier": 25,
+      "description": {
+        "en": "Light damage increase +$%",
+        "ru": "Увеличение урона светом +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "AMULET"
         }
       ]
     },
     {
       "affix": "DARK_RESIST_FLAT",
-      "valuePerTier": 2,
-      "description": "Dark resistance +$%",
+      "valuePerTier": 5,
+      "description": {
+        "en": "Dark resistance +$%",
+        "ru": "Сопротивление тьме +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "AMULET"
         }
       ]
     },
     {
       "affix": "COLD_RESIST_FLAT",
-      "valuePerTier": 2,
-      "description": "Cold resistance +$%",
+      "valuePerTier": 5,
+      "description": {
+        "en": "Cold resistance +$%",
+        "ru": "Сопротивление холоду +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "GLOVES"
         }
       ]
     },
     {
       "affix": "FIRE_RESIST_FLAT",
-      "valuePerTier": 2,
-      "description": "Fire resistance +$%",
+      "valuePerTier": 5,
+      "description": {
+        "en": "Fire resistance +$%",
+        "ru": "Сопротивление огню +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "BELT"
         }
       ]
     },
     {
       "affix": "SHOCK_RESIST_FLAT",
-      "valuePerTier": 2,
-      "description": "Shock resistance +$%",
+      "valuePerTier": 5,
+      "description": {
+        "en": "Shock resistance +$%",
+        "ru": "Сопротивление шоку +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "BOOTS"
         }
       ]
     },
     {
       "affix": "PHYS_RESIST_FLAT",
-      "valuePerTier": 2,
-      "description": "Physical resistance +$%",
+      "valuePerTier": 5,
+      "description": {
+        "en": "Physical resistance +$%",
+        "ru": "Сопротивление физ. урону +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "HELMET"
         }
       ]
     },
     {
       "affix": "LIGHT_RESIST_FLAT",
-      "valuePerTier": 2,
-      "description": "Light resistance +$%",
+      "valuePerTier": 5,
+      "description": {
+        "en": "Light resistance +$%",
+        "ru": "Сопротивление свету +$%"
+      },
       "weights": [
         {
           "weight": 100
-        },
-        {
-          "weight": 200,
-          "category": "RING"
         }
       ]
     }

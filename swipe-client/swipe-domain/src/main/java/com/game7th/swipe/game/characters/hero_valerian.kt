@@ -1,5 +1,6 @@
 package com.game7th.swipe.game.characters
 
+import com.game7th.swipe.SbText
 import com.game7th.swipe.game.floatAttribute
 import com.game7th.swipe.game.intAttribute
 import com.game7th.swipe.game.*
@@ -11,28 +12,84 @@ private val VALERIAN_SIGIL_OF_RENEWAL = "VALERIAN_SIGIL_OF_RENEWAL"
 private val VALERIAN_SIGIL_OF_RENEWAL_BG = "VALERIAN_SIGIL_OF_RENEWAL_BG"
 private val VALERIAN_DIVINE_CONVERGENCE = "VALERIAN_DIVINE_CONVERGENCE"
 
-private val RS_BASE = "radiant_strike.base_physical_damage"
-private val RS_SCALE = "radiant_strike.scale_physical_damage_per_body"
-private val LB_BASE = "luminous_beam.base_light_damage"
-private val LB_SCALE = "luminous_beam.scale_light_damage_per_spirit"
-private val SOR_TILES = "sigil_of_renewal.sigil_tiles_count"
-private val SOR_BASE = "sigil_of_renewal.base_heal"
-private val SOR_SCALE = "sigil_of_renewal.scale_heal_per_spirit"
-private val DC_BASE_DMG = "divine_convergence.base_light_damage_per_sigil"
-private val DC_SCALE_DMG = "divine_convergence.scale_light_damage_per_spirit"
-private val DC_BASE_HEAL = "divine_convergence.base_heal_per_sigil"
-private val DC_SCALE_HEAL_BODY = "divine_convergence.scale_heal_per_spirit"
-private val DC_SCALE_HEAL_SPIRIT = "divine_convergence.scale_heal_per_body"
+private val RS_BASE = "rs_base"
+private val RS_SCALE = "rs_scale_body"
+private val LB_BASE = "lb_base"
+private val LB_SCALE = "lb_scale_spirit"
+private val SOR_TILES = "sor_tiles"
+private val SOR_BASE = "sor_h_base"
+private val SOR_SCALE = "sor_h_scale_spirit"
+private val DC_BASE_DMG = "dc_dmg_base"
+private val DC_SCALE_DMG = "dc_scale_dmg_spirit"
+private val DC_BASE_HEAL = "dc_heal_base"
+private val DC_SCALE_HEAL_BODY = "dc_scale_h_spirit"
+private val DC_SCALE_HEAL_SPIRIT = "dc_scale_h_body"
+
+fun provideValerianAbilities(balance: JsonObject, attributes: CharacterAttributes) = listOf(
+    FrontMonsterAbility(
+        title = SbText(en = "Radiant Strike", ru = "Сияющий Удар"),
+        skin = VALERIAN_RADIANT_STRIKE,
+        description = SbText(en = "Melee attack.\nDeals physical damage", ru = "Рукопашная атака\nНаносит физический урон"),
+        fields = listOf(
+            FrontMonsterAbilityField(
+                title = SbText(en = "Physical damage", ru = "Физический урон"),
+                value = (balance.floatAttribute(RS_BASE) * (1f + 0.01f * balance.intAttribute(RS_SCALE) * attributes.body)).toInt().toString()
+            ),
+        )
+    ),
+    FrontMonsterAbility(
+        title = SbText(en = "Luminous Beam", ru = "Светящийся Луч"),
+        skin = VALERIAN_LUMINOUS_BEAM,
+        description = SbText(en = "Massive attack.\nDeals light damage", ru = "Массивная атака\nНаносит урон светом"),
+        fields = listOf(
+            FrontMonsterAbilityField(
+                title = SbText(en = "Light damage", ru = "Урон светом"),
+                value = (balance.floatAttribute(LB_BASE) * (1f + 0.01f * balance.intAttribute(LB_SCALE) * attributes.spirit)).toInt().toString(),
+            ),
+        )
+    ),
+    FrontMonsterAbility(
+        title = SbText(en = "Sigils of Renewal", ru = "Печати Обновления"),
+        skin = VALERIAN_SIGIL_OF_RENEWAL,
+        description = SbText(en = "Generates sigils on field\nWhen a skill is triggered on a sigil, personage is healed", ru = "Генерирует печати восстановления на поле\nКогда навык срабатывает на печати, персонаж исцеляется"),
+        fields = listOf(
+            FrontMonsterAbilityField(
+                title = SbText(en = "Number of sigils generated", ru = "Количество созданных печатей"),
+                value = balance.intAttribute(SOR_TILES).toString()
+            ),
+            FrontMonsterAbilityField(
+                title = SbText(en = "Heal amount per sigil", ru = "Размер лечения от одной печати"),
+                value = (balance.intAttribute(SOR_BASE) * (1f + 0.01f * balance.intAttribute(SOR_SCALE) * attributes.spirit)).toInt().toString()
+            )
+        )
+    ),
+    FrontMonsterAbility(
+        title = SbText(en = "Divine Convergence", ru = "Священная Конвергенция"),
+        skin = VALERIAN_DIVINE_CONVERGENCE,
+        description = SbText(en = "Ultimate ability\n\nConsumes all sigils from field\nFor each sigil consumed heals the character\nFor each sigil consumed deals massive light damage", ru = "Ультимативная способность\n\nПоглощает все печати на поле\nЗа каждую печать персонаж исцеляется\nЗа каждую печать наносит массивный урон светом"),
+        fields = listOf(
+            FrontMonsterAbilityField(
+                title = SbText(en = "Light damage per sigil", ru = "Урон светом от одной печати"),
+                value = (balance.intAttribute(DC_BASE_DMG) * (1f + 0.01f * balance.intAttribute(SOR_SCALE) * attributes.spirit)).toInt().toString()
+            ),
+            FrontMonsterAbilityField(
+                title = SbText(en = "Heal amount per sigil", ru = "Размер лечения от одной печати"),
+                value = (balance.intAttribute(DC_BASE_HEAL) * (1f + 0.01f * balance.intAttribute(DC_SCALE_HEAL_BODY) * attributes.body + 0.01f * balance.intAttribute(
+                    DC_SCALE_HEAL_SPIRIT) * attributes.spirit)).toInt().toString()
+            )
+        )
+    )
+)
 
 fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
 
     /**Radiant strike*/
     "valerian.radiant_strike" to { context, event ->
-        context.useOnComplete(event, VALERIAN_RADIANT_STRIKE) { characterId, tileId, lucky ->
+        context.useOnComplete(event, VALERIAN_RADIANT_STRIKE) { characterId, tileId, koef ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
                 phys = balance.floatAttribute(RS_BASE) * (1f + 0.01f * balance.intAttribute(RS_SCALE) * character.attributes.body)
-            ).multipledBy(if (lucky) 2f else 1f)
+            ).multipledBy(koef)
             meleeTarget(characterId).forEach { target ->
                 dealDamage(characterId, target, damage)
                 events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotSimpleAttack(
@@ -43,11 +100,11 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
 
     /** Luminous beam*/
     "valerian.luminous_beam" to { context, event ->
-        context.useOnComplete(event, VALERIAN_LUMINOUS_BEAM) { characterId, tileId, lucky ->
+        context.useOnComplete(event, VALERIAN_LUMINOUS_BEAM) { characterId, tileId, koef ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
                 light = balance.floatAttribute(LB_BASE) * (1f + 0.01f * balance.intAttribute(LB_SCALE) * character.attributes.spirit)
-            ).multipledBy(if (lucky) 2f else 1f)
+            ).multipledBy(koef)
             allEnemies(characterId).forEach { target ->
                 dealDamage(characterId, target, damage)
                 events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotDirectedAoe(
@@ -59,9 +116,9 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
 
     /** Sigil of renewal*/
     "valerian.sigil_of_renewal" to { context, event ->
-        context.useOnComplete(event, VALERIAN_SIGIL_OF_RENEWAL) { characterId, tileId, lucky ->
+        context.useOnComplete(event, VALERIAN_SIGIL_OF_RENEWAL) { characterId, tileId, koef ->
             var character = game.character(characterId) ?: return@useOnComplete
-            val tilesCount = (if (lucky) 2 else 1) * balance.intAttribute(SOR_TILES)
+            val tilesCount = (koef * balance.intAttribute(SOR_TILES)).toInt()
             val positions = freePositions(characterId, SbTile.LAYER_BACKGROUND, tilesCount)
 
             positions.forEach { p ->

@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.screen.map.MapScreenRouter
+import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
 import ktx.async.KtxAsync
@@ -112,10 +113,5 @@ class NavigationPanel(
     }
 
     fun reloadActiveHeroLabel() {
-        KtxAsync.launch {
-            context.profileService().getProfile().characters.first().let { character ->
-                characterLabel.setText("${character.name}\nLvl. ${character.level.level}")
-            }
-        }
     }
 }

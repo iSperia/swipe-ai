@@ -7,6 +7,7 @@ import com.google.gson.JsonObject
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
@@ -142,7 +143,7 @@ class BattleServiceImpl(
             },
             triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
         ).apply {
-            initHumans(listOf(SbHumanEntry(character.skin, character.level.level, character.attributes, profileService.getItems().filter { it.equippedBy == character.skin })))
+            initHumans(listOf(SbHumanEntry(character.skin, SwipeCharacter.getLevel(character.experience), character.attributes, profileService.getItems().filter { it.equippedBy == character.skin })))
             initWave(waves[0])
         }
         handleContext()

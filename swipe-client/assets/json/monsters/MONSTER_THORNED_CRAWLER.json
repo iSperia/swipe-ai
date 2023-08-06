@@ -4,7 +4,10 @@
     "en": "Thorned Crawler",
     "ru": "Шипастый Ползун"
   },
-  "lore": "Beneath the forest floor, the Thorned Crawlers scuttle and slither, their spiky carapaces blending seamlessly with the shadows. These menacing creatures boast an armored exoskeleton adorned with razor-sharp thorns, serving as both protection and weaponry. Their movements are swift and calculated, often ambushing their prey by bursting forth from the undergrowth. With formidable strength and agility, they are formidable opponents in close-quarters combat. Legends speak of their ability to sense vibrations in the earth, granting them an uncanny ability to navigate even the darkest of subterranean passages.",
+  "lore": {
+    "en": "Beneath the forest floor, the Thorned Crawlers scuttle and slither, their spiky carapaces blending seamlessly with the shadows. These menacing creatures boast an armored exoskeleton adorned with razor-sharp thorns, serving as both protection and weaponry. Their movements are swift and calculated, often ambushing their prey by bursting forth from the undergrowth. With formidable strength and agility, they are formidable opponents in close-quarters combat. Legends speak of their ability to sense vibrations in the earth, granting them an uncanny ability to navigate even the darkest of subterranean passages.",
+    "ru": "Под лесной подстилкой обитают шипастые ползуны, их панцири плавно сливаются с тенями. Эти грозные существа могут похвастаться бронированным экзоскелетом, украшенным острыми как бритва шипами, которые служат как защитой, так и оружием. Их движения стремительны и расчетливы, они часто подстерегают свою добычу, вырываясь из подлеска. Обладая огромной силой и ловкостью, они являются грозными противниками в ближнем бою. Легенды говорят об их способности ощущать вибрации земли, что дает им сверхъестественную способность перемещаться даже по самым темным подземным переходам"
+  },
   "attributes": {"mind":  30, "spirit":  30, "body":  40},
   "tiles": [
     { "weight": 5, "skin": "THORNED_CRAWLER_VICIOUS_PINCERS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
@@ -16,6 +19,17 @@
   ],
   "balance": {
     "base_health": 110,
+    "luck": 5,
+    "ult": 10,
+    "ult_max": 1000,
+    "resist": {
+      "phys": 0,
+      "dark": 0,
+      "light": -0.3,
+      "shock": 0,
+      "fire": 0,
+      "cold": 0
+    },
     "vp_base_phys": 12,
     "vp_base_dark": 12,
     "vp_scale_body": 10,
@@ -28,105 +42,5 @@
     "ls_heal_base": 25,
     "ls_heal_scale": 10
   },
-  "scale": 1,
-  "abilities": [
-    {
-      "title": "Vicious Pincers",
-      "skin": "THORNED_CRAWLER_VICIOUS_PINCERS",
-      "description": "Deals physical/darkness damage to single target",
-      "lore": "Sharp claws rend flesh, leaving scars of pain.",
-      "descriptionTable": [
-        {
-          "title": "Base physical damage",
-          "description": "{vp_base_phys}"
-        },
-        {
-          "title": "Physical damage increase, per BODY",
-          "description": "{vp_scale_body}%"
-        },
-        {
-          "title": "Base dark damage",
-          "description": "{vp_base_dark}"
-        },
-        {
-          "title": "Dark damage increase, per SPIRIT",
-          "description": "{vp_scale_spirit}%"
-        }
-      ],
-      "calculateTable": [
-        {
-          "title": "Physical damage",
-          "description": "{_physDamage}",
-          "id": "_physDamage"
-        },
-        {
-          "title": "Dark damage",
-          "description": "{_darkDamage}",
-          "id": "_darkDamage"
-        }
-      ]
-    },
-    {
-      "title": "Debilitating Strike",
-      "skin": "THORNED_CRAWLER_DEBILIATING_STRIKE",
-      "description": "Powerful physical single target attack, that inflicts weakness(each weakness tile reduced damage of character by 2,5%. Weakness tile is removed when skill is triggered on its position)",
-      "lore": "Strength wanes as thorns pierce the body.",
-      "descriptionTable": [
-        {
-          "title": "Base physical damage",
-          "description": "{sp_base}"
-        },
-        {
-          "title": "Physical damage increase, per BODY",
-          "description": "{ds_scale}%"
-        },
-        {
-          "title": "WEAKNESS tiles generated on target",
-          "description": "{ds_tiles} tiles"
-        }
-      ]
-    },
-    {
-      "title": "Leeching Shadows",
-      "skin": "THORNED_CRAWLER_LEECHING_SHADOWS",
-      "description": "Dark damage single target attack, that heals the crawler",
-      "lore": "Life fades as darkness drains vitality.",
-      "attributes": {
-        "darkDamage": 20,
-        "darkPerSpirit": 10,
-        "heal": 20,
-        "healPerSpirit": 10
-      },
-      "descriptionTable": [
-        {
-          "title": "Base dark damage",
-          "description": "{ls_base}"
-        },
-        {
-          "title": "Dark damage increase per SPIRIT",
-          "description": "{ls_scale}%"
-        },
-        {
-          "title": "HEALING base amount",
-          "description": "{ls_heal_base}"
-        },
-        {
-          "title": "HEALING increase, per SPIRIT",
-          "description": "{ls_heal_scale}%"
-        }
-      ],
-      "calculateTable": [
-        {
-          "title": "Dark damage",
-          "description": "{_darkDamage}",
-          "id": "_darkDamage"
-        },
-        {
-          "title": "Heal amount",
-          "description": "{_heal}",
-          "id": "_heal"
-        }
-      ]
-    }
-  ]
+  "scale": 1
 }

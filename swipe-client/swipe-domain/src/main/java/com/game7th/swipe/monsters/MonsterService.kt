@@ -1,5 +1,6 @@
 package com.game7th.swipe.monsters
 
+import com.game7th.swipe.game.FrontMonsterConfiguration
 import com.game7th.swipe.game.SbMonsterConfiguration
 import com.game7th.swipe.game.SbTrigger
 
@@ -10,6 +11,8 @@ interface MonsterService {
     suspend fun getTrigger(skin: String): SbTrigger?
 
     suspend fun loadTriggers(skin: String)
+
+    suspend fun createMonster(skin: String, level: Int): FrontMonsterConfiguration
 
     companion object {
         const val DEFAULT = "DEFAULT"

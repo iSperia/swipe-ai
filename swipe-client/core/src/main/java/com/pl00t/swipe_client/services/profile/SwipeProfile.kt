@@ -3,17 +3,17 @@ package com.pl00t.swipe_client.services.profile
 import com.game7th.items.InventoryItem
 import com.game7th.swipe.game.CharacterAttributes
 
-enum class SwipeCurrency {
+enum class SwipeCurrency(val expBonus: Int = 0) {
     ETHERIUM_COIN,
     CELESTIAL_TOKEN,
-    SCROLL_OF_WISDOM,
-    TOME_OF_ENLIGHTMENT,
-    CODEX_OF_ASCENDANCY,
-    GRIMOIRE_OF_OMNISCENCE,
-    INFUSION_ORB,
-    INFUSION_SHARD,
-    INFUSION_CRYSTAL,
-    ASCENDANT_ESSENCE,
+    SCROLL_OF_WISDOM(expBonus = 750),
+    TOME_OF_ENLIGHTMENT(expBonus = 2500),
+    CODEX_OF_ASCENDANCY(expBonus = 7500),
+    GRIMOIRE_OF_OMNISCENCE(expBonus = 25000),
+    INFUSION_ORB(expBonus = 750),
+    INFUSION_SHARD(expBonus = 2500),
+    INFUSION_CRYSTAL(expBonus = 7500),
+    ASCENDANT_ESSENCE(expBonus = 25000),
 }
 
 enum class SwipeAct {
@@ -42,11 +42,28 @@ data class ActCollectedReward(
 )
 
 data class SwipeCharacter(
-    val name: String,
     val skin: String,
     val attributes: CharacterAttributes,
-    val level: SwipeCharacterLevelInfo,
-)
+    val experience: Int,
+) {
+    companion object {
+        val experience = mutableListOf<Int>()
+
+        init {
+            (0 until 100).forEach { i ->
+                if (i == 0) {
+                    0
+                } else {
+                    experience[i-1] + 1000 + (i-1) * 500
+                }.let { experience.add(it) }
+            }
+        }
+
+        fun getLevel(exp: Int): Int {
+            return experience.indexOfFirst { it > exp }
+        }
+    }
+}
 
 data class LevelTierUnlocked(
     val tier: Int,
@@ -79,9 +96,9 @@ data class SwipeProfile(
 
     fun getBalance(currency: SwipeCurrency) = balances.firstOrNull { it.currency == currency }?.amount ?: 0
 
-    fun updateLevel(skin: String, level: SwipeCharacterLevelInfo): SwipeProfile {
+    fun updateLevel(skin: String, experience: Int): SwipeProfile {
         return copy(characters = characters.map { c ->
-            if (c.skin == skin) c.copy(level = level) else c
+            if (c.skin == skin) c.copy(experience = experience) else c
         })
     }
 

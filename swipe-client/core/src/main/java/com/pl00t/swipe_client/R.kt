@@ -22,7 +22,7 @@ typealias SbAssetLoadedCallback = (R) -> Unit
 class R {
     var width: Float = 0f
     var height: Float = 0f
-    var l: Language = Language.EN
+    var l: Language = Language.RU
     lateinit var inputMultiplexer: InputMultiplexer
 
     lateinit var router: ScreenRouter
@@ -86,9 +86,13 @@ class R {
     fun labelLore(text: String) = Label(text, skin(), "lore_text").apply { wrap = true }
     fun regular24Focus(text: String) = Label(text, skin(), "regular24_focus").apply { wrap = true }
     fun regular24White(text: String) = Label(text, skin(), "regular24_white").apply { wrap = true }
+    fun regular24Main(text: String) = Label(text, skin(), "regular24_main").apply { wrap = true }
+    fun regular20Main(text: String) = Label(text, skin(), "regular20_main").apply { wrap = true }
     fun regular24Accent(text: String) = Label(text, skin(), "regular24_accent").apply { wrap = true }
     fun regular20Focus(text: String) = Label(text, skin(), "regular20_focus").apply { wrap = true }
     fun regular20White(text: String) = Label(text, skin(), "regular20_white").apply { wrap = true }
+    fun regularWhite(text: String) = Label(text, skin(), "regular_white").apply { wrap = true }
+    fun regularMain(text: String) = Label(text, skin(), "regular_main").apply { wrap = true }
     fun regular20Accent(text: String) = Label(text, skin(), "regular20_accent").apply { wrap = true }
 
     companion object {

@@ -5,14 +5,12 @@ import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.pl00t.swipe_client.R
-import com.pl00t.swipe_client.action.Action
-import com.pl00t.swipe_client.action.ActionCompositeButton
-import com.pl00t.swipe_client.action.Mode
+import com.pl00t.swipe_client.UiTexts
+import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.screen.map.LinkActor
 import com.pl00t.swipe_client.services.levels.FrontActModel
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.profile.SwipeAct
-import com.pl00t.swipe_client.action.WindowTitleActor
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
 import ktx.async.KtxAsync
@@ -20,8 +18,12 @@ import ktx.async.KtxAsync
 class MapWindow(
     private val r: R,
     private val act: SwipeAct,
-    private val onLocationClicked: (String) -> Unit
+    private val onLocationClicked: (String) -> Unit,
+    private val navigateParty: () -> Unit,
+    private val navigateInventory: () -> Unit,
 ) : Group() {
+
+    private val mapSize = r.height - 190f
 
     private lateinit var actWindowTitle: WindowTitleActor
     private lateinit var rootGroup: Group
@@ -35,18 +37,20 @@ class MapWindow(
 
     init {
         rootGroup = Group().apply {
-            width = r.height
-            height = r.height
+            width = mapSize
+            height = mapSize
         }
         scrollPane = ScrollPane(rootGroup).apply {
             width = r.width
-            height = r.height
+            height = mapSize
+            y = 110f
         }
 
         addActor(scrollPane)
 
         addMapImage()
         addWindowTitle()
+        addBottomPanel()
     }
 
     private fun addWindowTitle() {
@@ -57,13 +61,31 @@ class MapWindow(
         }
     }
 
+    private fun addBottomPanel() {
+        val actions = listOf(
+            ActionCompositeButton(r, Action.Shop, Mode.SingleLine(UiTexts.NavShop.value(r.l))),
+            ActionCompositeButton(r, Action.Stash, Mode.SingleLine(UiTexts.NavItems.value(r.l))).apply {
+                onClick {
+                    navigateInventory()
+                }
+            },
+            ActionCompositeButton(r, Action.Party, Mode.SingleLine(UiTexts.NavParty.value(r.l))).apply {
+                onClick {
+                    navigateParty()
+                }
+            },
+        )
+        val bottomPanel = BottomActionPanel(r, actions, 4)
+        addActor(bottomPanel)
+    }
+
     private fun addTitle(actModel: FrontActModel) {
-        val settings = ActionCompositeButton(r, Action.VAULT, Mode.NoText).apply {
+        val settings = ActionCompositeButton(r, Action.Vault, Mode.NoText).apply {
             setSize(80f, 80f)
             onClick { r.router.navigateMap() }
         }
 
-        actWindowTitle = WindowTitleActor(r, actModel.title.value(r.l), null, settings, 4).apply {
+        actWindowTitle = WindowTitleActor(r, actModel.title.value(r.l), null, null, 4).apply {
             y = r.height - this.height
         }
 
@@ -112,10 +134,10 @@ class MapWindow(
     private fun addMapImage() {
         val region = r.region(R.actAtlas(act), "map")
         mapImage = r.image(R.actAtlas(act), "map").apply {
-            height = r.height
-            width = r.height
+            height = mapSize
+            width = mapSize
         }
-        mapScale = r.height / region.originalHeight
+        mapScale = mapSize / region.originalHeight
         rootGroup.addActor(mapImage)
 
     }

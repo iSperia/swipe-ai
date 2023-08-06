@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.monster
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -25,6 +26,14 @@ class MonsterShortDetailsCell(
     init {
         addActor(background)
         setSize(150f, 310f)
+        addActor(r.image(R.units_atlas, model.skin).apply {
+            setSize(150f, 250f)
+            setPosition(0f, 60f)
+            color = Color.BLACK
+            setOrigin(Align.center)
+            setScale(1.05f)
+            alpha = 0.75f
+        })
         addActor(r.image(R.units_atlas, model.skin).apply {
             setSize(150f, 250f)
             setPosition(0f, 60f)

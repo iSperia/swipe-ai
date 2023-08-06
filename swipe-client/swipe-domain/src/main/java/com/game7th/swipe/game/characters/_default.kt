@@ -6,7 +6,7 @@ fun provideDefaultTriggers(): Map<String, SbTrigger> = mapOf(
 
     /**Poison*/
     "common.poison" to { context, event ->
-        context.useOnComplete(event, "COMMON_POISON") { characterId, tileId, lucky ->
+        context.useOnComplete(event, "COMMON_POISON") { characterId, tileId, _ ->
             val character = game.character(characterId) ?: return@useOnComplete
             game = game.withUpdatedCharacter(character.removeEffects("COMMON_POISON"))
         }

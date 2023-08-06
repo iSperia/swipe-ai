@@ -1,5 +1,6 @@
 package com.game7th.swipe.game.characters
 
+import com.game7th.swipe.SbText
 import com.game7th.swipe.game.floatAttribute
 import com.game7th.swipe.game.intAttribute
 import com.game7th.swipe.game.*
@@ -21,14 +22,63 @@ private const val ls_scale = "ls_scale"
 private const val ls_heal_base = "ls_heal_base"
 private const val ls_heal_scale = "ls_heal_scale"
 
+fun provideThornedCrawlerAbilities(balance: JsonObject, attributes: CharacterAttributes) = listOf(
+    FrontMonsterAbility(
+        title = SbText(en = "Vicious Pincers", ru = "Злобные клешни"),
+        skin = THORNED_CRAWLER_VICIOUS_PINCERS,
+        description = SbText(en = "Melee attack.\nDeals physical and dark damage", ru = "Рукопашная атака\nНаносит физический урон и урон тьмой"),
+        fields = listOf(
+            FrontMonsterAbilityField(
+                title = SbText(en = "Physical damage", ru = "Физический урон"),
+                value = (balance.floatAttribute(vp_base_phys) * (1f + 0.01f * balance.intAttribute(vp_scale_body) * attributes.body)).toInt().toString()
+            ),
+            FrontMonsterAbilityField(
+                title = SbText(en = "Dark damage", ru = "Урон тьмой"),
+                value = (balance.floatAttribute(vp_base_dark) * (1f + 0.01f * balance.intAttribute(vp_scale_spirit) * attributes.spirit)).toInt().toString()
+            ),
+        )
+    ),
+    FrontMonsterAbility(
+        title = SbText(en = "Leeching Shadows", ru = "Вытягивающие тени"),
+        skin = THORNED_CRAWLER_LEECHING_SHADOWS,
+        description = SbText(en = "Melee attack\nDeals dark damage\nHeals the monster", ru = "Рукопашная атака\nНаносит урон тьмой\nИсцеляет монстра"),
+        fields = listOf(
+            FrontMonsterAbilityField(
+                title = SbText(en = "Dark damage", ru = "Урон тьмой"),
+                value = (balance.floatAttribute(ls_base) * (1f + 0.01f * balance.intAttribute(ls_scale) * attributes.spirit)).toInt().toString()
+            ),
+            FrontMonsterAbilityField(
+                title = SbText(en = "Heal amount", ru = "Лечение"),
+                value = (balance.floatAttribute(ls_heal_base) * (1f + 0.01f * balance.intAttribute(ls_heal_scale) * attributes.spirit)).toInt().toString()
+            ),
+        )
+    ),
+    FrontMonsterAbility(
+        title = SbText(en = "Debiliating Strike", ru = "Ослабляющий Удар"),
+        skin = THORNED_CRAWLER_DEBILIATING_STRIKE,
+        description = SbText(en = "Melee attack.\nDeals physical damage\nGenerates weakness tiles on attacked character's field. Each weakness tile reduces the damage of that character by 2.5%\nWeakness tile is destroyed when the skill is used on it",
+            ru = "Рукопашная атака\nНаносит физический урон\nСоздает на поле у цели клетки слабости. Каждая клетка слабости уменьшает урон персонажа на 2.5%.\nКлетка слабости исчезает, если на ней срабатывает навык"),
+        fields = listOf(
+            FrontMonsterAbilityField(
+                title = SbText(en = "Physical damage", ru = "Физический урон"),
+                value = (balance.floatAttribute(ds_base) * (1f + 0.01f * balance.intAttribute(ds_scale) * attributes.body)).toInt().toString()
+            ),
+            FrontMonsterAbilityField(
+                title = SbText(en = "Amount of weakness tiles", ru = "Количество клеток слабости"),
+                value = balance.intAttribute(ds_tiles).toString()
+            ),
+        )
+    ),
+)
+
 fun provideThornedCrawlerTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
     "thorned_crawler.vicious_pincers" to { context, event ->
-        context.useOnComplete(event, THORNED_CRAWLER_VICIOUS_PINCERS) { characterId, tileId, lucky ->
+        context.useOnComplete(event, THORNED_CRAWLER_VICIOUS_PINCERS) { characterId, tileId, koef ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
                 phys = balance.floatAttribute(vp_base_phys) * (1f + 0.01f * balance.intAttribute(vp_scale_body) * character.attributes.body),
                 dark = balance.floatAttribute(vp_base_dark) * (1f + 0.01f * balance.intAttribute(vp_scale_spirit) * character.attributes.spirit)
-            ).multipledBy(if (lucky) 2f else 1f)
+            ).multipledBy(koef)
             meleeTarget(characterId).forEach { target ->
                 dealDamage(characterId, target, damage)
                 events.add(
@@ -40,11 +90,11 @@ fun provideThornedCrawlerTriggers(balance: JsonObject): Map<String, SbTrigger> =
     },
 
     "thorned_crawler.debiliating_stirke" to { context, event ->
-        context.useOnComplete(event, THORNED_CRAWLER_DEBILIATING_STRIKE) { characterId, tileId, lucky ->
+        context.useOnComplete(event, THORNED_CRAWLER_DEBILIATING_STRIKE) { characterId, tileId, koef ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
                 phys = balance.floatAttribute(ds_base) * (1f + 0.01f * balance.intAttribute(ds_scale) * character.attributes.body)
-            ).multipledBy(if (lucky) 2f else 1f)
+            ).multipledBy(koef)
             val tilesCount = balance.intAttribute(ds_tiles)
 
             meleeTarget(characterId).forEach { target ->
@@ -85,11 +135,11 @@ fun provideThornedCrawlerTriggers(balance: JsonObject): Map<String, SbTrigger> =
     },
 
     "thorned_crawler.leeching_shadows" to { context, event ->
-        context.useOnComplete(event, THORNED_CRAWLER_LEECHING_SHADOWS) { characterId, tileId, lucky ->
+        context.useOnComplete(event, THORNED_CRAWLER_LEECHING_SHADOWS) { characterId, tileId, koef ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
                 dark = balance.floatAttribute(ls_base) * (1f + 0.01f * balance.intAttribute(ls_scale) * character.attributes.spirit)
-            ).multipledBy(if (lucky) 2f else 1f)
+            ).multipledBy(koef)
 
             val healAmount = balance.floatAttribute(ls_heal_base) * (1f + 0.01f * balance.intAttribute(ls_heal_scale) * character.attributes.spirit)
 

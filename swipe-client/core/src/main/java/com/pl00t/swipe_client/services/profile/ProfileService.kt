@@ -3,20 +3,28 @@ package com.pl00t.swipe_client.services.profile
 import com.badlogic.gdx.Gdx
 import com.game7th.items.InventoryItem
 import com.game7th.items.ItemAffix
-import com.game7th.swipe.game.CharacterAttributes
+import com.game7th.items.ItemAffixType
+import com.game7th.swipe.SbText
+import com.game7th.swipe.game.*
+import com.game7th.swipe.game.characters.*
 import com.google.gson.Gson
-import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.game7th.swipe.monsters.MonsterService
+import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.levels.*
+import kotlinx.coroutines.runBlocking
 import java.lang.IllegalArgumentException
 import java.util.UUID
+import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 
 interface ProfileService {
 
     suspend fun getProfile(): SwipeProfile
+
+    suspend fun createCharacter(skin: String): FrontMonsterConfiguration
 
     suspend fun markActComplete(act: SwipeAct, level: String)
 
@@ -31,7 +39,6 @@ interface ProfileService {
     suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata
 
     suspend fun getCharacters(): List<SwipeCharacter>
-    fun spendExperienceCurrency(currency: SwipeCurrency, skin: String): SpendExperienceCurrencyResult
 
     suspend fun addItem(item: InventoryItem)
 
@@ -40,9 +47,6 @@ interface ProfileService {
     suspend fun equipItem(skin: String, item: InventoryItem)
 
     suspend fun unequipItem(id: String)
-
-    suspend fun dustItem(id: String): DustItemResult
-    suspend fun spendCraftCurrency(id: String, currency: SwipeCurrency)
 
     suspend fun getTierUnlocked(act: SwipeAct, level: String): Int
 
@@ -53,15 +57,29 @@ interface ProfileService {
     suspend fun rerollMysteryShop()
 
     suspend fun buyMysteryItem(id: String): List<CollectedReward>
+    fun spendCurrency(currencies: Array<SwipeCurrency>, useCount: Array<Int>)
 
-    data class SpendExperienceCurrencyResult(
-        val character: SwipeCharacter,
-        val balance: Int,
-    )
+    fun addCharacterExperience(skin: String, boostExp: Int)
+    suspend fun addItemExperience(id: String, boostExp: Int)
+
+    suspend fun generateItem(skin: String, rarity: Int): InventoryItem
+
 
     data class DustItemResult(
         val rewards: List<CurrencyReward>
     )
+}
+
+data class FrontItemEntryModel(
+    val skin: String,
+    val amount: Int,
+    val level: Int,
+    val rarity: Int,
+    val name: SbText,
+    val currency: SwipeCurrency?,
+    val item: InventoryItem?,
+) {
+    fun getText(r: R) = if (level > 0) "${UiTexts.LvlShortPrefix.value(r.l)}$level" else amount.toString()
 }
 
 data class SbMysteryItem(
@@ -94,7 +112,7 @@ sealed interface CollectedReward {
 data class CurrencyMetadata(
     val currency: SwipeCurrency,
     val lore: String,
-    val name: String,
+    val name: SbText,
     val rarity: Int,
     val description: String,
 )
@@ -117,7 +135,7 @@ class ProfileServiceImpl(
     val currencyCache: CurrenciesMetadata
 
     init {
-        currencyCache = gson.fromJson(currencyHandle.readString(), CurrenciesMetadata::class.java)
+        currencyCache = gson.fromJson(currencyHandle.readString("UTF-8"), CurrenciesMetadata::class.java)
 
         profile = if (handle.exists()) {
             println(handle.file().absolutePath)
@@ -125,7 +143,11 @@ class ProfileServiceImpl(
             gson.fromJson(text, SwipeProfile::class.java)
         } else {
             SwipeProfile(
-                balances = emptyList(),
+                balances = listOf(CurrencyBalance(SwipeCurrency.TOME_OF_ENLIGHTMENT, 10), CurrencyBalance(SwipeCurrency.SCROLL_OF_WISDOM, 100),
+                    CurrencyBalance(SwipeCurrency.GRIMOIRE_OF_OMNISCENCE, 100), CurrencyBalance(SwipeCurrency.INFUSION_ORB, 100),
+                    CurrencyBalance(SwipeCurrency.INFUSION_SHARD, 100), CurrencyBalance(SwipeCurrency.INFUSION_CRYSTAL, 100),
+                    CurrencyBalance(SwipeCurrency.ASCENDANT_ESSENCE, 100), CurrencyBalance(SwipeCurrency.ETHERIUM_COIN, 1400)
+                ),
                 actProgress = listOf(
                     ActProgress(
                         SwipeAct.ACT_1,
@@ -135,13 +157,28 @@ class ProfileServiceImpl(
                 rewardsCollected = emptyList(),
                 characters = listOf(
                     SwipeCharacter(
-                        name = "Valerian",
                         skin = "CHARACTER_VALERIAN",
                         attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
-                        level = SwipeCharacterLevelInfo(0, 1, 1)
+                        experience = 0,
                     )
                 ),
-                items = emptyList(),
+                items = runBlocking {
+                    listOf(
+                        generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)).copy(equippedBy = "CHARACTER_VALERIAN"),
+                        generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
+                        generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
+                        generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
+                        generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)).copy(equippedBy = "CHARACTER_VALERIAN"),
+                        generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
+                        generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
+                        generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
+                        generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                        generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                        generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                        generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                        generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                    )
+                },
                 tiersUnlocked = emptyList(),
                 mysteryShop = null
             )
@@ -149,6 +186,82 @@ class ProfileServiceImpl(
     }
 
     override suspend fun getProfile(): SwipeProfile = profile
+
+    override suspend fun createCharacter(skin: String): FrontMonsterConfiguration {
+        profile.characters.firstOrNull { it.skin == skin }?.let { character ->
+            val configFile = monsterService.getMonster(skin) ?: throw IllegalArgumentException("Did not find $skin monster")
+
+
+
+            val affixes = profile.items.filter { it.equippedBy == character.skin }.flatMap { it.affixes + it.implicit }
+
+            val hpPercent = affixes.sumOf { if (it.affix == ItemAffixType.PERCENT_HP) it.value.toDouble() else 0.0 }.toFloat()
+            val hpFlat = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_HP) it.value.toDouble() else 0.0 }.toFloat()
+            val dmgPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val dmgCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val dmgFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val dmgDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val dmgLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val dmgShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val resPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val resCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val resFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val resDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val resLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val resShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+            val attrBody = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_BODY) it.value.toDouble() else 0.0 }.toInt()
+            val attrSpirit = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_SPIRIT) it.value.toDouble() else 0.0 }.toInt()
+            val attrMind = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_MIND) it.value.toDouble() else 0.0 }.toInt()
+
+            val attributes = character.attributes.copy(
+                body = character.attributes.body + attrBody,
+                spirit = character.attributes.spirit + attrSpirit,
+                mind = character.attributes.mind + attrMind,
+            )
+
+            val abilities = when (skin) {
+                MonsterService.CHARACTER_VALERIAN -> provideValerianAbilities(configFile.balance, attributes)
+
+                else -> throw IllegalArgumentException("Can't create monster $skin")
+            }
+
+            val health = (hpFlat + configFile.balance.intAttribute("base_health") * (1f + 0.01f * hpPercent + 0.1f * attributes.body)).toInt()
+            val ult = (configFile.balance.intAttribute("ult") * (1f + 0.05f * attributes.mind)).toInt()
+            val luck = (configFile.balance.intAttribute("luck") * (1f + 0.1f * attributes.spirit))
+
+            return FrontMonsterConfiguration(
+                skin = skin,
+                name = configFile.name,
+                level = SwipeCharacter.getLevel(character.experience),
+                attributes = attributes,
+                resist = configFile.balance.getAsJsonObject("resist").let { r ->
+                    SbElemental(
+                        phys = r.floatAttribute("phys") + resPhys,
+                        dark = r.floatAttribute("dark") + resDark,
+                        light = r.floatAttribute("light") + resLight,
+                        shock = r.floatAttribute("shock") + resShock,
+                        fire = r.floatAttribute("fire") + resFire,
+                        cold = r.floatAttribute("cold") + resCold,
+                    )
+                },
+                damage = SbElemental(
+                    phys = dmgPhys,
+                    dark = dmgDark,
+                    light = dmgLight,
+                    shock = dmgShock,
+                    fire = dmgFire,
+                    cold = dmgCold
+                ),
+                abilities = abilities,
+                lore = configFile.lore,
+                health = health,
+                luck = luck,
+                ult = ult,
+                ultMax = configFile.balance.intAttribute("ult_max")
+            )
+
+        } ?: throw IllegalArgumentException("No hero $skin")
+    }
 
     override suspend fun getAct(act: SwipeAct): FrontActModel {
         val actModel = levelService.getAct(act)
@@ -193,233 +306,16 @@ class ProfileServiceImpl(
         return profile.rewardsCollected?.firstOrNull { it.act == act && it.level == level } == null
     }
 
-    override suspend fun collectFreeReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward> {
-        val result = mutableListOf<CollectedReward>()
+    override suspend fun collectFreeReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward> = emptyList()
 
-        if (tier == -1) {
-            val rewards = levelService.getFreeReward(act, level)
-            rewards.forEach { reward ->
-                when (reward.type) {
-                    LevelRewardType.currency -> {
-                        val currency = getCurrency(reward.currency!!.type)
-                        profile = profile.addBalance(currency.currency, reward.currency.amount)
-                        result.add(CollectedReward.CountedCurrency(reward.currency.type, reward.currency.amount, currency.name, currency.rarity, currency.description))
-                    }
-                    LevelRewardType.item -> {
-                        val item = itemService.generateItem(reward.skin ?: "", reward.rarity ?: 1)
-                        item?.let {
-                            addItem(it)
-                            val template = itemService.getItemTemplate(it.skin)!!
-                            result.add(CollectedReward.CollectedItem(
-                                skin = it.skin,
-                                level= it.level,
-                                title = template.name,
-                                rarity = it.rarity,
-                                lore = template.lore
-                            ))
-                        }
-                    }
-                    else -> {}
-                }
-            }
-        } else {
-            val lootPointsAvg = 5 + (tier + 1) * (tier + 1) * 5
-            var pointsLeft = Random.nextInt(lootPointsAvg / 2, lootPointsAvg * 2)
-
-            val pool = levelService.getLevelSpecificDrops(act, level, (tier + 1) * 5) +
-                levelService.getCommonDrops((tier + 1) * 5)
-            val totalWeight = pool.sumOf { it.weight }
-
-            val collectedCurrency = mutableMapOf<SwipeCurrency, Int>()
-            SwipeCurrency.values().forEach { collectedCurrency[it] = 0 }
-
-            while (pointsLeft > 0) {
-                val roll = Random.nextInt(totalWeight)
-                var sum = 0
-                val lootEntry = pool.first {
-                    sum += it.weight
-                    sum > roll
-                }
-                if (lootEntry.currency != null) {
-                    collectedCurrency[lootEntry.currency] = collectedCurrency[lootEntry.currency]!! + 1
-                } else if (lootEntry.item != null) {
-                    val item = itemService.generateItem(lootEntry.item, lootEntry.rarity)
-                    item?.let {
-                        addItem(it)
-                        val template = itemService.getItemTemplate(it.skin)!!
-                        result.add(CollectedReward.CollectedItem(
-                            skin = it.skin,
-                            level= it.level,
-                            title = template.name,
-                            rarity = it.rarity,
-                            lore = template.lore
-                        ))
-                    }
-                }
-                pointsLeft -= lootEntry.value
-            }
-
-            collectedCurrency.entries.forEach { (currency, count) ->
-                if (count > 0) {
-                    val currencyMeta = getCurrency(currency)
-                    profile = profile.addBalance(currencyMeta.currency, count)
-                    result.add(CollectedReward.CountedCurrency(currencyMeta.currency, count, currencyMeta.name, currencyMeta.rarity, currencyMeta.description))
-                }
-            }
-        }
-
-        profile = profile.copy(rewardsCollected = (profile.rewardsCollected ?: emptyList()) + ActCollectedReward(act, level))
-        saveProfile()
-        return result
-    }
-
-    override suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward> {
-        val result = mutableListOf<CollectedReward>()
-        val lootPointsAvg = 5 + (tier + 1) * (tier + 1) * 5
-        var pointsLeft = Random.nextInt(lootPointsAvg / 2, lootPointsAvg * 2) * 5
-
-        val pool = levelService.getLevelSpecificDrops(act, level, (tier + 1) * 5) +
-            levelService.getCommonDrops((tier + 1) * 5)
-        val totalWeight = pool.sumOf { it.weight }
-
-        val collectedCurrency = mutableMapOf<SwipeCurrency, Int>()
-        SwipeCurrency.values().forEach { collectedCurrency[it] = 0 }
-
-        while (pointsLeft > 0) {
-            val roll = Random.nextInt(totalWeight)
-            var sum = 0
-            val lootEntry = pool.first {
-                sum += it.weight
-                sum > roll
-            }
-            if (lootEntry.currency != null) {
-                collectedCurrency[lootEntry.currency] = collectedCurrency[lootEntry.currency]!! + 1
-            } else if (lootEntry.item != null) {
-                val item = itemService.generateItem(lootEntry.item, lootEntry.rarity)
-                item?.let {
-                    addItem(it)
-                    val template = itemService.getItemTemplate(it.skin)!!
-                    result.add(
-                        CollectedReward.CollectedItem(
-                            skin = it.skin,
-                            level = it.level,
-                            title = template.name,
-                            rarity = it.rarity,
-                            lore = template.lore
-                        )
-                    )
-                }
-            }
-            pointsLeft -= lootEntry.value
-        }
-
-        collectedCurrency.entries.forEach { (currency, count) ->
-            if (count > 0) {
-                val currencyMeta = getCurrency(currency)
-                profile = profile.addBalance(currencyMeta.currency, count)
-                result.add(CollectedReward.CountedCurrency(currencyMeta.currency, count, currencyMeta.name, currencyMeta.rarity, currencyMeta.description))
-            }
-        }
-
-        profile = profile.copy(rewardsCollected = (profile.rewardsCollected ?: emptyList()) + ActCollectedReward(act, level))
-        profile = profile.addBalance(SwipeCurrency.CELESTIAL_TOKEN, -1)
-        saveProfile()
-        return result
-    }
+    override suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward> = emptyList()
 
     override suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata {
-        return currencyCache.currencies.firstOrNull { it.currency == currency } ?: CurrencyMetadata(currency, "", "", 0, "")
+        return currencyCache.currencies.firstOrNull { it.currency == currency } ?: throw IllegalArgumentException("No currency $currency")
     }
 
     override suspend fun getCharacters(): List<SwipeCharacter> {
         return profile.characters
-    }
-
-    override fun spendExperienceCurrency(currency: SwipeCurrency, skin: String): ProfileService.SpendExperienceCurrencyResult {
-        profile.characters.firstOrNull { it.skin == skin }?.let { character ->
-            val balance = profile.getBalance(currency)
-            if (balance > 0) {
-                val newExp = min(character.level.experience + when (currency) {
-                    SwipeCurrency.SCROLL_OF_WISDOM -> 1
-                    SwipeCurrency.TOME_OF_ENLIGHTMENT -> 10
-                    SwipeCurrency.CODEX_OF_ASCENDANCY -> 100
-                    SwipeCurrency.GRIMOIRE_OF_OMNISCENCE -> 1000
-                    else -> throw IllegalArgumentException("Invalid experience currency")
-                }, character.level.maxExperience)
-
-                val isUpdateLevel = newExp == character.level.maxExperience
-                val newLevel = if (isUpdateLevel) {
-                    character.level.copy(experience = 0, level = character.level.level + 1, maxExperience = getExperience(character.level.level + 1))
-                } else {
-                    character.level.copy(experience = newExp)
-                }
-
-                profile = profile.addBalance(currency, -1)
-                profile = profile.updateLevel(skin, newLevel)
-                if (isUpdateLevel) {
-                    profile = profile.modifyAttributes(skin, character.attributes.copy(mind = character.attributes.mind + 1,
-                        spirit = character.attributes.spirit + 1,
-                        body = character.attributes.body + 1))
-                }
-
-                saveProfile()
-
-                return ProfileService.SpendExperienceCurrencyResult(profile.characters.first { it.skin == skin }, balance - 1)
-            } else {
-                return ProfileService.SpendExperienceCurrencyResult(profile.characters.first { it.skin == skin }, balance)
-            }
-        } ?: throw IllegalArgumentException("Character does not exist")
-    }
-
-    override suspend fun spendCraftCurrency(id: String, currency: SwipeCurrency) {
-        profile.items.firstOrNull { it.id == id }?.let { item ->
-            val balance = profile.getBalance(currency)
-            if (balance > 0) {
-                val exp = when (currency) {
-                    SwipeCurrency.INFUSION_ORB -> 1
-                    SwipeCurrency.INFUSION_SHARD -> 10
-                    SwipeCurrency.INFUSION_CRYSTAL -> 100
-                    SwipeCurrency.ASCENDANT_ESSENCE -> 1000
-                    else -> 0
-                }
-                val expAfterIncrease = item.experience + exp
-                var newItem = item
-
-                if (expAfterIncrease >= item.level * item.level) {
-                    newItem = newItem.copy(level = newItem.level + 1, experience = 0)
-
-                    newItem = newItem.copy(implicit = newItem.implicit.map { implicit ->
-                        val affixTemplate = itemService.getAffix(implicit.affix)!!
-                        implicit.copy(level = implicit.level + 1, value = (implicit.level + 1) * affixTemplate.valuePerTier)
-                    })
-
-                    val maxAffixCount = item.rarity - 1
-                    if (maxAffixCount > 0) {
-                        val affixIndexToUpgrade = Random.nextInt(maxAffixCount)
-                        if (affixIndexToUpgrade >= item.affixes.size) {
-                            val affix = itemService.generateAffix(item.affixes.map { it.affix }, itemService.getItemTemplate(item.skin)!!)
-                            val affixTemplate = itemService.getAffix(affix)!!
-                            newItem = newItem.copy(affixes = item.affixes + ItemAffix(affix, affixTemplate.valuePerTier, 1, true))
-                        } else {
-                            newItem = newItem.copy(affixes = item.affixes.withIndex().map { (index, affix) ->
-                                if (index == affixIndexToUpgrade) {
-                                    val affixTemplate = itemService.getAffix(affix.affix)!!
-                                    affix.copy(level = affix.level + 1, value = affixTemplate.valuePerTier * (affix.level + 1))
-                                } else {
-                                    affix
-                                }
-                            })
-                        }
-                    }
-                } else {
-                    newItem = item.copy(experience = expAfterIncrease)
-                }
-                val updatedItems = profile.items.map { i -> if (i.id == newItem.id) newItem else i }
-                profile = profile.copy(items = updatedItems)
-                profile = profile.addBalance(currency, -1)
-            }
-            saveProfile()
-        }
     }
 
     override suspend fun addItem(item: InventoryItem) {
@@ -455,47 +351,6 @@ class ProfileServiceImpl(
         saveProfile()
     }
 
-    override suspend fun dustItem(id: String): ProfileService.DustItemResult {
-        return profile.items.firstOrNull { it.id == id }?.let { item ->
-            val level = item.level
-            var exp = 0
-            (1 until item.level).forEach { l ->
-                exp += l * l
-            }
-            val minExp = (exp * 0.1f * item.rarity).toInt()
-            var expCompensate = Random.nextInt(minExp, exp + 1)
-            if (expCompensate <= 0) expCompensate = 1
-            val c4 = expCompensate / 1000
-            val c3 = (expCompensate % 1000) / 100
-            val c2 = (expCompensate % 100) / 10
-            val c1 = (expCompensate % 10)
-
-            val result = mutableListOf<CurrencyReward>()
-            if (c4 > 0) {
-                profile = profile.addBalance(SwipeCurrency.ASCENDANT_ESSENCE, c4)
-                result.add(CurrencyReward(SwipeCurrency.ASCENDANT_ESSENCE, c4))
-            }
-            if (c3 > 0) {
-                profile = profile.addBalance(SwipeCurrency.INFUSION_CRYSTAL, c3)
-                result.add(CurrencyReward(SwipeCurrency.INFUSION_CRYSTAL, c3))
-            }
-            if (c2 > 0) {
-                profile = profile.addBalance(SwipeCurrency.INFUSION_SHARD, c2)
-                result.add(CurrencyReward(SwipeCurrency.INFUSION_SHARD, c2))
-            }
-            if (c1 > 0) {
-                profile = profile.addBalance(SwipeCurrency.INFUSION_ORB, c1)
-                result.add(CurrencyReward(SwipeCurrency.INFUSION_ORB, c1))
-            }
-
-            profile = profile.copy(items = profile.items.filter { it.id != id })
-
-            saveProfile()
-
-            ProfileService.DustItemResult(result)
-        } ?: ProfileService.DustItemResult(emptyList())
-    }
-
     override suspend fun getTierUnlocked(act: SwipeAct, level: String): Int {
         return profile.tiersUnlocked?.firstOrNull { it.act == act && it.level == level }?.let {
             it.tier
@@ -525,49 +380,104 @@ class ProfileServiceImpl(
     }
 
     override suspend fun rerollMysteryShop() {
-        if (profile.getBalance(SwipeCurrency.ETHERIUM_COIN) < 10) return
-        profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -10)
 
-        val token = SbDropEntry(SwipeCurrency.CELESTIAL_TOKEN, null, 1000, 20, null, null, 0, 2)
-        val maxLevel = profile.characters.maxOf { it.level.level }
-        val commonDrops = levelService.getCommonDrops(maxLevel).filter { it.currency != SwipeCurrency.ETHERIUM_COIN }
-        val tokens = Random.nextInt(1, 3)
-        val items = (0 until 12).map { index ->
-            val drop = if (index > tokens - 1) commonDrops.random() else token
+    }
 
-            val price = Random.nextInt(drop.value, drop.value * 3)
-            val title = if (drop.currency != null) {
-                getCurrency(drop.currency).name
-            } else {
-                itemService.getItemTemplate(drop.item!!)!!.name
-            }
-            SbMysteryItem(UUID.randomUUID().toString(), drop.currency, drop.item, drop.rarity, price, title)
+    override suspend fun buyMysteryItem(id: String): List<CollectedReward> = emptyList()
+
+    override fun spendCurrency(currencies: Array<SwipeCurrency>, useCount: Array<Int>) {
+        currencies.forEachIndexed { i, c ->
+            profile = profile.addBalance(c, -useCount[i])
         }
-        profile = profile.copy(mysteryShop = items)
         saveProfile()
     }
 
-    override suspend fun buyMysteryItem(id: String): List<CollectedReward> {
-        return profile.mysteryShop?.firstOrNull { it.id == id }?.let { mysteryItem ->
-            if (profile.getBalance(SwipeCurrency.ETHERIUM_COIN) >= mysteryItem.price) {
-                profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -mysteryItem.price)
-                profile = profile.copy(mysteryShop = profile.mysteryShop?.filter { it.id != id }?.shuffled())
-                if (mysteryItem.currency != null) {
-                    profile = profile.addBalance(mysteryItem.currency, 1)
-                    val meta = getCurrency(mysteryItem.currency)
-                    saveProfile()
-                    listOf(CollectedReward.CountedCurrency(meta.currency, 1, meta.name, meta.rarity, meta.description))
-                } else {
-                    val item = itemService.generateItem(mysteryItem.item!!, mysteryItem.rarity)!!
-                    profile = profile.addItem(item)
-                    saveProfile()
-                    val meta = itemService.getItemTemplate(mysteryItem.item)!!
-                    listOf(CollectedReward.CollectedItem(meta.skin, 1, meta.name, mysteryItem.rarity, meta.lore))
-                }
+    override fun addCharacterExperience(skin: String, boostExp: Int) {
+        profile = profile.copy(characters = profile.characters.map { character ->
+            if (character.skin == skin) {
+                val oldLevel = SwipeCharacter.getLevel(character.experience)
+                val newLevel = SwipeCharacter.getLevel(character.experience + boostExp)
+                val attributes = (oldLevel until newLevel).sumOf { l -> 3 + l / 5 }
+                val rolls = (0 until attributes).map { Random.nextFloat() }
+                val boostBody = rolls.count { it < 0.33f }
+                val boostSpirit = rolls.count { it >= 0.33f && it < 0.66f }
+                val boostMind = rolls.count { it >= 0.66f }
+                character.copy(experience = character.experience + boostExp, attributes = character.attributes.copy(
+                    mind = character.attributes.mind + boostMind,
+                    spirit = character.attributes.spirit + boostSpirit,
+                    body = character.attributes.body + boostBody
+                ))
             } else {
-                emptyList()
+                character
             }
-        } ?: emptyList()
+        })
+        saveProfile()
+    }
+
+    override suspend fun addItemExperience(id: String, boostExp: Int) {
+        profile = profile.copy(items = profile.items.map { item ->
+            if (item.id == id) {
+                val oldLevel = SwipeCharacter.getLevel(item.experience)
+                val newLevel = SwipeCharacter.getLevel(item.experience + boostExp)
+                val boosts = item.affixes.map { 0 }.toIntArray()
+                if (boosts.isNotEmpty()) {
+                    (0 until (newLevel - oldLevel)).forEach { i ->
+                        boosts[boosts.indices.random()]++
+                    }
+                }
+                val newAffixes = item.affixes.mapIndexed { i, affix ->
+                    val newLevel = affix.level + boosts[i]
+                    val meta = itemService.getAffix(affix.affix)!!
+                    val newValue = (affix.level + boosts[i]) * meta.valuePerTier
+
+                    affix.copy(level = newLevel, value = newValue)
+                }
+
+                item.copy(affixes = newAffixes, experience = min(item.experience + boostExp, item.maxExperience))
+            } else {
+                item
+            }
+        })
+        saveProfile()
+    }
+
+    override suspend fun generateItem(skin: String, rarity: Int): InventoryItem {
+        val template = itemService.getItemTemplate(skin)!!
+
+        val implicitLevel = rarity + 2
+        val implicitAffix = itemService.getAffix(template.implicit)!!
+
+        val affixesList = mutableListOf<ItemAffixType>()
+        (0 until rarity).forEach { i ->
+            val affix = itemService.generateAffix(affixesList, template)
+            affixesList.add(affix)
+        }
+        val affixesMapped = affixesList.map {
+            val meta = itemService.getAffix(it)!!
+            ItemAffix(
+                affix = it,
+                value = meta.valuePerTier,
+                level = 1,
+                scalable = true
+            )
+        }
+
+        return InventoryItem(
+            id = UUID.randomUUID().toString(),
+            skin = skin,
+            implicit = ItemAffix(
+                affix = implicitAffix.affix,
+                value = implicitLevel * implicitAffix.valuePerTier,
+                level = implicitLevel,
+                true
+            ),
+            affixes = affixesMapped,
+            experience = 0,
+            rarity = rarity,
+            category = template.category,
+            equippedBy = null,
+            maxExperience = SwipeCharacter.experience[max(0, rarity * 5 - 1)]
+        )
     }
 
     companion object {

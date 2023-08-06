@@ -2,73 +2,93 @@
   "currencies": [
     {
       "currency": "ETHERIUM_COIN",
-      "name": "Etherium Coin",
+      "name": {
+        "en": "Etherium Coins",
+        "ru": "Эфирные Монеты"
+      },
       "description": "The currency across the shattered kingdoms",
       "lore": "Etherium coins, shimmering metallic discs infused with ethereal energy, the currency of choice in the shattered realms.",
       "rarity": 1
     },
     {
-      "currency": "CELESTIAL_TOKEN",
-      "name": "Celestial Token",
-      "description": "Used to collect additional rewards after raids or boss fights",
-      "lore": "These mystical tokens hold the essence of the celestial realms, granting access to premium rewards raids and boss encounters.",
-      "rarity": 2
-    },
-    {
       "currency": "SCROLL_OF_WISDOM",
-      "name": "Scroll of Wisdom",
+      "name": {
+        "en": "Scroll of Wisdom",
+        "ru": "Свиток Мудрости"
+      },
       "description": "Adds 1 experience to the character",
       "lore": "An illustrious scroll scribed with the profound insights of the ages, elevating the reader's understanding to new heights",
-      "rarity": 2
+      "rarity": 1
     },
     {
       "currency": "TOME_OF_ENLIGHTMENT",
-      "name": "Tome of Enlightment",
+      "name": {
+        "en": "Tome of Enlightment",
+        "ru": "Фолиант Просветления"
+      },
       "description": "Adds 10 experience to the character",
       "lore": "A humble tome filled with ancient teachings, granting a modest boon of knowledge to those who study its contents",
-      "rarity": 3
-    },
-    {
-      "currency": "CODEX_OF_ASCENDANCY",
-      "name": "Codex of Ascendancy",
-      "description": "Adds 100 experience to the character",
-      "lore": "A refined codex teeming with esoteric knowledge, providing a substantial source of wisdom for the eager seeker",
-      "rarity": 4
-    },
-    {
-      "currency": "GRIMOIRE_OF_OMNISCENCE",
-      "name": "Grimoire of Omniscience",
-      "description": "Adds 1000 experience to the character",
-      "lore": "An unparalleled grimoire emanating with boundless wisdom and arcane revelations, unlocking the full potential of those who delve into its secrets.",
-      "rarity": 5
-    },
-    {
-      "currency": "INFUSION_ORB",
-      "name": "Infusion Orb",
-      "description": "Adds 1 experience to the item",
-      "lore": "A shimmering orb containing a faint glimmer of ancient knowledge, granting gentle nourishment to items seeking growth",
       "rarity": 2
     },
     {
-      "currency": "INFUSION_SHARD",
-      "name": "Infusion Shard",
-      "description": "Adds 10 experience to the item",
-      "lore": "A radiant crystal resonating with magical energies, bestowing substantial strength to those who seek to enhance their artifacts",
+      "currency": "CODEX_OF_ASCENDANCY",
+      "name": {
+        "en": "Codex of Ascendancy",
+        "ru": "Кодекс господства"
+      },
+      "description": "Adds 100 experience to the character",
+      "lore": "A refined codex teeming with esoteric knowledge, providing a substantial source of wisdom for the eager seeker",
       "rarity": 3
     },
     {
-      "currency": "INFUSION_CRYSTAL",
-      "name": "Infusion Crystal",
-      "description": "Adds 100 experience to the item",
-      "lore": "A crystalline shard pulsating with immense power, capable of unlocking the full potential of even the most legendary items",
+      "currency": "GRIMOIRE_OF_OMNISCENCE",
+      "name": {
+        "en": "Grimoire of Omniscience",
+        "ru": "Гримуар всеведения"
+      },
+      "description": "Adds 1000 experience to the character",
+      "lore": "An unparalleled grimoire emanating with boundless wisdom and arcane revelations, unlocking the full potential of those who delve into its secrets.",
       "rarity": 4
     },
     {
+      "currency": "INFUSION_ORB",
+      "name": {
+        "en": "Infusion Orb",
+        "ru": "Сфера Вливания"
+      },
+      "description": "Adds 1 experience to the item",
+      "lore": "A shimmering orb containing a faint glimmer of ancient knowledge, granting gentle nourishment to items seeking growth",
+      "rarity": 1
+    },
+    {
+      "currency": "INFUSION_SHARD",
+      "name": {
+        "en": "Infusion Shard",
+        "ru": "Осколок Вливания"
+      },
+      "description": "Adds 10 experience to the item",
+      "lore": "A radiant crystal resonating with magical energies, bestowing substantial strength to those who seek to enhance their artifacts",
+      "rarity": 2
+    },
+    {
+      "currency": "INFUSION_CRYSTAL",
+      "name": {
+        "en": "Infusion Crystal",
+        "ru": "Кристалл Вливания"
+      },
+      "description": "Adds 100 experience to the item",
+      "lore": "A crystalline shard pulsating with immense power, capable of unlocking the full potential of even the most legendary items",
+      "rarity": 3
+    },
+    {
       "currency": "ASCENDANT_ESSENCE",
-      "name": "Ascendant Essence",
+      "name": {
+        "en": "Ascendant Essence",
+        "ru": "Сущность Восхождения"
+      },
       "description": "Adds 1000 experience to the item",
       "lore": "An ethereal essence that transcends the boundaries of time and space, empowering items with unparalleled might, reserved for only the most legendary crafts",
-      "rarity": 5
+      "rarity": 4
     }
   ]
 }

@@ -20,8 +20,6 @@ class MonsterEntryActor(
 ) : Group() {
 
     val skinImage = Image(unitsAtlas.findRegion(entry.skin))
-    val _th = w * 0.25f
-//    val nameLabel = Fonts.createWhiteCaption("${entry.name} \nLevel: ${entry.level}", _th)
 
     init {
         skinImage.apply {
@@ -31,13 +29,6 @@ class MonsterEntryActor(
             x = (w - this.width) / 2f
             y = 0f
         }
-//        nameLabel.apply {
-//            width = w
-//            height = _th
-//            wrap = true
-//            setAlignment(Align.bottom)
-//        }
         addActor(skinImage)
-//        addActor(nameLabel)
     }
 }

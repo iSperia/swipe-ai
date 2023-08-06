@@ -4,6 +4,10 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.pl00t.swipe_client.R
 import com.pl00t.swipe_client.SbBaseScreen
+import com.pl00t.swipe_client.heroes.HeroDetailWindow
+import com.pl00t.swipe_client.heroes.HeroListWindow
+import com.pl00t.swipe_client.items.InventoryItemWindow
+import com.pl00t.swipe_client.items.InventoryWindow
 import com.pl00t.swipe_client.map.CampaignLevelWindow
 import com.pl00t.swipe_client.map.MapWindow
 import com.pl00t.swipe_client.monster.MonsterDetailWindow
@@ -27,6 +31,7 @@ class HomeScreen(
         r.loadAtlas(R.actAtlas(actId))
         r.loadAtlas(R.ux_atlas)
         r.loadAtlas(R.units_atlas)
+        r.loadAtlas(R.skills_atlas)
         r.loadSkin(R.SKIN)
 
         r.onLoad {
@@ -47,7 +52,7 @@ class HomeScreen(
     }
 
     private fun showMap() {
-        val mapActor = MapWindow(r, actId) { locationId ->
+        val mapActor = MapWindow(r, actId, onLocationClicked =  { locationId ->
             KtxAsync.launch {
                 r.profileService.getAct(actId).levels.firstOrNull { it.locationId == locationId }?.let { levelModel ->
                     if (levelModel.enabled) {
@@ -58,9 +63,9 @@ class HomeScreen(
                                 onClose = {
                                     stack.moveBack()
                                 },
-                                onMonsterClicked = { skin ->
+                                onMonsterClicked = { skin, level ->
                                     KtxAsync.launch {
-                                        r.monsterService.getMonster(skin)?.let { monsterModel ->
+                                        r.monsterService.createMonster(skin, level).let { monsterModel ->
                                             val window = MonsterDetailWindow(
                                                 r = r,
                                                 model = monsterModel,
@@ -78,7 +83,24 @@ class HomeScreen(
                     }
                 }
             }
-        }.apply {
+        }, navigateParty = {
+            stack.showScreen(HeroListWindow(r, onClose = { stack.moveBack() }, onHeroSelected = { skin ->
+                KtxAsync.launch {
+                    val heroConfig = r.profileService.createCharacter(skin)
+                    stack.showScreen(HeroDetailWindow(r, heroConfig, { stack.moveBack() }, { id ->
+                        val window = InventoryItemWindow(r, id, onClose = { stack.moveBack() })
+                        stack.showScreen(window)
+                    }))
+                }
+            }))
+        }, navigateInventory = {
+            stack.showScreen(InventoryWindow(r, onClose = { stack.moveBack() }, onItemClicked = { id ->
+                KtxAsync.launch {
+                    val window = InventoryItemWindow(r, id, onClose = { stack.moveBack() })
+                    stack.showScreen(window)
+                }
+            }))
+        }).apply {
             alpha = 0f
             addAction(Actions.alpha(1f, 0.3f))
         }

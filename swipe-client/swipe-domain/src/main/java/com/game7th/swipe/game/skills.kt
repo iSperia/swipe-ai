@@ -15,24 +15,31 @@ fun SbContext.useUltimate(characterId: Int) {
     handleEvent(SbEvent.UltimateUse(characterId))
 }
 
-fun SbContext.useOnComplete(event: SbEvent, tileSkin: String, action: SbContext.(characterId: Int, tileId: Int, lucky: Boolean) -> Unit) {
+fun SbContext.useOnComplete(event: SbEvent, tileSkin: String, action: SbContext.(characterId: Int, tileId: Int, koef: Float) -> Unit) {
     if (event is SbEvent.TileReachedMaxProgress1) {
         val character = game.character(event.characterId)
         val tile = character?.tile(event.tileId)
         if (character != null && tile != null && tile.skin == tileSkin) {
 
-            val luckChance = 0.05f * (1f + character.attributes.spirit * 0.05f)
-            val isLucky = Random.nextFloat() < luckChance
+            var luckChance = 0.05f * (1f + character.attributes.spirit * 0.05f)
+            var koef = 1f
+            var roll = Random.nextFloat()
+            while (roll < luckChance) {
+                koef += 0.5f
+                luckChance -= roll
+                roll = Random.nextFloat()
+            }
+            val isLucky = koef > 1f
 
             if (isLucky && tile.skill) {
                 events.add(SbDisplayEvent.SbShowPopup(
                     characterId = character.id,
-                    text = "Lucky!",
+                    text = "Lucky (+${((koef - 1)*50).toInt()}%)",
                     icons = emptyList()
                 ))
             }
 
-            action(character.id, tile.id, isLucky)
+            action(character.id, tile.id, koef)
 
             destroyTile(character.id, tile.id)
         }

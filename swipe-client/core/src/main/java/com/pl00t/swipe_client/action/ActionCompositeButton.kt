@@ -1,25 +1,42 @@
 package com.pl00t.swipe_client.action
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.R
-import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import ktx.actors.alpha
 import ktx.actors.onExit
 import ktx.actors.onTouchDown
-import ktx.actors.onTouchEvent
 
-enum class Action(val icon: String) {
-    VAULT("action_icon_vault"),
-    SETTINGS("action_icon_settings"),
-    CLOSE("action_icon_close"),
-    ATTACK("action_icon_attack"),
-    STATS("action_icon_stats"),
-    SKILLSET("action_icon_skillset"),
-    STORY("action_icon_story")
+sealed class Action(val atlas: String, val icon: String) {
+    object Vault: Action(R.ux_atlas, "action_icon_vault")
+    object Stash: Action(R.ux_atlas, "action_stash")
+    object Shop: Action(R.ux_atlas, "action_shop")
+    object Party: Action(R.ux_atlas, "action_party")
+    object Settings: Action(R.ux_atlas, "action_icon_settings")
+    object Close: Action(R.ux_atlas, "action_icon_close")
+    object FilterCurrency: Action(R.ux_atlas, "filter_currency")
+    object FilterHelmet: Action(R.ux_atlas, "silh_helm")
+    object FilterGloves: Action(R.ux_atlas, "silh_gauntlets")
+    object FilterBoots: Action(R.ux_atlas, "silh_boots")
+    object FilterAmulet: Action(R.ux_atlas, "silh_amulet")
+    object FilterRing: Action(R.ux_atlas, "silh_ring")
+    object FilterBelt: Action(R.ux_atlas, "silh_belt")
+    object Complete: Action(R.ux_atlas, "fg_complete")
+    object Attack: Action(R.ux_atlas, "action_icon_attack")
+    object Stats: Action(R.ux_atlas, "action_icon_stats")
+    object Skillset: Action(R.ux_atlas, "action_icon_skillset")
+    object Story: Action(R.ux_atlas, "action_icon_story")
+
+    object Tarot: Action(R.ux_atlas, "action_tarot")
+    object Equipment: Action(R.ux_atlas, "action_equipment")
+    object LevelUp: Action(R.ux_atlas, "action_level_up")
+
+    class SkillDetails(skin: String): Action(R.skills_atlas, skin)
+    class ItemDetails(skin: String): Action(R.ux_atlas, skin)
 }
 
 sealed interface Mode {
@@ -34,7 +51,8 @@ class ActionCompositeButton(
     private val mode: Mode
 ): Group() {
 
-    private val icon = r.image(R.ux_atlas, action.icon).apply { touchable = Touchable.disabled }
+    private val icon = r.image(action.atlas, action.icon).apply { touchable = Touchable.disabled }
+    private val iconShadow = r.image(action.atlas, action.icon).apply { touchable = Touchable.disabled; color = Color.BLACK; setOrigin(Align.center); setScale(1.1f); alpha = 0.5f }
     private val label = r.labelAction(getLabelText()).apply { setAlignment(Align.center); touchable = Touchable.disabled }
     private val background = r.image(R.ux_atlas, "background_transparent50")
 
@@ -43,43 +61,55 @@ class ActionCompositeButton(
     init {
         background.alpha = 0f
         addActor(background)
+        addActor(iconShadow)
         addActor(icon)
         addActor(label)
 
         label.isVisible = mode != Mode.NoText
 
         onTouchDown {
-            icon.addAction(Actions.scaleTo(0.8f, 0.8f, 0.3f))
-            background.addAction(Actions.alpha(1f, 0.3f))
-            label.addAction(Actions.moveTo(0f, labelY + 5f, 0.3f))
+            clickedDown()
         }
         onExit {
-            icon.addAction(Actions.scaleTo(1f, 1f, 0.3f))
-            background.addAction(Actions.alpha(0f, 0.3f))
-            label.addAction(Actions.moveTo(0f, labelY, 0.3f))
+            clickedUp()
         }
+    }
+
+    private fun clickedUp() {
+        icon.addAction(Actions.scaleTo(1f, 1f, 0.3f))
+        background.addAction(Actions.alpha(0f, 0.3f))
+        label.addAction(Actions.moveTo(0f, labelY, 0.3f))
+    }
+
+    private fun clickedDown() {
+        icon.addAction(Actions.scaleTo(0.8f, 0.8f, 0.3f))
+        background.addAction(Actions.alpha(1f, 0.3f))
+        label.addAction(Actions.moveTo(0f, labelY + 5f, 0.3f))
     }
 
     override fun sizeChanged() {
         super.sizeChanged()
         val w = this@ActionCompositeButton.width
         val h = this@ActionCompositeButton.height
-        val btnSize = w * 0.65f
-        val padding = w * 0.04f
-        val freeHeight = h - btnSize - 2 * padding
-        val shift = when (mode) {
-            is Mode.SingleLine -> freeHeight / 2f
-            else -> 0f
-        }
+        val btnSize = 50f
+        val paddingHor = (w - btnSize) / 2f
+        val paddingVer = 15f
+        val freeHeight = h - btnSize - paddingVer
         icon.apply {
             this.width = btnSize
             this.height = btnSize
             y = when (mode) {
                 is Mode.NoText -> (h - btnSize) / 2f
-                else -> h - btnSize - padding - shift
+                else -> h - btnSize - paddingVer
             }
             x = (w - btnSize) / 2f
             setOrigin(Align.center)
+        }
+        iconShadow.apply {
+            setSize(btnSize, btnSize)
+            setPosition(icon.x, icon.y)
+            setOrigin(Align.center)
+            setScale(1.2f)
         }
         label.apply {
             this.width = w
@@ -88,8 +118,8 @@ class ActionCompositeButton(
                 is Mode.Purchase -> freeHeight / 2f
                 else -> 0f
             }
-            this.y = (freeHeight / 2f - shift).also { labelY = it }
             wrap = true
+            this.setAlignment(Align.top)
         }
         background.apply {
             this.width = w

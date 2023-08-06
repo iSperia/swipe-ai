@@ -8,7 +8,7 @@ fun JsonObject.floatAttribute(key: String) = this.get(key).asFloat
 fun JsonObject.stringAttribute(key: String) = this.get(key)?.asString ?: ""
 
 data class MonsterAbilityDescriptionRow(
-    val title: String,
+    val title: SbText,
     val description: String,
 ) {
     fun formatDescription(monsterInfo: SbMonsterConfiguration): String {
@@ -23,23 +23,38 @@ data class MonsterAbilityDescriptionRow(
 }
 
 data class SbMonsterAbilityConfiguration(
-    val title: String,
+    val title: SbText,
     val skin: String,
     val descriptionTable: List<MonsterAbilityDescriptionRow>,
     val attributes: JsonObject,
-    val description: String,
-    val lore: String,
+    val description: String?,
+    val t_description: SbText?,
+)
+
+data class FrontMonsterConfiguration(
+    val skin: String,
+    val name: SbText,
+    val level: Int,
+    val attributes: CharacterAttributes,
+    val resist: SbElemental,
+    val damage: SbElemental,
+    val abilities: List<FrontMonsterAbility>,
+    val health: Int,
+    val luck: Float,
+    val ult: Int,
+    val ultMax: Int,
+    val lore: SbText,
 )
 
 data class SbMonsterConfiguration(
     val skin: String,
     val name: SbText,
-    val lore: String,
     val balance: JsonObject,
     val triggers: List<String>,
     val tiles: List<SbTileTemplate>,
     val attributes: CharacterAttributes,
     val scale: Float,
     val level: Int,
+    val lore: SbText,
     val abilities: List<SbMonsterAbilityConfiguration>?,
 )

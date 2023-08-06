@@ -1,9 +1,12 @@
 package com.pl00t.swipe_client.services.items
 
 import com.game7th.items.*
+import com.game7th.swipe.SbText
 import com.google.gson.Gson
 import com.pl00t.swipe_client.services.files.FileService
+import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import java.util.UUID
+import kotlin.math.max
 import kotlin.random.Random
 
 interface ItemService {
@@ -31,7 +34,7 @@ data class AffixConfigEntry(
     val valuePerTier: Float,
     val weights: List<AffixWeightConfig>?,
     val scalable: Boolean? = false,
-    val description: String
+    val description: SbText
 )
 
 data class AffixesFile(
@@ -123,8 +126,8 @@ class ItemServiceImpl(gson: Gson, fileService: FileService): ItemService {
             InventoryItem(
                 id = UUID.randomUUID().toString(),
                 skin = skin,
-                implicit = template.implicit.mapNotNull { affixConfig ->
-                    this.affixes[affixConfig]?.let {ace ->
+                implicit = template.implicit.let { affixConfig ->
+                    this.affixes[affixConfig]!!.let { ace ->
                         ItemAffix(
                             affix = ace.affix,
                             value = ace.valuePerTier,
@@ -134,12 +137,11 @@ class ItemServiceImpl(gson: Gson, fileService: FileService): ItemService {
                     }
                 },
                 affixes = affixes,
-                level = 1,
-                maxLevel = rarity * 5,
+                experience = 0,
                 rarity = rarity,
                 category = template.category,
                 equippedBy = null,
-                experience = 0
+                maxExperience = SwipeCharacter.experience[max(0, rarity * 5 - 1)]
             )
         }
     }

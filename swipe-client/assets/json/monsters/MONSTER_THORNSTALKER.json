@@ -2,9 +2,12 @@
   "skin": "MONSTER_THORNSTALKER",
   "name": {
     "en": "Thornstalker",
-    "ru": "Шипастый Охотник"
+    "ru": "Тернистый Охотник"
   },
-  "lore": "Deep within the enchanted groves, the Thornstalkers roam with their sinewy forms and razor-sharp thorns. These elusive creatures embody the untamed spirit of the forest, blending seamlessly with the verdant surroundings. They strike swiftly and silently, relying on their natural camouflage to ambush unsuspecting prey. Legends whisper of their ability to communicate with the ancient trees and harness the raw power of nature. Caution is advised when venturing into their territory, for the Thornstalkers are fierce protectors of the groves and will not hesitate to defend their realm with untamed ferocity.",
+  "lore": {
+    "en": "Deep within the enchanted groves, the Thornstalkers roam with their sinewy forms and razor-sharp thorns. These elusive creatures embody the untamed spirit of the forest, blending seamlessly with the verdant surroundings. They strike swiftly and silently, relying on their natural camouflage to ambush unsuspecting prey. Legends whisper of their ability to communicate with the ancient trees and harness the raw power of nature. Caution is advised when venturing into their territory, for the Thornstalkers are fierce protectors of the groves and will not hesitate to defend their realm with untamed ferocity.",
+    "ru": "Глубоко в заколдованных рощах бродят Тернистые охотники со своими жилистыми телами и острыми как бритва шипами. Эти неуловимые существа воплощают дикий дух леса, органично вписываясь в зеленую среду. Они атакуют быстро и бесшумно, полагаясь на свой естественный камуфляж, чтобы устроить засаду на ничего не подозревающую добычу. Легенды шепчут об их способности общаться с древними деревьями и использовать грубую силу природы. Рекомендуется проявлять осторожность, отправляясь на их территорию, потому что Тернистые охотники — свирепые защитники рощ и без колебаний будут защищать свое королевство с неукротимой яростью"
+  },
   "baseHealth": 250,
   "attributes": {
     "mind": 25,
@@ -45,6 +48,17 @@
   ],
   "balance": {
     "base_health": 190,
+    "luck": 5,
+    "ult": 10,
+    "ult_max": 1000,
+    "resist": {
+      "phys": 0.2,
+      "dark": 0,
+      "light": 0,
+      "shock": 0,
+      "fire": -0.2,
+      "cold": 0
+    },
     "pa_base": 30,
     "pa_scale": 10,
     "vb_base": 10,
@@ -55,63 +69,5 @@
   "affixes": {
     "RESIST_PHYSICAL": 20
   },
-  "scale": 0.88,
-  "abilities": [
-    {
-      "title": "Primal Assault",
-      "skin": "THORNSTALKER_PRIMAL_ASSAULT",
-      "description": "Heavy physical single target attack",
-      "lore": "Nature's fury strikes without mercy.",
-      "attributes": {
-        "physDamage": 40,
-        "physPerBody": 10
-      },
-      "descriptionTable": [
-        {
-          "title": "Base physical damage",
-          "description": "{pa_base}"
-        },
-        {
-          "title": "Physical damage increase, per BODY",
-          "description": "{pa_scale}%"
-        }
-      ]
-    },
-    {
-      "title": "Venomous Barrage",
-      "skin": "THORNSTALKER_VENOMOUS_BARRAGE",
-      "description": "Poisons the target with three poison tiles",
-      "lore": "Thorns of poison sow decay and despair.",
-      "attributes": {
-        "poisonDamage": 5,
-        "poisonPerSpirit": 10
-      },
-      "descriptionTable": [
-        {
-          "title": "Poison tile dark damage, per turn",
-          "description": "{vb_base}"
-        },
-        {
-          "title": "Poison damage increase, per SPIRIT",
-          "description": "{vb_scale}%"
-        }
-      ]
-    },
-    {
-      "title": "Resilient Growth",
-      "skin": "THORNSTALKER_RESILIENT_GROWTH",
-      "description": "Heals the thorstalker",
-      "lore": "Nature's embrace fortifies, defying all harm.",
-      "descriptionTable": [
-        {
-          "title": "HEALING base amount",
-          "description": "{rg_base}"
-        },
-        {
-          "title": "HEALING increase, per SPIRIT",
-          "description": "{rg_scale}%"
-        }
-      ]
-    }
-  ]
+  "scale": 0.88
 }

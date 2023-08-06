@@ -4,7 +4,10 @@
     "en": "Stone Golem",
     "ru": "Каменный Голем"
   },
-  "lore": "Massive constructs formed from enchanted stone, Stone Golems can be found in the Crystal Caverns or even guarding the entrance to the King's Castle. These hulking creatures are formidable adversaries, possessing immense strength and resilience. They attack with powerful, crushing blows and can withstand a significant amount of damage.",
+  "lore": {
+    "en": "Massive constructs formed from enchanted stone, Stone Golems can be found in the Crystal Caverns or even guarding the entrance to the King's Castle. These hulking creatures are formidable adversaries, possessing immense strength and resilience. They attack with powerful, crushing blows and can withstand a significant amount of damage.",
+    "ru": "Массивные конструкции, созданные из зачарованного камня, каменные големы можно найти в Хрустальных пещерах или даже охранять вход в Королевский замок. Эти неуклюжие существа — грозные противники, обладающие огромной силой и стойкостью. Они атакуют мощными, сокрушительными ударами и могут выдержать значительный урон"
+  },
   "attributes": {"mind":  25, "spirit":  35, "body":  40},
   "affixes": {
     "VULNERABLE_FIRE": 100,
@@ -17,77 +20,27 @@
   ],
   "triggers": ["thalendros.thorn_whip", "thalendros.earthquake_slam", "thalendros.dark_aura"],
   "balance": {
-    "base_health": 12,
-    "tw_base": 70,
-    "tw_scale": 10,
-    "es_tiles": 4,
-    "es_damage": 30,
-    "es_scale": 10,
-    "da_tiles": 4,
-    "da_base": 50,
-    "da_scale": 10
+    "base_health": 115,
+    "luck": 5,
+    "ult": 10,
+    "ult_max": 1000,
+    "resist": {
+      "phys": 0,
+      "dark": 0,
+      "light": 0,
+      "shock": 0,
+      "fire": 0,
+      "cold": 0
+    },
+    "af_base": 25,
+    "af_scale": 10,
+    "vs_dmg_base": 20,
+    "vs_dmg_scale": 10,
+    "vs_heal_base": 20,
+    "vs_heal_scale": 10,
+    "sa_base": 5,
+    "sa_scale": 10,
+    "sa_tiles": 5
   },
-  "scale": 1.25,
-  "abilities": [
-    {
-      "title": "Thorn Whip",
-      "skin": "THALENDROS_THORN_WHIP",
-      "description": "Massive physical damage melee attack",
-      "lore": "Nature's grasp turns to thorny wrath, a reminder of the darkness that dwells within.",
-      "attributes": {
-        "physDamage": 60,
-        "physPerBody": 10
-      },
-      "descriptionTable": [
-        {
-          "title": "Base physical damage",
-          "description": "{tw_base}"
-        },
-        {
-          "title": "Physical damage increase, per BODY",
-          "description": "{tw_scale}%"
-        }
-      ]
-    },
-    {
-      "title": "Earthquake Slam",
-      "skin": "THALENDROS_EARTHQUAKE_SLAM",
-      "description": "Generates corrupted root tiles. When roots appear, they destroy tile they appear at. If there are root tiles, they deal dark damage.",
-      "lore": "From the depths of his corrupted heart, Thalendros shakes the very foundations of nature.",
-      "descriptionTable": [
-        {
-          "title": "Corrupted root tiles generated",
-          "description": "{es_tiles}"
-        },
-        {
-          "title": "Physical damage per root",
-          "description": "{es_damage}"
-        },
-        {
-          "title": "Physical damage increase, per BODY",
-          "description": "+{es_scale}%"
-        }
-      ]
-    },
-    {
-      "title": "Dark Aura",
-      "skin": "THALENDROS_DARK_AURA",
-      "description": "Corrupts some tiles of a random target with dark aura. When the ability triggers on a corrupted tile, that character is dealt with massive darkness damage",
-      "lore": "Darkness takes hold, corrupting all it touches, turning allies into unwitting foes.",
-      "descriptionTable": [
-        {
-          "title": "Dark aura tiles generated",
-          "description": "{da_tiles}"
-        },
-        {
-          "title": "Darkness damage of a tile",
-          "description": "{da_base}"
-        },
-        {
-          "title": "Darkness damage increased, per SPIRIT",
-          "description": "{da_scale}%"
-        }
-      ]
-    }
-  ]
+  "scale": 1.25
 }

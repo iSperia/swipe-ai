@@ -4,7 +4,10 @@
     "en": "Thalendros, the Corrupted Treant",
     "ru": "Талендрос, Оскверненный Древень"
   },
-  "lore": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
+  "lore": {
+    "en": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
+    "ru": "Талендрос — массивный древень, когда-то охранявший Зеленую рощу, но теперь испорченный темной энергией. Его когда-то яркая листва увяла, уступив место колючим ветвям и злобным светящимся глазам. Талендрос стоит высокий и внушительный, излучая ауру разложения и разложения"
+  },
   "attributes": {
     "mind": 25,
     "spirit": 35,
@@ -47,6 +50,17 @@
   ],
   "balance": {
     "base_health": 1400,
+    "luck": 5,
+    "ult": 10,
+    "ult_max": 1000,
+    "resist": {
+      "phys": 0.5,
+      "dark": 0.1,
+      "light": 0.1,
+      "shock": 0.1,
+      "fire": 0,
+      "cold": 0.1
+    },
     "tw_base": 70,
     "tw_scale": 10,
     "es_tiles": 4,
@@ -56,67 +70,5 @@
     "da_base": 50,
     "da_scale": 10
   },
-  "scale": 1.5,
-  "abilities": [
-    {
-      "title": "Thorn Whip",
-      "skin": "THALENDROS_THORN_WHIP",
-      "description": "Massive physical damage melee attack",
-      "lore": "Nature's grasp turns to thorny wrath, a reminder of the darkness that dwells within.",
-      "attributes": {
-        "physDamage": 60,
-        "physPerBody": 10
-      },
-      "descriptionTable": [
-        {
-          "title": "Base physical damage",
-          "description": "{tw_base}"
-        },
-        {
-          "title": "Physical damage increase, per BODY",
-          "description": "{tw_scale}%"
-        }
-      ]
-    },
-    {
-      "title": "Earthquake Slam",
-      "skin": "THALENDROS_EARTHQUAKE_SLAM",
-      "description": "Generates corrupted root tiles. When roots appear, they destroy tile they appear at. If there are root tiles, they deal dark damage.",
-      "lore": "From the depths of his corrupted heart, Thalendros shakes the very foundations of nature.",
-      "descriptionTable": [
-        {
-          "title": "Corrupted root tiles generated",
-          "description": "{es_tiles}"
-        },
-        {
-          "title": "Physical damage per root",
-          "description": "{es_damage}"
-        },
-        {
-          "title": "Physical damage increase, per BODY",
-          "description": "+{es_scale}%"
-        }
-      ]
-    },
-    {
-      "title": "Dark Aura",
-      "skin": "THALENDROS_DARK_AURA",
-      "description": "Corrupts some tiles of a random target with dark aura. When the ability triggers on a corrupted tile, that character is dealt with massive darkness damage",
-      "lore": "Darkness takes hold, corrupting all it touches, turning allies into unwitting foes.",
-      "descriptionTable": [
-        {
-          "title": "Dark aura tiles generated",
-          "description": "{da_tiles}"
-        },
-        {
-          "title": "Darkness damage of a tile",
-          "description": "{da_base}"
-        },
-        {
-          "title": "Darkness damage increased, per SPIRIT",
-          "description": "{da_scale}%"
-        }
-      ]
-    }
-  ]
+  "scale": 1.5
 }

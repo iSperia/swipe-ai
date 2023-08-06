@@ -15,7 +15,6 @@ import com.game7th.swipe.game.SbSoundType
 import com.pl00t.swipe_client.Atlases
 import com.pl00t.swipe_client.SwipeContext
 import com.pl00t.swipe_client.screen.ScreenRouter
-import com.pl00t.swipe_client.screen.reward.RewardDialog
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
@@ -144,22 +143,7 @@ class BattleFinishActor(
                 KtxAsync.launch {
                     val rewards = profileService.collectFreeReward(actId, locationId, tier)
                     //we need to show somehow
-                    val rewardsDialog = RewardDialog(
-                        rewards = rewards,
-                        context = context,
-                        skin = skin,
-                        closeButtonText = "Continue Journey"
-                    ) {
-                        KtxAsync.launch {
-                            router.navigateMap()
-                        }
-                    }.apply {
-                        x = this@BattleFinishActor.x
-                        y = this@BattleFinishActor.y
-                    }
-                    stage.addActor(rewardsDialog)
-                    freeRewardButton?.touchable = Touchable.disabled
-                    freeRewardButton?.isVisible = false
+                    router.navigateMap()
                 }
             }
             subBlockGroup.addActor(freeRewardButton)
@@ -193,22 +177,7 @@ class BattleFinishActor(
                         KtxAsync.launch {
                             val rewards = profileService.collectRichReward(actId, locationId, tier)
                             //we need to show somehow
-                            val rewardsDialog = RewardDialog(
-                                rewards = rewards,
-                                context = context,
-                                skin = skin,
-                                closeButtonText = "Continue journey"
-                            ) {
-                                KtxAsync.launch {
-                                    router.navigateMap()
-                                }
-                            }.apply {
-                                x = this@BattleFinishActor.x
-                                y = this@BattleFinishActor.y
-                            }
-                            stage.addActor(rewardsDialog)
-                            freeRewardButton?.touchable = Touchable.disabled
-                            freeRewardButton?.isVisible = false
+                            router.navigateMap()
                         }
                     }
 
@@ -225,22 +194,7 @@ class BattleFinishActor(
                     KtxAsync.launch {
                         val rewards = profileService.collectFreeReward(actId, locationId, tier)
                         //we need to show somehow
-                        val rewardsDialog = RewardDialog(
-                            rewards = rewards,
-                            context = context,
-                            skin = skin,
-                            closeButtonText = "Continue journey"
-                        ) {
-                            KtxAsync.launch {
-                                router.navigateMap()
-                            }
-                        }.apply {
-                            x = this@BattleFinishActor.x
-                            y = this@BattleFinishActor.y
-                        }
-                        stage.addActor(rewardsDialog)
-                        freeRewardButton?.touchable = Touchable.disabled
-                        freeRewardButton?.isVisible = false
+                        router.navigateMap()
                     }
                 }
                 subBlockGroup.addActor(freeRewardButton)

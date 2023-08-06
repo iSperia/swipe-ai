@@ -2,27 +2,18 @@ package com.pl00t.swipe_client
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.graphics.GL20
 import com.pl00t.swipe_client.screen.ScreenRouter
 import com.pl00t.swipe_client.screen.battle.BattleScreen
-import com.pl00t.swipe_client.screen.map.MapScreen
-import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.battle.BattleServiceImpl
-import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
-import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.Gson
 import com.pl00t.swipe_client.home.HomeScreen
 import com.pl00t.swipe_client.services.MonsterServiceImpl
-import com.pl00t.swipe_client.services.files.FileService
 import com.pl00t.swipe_client.services.files.GdxFileService
-import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.items.ItemServiceImpl
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.ProfileServiceImpl
-import com.pl00t.swipe_client.services.profile.SwipeAct
-import kotlinx.coroutines.launch
 import ktx.async.KtxAsync
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */

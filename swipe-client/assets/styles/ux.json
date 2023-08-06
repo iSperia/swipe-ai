@@ -8,11 +8,11 @@
     white: { hex: FFFFFF }
     black: { hex: 000000 }
 
-    rarity_1: { hex: 707377 }
-    rarity_2: { hex: 5b8f7a }
-    rarity_3: { hex: 607ea4 }
-    rarity_4: { hex: 9e75c2 }
-    rarity_5: { hex: d08025 }
+    rarity_0: { hex: 707377 }
+    rarity_1: { hex: 5b8f7a }
+    rarity_2: { hex: 607ea4 }
+    rarity_3: { hex: 9e75c2 }
+    rarity_4: { hex: d08025 }
   }
   BitmapFont: {
     caption: { file: medieval.fnt }
@@ -34,6 +34,14 @@
       font: regular20
       fontColor: focus_color
     },
+    regular_white: {
+      font: regular
+      fontColor: white
+    }
+    regular_main: {
+      font: regular
+      fontColor: main_color
+    }
     regular20_focus: {
       font: regular20
       fontColor: focus_color
@@ -57,6 +65,14 @@
     regular24_white: {
       font: regular24
       fontColor: white
+    }
+    regular24_main: {
+      font: regular24
+      fontColor: main_color
+    }
+    regular20_main: {
+      font: regular20
+      fontColor: main_color
     }
     caption_focus: {
       font: caption30
