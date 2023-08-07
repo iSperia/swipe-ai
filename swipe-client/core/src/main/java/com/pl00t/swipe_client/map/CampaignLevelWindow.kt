@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.R
 import com.pl00t.swipe_client.UiTexts
@@ -97,6 +98,7 @@ class CampaignLevelWindow(
         val image = Image(drawable).apply {
             width = 480f
             height = 240f
+            setScaling(Scaling.stretch)
         }
         content.add(r.image(R.ux_atlas, "background_black").apply { setSize(480f, 1f)}).colspan(3).size(480f, 1f).row()
         content.add(image).size(480f, 240f).colspan(3).row()
@@ -113,12 +115,15 @@ class CampaignLevelWindow(
         val needWaves = model.waves.size > 1
         model.waves.forEachIndexed { waveIndex, wave ->
             if (needWaves) {
-                content.add(r.labelFocusedCaption(UiTexts.WaveTemplate.value(r.l).replace("$", (1 + waveIndex).toString()))).colspan(3).row()
+                content.add(r.labelFocusedCaption(UiTexts.WaveTemplate.value(r.l).replace("$", (1 + waveIndex).toString())).apply {
+                    setAlignment(Align.center)
+                    width = 480f
+                }).size(480f, 30f).colspan(3).row()
             }
             wave.forEach { monster ->
                 content.add(MonsterShortDetailsCell(r, monster).apply {
                     onClick { onMonsterClicked(monster.skin, monster.level) }
-                }).size(150f, 310f).pad(5f)
+                }).size(150f, 310f).colspan(1)
             }
             content.row()
         }
