@@ -16,6 +16,10 @@ object UiTexts {
     val NavParty = SbText("Heroes", "Герои")
     val Tarot = SbText("Fate Deck", "Колода Судьбы")
 
+    val BattleVictory = SbText("Victory", "Победа")
+    val BattleDefeat = SbText("Defeat", "Поражение")
+    val ExpBoost = SbText("+$ experience", "+$ очков опыта")
+
     val LevelUpApply = SbText("Apply", "Применить")
     val PutOff = SbText("Unequip Item", "Снять предмет")
     val PutOn = SbText("Equip Item", "Надеть предмет")

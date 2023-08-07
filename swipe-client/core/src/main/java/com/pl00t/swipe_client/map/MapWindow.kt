@@ -7,11 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.pl00t.swipe_client.R
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
+import com.pl00t.swipe_client.home.ReloadableScreen
 import com.pl00t.swipe_client.screen.map.LinkActor
 import com.pl00t.swipe_client.services.levels.FrontActModel
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import kotlinx.coroutines.launch
+import ktx.actors.alpha
 import ktx.actors.onClick
 import ktx.async.KtxAsync
 
@@ -21,7 +23,7 @@ class MapWindow(
     private val onLocationClicked: (String) -> Unit,
     private val navigateParty: () -> Unit,
     private val navigateInventory: () -> Unit,
-) : Group() {
+) : Group(), ReloadableScreen {
 
     private val mapSize = r.height - 190f
 
@@ -51,6 +53,16 @@ class MapWindow(
         addMapImage()
         addWindowTitle()
         addBottomPanel()
+    }
+
+    override fun reload() {
+        KtxAsync.launch {
+            rootGroup.clearChildren()
+            addMapImage()
+            val actModel = r.profileService.getAct(act)
+            loadMap(actModel)
+        }
+
     }
 
     private fun addWindowTitle() {
@@ -116,6 +128,10 @@ class MapWindow(
                 setSize(iconSize, iconSize)
                 x = iconX - iconSize / 2f
                 y = iconY - iconSize / 2f
+                if (!level.enabled) {
+                    touchable = Touchable.disabled
+                    alpha = 0.5f
+                }
             }
 
             levelActor.onClick {

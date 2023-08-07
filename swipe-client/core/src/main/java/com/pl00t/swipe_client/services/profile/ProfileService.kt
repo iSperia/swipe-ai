@@ -32,7 +32,7 @@ interface ProfileService {
 
     suspend fun isFreeRewardAvailable(act: SwipeAct, level: String): Boolean
 
-    suspend fun collectFreeReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward>
+    suspend fun collectFreeReward(act: SwipeAct, level: String, tier: Int): List<FrontItemEntryModel>
 
     suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward>
 
@@ -309,7 +309,42 @@ class ProfileServiceImpl(
         return profile.rewardsCollected?.firstOrNull { it.act == act && it.level == level } == null
     }
 
-    override suspend fun collectFreeReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward> = emptyList()
+    override suspend fun collectFreeReward(act: SwipeAct, level: String, tier: Int): List<FrontItemEntryModel> {
+        val result = mutableListOf<FrontItemEntryModel>()
+        levelService.getFreeReward(act, level).forEach { reward ->
+            if (reward.currency != null) {
+                val currency = reward.currency.type
+                val amount = reward.currency.amount
+                profile = profile.addBalance(currency, amount)
+                val meta = getCurrency(currency)
+                result.add(FrontItemEntryModel(
+                    skin = meta.currency.toString(),
+                    amount = amount,
+                    level = 0,
+                    rarity = meta.rarity,
+                    name = meta.name,
+                    currency = currency,
+                    item = null
+                ))
+            } else if (reward.skin != null) {
+                val item = itemService.generateItem(reward.skin, reward.rarity ?: 0)!!
+                addItem(item)
+                val template = itemService.getItemTemplate(item.skin)!!
+                result.add(FrontItemEntryModel(
+                    skin = item.skin,
+                    amount = 1,
+                    level = SwipeCharacter.getLevel(item.experience),
+                    rarity = item.rarity,
+                    name = template.name,
+                    currency = null,
+                    item = item
+                ))
+            }
+        }
+        profile = profile.copy(rewardsCollected = (profile.rewardsCollected?: emptyList()) + ActCollectedReward(act, level))
+        saveProfile()
+        return result
+    }
 
     override suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward> = emptyList()
 

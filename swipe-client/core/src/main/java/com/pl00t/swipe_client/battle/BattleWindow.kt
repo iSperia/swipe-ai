@@ -29,7 +29,7 @@ import kotlin.random.Random
 
 class BattleWindow(
     private val r: R,
-    private val hideBattleScreen: () -> Unit
+    private val hideBattleScreen: (BattleResult) -> Unit
 ) : Group(), SimpleDirectionGestureDetector.DirectionListener {
     lateinit var decorations: BattleDecorations
 
@@ -180,7 +180,7 @@ class BattleWindow(
 
         addAction(Actions.sequence(
             Actions.delay(1f),
-            Actions.run { dispose() }
+            Actions.run { dispose(event) }
         ))
     }
 
@@ -612,8 +612,8 @@ class BattleWindow(
         }
     }
 
-    fun dispose() {
-        hideBattleScreen()
+    fun dispose(result: BattleResult) {
+        hideBattleScreen(result)
         r.inputMultiplexer.removeProcessor(gestureDetector)
     }
 

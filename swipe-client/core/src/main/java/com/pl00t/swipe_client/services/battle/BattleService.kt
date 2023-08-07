@@ -1,28 +1,32 @@
 package com.pl00t.swipe_client.services.battle
 
+import com.game7th.swipe.SbText
 import com.game7th.swipe.game.*
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.JsonObject
 import com.pl00t.swipe_client.services.levels.LevelType
-import com.pl00t.swipe_client.services.profile.ProfileService
-import com.pl00t.swipe_client.services.profile.SwipeAct
-import com.pl00t.swipe_client.services.profile.SwipeCharacter
-import com.pl00t.swipe_client.services.profile.SwipeCurrency
+import com.pl00t.swipe_client.services.profile.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
 import java.lang.IllegalStateException
 import kotlin.random.Random
 
-data class BattleRewardConfig(
-    val currency: SwipeCurrency,
-    val amount: Int,
+data class ExperienceResult(
+    val skin: String,
+    val name: SbText,
+    val expBoost: Int,
 )
 
 data class BattleResult(
     val victory: Boolean,
-    val rewards: List<BattleRewardConfig>,
+    val act: SwipeAct,
+    val level: String,
+    val tier: Int,
+    val exp: ExperienceResult?,
+    val freeRewards: List<FrontItemEntryModel>,
+    val extraRewardsCost: Int,
 )
 
 interface BattleService {
@@ -51,6 +55,7 @@ class BattleServiceImpl(
     private var actId = SwipeAct.ACT_1
     private var level = "c1"
     private var tier = -1
+    private var experienceIfWin = 0
 
     override suspend fun getDecorations(): BattleDecorations {
         val level = levelService.getAct(actId).levels.firstOrNull { it.id == level } ?: throw IllegalStateException("No decorations found")
@@ -130,6 +135,8 @@ class BattleServiceImpl(
             this.waves = waves
         }
 
+        experienceIfWin = waves.flatMap { it }.sumOf { it.level * 10 }
+
         context = SbContext(
             game = game,
             balance = object : SbBalanceProvider {
@@ -173,11 +180,7 @@ class BattleServiceImpl(
 
     private suspend fun handleContext() {
         if (!context.game.teamAlive(0)) {
-            endBattle.emit(
-                BattleResult(
-                victory = false,
-                rewards = emptyList()
-            ))
+            endBattle.emit(BattleResult(victory = false, actId, level, tier, null, emptyList(), 0))
             processEnabled = false
         } else if (!context.game.teamAlive(1)) {
             val wavesTotal = waves.size
@@ -186,11 +189,15 @@ class BattleServiceImpl(
                 context.initWave(waves[context.game.wave])
                 events.emit(SbDisplayEvent.SbWave(context.game.wave + 1))
             } else {
-                endBattle.emit(
-                    BattleResult(
-                    victory = true,
-                    emptyList()
-                ))
+                var freeRewards = emptyList<FrontItemEntryModel>()
+                if (tier == -1) {
+                    if (profileService.isFreeRewardAvailable(actId, level)) {
+                        freeRewards = profileService.collectFreeReward(actId, level, tier)
+                    }
+                }
+                profileService.addCharacterExperience("CHARACTER_VALERIAN", experienceIfWin)
+                val monster = monsterService.getMonster("CHARACTER_VALERIAN")!!
+                endBattle.emit(BattleResult(victory = true, actId, level, tier, ExperienceResult(monster.skin, monster.name, experienceIfWin), freeRewards, 0))
                 profileService.markActComplete(actId, level)
                 if (tier >= 0) {
                     profileService.unlockTier(actId, level, tier + 1)

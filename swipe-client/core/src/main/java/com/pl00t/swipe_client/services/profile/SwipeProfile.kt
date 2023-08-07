@@ -5,7 +5,6 @@ import com.game7th.swipe.game.CharacterAttributes
 
 enum class SwipeCurrency(val expBonus: Int = 0) {
     ETHERIUM_COIN,
-    CELESTIAL_TOKEN,
     SCROLL_OF_WISDOM(expBonus = 750),
     TOME_OF_ENLIGHTMENT(expBonus = 2500),
     CODEX_OF_ASCENDANCY(expBonus = 7500),

@@ -22,7 +22,7 @@
         [
           {
             "skin": "MONSTER_THORNSTALKER",
-            "level": 18
+            "level": 1
           }
         ]
       ],
@@ -130,7 +130,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 10,
+            "amount": 200,
             "type": "ETHERIUM_COIN"
           }
         },
@@ -257,13 +257,6 @@
           "currency": {
             "amount": 1,
             "type": "INFUSION_ORB"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "CELESTIAL_TOKEN"
           }
         }
       ]

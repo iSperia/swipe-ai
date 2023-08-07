@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.pl00t.swipe_client.R
 import com.pl00t.swipe_client.SbBaseScreen
+import com.pl00t.swipe_client.battle.BattleResultDialog
 import com.pl00t.swipe_client.battle.BattleWindow
 import com.pl00t.swipe_client.heroes.HeroDetailWindow
 import com.pl00t.swipe_client.heroes.HeroListWindow
@@ -81,7 +82,18 @@ class HomeScreen(
                                 },
                                 openBattle = {
                                     stack.moveBack()
-                                    stack.showScreen(BattleWindow(r, { stack.moveBack() }))
+                                    stack.showScreen(BattleWindow(r, { result ->
+                                        stack.moveBack()
+                                        stack.showScreen(BattleResultDialog(r, result, onClose = {
+                                            stack.moveBack()
+                                        }, onItemClick = {
+                                            stack.showScreen(InventoryItemWindow(
+                                                r = r,
+                                                id = it,
+                                                onClose = { stack.moveBack() }
+                                            ))
+                                        }))
+                                    }))
                                 }
                             )
                             stack.showScreen(window)
