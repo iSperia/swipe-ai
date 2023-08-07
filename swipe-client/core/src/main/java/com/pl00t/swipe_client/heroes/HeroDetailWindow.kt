@@ -8,6 +8,7 @@ import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.Action
 import com.pl00t.swipe_client.action.ActionCompositeButton
 import com.pl00t.swipe_client.action.Mode
+import com.pl00t.swipe_client.home.ReloadableScreen
 import com.pl00t.swipe_client.monster.AttributesActor
 import com.pl00t.swipe_client.monster.MonsterDetailWindow
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ class HeroDetailWindow(
     model: FrontMonsterConfiguration,
     onClose: () -> Unit,
     private val onItemClicked: (String) -> Unit
-): MonsterDetailWindow(r, model, onClose) {
+): MonsterDetailWindow(r, model, onClose), ReloadableScreen {
 
     private var equipmentActor: HeroEquipmentActor? = null
 
@@ -40,6 +41,10 @@ class HeroDetailWindow(
         return HeroAttributesActor(r, character, model).apply {
             y = 110f
         }
+    }
+
+    override fun reload() {
+        equipmentActor?.reload()
     }
 
     private fun showEquipment() {

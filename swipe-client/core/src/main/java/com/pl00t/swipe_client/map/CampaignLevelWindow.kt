@@ -23,6 +23,7 @@ class CampaignLevelWindow(
     private val model: FrontLevelModel,
     private val onClose: () -> Unit,
     private val onMonsterClicked: (String, Int) -> Unit,
+    private val openBattle: () -> Unit
 ) : Group() {
 
     lateinit var title: WindowTitleActor
@@ -63,7 +64,7 @@ class CampaignLevelWindow(
                 onClick {
                     KtxAsync.launch {
                         r.battleService.createBattle(model.act, model.locationId, -1)
-                        r.router.navigateBattle()
+                        openBattle()
                     }
                 }
             }

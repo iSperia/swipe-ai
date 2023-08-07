@@ -3,13 +3,14 @@ package com.pl00t.swipe_client
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.game7th.swipe.Language
+import com.game7th.swipe.game.SbSoundType
 import com.game7th.swipe.monsters.MonsterService
-import com.pl00t.swipe_client.screen.ScreenRouter
 import com.pl00t.swipe_client.services.battle.BattleService
 import com.pl00t.swipe_client.services.files.FileService
 import com.pl00t.swipe_client.services.items.ItemService
@@ -25,7 +26,6 @@ class R {
     var l: Language = Language.RU
     lateinit var inputMultiplexer: InputMultiplexer
 
-    lateinit var router: ScreenRouter
     lateinit var profileService: ProfileService
     lateinit var levelService: LevelService
     lateinit var battleService: BattleService
@@ -41,7 +41,7 @@ class R {
     }
 
     fun loadSound(name: String) {
-        assetManager.load(AssetDescriptor(name, TextureAtlas::class.java))
+        assetManager.load(AssetDescriptor(name, Sound::class.java))
     }
 
     fun loadMusic(name: String) {
@@ -95,6 +95,11 @@ class R {
     fun regularWhite(text: String) = Label(text, skin(), "regular_white").apply { wrap = true }
     fun regularMain(text: String) = Label(text, skin(), "regular_main").apply { wrap = true }
     fun regular20Accent(text: String) = Label(text, skin(), "regular20_accent").apply { wrap = true }
+    fun regular24Outline(text: String) = Label(text, skin(), "regular24outline").apply { wrap = false }
+
+    fun playSound(sound: SbSoundType) {
+        (assetManager.get("sfx/$sound.ogg") as Sound).play()
+    }
 
     companion object {
         const val ui_atlas = "styles/ui.atlas"

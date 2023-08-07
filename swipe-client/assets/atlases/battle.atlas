@@ -1,54 +1,61 @@
 
 battle.png
-size: 2048, 2048
+size: 2048, 512
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
-bg_victory
-  rotate: false
-  xy: 0, 923
-  size: 1024, 1024
-  orig: 1024, 1024
-  offset: 0, 0
-  index: -1
 button_map
   rotate: false
-  xy: 1026, 1317
+  xy: 540, 95
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 cold
   rotate: false
-  xy: 410, 639
+  xy: 410, 75
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 dark
   rotate: false
-  xy: 0, 130
+  xy: 1720, 249
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 fire
   rotate: false
-  xy: 770, 793
+  xy: 514, 225
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+gem_active
+  rotate: false
+  xy: 1980, 446
+  size: 64, 61
+  orig: 64, 61
+  offset: 0, 0
+  index: -1
+gem_inactive
+  rotate: false
+  xy: 644, 292
+  size: 64, 61
+  orig: 64, 61
+  offset: 0, 0
+  index: -1
 heal
   rotate: false
-  xy: 1670, 1819
+  xy: 1850, 249
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 healthbar_bg
   rotate: false
-  xy: 205, 454
+  xy: 410, 48
   size: 128, 25
   split: 8, 8, 8, 8
   orig: 128, 25
@@ -56,28 +63,28 @@ healthbar_bg
   index: -1
 healthbar_fg
   rotate: false
-  xy: 1930, 1932
+  xy: 0, 0
   size: 118, 15
   orig: 118, 15
   offset: 0, 0
   index: -1
 icon_free_reward
   rotate: false
-  xy: 1026, 1187
+  xy: 1105, 215
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 light
   rotate: false
-  xy: 1540, 1819
+  xy: 1720, 379
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 panelBg
   rotate: false
-  xy: 0, 581
+  xy: 0, 17
   size: 203, 186
   split: 31, 33, 32, 39
   orig: 203, 186
@@ -85,7 +92,7 @@ panelBg
   index: -1
 panel_border
   rotate: false
-  xy: 1026, 1611
+  xy: 205, 17
   size: 203, 186
   split: 33, 34, 32, 38
   orig: 203, 186
@@ -93,7 +100,7 @@ panel_border
   index: -1
 panel_border_no_top
   rotate: false
-  xy: 0, 422
+  xy: 770, 350
   size: 203, 157
   split: 33, 37, 0, 157
   pad: 33, 37, -1, -1
@@ -102,7 +109,7 @@ panel_border_no_top
   index: -1
 panel_border_no_top_filled
   rotate: false
-  xy: 205, 611
+  xy: 975, 351
   size: 203, 156
   split: 34, 37, 3, 41
   orig: 203, 156
@@ -110,98 +117,85 @@ panel_border_no_top_filled
   index: -1
 physical
   rotate: false
-  xy: 1800, 1819
+  xy: 1365, 216
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 progress_active
   rotate: false
-  xy: 1231, 1636
+  xy: 1362, 346
   size: 179, 161
   orig: 179, 161
   offset: 0, 0
   index: -1
 progress_active2
   rotate: false
-  xy: 0, 260
+  xy: 1543, 347
   size: 175, 160
   orig: 175, 160
   offset: 0, 0
   index: -1
 progress_inactive
   rotate: false
-  xy: 1026, 1447
+  xy: 1180, 345
   size: 180, 162
   orig: 180, 162
   offset: 0, 0
   index: -1
 semi_black_pixel
   rotate: false
-  xy: 1208, 1608
+  xy: 514, 222
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 shock
   rotate: false
-  xy: 0, 0
+  xy: 1235, 215
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 skill_progress_active
   rotate: false
-  xy: 1412, 1775
+  xy: 410, 24
   size: 62, 22
   orig: 62, 22
   offset: 0, 0
   index: -1
 skill_progress_inactive
   rotate: false
-  xy: 1231, 1612
+  xy: 540, 71
   size: 62, 22
   orig: 62, 22
   offset: 0, 0
   index: -1
 tile_bg
   rotate: false
-  xy: 205, 481
+  xy: 1850, 379
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 ult_progress
   rotate: false
-  xy: 1026, 1799
+  xy: 0, 205
   size: 512, 148
   orig: 512, 148
   offset: 0, 0
   index: -1
 ult_progress_fg
   rotate: false
-  xy: 0, 769
+  xy: 0, 355
   size: 768, 152
   orig: 768, 152
   offset: 0, 0
   index: -1
 weak
   rotate: false
-  xy: 540, 639
+  xy: 975, 221
   size: 128, 128
   orig: 128, 128
-  offset: 0, 0
-  index: -1
-
-battle2.png
-size: 1024, 1024
-format: RGBA8888
-filter: MipMapLinearLinear, MipMapLinearLinear
-repeat: none
-bg_defeat
-  rotate: false
-  xy: 0, 0
-  size: 1024, 1024
-  orig: 1024, 1024
   offset: 0, 0
   index: -1

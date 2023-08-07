@@ -34,7 +34,7 @@ fun SbContext.useOnComplete(event: SbEvent, tileSkin: String, action: SbContext.
             if (isLucky && tile.skill) {
                 events.add(SbDisplayEvent.SbShowPopup(
                     characterId = character.id,
-                    text = "Lucky (+${((koef - 1)*50).toInt()}%)",
+                    text = "Lucky (+${((koef - 1)*100).toInt()}%)",
                     icons = emptyList()
                 ))
             }

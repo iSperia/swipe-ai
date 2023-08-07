@@ -80,11 +80,6 @@ class MapWindow(
     }
 
     private fun addTitle(actModel: FrontActModel) {
-        val settings = ActionCompositeButton(r, Action.Vault, Mode.NoText).apply {
-            setSize(80f, 80f)
-            onClick { r.router.navigateMap() }
-        }
-
         actWindowTitle = WindowTitleActor(r, actModel.title.value(r.l), null, null, 4).apply {
             y = r.height - this.height
         }

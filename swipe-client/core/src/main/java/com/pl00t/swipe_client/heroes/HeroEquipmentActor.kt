@@ -13,6 +13,7 @@ import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.Action
 import com.pl00t.swipe_client.action.ActionCompositeButton
 import com.pl00t.swipe_client.action.Mode
+import com.pl00t.swipe_client.home.ReloadableScreen
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.ux.ItemCellActor
@@ -27,7 +28,7 @@ class HeroEquipmentActor(
     private val skin: String,
     private val onChanged: () -> Unit,
     private val onItemClicked: (String) -> Unit
-): Group() {
+): Group(), ReloadableScreen {
 
     private val content = Table().apply {
         width = 480f
@@ -46,6 +47,8 @@ class HeroEquipmentActor(
 
         loadData()
     }
+
+    override fun reload() = loadData()
 
     private fun loadData() {
         KtxAsync.launch {

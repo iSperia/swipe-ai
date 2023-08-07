@@ -50,14 +50,14 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 2,
+            "amount": 1,
             "type": "SCROLL_OF_WISDOM"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 10,
+            "amount": 100,
             "type": "ETHERIUM_COIN"
           }
         }

@@ -20,6 +20,7 @@
     regular: { file: uni.fnt }
     regular20: { file: uni20.fnt }
     regular24: { file: uni24.fnt }
+    regular24outline: { file: uni24outline.fnt }
   }
   LabelStyle: {
     window_title: {
@@ -30,6 +31,10 @@
       font: regular
       fontColor: white
     },
+    regular24outline: {
+      font: regular
+      fontColor: white
+    }
     lore_text: {
       font: regular20
       fontColor: focus_color

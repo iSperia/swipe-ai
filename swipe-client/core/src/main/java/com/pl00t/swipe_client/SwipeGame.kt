@@ -3,8 +3,6 @@ package com.pl00t.swipe_client
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
-import com.pl00t.swipe_client.screen.ScreenRouter
-import com.pl00t.swipe_client.screen.battle.BattleScreen
 import com.pl00t.swipe_client.services.battle.BattleServiceImpl
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
 import com.google.gson.Gson
@@ -17,7 +15,7 @@ import com.pl00t.swipe_client.services.profile.ProfileServiceImpl
 import ktx.async.KtxAsync
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
-class SwipeGame : Game(), ScreenRouter {
+class SwipeGame : Game() {
 
     var coreLoaded = false
     lateinit var r: R
@@ -30,7 +28,6 @@ class SwipeGame : Game(), ScreenRouter {
         r = R().apply {
             width = 480f
             height = 480f / ratio
-            router = this@SwipeGame
             fileService = GdxFileService()
             itemService = ItemServiceImpl(Gson(), fileService)
             monsterService = MonsterServiceImpl(fileService)
@@ -39,7 +36,7 @@ class SwipeGame : Game(), ScreenRouter {
             battleService = BattleServiceImpl(levelService, monsterService, profileService)
         }
 
-        navigateMap()
+        setScreen(HomeScreen(r))
     }
 
     override fun render() {
@@ -49,13 +46,5 @@ class SwipeGame : Game(), ScreenRouter {
 
         r.update()
         super.render()
-    }
-
-    override fun navigateBattle() {
-        setScreen(BattleScreen(r, this@SwipeGame))
-    }
-
-    override fun navigateMap() {
-        setScreen(HomeScreen(r))
     }
 }

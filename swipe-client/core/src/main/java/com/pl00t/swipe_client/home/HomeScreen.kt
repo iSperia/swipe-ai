@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.pl00t.swipe_client.R
 import com.pl00t.swipe_client.SbBaseScreen
+import com.pl00t.swipe_client.battle.BattleWindow
 import com.pl00t.swipe_client.heroes.HeroDetailWindow
 import com.pl00t.swipe_client.heroes.HeroListWindow
 import com.pl00t.swipe_client.items.InventoryItemWindow
@@ -46,6 +47,7 @@ class HomeScreen(
             r.skin().getFont("regular").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             r.skin().getFont("regular20").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             r.skin().getFont("regular24").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
+            r.skin().getFont("regular24outline").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             hideSplash()
             showMap()
         }
@@ -76,6 +78,10 @@ class HomeScreen(
                                             stack.showScreen(window)
                                         }
                                     }
+                                },
+                                openBattle = {
+                                    stack.moveBack()
+                                    stack.showScreen(BattleWindow(r, { stack.moveBack() }))
                                 }
                             )
                             stack.showScreen(window)
