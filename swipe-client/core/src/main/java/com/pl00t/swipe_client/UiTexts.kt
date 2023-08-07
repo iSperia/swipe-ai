@@ -20,6 +20,8 @@ object UiTexts {
     val PutOff = SbText("Unequip Item", "Снять предмет")
     val PutOn = SbText("Equip Item", "Надеть предмет")
     val Dust = SbText("Dust item", "Распылить предмет")
+    val DustWarning = SbText("WARNING: if you dust the item, it is destroyed and cannot be undone\n\nYou will receive:",
+        "ПРЕДУПРЕЖДЕНИЕ: Если вы распылите предмет, он будет уничтожен и это нельзя отменить\n\nВы получите:")
 
     val Settings = SbText("Settings", "Настройки")
     val LvlPrefix = SbText("Level: ", "Уровень: ")

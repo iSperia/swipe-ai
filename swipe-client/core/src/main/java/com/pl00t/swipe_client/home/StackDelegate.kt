@@ -8,6 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import ktx.actors.alpha
 
+interface ReloadableScreen {
+    fun reload()
+}
+
 class StackDelegate(private val root: Stage) {
 
     private val stack = mutableListOf<Actor>()
@@ -33,5 +37,10 @@ class StackDelegate(private val root: Stage) {
             ),
             Actions.removeActor()
         ))
+        stack.lastOrNull()?.let { a ->
+            if (a is ReloadableScreen) {
+                a.reload()
+            }
+        }
     }
 }

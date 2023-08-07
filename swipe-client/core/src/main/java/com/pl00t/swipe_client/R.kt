@@ -89,6 +89,7 @@ class R {
     fun regular24Main(text: String) = Label(text, skin(), "regular24_main").apply { wrap = true }
     fun regular20Main(text: String) = Label(text, skin(), "regular20_main").apply { wrap = true }
     fun regular24Accent(text: String) = Label(text, skin(), "regular24_accent").apply { wrap = true }
+    fun regular24Error(text: String) = Label(text, skin(), "regular24_error").apply { wrap = true }
     fun regular20Focus(text: String) = Label(text, skin(), "regular20_focus").apply { wrap = true }
     fun regular20White(text: String) = Label(text, skin(), "regular20_white").apply { wrap = true }
     fun regularWhite(text: String) = Label(text, skin(), "regular_white").apply { wrap = true }

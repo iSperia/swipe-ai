@@ -92,8 +92,11 @@ class BattleScreen(
     override fun show() {
         super.show()
         gestureDetector = SimpleDirectionGestureDetector(this)
+        val multiplexer = InputMultiplexer()
         multiplexer.addProcessor(root)
         multiplexer.addProcessor(gestureDetector)
+        Gdx.input.inputProcessor = multiplexer
+
         KtxAsync.launch {
             decorations = r.battleService.getDecorations()
             music = Gdx.audio.newMusic(Gdx.files.internal("music/${decorations.music}.ogg"))

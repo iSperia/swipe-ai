@@ -9,6 +9,7 @@ import com.game7th.items.ItemCategory
 import com.pl00t.swipe_client.R
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
+import com.pl00t.swipe_client.home.ReloadableScreen
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.ux.ItemCellActor
@@ -21,7 +22,7 @@ class InventoryWindow(
     protected val r: R,
     private val onClose: () -> Unit,
     private val onItemClicked: (String) -> Unit,
-) : Group() {
+) : Group(), ReloadableScreen {
 
     lateinit var title: WindowTitleActor
     lateinit var bottomPanel: BottomActionPanel
@@ -43,7 +44,8 @@ class InventoryWindow(
     init {
         setSize(r.width, r.height)
 
-        background = r.image(R.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); alpha = 0.5f; color = r.skin().getColor("bg_color") }
+        background = r.image(R.ux_atlas, "texture_screen")
+            .apply { setSize(r.width, r.height); alpha = 0.5f; color = r.skin().getColor("bg_color") }
         backgroundShadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
         addActor(background)
         addActor(backgroundShadow)
@@ -74,7 +76,11 @@ class InventoryWindow(
     private fun addBottomPanel() {
         KtxAsync.launch {
             val actions = listOf(
-                ActionCompositeButton(r, Action.FilterCurrency, Mode.SingleLine(UiTexts.FilterCurrency.value(r.l))).apply {
+                ActionCompositeButton(
+                    r,
+                    Action.FilterCurrency,
+                    Mode.SingleLine(UiTexts.FilterCurrency.value(r.l))
+                ).apply {
                     onClick {
                         currencyMode = true
                         scrollPane.setSize(480f, r.height - 190f)
@@ -100,16 +106,32 @@ class InventoryWindow(
             filterPanel = BottomActionPanel(
                 r = r,
                 actions = listOf(
-                    ActionCompositeButton(r, Action.FilterHelmet, Mode.SingleLine(UiTexts.FilterHelm.value(r.l))).apply {
+                    ActionCompositeButton(
+                        r,
+                        Action.FilterHelmet,
+                        Mode.SingleLine(UiTexts.FilterHelm.value(r.l))
+                    ).apply {
                         onClick { categoryFilter = ItemCategory.HELMET; loadData() }
                     },
-                    ActionCompositeButton(r, Action.FilterGloves, Mode.SingleLine(UiTexts.FilterGloves.value(r.l))).apply {
+                    ActionCompositeButton(
+                        r,
+                        Action.FilterGloves,
+                        Mode.SingleLine(UiTexts.FilterGloves.value(r.l))
+                    ).apply {
                         onClick { categoryFilter = ItemCategory.GLOVES; loadData() }
                     },
-                    ActionCompositeButton(r, Action.FilterBoots, Mode.SingleLine(UiTexts.FilterBoots.value(r.l))).apply {
+                    ActionCompositeButton(
+                        r,
+                        Action.FilterBoots,
+                        Mode.SingleLine(UiTexts.FilterBoots.value(r.l))
+                    ).apply {
                         onClick { categoryFilter = ItemCategory.BOOTS; loadData() }
                     },
-                    ActionCompositeButton(r, Action.FilterAmulet, Mode.SingleLine(UiTexts.FilterAmulet.value(r.l))).apply {
+                    ActionCompositeButton(
+                        r,
+                        Action.FilterAmulet,
+                        Mode.SingleLine(UiTexts.FilterAmulet.value(r.l))
+                    ).apply {
                         onClick { categoryFilter = ItemCategory.AMULET; loadData() }
                     },
                     ActionCompositeButton(r, Action.FilterRing, Mode.SingleLine(UiTexts.FilterRing.value(r.l))).apply {
@@ -128,48 +150,51 @@ class InventoryWindow(
         }
     }
 
+    override fun reload() = loadData()
+
     fun loadData() {
-        content.clearChildren()
-        if (currencyMode) {
-            showCurrency()
-        } else {
-            showItems()
+        KtxAsync.launch {
+            content.clearChildren()
+            if (currencyMode) {
+                showCurrency()
+            } else {
+                showItems()
+            }
+            content.row()
+            content.add().growY()
         }
-        content.row()
-        content.add().growY()
     }
 
-    private fun showItems() {
-        KtxAsync.launch {
-            r.profileService.getItems().filter { categoryFilter == null || categoryFilter == it.category }.sortedByDescending { it.rarity * 100000 +  it.experience }.forEachIndexed { index, item ->
-                val meta = r.itemService.getItemTemplate(item.skin)!!
-                val actor = ItemCellActor(
-                    r = r,
-                    model = FrontItemEntryModel(
-                        skin = meta.skin,
-                        amount = 1,
-                        level = SwipeCharacter.getLevel(item.experience),
-                        rarity = item.rarity,
-                        name = meta.name,
-                        currency = null,
-                        item = item
-                    )
-                ).apply {
-                    onClick { onItemClicked(item.id) }
-                }
-                content.add(actor).size(120f, 160f)
-                if (index % 4 == 3) {
-                    content.row()
-                }
+    private suspend fun showItems() {
+        r.profileService.getItems().filter { categoryFilter == null || categoryFilter == it.category }
+            .sortedByDescending { it.rarity * 100000 + it.experience }.forEachIndexed { index, item ->
+            val meta = r.itemService.getItemTemplate(item.skin)!!
+            val actor = ItemCellActor(
+                r = r,
+                model = FrontItemEntryModel(
+                    skin = meta.skin,
+                    amount = 1,
+                    level = SwipeCharacter.getLevel(item.experience),
+                    rarity = item.rarity,
+                    name = meta.name,
+                    currency = null,
+                    item = item
+                )
+            ).apply {
+                onClick { onItemClicked(item.id) }
+            }
+            content.add(actor).size(120f, 160f)
+            if (index % 4 == 3) {
+                content.row()
             }
         }
     }
 
-    private fun showCurrency() {
-        KtxAsync.launch {
-            r.profileService.getProfile().balances.filter { it.amount > 0 }.map { it to r.profileService.getCurrency(it.currency) }
-                .sortedByDescending { it.second.rarity }
-                .forEachIndexed { index, p ->
+    private suspend fun showCurrency() {
+        r.profileService.getProfile().balances.filter { it.amount > 0 }
+            .map { it to r.profileService.getCurrency(it.currency) }
+            .sortedByDescending { it.second.rarity }
+            .forEachIndexed { index, p ->
                 val meta = p.second
                 val balance = p.first
                 val actor = ItemCellActor(
@@ -191,7 +216,6 @@ class InventoryWindow(
                     content.row()
                 }
             }
-        }
     }
 
 

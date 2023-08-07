@@ -81,7 +81,6 @@ class InventoryItemWindow(
         closeButton.onClick {
             onClose()
         }
-        val titleText = UiTexts.NavItems.value(r.l)
         title = WindowTitleActor(r, model.name.value(r.l), closeButton, null, model.rarity).apply {
             y = r.height - this.height
         }
@@ -103,8 +102,13 @@ class InventoryItemWindow(
                 ActionCompositeButton(r, Action.Close, Mode.SingleLine(UiTexts.Dust.value(r.l))).apply {
                     onClick {
                         KtxAsync.launch {
-                            mode = BrowseMode.DUST
-                            loadData()
+                            if (mode == BrowseMode.DUST) {
+                                r.profileService.dustItem(model.item!!.id)
+                                onClose()
+                            } else {
+                                mode = BrowseMode.DUST
+                                loadData()
+                            }
                         }
                     }
                 }
@@ -133,7 +137,7 @@ class InventoryItemWindow(
                 showDetails()
             }
             BrowseMode.DUST -> {
-
+                showDust()
             }
         }
 
@@ -229,5 +233,35 @@ class InventoryItemWindow(
         content.add(actor).size(actor.width, actor.height).row()
         content.add(levelGroup).size(levelGroup.width, levelGroup.height).padTop(10f).row()
         content.add(currencyGroup).size(currencyGroup.width, currencyGroup.height).padTop(10f).row()
+    }
+
+    private suspend fun showDust() {
+        val label = r.regular24Error(UiTexts.DustWarning.value(r.l)).apply {
+            width = 460f
+            wrap = true
+            setAlignment(Align.bottomLeft)
+        }
+        content.add(label).width(460f).pad(10f).align(Align.bottom).row()
+
+        val curGroup = Group().apply {
+            setSize(480f, 160f)
+        }
+        val dustResult = r.profileService.previewDust(model.item!!.id).filter { it.amount > 0 }
+        dustResult.forEachIndexed { i, balance ->
+            val meta = r.profileService.getCurrency(balance.currency)
+            val actor = ItemCellActor(r, FrontItemEntryModel(
+                skin = meta.currency.toString(),
+                amount = balance.amount,
+                level = 0,
+                rarity = meta.rarity,
+                name = meta.name,
+                currency = meta.currency,
+                item = null
+            )).apply {
+                setPosition(i * 120f, 0f)
+            }
+            curGroup.addActor(actor)
+        }
+        content.add(curGroup).size(480f, 160f).row()
     }
 }

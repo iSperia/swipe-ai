@@ -62,6 +62,10 @@
       font: regular24
       fontColor: accent_color
     }
+    regular24_error: {
+      font: regular24
+      fontColor: error_color
+    }
     regular24_white: {
       font: regular24
       fontColor: white

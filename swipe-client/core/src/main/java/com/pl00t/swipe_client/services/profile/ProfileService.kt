@@ -64,6 +64,9 @@ interface ProfileService {
 
     suspend fun generateItem(skin: String, rarity: Int): InventoryItem
 
+    suspend fun previewDust(id: String): List<CurrencyBalance>
+    suspend fun dustItem(id: String)
+
 
     data class DustItemResult(
         val rewards: List<CurrencyReward>
@@ -438,6 +441,30 @@ class ProfileServiceImpl(
                 item
             }
         })
+        saveProfile()
+    }
+
+    override suspend fun previewDust(id: String): List<CurrencyBalance> {
+        return profile.items.firstOrNull { it.id == id }?.let { item ->
+            val currencies = arrayOf(SwipeCurrency.INFUSION_ORB, SwipeCurrency.INFUSION_SHARD, SwipeCurrency.INFUSION_CRYSTAL, SwipeCurrency.ASCENDANT_ESSENCE)
+            val count = arrayOf(0, 0, 0, 0)
+            count[min(3, item.rarity)]++
+            if (item.rarity == 4) count[3] += 2
+            var experienceCompensation = (0.8f * item.experience).toInt()
+            currencies.indices.reversed().forEach { i ->
+                val amount = experienceCompensation / currencies[i].expBonus
+                count[i] += amount
+                experienceCompensation -= amount * currencies[i].expBonus
+            }
+            currencies.indices.map { CurrencyBalance(currencies[it], count[it]) }
+        } ?: emptyList()
+    }
+
+    override suspend fun dustItem(id: String) {
+        previewDust(id).forEach { entry ->
+            profile = profile.addBalance(entry.currency, entry.amount)
+        }
+        profile = profile.copy(items = profile.items.filter { it.id != id })
         saveProfile()
     }
 
