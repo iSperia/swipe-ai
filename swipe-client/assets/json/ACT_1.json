@@ -332,21 +332,26 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 5,
+            "amount": 10,
             "type": "INFUSION_ORB"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
+            "amount": 2,
             "type": "TOME_OF_ENLIGHTMENT"
           }
         },
         {
           "type": "item",
           "skin": "FROSTGUARD_GAUNTLETS",
-          "rarity": 1
+          "rarity": 2
+        },
+        {
+          "type": "item",
+          "skin": "SHADOWBANE_AMULET",
+          "rarity": 2
         }
       ],
       "tiers": [
@@ -379,6 +384,7 @@
       "y": 200,
       "type": "CAMPAIGN",
       "id": "c5",
+      "music": "theme_crystal_caverns",
       "title": {
         "en": "The Crystal Caverns",
         "ru": "Кристальные пещеры"
@@ -392,13 +398,34 @@
         [
           {
             "skin": "MONSTER_CRYSTAL_GUARDIAN",
-            "level": 1
+            "level": 5
           },
           {
             "skin": "MONSTER_CRYSTAL_GUARDIAN",
-            "level": 1
+            "level": 5
           }
         ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 4000,
+            "type": "ETHERIUM_COINS"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 3,
+            "type": "TOME_OF_ENLIGHTMENT"
+          }
+        },
+        {
+          "type": "item",
+          "skin": "IRONCLAD_GAUNTLETS",
+          "rarity": 2
+        }
       ]
     },
     {
@@ -406,6 +433,7 @@
       "y": 251,
       "type": "CAMPAIGN",
       "id": "c6",
+      "music": "theme_crystal_caverns",
       "title": {
         "en": "The Crystal Caverns",
         "ru": "Кристальные пещеры"
@@ -419,18 +447,66 @@
         [
           {
             "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 1
+            "level": 5
           },
           {
             "skin": "MONSTER_CRYSTAL_GUARDIAN",
-            "level": 1
+            "level": 6
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_CRYSTAL_GUARDIAN",
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_CRYSTAL_GUARDIAN",
+            "level": 6
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
+            "level": 6
           }
         ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 3000,
+            "type": "ETHERIUM_COINS"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 3,
+            "type": "SCROLL_OF_WISDOM"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "CODEX_OF_ASCENDANCY"
+          }
+        }
       ]
     },
     {
       "x": 698,
       "y": 247,
+      "music": "theme_crystal_caverns",
       "type": "CAMPAIGN",
       "id": "c7",
       "title": {
@@ -445,24 +521,72 @@
       "monsters": [
         [
           {
-            "skin": "MONSTER_STONE_GOLEM",
-            "level": 1
+            "skin": "MONSTER_CRYSTAL_GUARDIAN",
+            "level": 7
+          },
+          {
+            "skin": "MONSTER_CRYSTAL_GUARDIAN",
+            "level": 7
           },
           {
             "skin": "MONSTER_STONE_GOLEM",
-            "level": 1
+            "level": 6
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_STONE_GOLEM",
+            "level": 7
+          },
+          {
+            "skin": "MONSTER_STONE_GOLEM",
+            "level": 7
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
+            "level": 7
           },
           {
             "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 1
+            "level": 7
+          },
+          {
+            "skin": "MONSTER_STONE_GOLEM",
+            "level": 7
           }
         ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 3000,
+            "type": "ETHERIUM_COINS"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 3,
+            "type": "TOME_OF_ENLIGHTMENT"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "CODEX_OF_ASCENDANCY"
+          }
+        }
       ]
     },
     {
       "x": 850,
       "y": 218,
       "type": "BOSS",
+      "music": "theme_crystal_caverns",
       "id": "c8",
       "title": {
         "en": "Xalithar, the Crystal Goliath",
@@ -487,6 +611,7 @@
       "y": 592,
       "type": "CAMPAIGN",
       "id": "c9",
+      "music": "theme_crystal_caverns",
       "title": {
         "en": "Thalendros, the Corrupted Treant",
         "ru": "Талендрос, Оскверненный Древень"
@@ -655,20 +780,60 @@
       "y": 149,
       "type": "RAID",
       "id": "r2",
+      "music": "theme_crystal_caverns",
       "title": {
-        "en": "Thalendros, the Corrupted Treant",
-        "ru": "Талендрос, Оскверненный Древень"
+        "en": "The Crystal Caverns",
+        "ru": "Кристальные пещеры"
       },
       "description": {
-        "en": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
-        "ru": "Талендрос — массивный древень, когда-то охранявший Зеленую рощу, но теперь испорченный темной энергией. Его когда-то яркая листва увяла, уступив место колючим ветвям и злобным светящимся глазам. Талендрос стоит высокий и внушительный, излучая ауру порчи и разложения."
+        "en": "Hidden deep beneath the Kingdom of Harmony, the Crystal Caverns are a breathtaking network of caverns adorned with shimmering crystals of various colors. Valerian embarks on his quest in the Crystal Caverns to uncover an ancient prophecy inscribed on the walls. The prophecy foretells the shattering of the Ethereal Crystal and the role Valerian must play in restoring it.",
+        "ru": "Кристальные пещеры, спрятанные глубоко под Королевством Гармонии, представляют собой захватывающую дух сеть пещер, украшенных мерцающими кристаллами различных цветов. Валериан отправляется в Кристальные пещеры, чтобы найти древнее пророчество, написанное на стенах. Пророчество предсказывает разрушение Эфирного Кристалла и роль Валериана в его восстановлении."
       },
       "background": "crystal_coves",
       "monsters": [],
-      "monster_pool": [
-        {"skin": "MONSTER_CRYSTAL_GUARDIAN", "value": 0.9, "weight": 40},
-        {"skin": "MONSTER_SHADOW_OF_CHAOS","value": 2, "weight": 30},
-        {"skin": "MONSTER_STONE_GOLEM", "value": 1.5, "weight": 30}
+      "tiers": [
+        {
+          "monster_pool": [
+            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 8, "weight": 30},
+            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 9, "weight": 60},
+            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 10, "weight": 10},
+            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 8, "weight": 30},
+            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 9, "weight": 60},
+            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 10, "weight": 10},
+            {"skin": "MONSTER_STONE_GOLEM", "level": 8, "weight": 40},
+            {"skin": "MONSTER_STONE_GOLEM", "level": 9, "weight": 50},
+            {"skin": "MONSTER_STONE_GOLEM", "level": 10, "weight": 10}
+          ],
+          "rewards": [
+            {"type": "item", "skin": "THEMPERSTRIDE_BOOTS", "rarity": 1, "weight": 80},
+            {"type": "item", "skin": "THEMPERSTRIDE_BOOTS", "rarity": 2, "weight": 20},
+            {"type": "item", "skin": "FLAMEHEART_BELT", "rarity": 1, "weight": 80},
+            {"type": "item", "skin": "FLAMEHEART_BELT", "rarity": 2, "weight": 20},
+            {"type": "item", "skin": "SHADOWBANE_AMULET", "rarity": 1, "weight": 80},
+            {"type": "item", "skin": "SHADOWBANE_AMULET", "rarity": 2, "weight": 20}
+          ]
+        },
+        {
+          "monster_pool": [
+            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 13, "weight": 30},
+            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 15, "weight": 60},
+            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 17, "weight": 10},
+            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 13, "weight": 30},
+            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 15, "weight": 60},
+            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 17, "weight": 10},
+            {"skin": "MONSTER_STONE_GOLEM", "level": 13, "weight": 40},
+            {"skin": "MONSTER_STONE_GOLEM", "level": 15, "weight": 50},
+            {"skin": "MONSTER_STONE_GOLEM", "level": 17, "weight": 10}
+          ],
+          "rewards": [
+            {"type": "item", "skin": "THEMPERSTRIDE_BOOTS", "rarity": 2, "weight": 80},
+            {"type": "item", "skin": "THEMPERSTRIDE_BOOTS", "rarity": 3, "weight": 20},
+            {"type": "item", "skin": "FLAMEHEART_BELT", "rarity": 2, "weight": 80},
+            {"type": "item", "skin": "FLAMEHEART_BELT", "rarity": 3, "weight": 20},
+            {"type": "item", "skin": "SHADOWBANE_AMULET", "rarity": 2, "weight": 80},
+            {"type": "item", "skin": "SHADOWBANE_AMULET", "rarity": 3, "weight": 20}
+          ]
+        }
       ]
     },
     {

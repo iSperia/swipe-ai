@@ -8,39 +8,34 @@
     "en": "These mystical crystalline beings are the guardians of the Crystal Caverns, charged with protecting its ancient secrets. However, the shattering of the Ethereal Crystal has caused a disruption in their guardianship. They mistake Valerian as a threat to the balance and attack him in an attempt to defend the caverns and the knowledge they hold.",
     "ru":"Эти мистические кристаллические существа являются хранителями Кристальных пещер, которым поручено охранять их древние секреты. Однако разрушение Эфирного Кристалла привело к нарушению их опеки. Они ошибочно принимают Валериана за угрозу равновесию и нападают на него, пытаясь защитить пещеры и хранящиеся в них знания"
   },
-  "attributes": {"mind":  25, "spirit":  35, "body":  40},
-  "affixes": {
-    "VULNERABLE_FIRE": 100,
-    "RESIST_PHYSICAL": 50
-  },
+  "attributes": {"mind":  60, "spirit":  10, "body":  30},
   "tiles": [
-    { "weight": 4, "skin": "THALENDROS_THORN_WHIP", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
-    { "weight": 4, "skin": "THALENDROS_EARTHQUAKE_SLAM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 },
-    { "weight": 2, "skin": "THALENDROS_DARK_AURA", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
+    { "weight": 5, "skin": "CRYSTAL_GUARDIAN_CRYSTAL_FROSTSTRIKE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
+    { "weight": 4, "skin": "CRYSTAL_GUARDIAN_GLACIAL_BIND", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 },
+    { "weight": 3, "skin": "CRYSTAL_GUARDIAN_CRYSTAL_WARD", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
   ],
-  "triggers": ["thalendros.thorn_whip", "thalendros.earthquake_slam", "thalendros.dark_aura"],
+  "triggers": ["crystal_guardian.crystal_froststrike", "crystal_guardian.glacial_bind", "crystal_guardian.crystal_ward"],
   "balance": {
-    "base_health": 115,
+    "base_health": 125,
     "luck": 5,
     "ult": 10,
     "ult_max": 1000,
     "resist": {
       "phys": 0,
       "dark": 0,
-      "light": 0,
+      "light": 0.15,
       "shock": 0,
       "fire": 0,
-      "cold": 0
+      "cold": 0.30
     },
-    "af_base": 25,
-    "af_scale": 10,
-    "vs_dmg_base": 20,
-    "vs_dmg_scale": 10,
-    "vs_heal_base": 20,
-    "vs_heal_scale": 10,
-    "sa_base": 5,
-    "sa_scale": 10,
-    "sa_tiles": 5
+    "cf_base": 15,
+    "cf_scale": 5,
+    "gb_dmg_base": 20,
+    "gb_dmg_scale": 10,
+    "gb_freeze_amount": 2,
+    "cw_res_base": 10,
+    "cw_res_scale": 10,
+    "cw_duration": 5
   },
   "scale": 1
 }

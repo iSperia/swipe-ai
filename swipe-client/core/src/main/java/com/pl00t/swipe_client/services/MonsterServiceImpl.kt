@@ -6,7 +6,6 @@ import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.pl00t.swipe_client.services.files.FileService
-import ktx.style.skin
 import java.lang.IllegalArgumentException
 
 class MonsterServiceImpl(
@@ -36,8 +35,11 @@ class MonsterServiceImpl(
             MonsterService.DEFAULT -> provideDefaultTriggers()
             MonsterService.CHARACTER_VALERIAN -> provideValerianTriggers(balance)
             MonsterService.MONSTER_THALENDROS -> provideThalendrosTriggers(balance)
+            MonsterService.MONSTER_STONE_GOLEM -> provideStoneGolemTriggers(balance)
             MonsterService.MONSTER_THORNSTALKER -> provideThornstalkerTriggers(balance)
             MonsterService.MONSTER_CORRUPTED_DRYAD -> provideCorruptedDryadTriggers(balance)
+            MonsterService.MONSTER_CRYSTAL_GUARDIAN -> provideCrystalGuardianTriggers(balance)
+            MonsterService.MONSTER_SHADOW_OF_CHAOS -> provideShadowOfChaosTriggers(balance)
             MonsterService.MONSTER_THORNED_CRAWLER -> provideThornedCrawlerTriggers(balance)
             else -> emptyMap()
         }
@@ -74,13 +76,15 @@ class MonsterServiceImpl(
 
         val abilities = when (skin) {
             MonsterService.MONSTER_CORRUPTED_DRYAD -> provideCorruptedDryadAbilities(configFile.balance, attributes)
+            MonsterService.MONSTER_CRYSTAL_GUARDIAN -> provideCrystalGuardianAttributes(configFile.balance, attributes)
             MonsterService.MONSTER_THORNED_CRAWLER -> provideThornedCrawlerAbilities(configFile.balance, attributes)
             MonsterService.CHARACTER_VALERIAN -> provideValerianAbilities(configFile.balance, attributes)
+            MonsterService.MONSTER_STONE_GOLEM -> provideStoneGolemAbilities(configFile.balance, attributes)
             MonsterService.MONSTER_THALENDROS -> provideThalendrosAbilities(configFile.balance, attributes)
             MonsterService.MONSTER_THORNSTALKER -> provideThornstalkerAbilities(configFile.balance, attributes)
+            MonsterService.MONSTER_SHADOW_OF_CHAOS -> provideShadowOfChaosAbilities(configFile.balance, attributes)
 
             else -> provideValerianAbilities(configFile.balance, attributes)
-//            else -> throw IllegalArgumentException("Can't create monster $skin")
         }
 
         val health = (configFile.balance.intAttribute("base_health") * (1f + 0.1f * body)).toInt()

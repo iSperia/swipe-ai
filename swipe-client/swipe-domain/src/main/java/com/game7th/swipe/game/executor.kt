@@ -25,6 +25,12 @@ fun SbContext.meleeTarget(characterId: Int): List<Int> = game.character(characte
     }.maxByOrNull { it.maxHealth }?.id?.let { listOf(it) } ?: emptyList()
 } ?: emptyList()
 
+fun SbContext.rangedTarget(characterId: Int): List<Int> = game.character(characterId)?.let { character ->
+    game.characters.filter { c ->
+        c.team != character.team
+    }.minByOrNull { it.maxHealth }?.id?.let { listOf(it) } ?: emptyList()
+} ?: emptyList()
+
 fun SbContext.allEnemies(characterId: Int): List<Int> = game.character(characterId)?.let { character ->
     game.characters.filter { c ->
         c.team != character.team

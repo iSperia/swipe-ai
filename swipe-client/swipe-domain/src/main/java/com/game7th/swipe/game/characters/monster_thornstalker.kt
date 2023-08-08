@@ -22,7 +22,8 @@ fun provideThornstalkerAbilities(balance: JsonObject, attributes: CharacterAttri
     FrontMonsterAbility(
         title = SbText(en = "Primal Assault", ru = "Первобытная Атака"),
         skin = THORNSTALKER_PRIMAL_ASSAULT,
-        description = SbText(en = "Melee attack.\nDeals physical damage", ru = "Рукопашная атака\nНаносит физический урон"),
+        description = SbText(en = "The Thornstalker unleashes a raw and unbridled physical assault, employing its primal strength to deal straightforward melee damage to its target.",
+            ru = "Тернистый Охотник развязывает грубую и необузданную физическую атаку, используя свою первобытную силу, чтобы нанести своей цели прямой урон в ближнем бою."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Physical damage", ru = "Физический урон"),
@@ -33,8 +34,8 @@ fun provideThornstalkerAbilities(balance: JsonObject, attributes: CharacterAttri
     FrontMonsterAbility(
         title = SbText(en = "Venomous Barrage", ru = "Ядовитый залп"),
         skin = THORNSTALKER_VENOMOUS_BARRAGE,
-        description = SbText(en = "Melee attack\nInflicts poison on target (3 poison symbols are generated on target's field, after each swipe character is dealt dark damage while there is poison symbol on field)\n",
-            ru = "Рукопашная атака\nОтравляет цель (3 символа яда создаются на вражеском поле, после каждого хода персонаж получает урон тьмой, пока на поле есть хотя бы один символ яда)"),
+        description = SbText(en = "The Thornstalker releases a barrage of venom-infused projectiles, infecting the target with poisonous affliction. The venom spawns three toxic tiles, each inflicting dark damage upon the victim over time.",
+            ru = "Тернистый охотник выпускает шквал наполненных ядом снарядов, заражая цель ядовитой болезнью. Яд порождает три токсичных плитки, каждая из которых со временем наносит темный урон жертве."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Poison amount", ru = "Количество яда"),
@@ -45,7 +46,8 @@ fun provideThornstalkerAbilities(balance: JsonObject, attributes: CharacterAttri
     FrontMonsterAbility(
         title = SbText(en = "Resilient Growth", ru = "Устойчивый Рост"),
         skin = THORNSTALKER_RESILIENT_GROWTH,
-        description = SbText(en = "Heals the monster", ru = "Исцеляет монстра"),
+        description = SbText(en = "The Thornstalker taps into its affinity with the earth, invoking a profound rejuvenation that restores a substantial portion of its health, bolstering its ability to withstand combat.",
+            ru = "Тернистый Охотник использует свою близость к земле, вызывая глубокое омоложение, которое восстанавливает значительную часть его здоровья, укрепляя его способность противостоять бою."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Heal amount", ru = "Лечение"),

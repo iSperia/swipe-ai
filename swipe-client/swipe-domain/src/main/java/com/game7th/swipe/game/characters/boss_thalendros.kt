@@ -8,8 +8,8 @@ import com.google.gson.JsonObject
 
 private const val THALENDROS_THORN_WHIP = "THALENDROS_THORN_WHIP"
 private const val THALENDROS_EARTHQUAKE_SLAM = "THALENDROS_EARTHQUAKE_SLAM"
-private const val THALENDROS_DARK_AURA = "THALENDROS_DARK_AURA"
 private const val THALENDROS_CORRUPTED_ROOTS = "THALENDROS_CORRUPTED_ROOTS"
+private const val THALENDROS_DARK_AURA = "THALENDROS_DARK_AURA"
 private const val THALENDROS_DARK_TILE = "THALENDROS_DARK_TILE"
 
 private const val tw_base = "tw_base"
@@ -25,7 +25,8 @@ fun provideThalendrosAbilities(balance: JsonObject, attributes: CharacterAttribu
     FrontMonsterAbility(
         title = SbText(en = "Thorn Whip", ru = "Терновый Кнут"),
         skin = THALENDROS_THORN_WHIP,
-        description = SbText(en = "Melee attack\nDeals physical damage", ru = "Рукопашная атака\nНаносит физический урон"),
+        description = SbText(en = "Thalendros conjures thorny vines to lash out at the target, delivering a punishing physical strike that pierces through defenses, inflicting significant physical damage.",
+            ru = "Талендрос призывает колючие лозы, которые обрушиваются на цель, нанося карательный физический удар, который пробивает защиту и наносит значительный физический урон."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Physical damage", ru = "Физический урон"),
@@ -36,8 +37,8 @@ fun provideThalendrosAbilities(balance: JsonObject, attributes: CharacterAttribu
     FrontMonsterAbility(
         title = SbText(en = "Corrupted Roots", ru = "Оскверенные Корни"),
         skin = THALENDROS_EARTHQUAKE_SLAM,
-        description = SbText(en = "Random target attack\nGenerates corrupted roots symbols if there aren't any on field, else deals dark damage for each corrupted root on the field",
-            ru = "Атака по случайной цели\nЕсли на поле цели нет символов оскверненных корней, создает их; иначе наносит урон тьмой за каждый символ оскверненных корней на поле"),
+        description = SbText(en = "Unleashing a forceful quake, Thalendros plants corrupted roots across the target's field. When the corrupted roots intertwine, his next devastating earthquake slam deals amplified damage for each root present.",
+            ru = "Вызвав мощное землетрясение, Талендрос сажает оскверненные корни на поле цели. Когда испорченные корни переплетаются, его следующий разрушительный удар землетрясением наносит усиленный урон за каждый присутствующий корень."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Corrupted roots symbols amount", ru = "Количество символов оскверненных корней"),
@@ -52,8 +53,8 @@ fun provideThalendrosAbilities(balance: JsonObject, attributes: CharacterAttribu
     FrontMonsterAbility(
         title = SbText(en = "Dark Aura", ru = "Тёмная Аура"),
         skin = THALENDROS_DARK_AURA,
-        description = SbText(en = "Random target attack\nGenerates dark aura tiles on target's field\nWhen the skill is used on that tile, character is deald dark damage and dark aura tile is destroyed",
-            ru = "Атака по случайной цели\nНа поле цели создаются клетки тёмной ауры\nКогда навык срабатывает на такой клетке, персонажу наносится урон тьмой"),
+        description = SbText(en = "Thalendros summons an aura of darkness, imbuing the target's field with malevolent energy. Skills used over these corrupted tiles trigger dark energies, causing damage to the wielder with every action taken.",
+            ru = "Талендрос вызывает ауру тьмы, наполняя поле цели злобной энергией. Навыки, используемые над этими испорченными плитками, активируют темную энергию, нанося урон владельцу при каждом его действии."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Dark aura tiles generated", ru = "Количество клеток тёмной ауры"),
@@ -61,7 +62,7 @@ fun provideThalendrosAbilities(balance: JsonObject, attributes: CharacterAttribu
             ),
             FrontMonsterAbilityField(
                 title = SbText(en = "Dark damage", ru = "Урон тьмой"),
-                value = (balance.floatAttribute(da_base) * (1f + 0.01f * balance.intAttribute(da_base) * attributes.spirit)).toInt().toString()
+                value = (balance.floatAttribute(da_base) * (1f + 0.01f * balance.intAttribute(da_scale) * attributes.spirit)).toInt().toString()
             ),
         )
     ),

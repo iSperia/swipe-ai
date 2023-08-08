@@ -565,6 +565,7 @@ class BattleWindow(
             strokeWidth = 9f,
             cardTexture = event.tile.skin,
             polygonBatch = polygonSpriteBatch,
+            effects = event.tile.fgEffects,
             type = event.tile.type,
         )
         tile.name = event.tile.id.toString()

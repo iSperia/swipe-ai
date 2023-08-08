@@ -24,7 +24,8 @@ fun provideCorruptedDryadAbilities(balance: JsonObject, attributes: CharacterAtt
     FrontMonsterAbility(
         title = SbText(en = "Arboreal Fangs", ru = "Древесные Клыки"),
         skin = CORRUPTED_DRYAD_ARBOREAL_FANGS,
-        description = SbText(en = "Melee attack.\nDeals physical damage", ru = "Рукопашная атака\nНаносит физический урон"),
+        description = SbText(en = "The Corrupted Dryad lunges forward, striking with its menacing arboreal fangs to deliver a powerful melee blow that inflicts substantial physical damage.",
+            ru = "Оскверненная дриада бросается вперед, атакуя своими грозными древесными клыками и нанося мощный удар в ближнем бою, наносящий существенный физический урон."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Physical damage", ru = "Физический урон"),
@@ -35,7 +36,8 @@ fun provideCorruptedDryadAbilities(balance: JsonObject, attributes: CharacterAtt
     FrontMonsterAbility(
         title = SbText(en = "Vile Siphon", ru = "Жуткий Сифон"),
         skin = CORRUPTED_DRYAD_VILE_SIPHON,
-        description = SbText(en = "Melee attack.\nDeals physical damage\nHeals the monster", ru = "Рукопашная атака\nНаносит физический урон\nМонстр исцеляется"),
+        description = SbText(en = "The Corrupted Dryad's touch drains vitality from its target while delivering a physical attack, replenishing its own health as it inflicts damage upon its foe.",
+            ru = "Прикосновение Оскверненной Дриады высасывает жизненные силы из ее цели, нанося физическую атаку, восполняя свое собственное здоровье, когда она наносит урон противнику."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Physical damage", ru = "Физический урон"),
@@ -51,8 +53,8 @@ fun provideCorruptedDryadAbilities(balance: JsonObject, attributes: CharacterAtt
     FrontMonsterAbility(
         title = SbText(en = "Shadowed Annihilation", ru = "Теневое Уничтожение"),
         skin = CORRUPTED_DRYAD_SHADOWED_ANNIHILATION,
-        description = SbText(en = "For each enemy, random tiles on field are chosen. All skills at those tiles are destroyed, deals dark damage for each tile with no skill",
-            ru = "Для каждого врага, выбираются случайные клетки на поле. Все навыки на этих клетках уничтожены, наносит урон тьмой за каждую клетку без навыка."),
+        description = SbText(en = "The Corrupted Dryad invokes a shadowy onslaught that randomly selects tiles on the target's field. Should the chosen tile bear a skill symbol, it is obliterated, whereas barren tiles unleash a dark barrage, inflicting damage.",
+            ru = "Оскверненная дриада вызывает теневой натиск, который случайным образом выбирает плитки на поле цели. Если на выбранной плитке есть символ навыка, она уничтожается, тогда как бесплодные плитки выпускают темный шквал, нанося урон."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Dark damage, per tile", ru = "Урон тьмой, за клетку"),

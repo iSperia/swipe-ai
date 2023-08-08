@@ -128,7 +128,7 @@ data class CurrenciesMetadata(
     val currencies: List<CurrencyMetadata>
 )
 
-val DEBUG = false
+val DEBUG = true
 
 class ProfileServiceImpl(
     val levelService: LevelService,
@@ -161,8 +161,8 @@ class ProfileServiceImpl(
                     actProgress = listOf(
                         ActProgress(
                             SwipeAct.ACT_1,
-                            listOf("c1")
-                        )
+                            listOf("c1", "c2", "c3", "c4", "c5", "c6", "c7")
+                        ),
                     ),
                     rewardsCollected = emptyList(),
                     characters = listOf(

@@ -1,9 +1,13 @@
 package com.game7th.swipe.game
 
 object CommonKeys {
+
+    const val DURATION = "duration"
+
     object Generator {
         const val GENERATOR = "generator"
     }
+
     object Resist {
         const val PHYS = "resist.phys"
         const val DARK = "resist.dark"

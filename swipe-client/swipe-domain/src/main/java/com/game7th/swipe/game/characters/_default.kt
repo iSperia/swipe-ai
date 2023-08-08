@@ -28,6 +28,10 @@ fun provideDefaultTriggers(): Map<String, SbTrigger> = mapOf(
         }
     },
 
+    "common.stun" to { context, event ->
+        context.useOnComplete(event, "COMMON_STUN") { characterId, tileId, _ -> }
+    },
+
     /**Weakness*/
     "common.weakness" to { context, event ->
         context.triggerBackgroundLayerOnComplete(event, "COMMON_WEAKNESS") { characterId, tileId ->

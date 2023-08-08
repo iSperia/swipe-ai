@@ -35,6 +35,33 @@
       },
       "implicit": "COLD_RESIST_FLAT",
       "category": "GLOVES"
+    },
+    {
+      "skin": "SHADOWBANE_AMULET",
+      "name": {
+        "en": "Shadowbane Amulet",
+        "ru": "Теневая Погибель"
+      },
+      "implicit": "LIGHT_RESIST_FLAT",
+      "category": "AMULET"
+    },
+    {
+      "skin": "FLAMEHEART_BELT",
+      "name": {
+        "en": "Flameheart Belt",
+        "ru": "Пояс Огненного Сердца"
+      },
+      "implicit": "FIRE_RESIST_FLAT",
+      "category": "BELT"
+    },
+    {
+      "skin": "THEMPERSTRIDE_BOOTS",
+      "name": {
+        "en": "Themperstride Boots",
+        "ru": "Сапоги Буйного Шага"
+      },
+      "implicit": "SHOCK_RESIST_FLAT",
+      "category": "BOOTS"
     }
   ]
 }

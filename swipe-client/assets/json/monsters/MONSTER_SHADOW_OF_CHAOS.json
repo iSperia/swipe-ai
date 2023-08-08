@@ -9,37 +9,36 @@
     "ru": "Тёмные проявления, рождённые из разбитого Эфирного Кристалла, Тени Хаоса — существа чистой тьмы. Они обитают в глубинах Хрустальных пещер, привлеченные остаточной энергией. Их агрессия к Валериану проистекает из их желания поглотить его жизненную силу и использовать его сущность, чтобы укрепить себя"
   },
   "baseHealth": 250,
-  "attributes": {"mind":  25, "spirit":  25, "body":  50},
+  "attributes": {"mind":  30, "spirit":  50, "body":  20},
   "tiles": [
-    { "weight": 5, "skin": "THORNSTALKER_PRIMAL_ASSAULT", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
-    { "weight": 3, "skin": "THORNSTALKER_RESILIENT_GROWTH", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
-    { "weight": 3, "skin": "THORNSTALKER_VENOMOUS_BARRAGE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
+    { "weight": 5, "skin": "SHADOW_OF_CHAOS_ABYSSAL_REND", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+    { "weight": 3, "skin": "SHADOW_OF_CHAOS_EVASIVE_SHADOWS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
+    { "weight": 2, "skin": "THALENDROS_DARK_AURA", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
   ],
   "triggers": [
-    "thornstalker.primal_assault", "thornstalker.resilient_growth", "thornstalker.venomous_barrage", "common.poison"
+    "shadow_of_chaos.evasive_shadows", "shadow_of_chaos.dark_aura", "shadow_of_chaos.abyssal_rend"
   ],
   "balance": {
-    "base_health": 115,
-    "luck": 5,
+    "base_health": 100,
+    "luck": 10,
     "ult": 10,
     "ult_max": 1000,
     "resist": {
       "phys": 0,
-      "dark": 0,
-      "light": 0,
+      "dark": 0.50,
+      "light": -0.25,
       "shock": 0,
       "fire": 0,
       "cold": 0
     },
-    "af_base": 25,
-    "af_scale": 10,
-    "vs_dmg_base": 20,
-    "vs_dmg_scale": 10,
-    "vs_heal_base": 20,
-    "vs_heal_scale": 10,
-    "sa_base": 5,
-    "sa_scale": 10,
-    "sa_tiles": 5
+    "ar_base": 30,
+    "ar_scale": 10,
+    "es_res_base": 30,
+    "es_res_scale": 10,
+    "es_duration": 5,
+    "da_tiles": 3,
+    "da_base": 30,
+    "da_scale": 10
   },
   "scale": 0.8
 }

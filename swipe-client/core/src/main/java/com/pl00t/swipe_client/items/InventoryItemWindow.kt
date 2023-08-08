@@ -207,7 +207,7 @@ class InventoryItemWindow(
                     item = null
                 )
             ).apply {
-                if (balance <= 0) {
+                if (balances[i] - useCount[i] <= 0) {
                     alpha = 0.5f
                     touchable = Touchable.disabled
                 } else {

@@ -29,18 +29,20 @@ fun provideValerianAbilities(balance: JsonObject, attributes: CharacterAttribute
     FrontMonsterAbility(
         title = SbText(en = "Radiant Strike", ru = "Сияющий Удар"),
         skin = VALERIAN_RADIANT_STRIKE,
-        description = SbText(en = "Melee attack.\nDeals physical damage", ru = "Рукопашная атака\nНаносит физический урон"),
+        description = SbText(en = "Prince Valerian channels the brilliance of his sword to execute a melee strike that radiates pure energy, dealing focused physical damage to his target.",
+            ru = "Принц Валериан направляет сияние своего меча, чтобы нанести удар в ближнем бою, излучающий чистую энергию, нанося целенаправленный физический урон своей цели."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Physical damage", ru = "Физический урон"),
-                value = (balance.floatAttribute(RS_BASE) * (1f + 0.01f * balance.intAttribute(RS_SCALE) * attributes.body)).toInt().toString()
+                value = (balance.floatAttribute(RS_BASE) * (1f + 0.01f * balance.floatAttribute(RS_SCALE) * attributes.body)).toInt().toString()
             ),
         )
     ),
     FrontMonsterAbility(
         title = SbText(en = "Luminous Beam", ru = "Светящийся Луч"),
         skin = VALERIAN_LUMINOUS_BEAM,
-        description = SbText(en = "Massive attack.\nDeals light damage", ru = "Массивная атака\nНаносит урон светом"),
+        description = SbText(en = "Prince Valerian summons a luminous beam of divine light that cascades upon all adversaries, inflicting substantial damage through its radiant power.",
+            ru = "Принц Валериан призывает сияющий луч божественного света, который каскадом обрушивается на всех противников, нанося существенный урон своей сияющей силой."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Light damage", ru = "Урон светом"),
@@ -51,7 +53,8 @@ fun provideValerianAbilities(balance: JsonObject, attributes: CharacterAttribute
     FrontMonsterAbility(
         title = SbText(en = "Sigils of Renewal", ru = "Печати Обновления"),
         skin = VALERIAN_SIGIL_OF_RENEWAL,
-        description = SbText(en = "Generates sigils on field\nWhen a skill is triggered on a sigil, personage is healed", ru = "Генерирует печати восстановления на поле\nКогда навык срабатывает на печати, персонаж исцеляется"),
+        description = SbText(en = "Prince Valerian invokes sigils of renewal onto the battlefield, generating tiles that bear restorative energy. When skills are cast upon these tiles, they trigger healing for the prince.",
+            ru = "Принц Валериан призывает символы обновления на поле боя, создавая плитки, несущие восстанавливающую энергию. Когда на эти плитки накладываются умения, они вызывают исцеление принца."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Number of sigils generated", ru = "Количество созданных печатей"),
@@ -66,7 +69,8 @@ fun provideValerianAbilities(balance: JsonObject, attributes: CharacterAttribute
     FrontMonsterAbility(
         title = SbText(en = "Divine Convergence", ru = "Священная Конвергенция"),
         skin = VALERIAN_DIVINE_CONVERGENCE,
-        description = SbText(en = "Ultimate ability\n\nConsumes all sigils from field\nFor each sigil consumed heals the character\nFor each sigil consumed deals massive light damage", ru = "Ультимативная способность\n\nПоглощает все печати на поле\nЗа каждую печать персонаж исцеляется\nЗа каждую печать наносит массивный урон светом"),
+        description = SbText(en = "Ultimate\n\nPrince Valerian reaches the pinnacle of his power, fusing all accumulated sigils into a divine convergence. This ultimate ability unleashes a torrent of luminous energy, dealing colossal light damage to all enemies while granting the prince substantial healing for each sigil expended.",
+            ru = "Ультимативная способность\n\nПринц Валериан достигает вершины своего могущества, объединяя все накопленные символы в божественное слияние. Эта высшая способность высвобождает поток светящейся энергии, нанося колоссальный световой урон всем врагам и давая принцу существенное исцеление за каждый израсходованный символ."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Light damage per sigil", ru = "Урон светом от одной печати"),

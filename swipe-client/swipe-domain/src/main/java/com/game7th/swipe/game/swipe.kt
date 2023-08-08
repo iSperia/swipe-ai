@@ -143,6 +143,18 @@ fun SbContext.swipe(characterId: Int, dx: Int, dy: Int) {
             game = game.withUpdatedCharacter(character)
         }
     }
+    val timeEffectsUpdated = character.effects.mapNotNull { effect ->
+        if (effect.data.containsKey(CommonKeys.DURATION)) {
+            val newDuration = (effect.data[CommonKeys.DURATION]!! as Int) - 1
+            if (newDuration <= 0) null else {
+                effect.copy(data = effect.data.toMutableMap().apply { this[CommonKeys.DURATION] = newDuration })
+            }
+        } else {
+            effect
+        }
+    }
+    character = character.copy(effects = timeEffectsUpdated)
+
     game = game.withUpdatedCharacter(character)
 
     generateTiles(character.id, 1)

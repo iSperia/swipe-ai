@@ -23,6 +23,7 @@ class TileActor(
     private val strokeWidth: Float,
     private val cardTexture: String,
     private val polygonBatch: PolygonSpriteBatch,
+    private val effects: List<String>,
     val type: SbDisplayTileType,
 ) : Group() {
 
@@ -52,6 +53,13 @@ class TileActor(
                 skillImage = generateBackground()
                 addActor(skillImage)
             }
+        }
+
+        effects.forEach { skin ->
+            val effect = r.image(Resources.skills_atlas, skin).apply {
+                setSize(size, size)
+            }
+            addActor(effect)
         }
 
     }

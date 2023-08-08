@@ -106,6 +106,12 @@ data class SbTile(
         z = z,
         progress = progress,
         maxProgress = maxProgress,
+        fgEffects = effects.mapNotNull {
+            when (it.skin) {
+                SbEffect.FREEZE -> "tile_effect_freeze"
+                else -> null
+            }
+        }
     )
 
     companion object {
@@ -120,6 +126,10 @@ data class SbEffect(
     val data: Map<String, Any>
 ) {
     fun withProperty(key: String, value: Any) = copy(data = data + (key to value))
+
+    companion object {
+        const val FREEZE = "effect_freeze"
+    }
 }
 
 data class SbDisplayCharacter(
@@ -202,6 +212,7 @@ data class SbDisplayTile(
     val x: Int,
     val y: Int,
     val z: Int,
+    val fgEffects: List<String>
 )
 
 sealed interface SbBattleFieldDisplayEffect {

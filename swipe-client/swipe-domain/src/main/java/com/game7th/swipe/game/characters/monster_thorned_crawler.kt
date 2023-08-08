@@ -26,7 +26,8 @@ fun provideThornedCrawlerAbilities(balance: JsonObject, attributes: CharacterAtt
     FrontMonsterAbility(
         title = SbText(en = "Vicious Pincers", ru = "Злобные клешни"),
         skin = THORNED_CRAWLER_VICIOUS_PINCERS,
-        description = SbText(en = "Melee attack.\nDeals physical and dark damage", ru = "Рукопашная атака\nНаносит физический урон и урон тьмой"),
+        description = SbText(en = "The Thorned Crawler deploys its cruel pincers, delivering a relentless melee attack that combines physical and dark damage, rendering its victims doubly vulnerable.",
+            ru = "Шипастый ползун использует свои жестокие клешни, нанося безжалостную рукопашную атаку, сочетающую физический и темный урон, делая своих жертв вдвойне уязвимыми."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Physical damage", ru = "Физический урон"),
@@ -41,7 +42,8 @@ fun provideThornedCrawlerAbilities(balance: JsonObject, attributes: CharacterAtt
     FrontMonsterAbility(
         title = SbText(en = "Leeching Shadows", ru = "Вытягивающие тени"),
         skin = THORNED_CRAWLER_LEECHING_SHADOWS,
-        description = SbText(en = "Melee attack\nDeals dark damage\nHeals the monster", ru = "Рукопашная атака\nНаносит урон тьмой\nИсцеляет монстра"),
+        description = SbText(en = "The Thorned Crawler's touch draws upon shadowy energies, inflicting dark damage upon its target while simultaneously restoring its own vitality through a vampiric effect.",
+            ru = "Прикосновение Шипастого Ползуна притягивает теневые энергии, нанося темные повреждения своей цели и одновременно восстанавливая собственные жизненные силы за счет вампирического эффекта."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Dark damage", ru = "Урон тьмой"),
@@ -56,8 +58,8 @@ fun provideThornedCrawlerAbilities(balance: JsonObject, attributes: CharacterAtt
     FrontMonsterAbility(
         title = SbText(en = "Debiliating Strike", ru = "Ослабляющий Удар"),
         skin = THORNED_CRAWLER_DEBILIATING_STRIKE,
-        description = SbText(en = "Melee attack.\nDeals physical damage\nGenerates weakness tiles on attacked character's field. Each weakness tile reduces the damage of that character by 2.5%\nWeakness tile is destroyed when the skill is used on it",
-            ru = "Рукопашная атака\nНаносит физический урон\nСоздает на поле у цели клетки слабости. Каждая клетка слабости уменьшает урон персонажа на 2.5%.\nКлетка слабости исчезает, если на ней срабатывает навык"),
+        description = SbText(en = "The Thorned Crawler's cunning strike not only inflicts physical damage but also generates weakness tiles upon its target's field. These tiles diminish the target's strength for each present, only disappearing with actions taken by the victim.",
+            ru = "Хитрый удар Шипастого Ползуна не только наносит физический урон, но и создает плитки слабости на поле его цели. Эти плитки уменьшают силу цели за каждую такую плитку и исчезают только при действиях жертвы."),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Physical damage", ru = "Физический урон"),

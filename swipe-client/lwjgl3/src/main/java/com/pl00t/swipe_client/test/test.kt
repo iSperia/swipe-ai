@@ -1,7 +1,10 @@
 package com.pl00t.swipe_client.test
 
+import com.game7th.items.ItemAffix
+import com.game7th.items.ItemAffixType
 import com.game7th.swipe.game.SbMonsterConfiguration
 import com.game7th.swipe.game.*
+import com.game7th.swipe.game.characters.provideValerianAbilities
 import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.Gson
 import com.pl00t.swipe_client.services.MonsterServiceImpl
@@ -9,10 +12,12 @@ import com.pl00t.swipe_client.services.files.FileService
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import kotlinx.coroutines.*
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 import java.io.File
+import java.lang.IllegalArgumentException
 import kotlin.random.Random
 
 data class ProgressionEntry(
@@ -37,6 +42,79 @@ data class TestResult(
 )
 
 private const val ITERATIONS = 1000
+
+private suspend fun createCharacter(monsterService: MonsterService, attributes: CharacterAttributes, skin: String): FrontMonsterConfiguration {
+        val configFile = monsterService.getMonster(skin) ?: throw IllegalArgumentException("Did not find $skin monster")
+
+
+
+//        val affixes = profile.items.filter { it.equippedBy == character.skin }.flatMap { it.affixes + it.implicit }
+        val affixes = emptyList<ItemAffix>()
+        val hpPercent = affixes.sumOf { if (it.affix == ItemAffixType.PERCENT_HP) it.value.toDouble() else 0.0 }.toFloat()
+        val hpFlat = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_HP) it.value.toDouble() else 0.0 }.toFloat()
+        val dmgPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val dmgCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val dmgFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val dmgDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val dmgLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val dmgShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val resPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val resCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val resFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val resDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val resLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val resShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+        val attrBody = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_BODY) it.value.toDouble() else 0.0 }.toInt()
+        val attrSpirit = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_SPIRIT) it.value.toDouble() else 0.0 }.toInt()
+        val attrMind = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_MIND) it.value.toDouble() else 0.0 }.toInt()
+
+        val attributes = attributes.copy(
+            body = attributes.body + attrBody,
+            spirit = attributes.spirit + attrSpirit,
+            mind = attributes.mind + attrMind,
+        )
+
+        val abilities = when (skin) {
+            MonsterService.CHARACTER_VALERIAN -> provideValerianAbilities(configFile.balance, attributes)
+
+            else -> throw IllegalArgumentException("Can't create monster $skin")
+        }
+
+        val health = (hpFlat + configFile.balance.intAttribute("base_health") * (1f + 0.01f * hpPercent + 0.1f * attributes.body)).toInt()
+        val ult = (configFile.balance.intAttribute("ult") * (1f + 0.05f * attributes.mind)).toInt()
+        val luck = (configFile.balance.intAttribute("luck") * (1f + 0.1f * attributes.spirit))
+
+        return FrontMonsterConfiguration(
+            skin = skin,
+            name = configFile.name,
+            level = SwipeCharacter.getLevel(1),
+            attributes = attributes,
+            resist = configFile.balance.getAsJsonObject("resist").let { r ->
+                SbElemental(
+                    phys = r.floatAttribute("phys") + resPhys,
+                    dark = r.floatAttribute("dark") + resDark,
+                    light = r.floatAttribute("light") + resLight,
+                    shock = r.floatAttribute("shock") + resShock,
+                    fire = r.floatAttribute("fire") + resFire,
+                    cold = r.floatAttribute("cold") + resCold,
+                )
+            },
+            damage = SbElemental(
+                phys = dmgPhys,
+                dark = dmgDark,
+                light = dmgLight,
+                shock = dmgShock,
+                fire = dmgFire,
+                cold = dmgCold
+            ),
+            abilities = abilities,
+            lore = configFile.lore,
+            health = health,
+            luck = luck,
+            ult = ult,
+            ultMax = configFile.balance.intAttribute("ult_max")
+        )
+}
 
 suspend fun testLevel(
     levelService: LevelService,
@@ -73,8 +151,8 @@ suspend fun testLevel(
             },
             triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
         ).apply {
-//            initHumans(listOf(SbHumanEntry(progression.characterSkin, progression.characterLevel, progression.characterAttributes, emptyList())))
-//            initWave(levelModel.monsters?.get(0)!!)
+            initHumans(listOf(createCharacter(monsterService, progression.characterAttributes, progression.characterSkin)))
+            initWave(levelModel.monsters?.get(0)!!.map { monsterService.createMonster(it.skin, it.level) })
         }
 
         var victory = -1
@@ -106,7 +184,7 @@ suspend fun testLevel(
                     val wavesTotal = waves.size
                     if (context.game.wave < wavesTotal - 1) {
                         context.game = context.game.copy(wave = context.game.wave + 1)
-//                        context.initWave(waves[context.game.wave])
+                        context.initWave(waves[context.game.wave]!!.map { monsterService.createMonster(it.skin, it.level) })
                     } else {
                         victory = 0
                     }
