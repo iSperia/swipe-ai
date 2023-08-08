@@ -348,6 +348,30 @@
           "skin": "FROSTGUARD_GAUNTLETS",
           "rarity": 1
         }
+      ],
+      "tiers": [
+        {
+          "monster_pool": [
+            {"skin": "MONSTER_THALENDROS", "level": 5, "weight": 30}
+          ],
+          "rewards": [
+            {"type": "currency", "currency": {"type": "SCROLL_OF_WISDOM", "amount": 1}, "rarity": 0, "weight": 80},
+            {"type": "currency", "currency": {"type": "TOME_OF_ENLIGHTMENT", "amount": 1}, "rarity": 1, "weight": 20},
+            {"type": "currency", "currency": {"type": "INFUSION_ORB", "amount": 1}, "rarity": 0, "weight": 80},
+            {"type": "currency", "currency": {"type": "INFUSION_SHARD", "amount": 1}, "rarity": 1, "weight": 20}
+          ]
+        },
+        {
+          "monster_pool": [
+            {"skin": "MONSTER_THALENDROS", "level": 10, "weight": 30}
+          ],
+          "rewards": [
+            {"type": "currency", "currency": {"type": "TOME_OF_ENLIGHTMENT", "amount": 1}, "rarity": 1, "weight": 80},
+            {"type": "currency", "currency": {"type": "CODEX_OF_ASCENDANCY", "amount": 1}, "rarity": 2, "weight": 20},
+            {"type": "currency", "currency": {"type": "INFUSION_SHARD", "amount": 1}, "rarity": 1, "weight": 80},
+            {"type": "currency", "currency": {"type": "INFUSION_CRYSTAL", "amount": 1}, "rarity": 2, "weight": 20}
+          ]
+        }
       ]
     },
     {

@@ -69,6 +69,7 @@ interface ProfileService {
     suspend fun previewDust(id: String): List<CurrencyBalance>
     suspend fun dustItem(id: String)
     suspend fun getRaidDetails(act: SwipeAct, level: String): FrontRaidModel
+    suspend fun getBossDetails(act: SwipeAct, level: String): FrontBossModel
 
 
     data class DustItemResult(
@@ -85,7 +86,7 @@ data class FrontItemEntryModel(
     val currency: SwipeCurrency?,
     val item: InventoryItem?,
 ) {
-    fun getText(r: R) = if (level > 0) "${UiTexts.LvlShortPrefix.value(r.l)}$level" else amount.toString()
+    fun getText(r: R) = if (level > 0) "${UiTexts.LvlShortPrefix.value(r.l)}$level" else if (amount > 1) amount.toString() else ""
 }
 
 data class SbMysteryItem(
@@ -127,6 +128,8 @@ data class CurrenciesMetadata(
     val currencies: List<CurrencyMetadata>
 )
 
+val DEBUG = false
+
 class ProfileServiceImpl(
     val levelService: LevelService,
     val monsterService: MonsterService,
@@ -148,49 +151,74 @@ class ProfileServiceImpl(
             val text = handle.readString()
             gson.fromJson(text, SwipeProfile::class.java)
         } else {
-            SwipeProfile(
-                balances = listOf(CurrencyBalance(SwipeCurrency.TOME_OF_ENLIGHTMENT, 10), CurrencyBalance(SwipeCurrency.SCROLL_OF_WISDOM, 100),
-                    CurrencyBalance(SwipeCurrency.GRIMOIRE_OF_OMNISCENCE, 100), CurrencyBalance(SwipeCurrency.INFUSION_ORB, 100),
-                    CurrencyBalance(SwipeCurrency.INFUSION_SHARD, 100), CurrencyBalance(SwipeCurrency.INFUSION_CRYSTAL, 100),
-                    CurrencyBalance(SwipeCurrency.ASCENDANT_ESSENCE, 100), CurrencyBalance(SwipeCurrency.ETHERIUM_COIN, 1400)
-                ),
-                actProgress = listOf(
-                    ActProgress(
-                        SwipeAct.ACT_1,
-                        listOf("c1")
-                    )
-                ),
-                rewardsCollected = emptyList(),
-                characters = listOf(
-                    SwipeCharacter(
-                        skin = "CHARACTER_VALERIAN",
-                        attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
-                        experience = 0,
-                    )
-                ),
-                items = runBlocking {
-                    listOf(
-                        generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)).copy(equippedBy = "CHARACTER_VALERIAN"),
-                        generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
-                        generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
-                        generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
-                        generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)).copy(equippedBy = "CHARACTER_VALERIAN"),
-                        generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
-                        generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
-                        generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
-                        generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
-                        generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
-                        generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
-                        generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
-                        generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
-                        generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
-                        generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
-                        generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
-                    )
-                },
-                tiersUnlocked = emptyList(),
-                mysteryShop = null
-            )
+            if (DEBUG) {
+                SwipeProfile(
+                    balances = listOf(CurrencyBalance(SwipeCurrency.TOME_OF_ENLIGHTMENT, 10), CurrencyBalance(SwipeCurrency.SCROLL_OF_WISDOM, 100),
+                        CurrencyBalance(SwipeCurrency.GRIMOIRE_OF_OMNISCENCE, 100), CurrencyBalance(SwipeCurrency.INFUSION_ORB, 100),
+                        CurrencyBalance(SwipeCurrency.INFUSION_SHARD, 100), CurrencyBalance(SwipeCurrency.INFUSION_CRYSTAL, 100),
+                        CurrencyBalance(SwipeCurrency.ASCENDANT_ESSENCE, 100), CurrencyBalance(SwipeCurrency.ETHERIUM_COIN, 1400)
+                    ),
+                    actProgress = listOf(
+                        ActProgress(
+                            SwipeAct.ACT_1,
+                            listOf("c1")
+                        )
+                    ),
+                    rewardsCollected = emptyList(),
+                    characters = listOf(
+                        SwipeCharacter(
+                            skin = "CHARACTER_VALERIAN",
+                            attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                            experience = 0,
+                        )
+                    ),
+                    items = runBlocking {
+                        listOf(
+                            generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)).copy(equippedBy = "CHARACTER_VALERIAN"),
+                            generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
+                            generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
+                            generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
+                            generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)).copy(equippedBy = "CHARACTER_VALERIAN"),
+                            generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
+                            generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
+                            generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
+                            generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                            generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                            generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                            generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                            generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                            generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
+                            generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
+                            generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
+                        )
+                    },
+                    tiersUnlocked = emptyList(),
+                    mysteryShop = null
+                )
+            } else {
+                SwipeProfile(
+                    balances = listOf(
+                        CurrencyBalance(SwipeCurrency.ETHERIUM_COIN, 1000)
+                    ),
+                    actProgress = listOf(
+                        ActProgress(
+                            SwipeAct.ACT_1,
+                            listOf("c1")
+                        )
+                    ),
+                    rewardsCollected = emptyList(),
+                    characters = listOf(
+                        SwipeCharacter(
+                            skin = "CHARACTER_VALERIAN",
+                            attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                            experience = 0,
+                        )
+                    ),
+                    items = emptyList(),
+                    tiersUnlocked = emptyList(),
+                    mysteryShop = null
+                )
+            }
         }
     }
 
@@ -589,6 +617,10 @@ class ProfileServiceImpl(
 
     override suspend fun getRaidDetails(act: SwipeAct, level: String): FrontRaidModel {
         return levelService.getRaidDetails(act, level)
+    }
+
+    override suspend fun getBossDetails(act: SwipeAct, level: String): FrontBossModel {
+        return levelService.getBossDetails(act, level)
     }
 
     override suspend fun generateItem(skin: String, rarity: Int): InventoryItem {

@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.battle
 
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.Group
@@ -51,6 +52,8 @@ class BattleWindow(
     private var rightUnitsCount = 0
     private var tilesDirty = false
 
+    lateinit var music: Music
+
     private val tileSize = 80f
     val locationHeight = r.height - 510f
     val characterWidth = 160f
@@ -68,6 +71,7 @@ class BattleWindow(
             decorations = r.battleService.getDecorations()
             r.loadAtlas(R.battle_atlas)
             r.loadAtlas(R.skills_atlas)
+            r.loadMusic(decorations.music)
             SbSoundType.values().forEach {
                 r.loadSound("sfx/$it.ogg")
             }
@@ -86,6 +90,10 @@ class BattleWindow(
         popupsGroup = Group()
         locationGroup.y = 510f
         popupsGroup.y = tarotEffectsGroup.y
+
+        music = r.music(decorations.music)
+        music.isLooping = true
+        music.play()
 
         KtxAsync.launch {
 
@@ -614,6 +622,7 @@ class BattleWindow(
 
     fun dispose(result: BattleResult) {
         hideBattleScreen(result)
+        music.stop()
         r.inputMultiplexer.removeProcessor(gestureDetector)
     }
 

@@ -101,22 +101,13 @@ class BattleServiceImpl(
                     }
                 }
             }
-        } else if (levelModel.type == LevelType.BOSS) {
-            //it is a boss!
-            val monsterSkins = levelModel.monsters?.flatMap { it }?.map { it.skin } ?: emptyList()
-            val monsterConfigs = monsterSkins.mapNotNull { monsterService.getMonster(it) }
-            monsterConfigs.forEach {
-                monsterService.loadTriggers(it.skin)
-                triggers.addAll(it.triggers)
-            }
-            waves = emptyList()
-        } else if (levelModel.type == LevelType.RAID && levelModel.tiers != null) {
-            val totalWaves = if (Random.nextInt(20) < tier + 1) 4 else 3
+        } else if ((levelModel.type == LevelType.BOSS || levelModel.type == LevelType.RAID) && levelModel.tiers != null) {
+            val totalWaves = if (levelModel.type == LevelType.BOSS) 1 else if (Random.nextInt(20) < tier + 1) 4 else 3
             val totalWeight = levelModel.tiers[tier].monster_pool.sumOf { it.weight }
 
             val waves = mutableListOf<List<FrontMonsterConfiguration>>()
             (0 until totalWaves).forEach { waveIndex ->
-                val waveMonsters = if (Random.nextFloat() < 0.25f) 2 else 3
+                val waveMonsters = if (levelModel.type == LevelType.BOSS) 1 else if (Random.nextFloat() < 0.25f) 2 else 3
                 val monsters = mutableListOf<FrontMonsterConfiguration>()
                 (0 until waveMonsters).forEach { monsterIndex ->
                     val roll = Random.nextInt(totalWeight)
@@ -140,6 +131,7 @@ class BattleServiceImpl(
         }
 
         experienceIfWin = waves.flatMap { it }.sumOf { it.level * 10 }
+        if (levelModel.type == LevelType.BOSS) experienceIfWin *= 5
 
         context = SbContext(
             game = game,
@@ -210,7 +202,7 @@ class BattleServiceImpl(
                     tier = tier,
                     exp = ExperienceResult(monster.skin, monster.name, experienceIfWin),
                     freeRewards = freeRewards,
-                    extraRewardsCost = experienceIfWin * 6))
+                    extraRewardsCost = if (tier == -1) 0 else experienceIfWin * 6))
                 profileService.markActComplete(actId, level)
                 if (tier >= 0) {
                     profileService.unlockTier(actId, level, tier + 1)

@@ -124,7 +124,8 @@ class MapWindow(
             val iconX = level.x * mapScale
             val iconY = level.y * mapScale
 
-            val levelActor = MapLevelActor(r, level).apply {
+            val isBoss = level.type == LevelType.BOSS && !r.profileService.isFreeRewardAvailable(act, level.locationId)
+            val levelActor = MapLevelActor(r, level.copy(type = if (isBoss) LevelType.BOSS else LevelType.CAMPAIGN)).apply {
                 setSize(iconSize, iconSize)
                 x = iconX - iconSize / 2f
                 y = iconY - iconSize / 2f

@@ -92,6 +92,19 @@ class LevelServiceImpl(
         )
     }
 
+    override suspend fun getBossDetails(act: SwipeAct, level: String): FrontBossModel {
+        val actModel = getAct(act)
+        val l = actModel.levels.firstOrNull { it.type == LevelType.BOSS && it.id == level } ?: throw IllegalArgumentException("$act invalid act")
+        return FrontBossModel(
+            act = act,
+            locationId = l.id,
+            locationBackground = l.background,
+            locationTitle = l.title,
+            tiers = l.tiers!!,
+            bossSkin = l.monsters!!.first().first().skin
+        )
+    }
+
     override suspend fun getFreeReward(act: SwipeAct, level: String): List<LevelReward> {
         val level = getAct(act).levels.firstOrNull { it.id == level } ?: return emptyList()
         val freeRewards = level.freeReward ?: emptyList()

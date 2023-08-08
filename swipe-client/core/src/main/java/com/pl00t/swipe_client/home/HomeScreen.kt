@@ -10,6 +10,7 @@ import com.pl00t.swipe_client.heroes.HeroDetailWindow
 import com.pl00t.swipe_client.heroes.HeroListWindow
 import com.pl00t.swipe_client.items.InventoryItemWindow
 import com.pl00t.swipe_client.items.InventoryWindow
+import com.pl00t.swipe_client.map.BossWindow
 import com.pl00t.swipe_client.map.CampaignLevelWindow
 import com.pl00t.swipe_client.map.MapWindow
 import com.pl00t.swipe_client.map.RaidWindow
@@ -60,7 +61,7 @@ class HomeScreen(
             KtxAsync.launch {
                 r.profileService.getAct(actId).levels.firstOrNull { it.locationId == locationId }?.let { levelModel ->
                     if (levelModel.enabled) {
-                        if (levelModel.type == LevelType.CAMPAIGN || levelModel.type == LevelType.BOSS && r.profileService.isFreeRewardAvailable(actId, levelModel.locationId)) {
+                        if (levelModel.type == LevelType.CAMPAIGN || (levelModel.type == LevelType.BOSS && r.profileService.isFreeRewardAvailable(actId, levelModel.locationId))) {
                             val window = CampaignLevelWindow(
                                 r = r,
                                 model = levelModel,
@@ -100,6 +101,26 @@ class HomeScreen(
                             stack.showScreen(window)
                         } else if (levelModel.type == LevelType.RAID) {
                             val window = RaidWindow(
+                                r = r,
+                                act = actId,
+                                level = levelModel.locationId,
+                                onClose = { stack.moveBack() },
+                                onLaunch = {
+                                    stack.showScreen(BattleWindow(r, { result ->
+                                        stack.moveBack()
+                                        stack.showScreen(BattleResultDialog(r, result, onClose = { stack.moveBack() },
+                                            onItemClick = {
+                                                stack.showScreen(InventoryItemWindow(r = r, id = it, onClose = { stack.moveBack() }))
+                                            }))
+                                    }))
+                                },
+                                onMonsterClicked = { config ->
+                                    stack.showScreen(MonsterDetailWindow(r, config, onClose = { stack.moveBack() }))
+                                }
+                            )
+                            stack.showScreen(window)
+                        } else if (levelModel.type == LevelType.BOSS) {
+                            val window = BossWindow(
                                 r = r,
                                 act = actId,
                                 level = levelModel.locationId,

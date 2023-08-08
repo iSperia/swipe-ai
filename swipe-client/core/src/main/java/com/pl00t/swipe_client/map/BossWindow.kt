@@ -13,9 +13,7 @@ import com.game7th.swipe.game.FrontMonsterConfiguration
 import com.pl00t.swipe_client.R
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
-import com.pl00t.swipe_client.monster.MonsterShortDetailsCell
-import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
-import com.pl00t.swipe_client.services.levels.FrontRaidModel
+import com.pl00t.swipe_client.services.levels.FrontBossModel
 import com.pl00t.swipe_client.services.levels.LevelRewardType
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeAct
@@ -25,7 +23,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 import kotlin.math.max
 
-class RaidWindow(
+class BossWindow(
     private val r: R,
     private val act: SwipeAct,
     private val level: String,
@@ -34,7 +32,7 @@ class RaidWindow(
     private val onLaunch: (Int) -> Unit
 ) : Group() {
 
-    lateinit var model: FrontRaidModel
+    lateinit var model: FrontBossModel
 
     private val content: Table = Table().apply {
         width = 480f
@@ -63,7 +61,7 @@ class RaidWindow(
         KtxAsync.launch {
             content.clearChildren()
 
-            model = r.profileService.getRaidDetails(act, level)
+            model = r.profileService.getBossDetails(act, level)
             addTitle()
             addBottomPanel()
 
@@ -149,33 +147,6 @@ class RaidWindow(
             tableRewards.add().growX()
             content.add(tableRewards).row()
 
-            content.add(r.labelFocusedCaption(UiTexts.RaidPossibleMonsters.value(r.l)).apply {
-                width = 480f
-                setAlignment(Align.center)
-            }).width(480f).align(Align.center).padTop(5f).padBottom(5f).row()
-            val tableMonsters = Table()
-
-            model.tiers[tier].monster_pool.forEachIndexed { i, entry ->
-                val meta = r.monsterService.getMonster(entry.skin)!!
-                val actor = MonsterShortDetailsCell(r, FrontMonsterEntryModel(
-                    skin = entry.skin,
-                    name = meta.name,
-                    level = entry.level
-                ))
-                actor.onClick {
-                    KtxAsync.launch {
-                        val monster = r.monsterService.createMonster(meta.skin, entry.level)
-                        onMonsterClicked(monster)
-                    }
-                }
-                tableMonsters.add(actor).size(150f, 310f)
-                if (i % 3 == 2) tableMonsters.row()
-            }
-            tableMonsters.add().growX().row()
-            content.add(tableMonsters).row()
-
-
-
             content.row()
             content.add().growY()
         }
@@ -213,6 +184,9 @@ class RaidWindow(
     }
 
     private fun addLocationImage() {
+        val layers = Group().apply {
+            setSize(480f, 240f)
+        }
         val drawable = r.atlas(R.actAtlas(model.act)).findRegion(model.locationBackground).let {
             val x1 = it.u
             val x2 = it.u2
@@ -221,13 +195,35 @@ class RaidWindow(
             val d = y2 - y1
             TextureRegionDrawable(TextureRegion(it.texture, x1, y1 + d * 0.25f, x2, y1 + d * 0.75f))
         }
+        val unitDrawable = r.atlas(R.units_atlas).findRegion(model.bossSkin).let {
+            val x1 = it.u
+            val x2 = it.u2
+            val y1 = it.v
+            val y2 = it.v2
+            val d = y1 - y2
+            TextureRegionDrawable(TextureRegion(it.texture, x1, y1, x2, y2 + d * 0.5f))
+        }
         val image = Image(drawable).apply {
             width = 480f
             height = 240f
             setScaling(Scaling.stretch)
         }
+        val unitImage = Image(unitDrawable).apply {
+            width = 240f
+            height = 240f
+            setScaling(Scaling.stretch)
+            setPosition(0f, 0f)
+        }
+        unitImage.onClick {
+            KtxAsync.launch {
+                val meta = r.monsterService.createMonster(model.tiers[tier].monster_pool.first().skin, model.tiers[tier].monster_pool.first().level)
+                onMonsterClicked(meta)
+            }
+        }
+        layers.addActor(image)
+        layers.addActor(unitImage)
         content.add(r.image(R.ux_atlas, "background_black").apply { setSize(480f, 1f)}).size(480f, 1f).row()
-        content.add(image).size(480f, 240f).row()
+        content.add(layers).size(480f, 240f).row()
         content.add(r.image(R.ux_atlas, "background_black").apply { setSize(480f, 1f) }).size(480f, 1f).row()
     }
 

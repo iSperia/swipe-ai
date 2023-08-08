@@ -3,6 +3,7 @@ package com.pl00t.swipe_client
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.audio.Sound
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -45,7 +46,11 @@ class R {
     }
 
     fun loadMusic(name: String) {
-        assetManager.load(AssetDescriptor(name, TextureAtlas::class.java))
+        assetManager.load(AssetDescriptor("music/$name.ogg", Music::class.java))
+    }
+
+    fun music(name: String): Music {
+        return assetManager.get("music/$name.ogg")
     }
 
     fun loadSkin(name: String) {

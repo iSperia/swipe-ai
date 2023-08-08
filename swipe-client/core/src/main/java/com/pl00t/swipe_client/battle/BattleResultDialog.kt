@@ -87,7 +87,7 @@ class BattleResultDialog(
                 collectReward.touchable = Touchable.disabled
                 collectReward.alpha = 0.5f
             }
-            val actions = listOf<ActionCompositeButton>(collectReward)
+            val actions = if (result.extraRewardsCost > 0) listOf(collectReward) else emptyList()
             bottomPanel = BottomActionPanel(r, actions, if (result.victory) 4 else 0)
             addActor(bottomPanel)
         }
