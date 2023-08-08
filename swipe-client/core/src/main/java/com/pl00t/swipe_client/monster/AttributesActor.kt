@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.game7th.swipe.game.FrontMonsterConfiguration
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.ItemCellActor
@@ -15,7 +15,7 @@ import com.pl00t.swipe_client.ux.LevelProgressActor
 import ktx.actors.alpha
 
 abstract class AttributesActor(
-    protected val r: R,
+    protected val r: Resources,
     protected var model: FrontMonsterConfiguration,
 ) : Group() {
 
@@ -55,23 +55,23 @@ abstract class AttributesActor(
     init {
         setSize(r.width, r.height - 190f)
 
-        val shadow = r.image(R.ux_atlas, "background_transparent50").apply {
+        val shadow = r.image(Resources.ux_atlas, "background_transparent50").apply {
             setSize(480f, getTableHeight())
         }
-        val line = r.image(R.ux_atlas, "background_white").apply {
+        val line = r.image(Resources.ux_atlas, "background_white").apply {
             setSize(480f, 1f)
             y = shadow.height
             alpha = 0.3f
         }
 
-        characterImage = r.image(R.units_atlas, model.skin).apply {
+        characterImage = r.image(Resources.units_atlas, model.skin).apply {
             width = r.width
             height = r.height - 190f - 340f
             setScaling(Scaling.fillY)
             x = (r.width - this.width) / 2f
             y = 340f
         }
-        val characterShadow = r.image(R.units_atlas, model.skin).apply {
+        val characterShadow = r.image(Resources.units_atlas, model.skin).apply {
             width = characterImage.width
             height = characterImage.height
             setScaling(Scaling.fillY)
@@ -103,64 +103,64 @@ abstract class AttributesActor(
 
         tableLeft.add(r.regular20Focus(UiTexts.AttributeLabelHealth.value(r.l)).apply { setAlignment(Align.right); }).size(columnWidth, 35f).colspan(2).row()
         tableLeft.add(r.regular20White(model.health.toString()).apply { setAlignment(Align.right) }).height(20f).padRight(3f).growX()
-        tableLeft.add(r.image(R.ux_atlas, "icon_attr_health").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
-        tableLeft.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "icon_attr_health").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableLeft.add(r.regular20Focus(UiTexts.AttributeLabelLuck.value(r.l)).apply { setAlignment(Align.right); }).size(columnWidth, 35f).colspan(2).row()
         tableLeft.add(r.regular20White("${model.luck}%").apply { setAlignment(Align.right) }).height(20f).padRight(3f).growX()
-        tableLeft.add(r.image(R.ux_atlas, "icon_attr_luck").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
-        tableLeft.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "icon_attr_luck").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableLeft.add(r.regular20Focus(UiTexts.AttributeLabelUltProgress.value(r.l)).apply { setAlignment(Align.right); }).size(columnWidth, 35f).colspan(2).row()
         tableLeft.add(r.regular20White("${model.ult}/${model.ultMax}").apply { setAlignment(Align.right) }).height(20f).padRight(3f).growX()
-        tableLeft.add(r.image(R.ux_atlas, "icon_attr_ult").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
-        tableLeft.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "icon_attr_ult").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableLeft.add(r.regular20Focus(UiTexts.AttributeLabelBody.value(r.l)).apply { setAlignment(Align.right); }).size(columnWidth, 35f).colspan(2).row()
         tableLeft.add(r.regular20White(model.attributes.body.toString()).apply { setAlignment(Align.right) }).height(20f).padRight(3f).growX()
-        tableLeft.add(r.image(R.ux_atlas, "icon_attr_body").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
-        tableLeft.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "icon_attr_body").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableLeft.add(r.regular20Focus(UiTexts.AttributeLabelSpirit.value(r.l)).apply { setAlignment(Align.right); }).size(columnWidth, 35f).colspan(2).row()
         tableLeft.add(r.regular20White(model.attributes.spirit.toString()).apply { setAlignment(Align.right) }).height(20f).padRight(3f).growX()
-        tableLeft.add(r.image(R.ux_atlas, "icon_attr_spirit").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
-        tableLeft.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "icon_attr_spirit").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableLeft.add(r.regular20Focus(UiTexts.AttributeLabelMind.value(r.l)).apply { setAlignment(Align.right); }).size(columnWidth, 35f).colspan(2).row()
         tableLeft.add(r.regular20White(model.attributes.mind.toString()).apply { setAlignment(Align.right) }).height(20f).padRight(3f).growX()
-        tableLeft.add(r.image(R.ux_atlas, "icon_attr_mind").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
+        tableLeft.add(r.image(Resources.ux_atlas, "icon_attr_mind").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
 //        tableLeft.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f) }).size(columnWidth, 1f).colspan(2).row()
 
         tableLeft.row()
         tableLeft.add().growY()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelPhysResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
-        tableRight.add(r.image(R.ux_atlas, "icon_resist_phys").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
+        tableRight.add(r.image(Resources.ux_atlas, "icon_resist_phys").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
         tableRight.add(r.regular20White("${"%.2f".format(model.resist.phys * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
-        tableRight.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
+        tableRight.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelShockResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
-        tableRight.add(r.image(R.ux_atlas, "icon_resist_shock").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
+        tableRight.add(r.image(Resources.ux_atlas, "icon_resist_shock").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
         tableRight.add(r.regular20White("${"%.1f".format(model.resist.shock * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
-        tableRight.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
+        tableRight.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelLightResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
-        tableRight.add(r.image(R.ux_atlas, "icon_resist_light").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
+        tableRight.add(r.image(Resources.ux_atlas, "icon_resist_light").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
         tableRight.add(r.regular20White("${"%.1f".format(model.resist.light * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
-        tableRight.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
+        tableRight.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelDarkResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
-        tableRight.add(r.image(R.ux_atlas, "icon_resist_dark").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
+        tableRight.add(r.image(Resources.ux_atlas, "icon_resist_dark").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
         tableRight.add(r.regular20White("${"%.1f".format(model.resist.dark * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
-        tableRight.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
+        tableRight.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelFireResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
-        tableRight.add(r.image(R.ux_atlas, "icon_resist_fire").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
+        tableRight.add(r.image(Resources.ux_atlas, "icon_resist_fire").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
         tableRight.add(r.regular20White("${"%.1f".format(model.resist.fire * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
-        tableRight.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
+        tableRight.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelColdResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
-        tableRight.add(r.image(R.ux_atlas, "icon_resist_cold").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
+        tableRight.add(r.image(Resources.ux_atlas, "icon_resist_cold").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
         tableRight.add(r.regular20White("${"%.1f".format(model.resist.cold * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
 //        tableRight.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f) }).size(columnWidth, 1f).colspan(2).row()
 

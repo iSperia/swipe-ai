@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import ktx.actors.alpha
@@ -13,11 +13,11 @@ import ktx.actors.onExit
 import ktx.actors.onTouchDown
 
 class MonsterShortDetailsCell(
-    private val r: R,
+    private val r: Resources,
     private val model: FrontMonsterEntryModel
 ) : Group() {
 
-    private val background = r.image(R.ux_atlas, "background_transparent50").apply {
+    private val background = r.image(Resources.ux_atlas, "background_transparent50").apply {
         setSize(150f, 310f)
         alpha = 0f
     }
@@ -26,7 +26,7 @@ class MonsterShortDetailsCell(
     init {
         addActor(background)
         setSize(150f, 310f)
-        addActor(r.image(R.units_atlas, model.skin).apply {
+        addActor(r.image(Resources.units_atlas, model.skin).apply {
             setSize(150f, 250f)
             setPosition(0f, 60f)
             color = Color.BLACK
@@ -34,7 +34,7 @@ class MonsterShortDetailsCell(
             setScale(1.05f)
             alpha = 0.75f
         })
-        addActor(r.image(R.units_atlas, model.skin).apply {
+        addActor(r.image(Resources.units_atlas, model.skin).apply {
             setSize(150f, 250f)
             setPosition(0f, 60f)
             setOrigin(Align.bottom)

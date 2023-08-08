@@ -7,13 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction
 import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.game7th.swipe.game.SbCharacterDisplayEffect
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import ktx.actors.along
 import ktx.actors.repeatForever
 import ktx.actors.then
 
 class UnitActor(
-    private val r: R,
+    private val r: Resources,
     val id: Int,
     health: Int,
     maxHealth: Int,
@@ -33,7 +33,7 @@ class UnitActor(
     var popupDelay: Float = 0f
 
     init {
-        characterImage = r.image(R.units_atlas, texture).apply {
+        characterImage = r.image(Resources.units_atlas, texture).apply {
             this.scaleX = if (team == 0) 1f else -1f
             this.width = s * w
             this.height = s * w * 1.66f

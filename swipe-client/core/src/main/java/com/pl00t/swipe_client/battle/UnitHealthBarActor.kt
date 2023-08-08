@@ -4,28 +4,24 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.SizeToAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
-import com.pl00t.swipe_client.Atlases
-import com.pl00t.swipe_client.R
-import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.ux.require
+import com.pl00t.swipe_client.Resources
 
 class UnitHealthBarActor(
-    private val r: R,
+    private val r: Resources,
     val w: Float,
     val h: Float,
     health: Int,
     maxHealth: Int
 ): Group() {
 
-    val background: Image = Image(r.atlas(R.battle_atlas).createPatch("healthbar_bg")).apply {
+    val background: Image = Image(r.atlas(Resources.battle_atlas).createPatch("healthbar_bg")).apply {
         width = w
         height = h
         setScaling(Scaling.stretch)
     }
-    val foregound: Image = r.image(R.battle_atlas, "healthbar_fg").apply {
+    val foregound: Image = r.image(Resources.battle_atlas, "healthbar_fg").apply {
         width = w - 14f
         height = h - 14f
         setScaling(Scaling.stretch)

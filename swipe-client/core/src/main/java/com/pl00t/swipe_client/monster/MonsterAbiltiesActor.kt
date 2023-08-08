@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.game7th.swipe.game.FrontMonsterConfiguration
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.action.Action
 import com.pl00t.swipe_client.action.ActionCompositeButton
 import com.pl00t.swipe_client.action.BottomActionPanel
@@ -14,7 +14,7 @@ import ktx.actors.alpha
 import ktx.actors.onClick
 
 class MonsterAbiltiesActor(
-    private val r: R,
+    private val r: Resources,
     private val model: FrontMonsterConfiguration
 ) : Group() {
 
@@ -59,7 +59,7 @@ class MonsterAbiltiesActor(
         model.abilities[index].let { ability ->
             contentTable.add(r.labelFocusedCaption(ability.title.value(r.l))).height(60f).colspan(2).row()
             contentTable.add(r.regular20White(ability.description.value(r.l)).apply { wrap = true }).colspan(2).width(460f).pad(10f).row()
-            contentTable.add(r.image(R.ux_atlas, "background_white").apply { setSize(460f, 1f); alpha = 0.3f }).width(460f).colspan(2).row()
+            contentTable.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(460f, 1f); alpha = 0.3f }).width(460f).colspan(2).row()
 
             ability.fields.forEach { field ->
                 contentTable.add(r.regular20White(field.title.value(r.l)).apply { setAlignment(Align.right) }).growX().colspan(1)

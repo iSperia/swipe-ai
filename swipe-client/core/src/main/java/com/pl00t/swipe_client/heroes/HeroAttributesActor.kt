@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.game7th.swipe.game.FrontMonsterConfiguration
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.monster.AttributesActor
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
@@ -19,12 +19,12 @@ import ktx.actors.onTouchDown
 import ktx.async.KtxAsync
 
 class HeroAttributesActor(
-    r: R,
+    r: Resources,
     character: SwipeCharacter,
     model: FrontMonsterConfiguration,
 ) : AttributesActor(r, model) {
 
-    val buttonApprove = r.image(R.ux_atlas, "fg_complete").apply {
+    val buttonApprove = r.image(Resources.ux_atlas, "fg_complete").apply {
         setSize(36f, 36f)
         setPosition(480f - 42f, 202f)
         touchable = Touchable.disabled

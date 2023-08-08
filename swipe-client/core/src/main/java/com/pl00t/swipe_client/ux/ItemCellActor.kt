@@ -4,18 +4,18 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import ktx.actors.alpha
 import ktx.actors.onExit
 import ktx.actors.onTouchDown
 
 class ItemCellActor(
-    private val r: R,
+    private val r: Resources,
     private var model: FrontItemEntryModel
 ) : Group() {
 
-    private val background = r.image(R.ux_atlas, "gradient_item_background").apply {
+    private val background = r.image(Resources.ux_atlas, "gradient_item_background").apply {
         setSize(110f, 110f)
         color = r.skin().getColor("rarity_${model.rarity}")
         setOrigin(Align.center)
@@ -28,13 +28,13 @@ class ItemCellActor(
         wrap = true
         x = 5f
     }
-    private val itemImage = r.image(R.ux_atlas, model.skin).apply {
+    private val itemImage = r.image(Resources.ux_atlas, model.skin).apply {
         setSize(100f, 100f)
         setOrigin(Align.center)
         y = 45f
         x = 10f
     }
-    private val itemImageShadow = r.image(R.ux_atlas, model.skin).apply {
+    private val itemImageShadow = r.image(Resources.ux_atlas, model.skin).apply {
         setSize(100f, 100f)
         setOrigin(Align.center)
         setScale(1.1f, 1.1f)
@@ -76,7 +76,7 @@ class ItemCellActor(
 
         val padding = 50f - (model.rarity + 1) * 10f
         (0..model.rarity).forEach { index ->
-            val star = r.image(R.ux_atlas, "star").apply {
+            val star = r.image(Resources.ux_atlas, "star").apply {
                 setPosition(padding + index * 20f, 0f)
                 setSize(20f, 20f)
                 color = r.skin().getColor("focus_color")

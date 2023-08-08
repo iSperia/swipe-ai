@@ -3,8 +3,7 @@ package com.pl00t.swipe_client.ux
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.utils.Align
-import com.game7th.items.ItemAffix
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.action.ActionCompositeButton
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import kotlinx.coroutines.launch
@@ -13,7 +12,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class ItemRowActor(
-    private val r: R,
+    private val r: Resources,
     private var model: FrontItemEntryModel,
     private val action: ActionCompositeButton?,
     private val onItemClick: ((String) -> Unit)?
@@ -31,12 +30,12 @@ class ItemRowActor(
             }
         }
 
-        addActor(r.image(R.ux_atlas, "texture_row").apply {
+        addActor(r.image(Resources.ux_atlas, "texture_row").apply {
             setSize(480f, 160f)
             color = r.skin().getColor("rarity_${model.rarity}")
             alpha = 0.5f
         })
-        addActor(r.image(R.ux_atlas, "background_black").apply {
+        addActor(r.image(Resources.ux_atlas, "background_black").apply {
             setPosition(1f, 1f)
             setSize(478f, 158f)
             alpha = 0.5f
@@ -58,7 +57,7 @@ class ItemRowActor(
                     setPosition(130f, 160f - 32f)
                     wrap = true
                 }
-                val shadow = r.image(R.ux_atlas, "background_black").apply {
+                val shadow = r.image(Resources.ux_atlas, "background_black").apply {
                     setSize(implicit.width - 2f, implicit.height - 2f)
                     setPosition(implicit.x + 1f, implicit.y + 1f)
                     alpha = 0.7f
@@ -73,7 +72,7 @@ class ItemRowActor(
                         setAlignment(Align.left)
                         setPosition(130f, 160f - 64f - 32f * i)
                     }
-                    val shadow = r.image(R.ux_atlas, "background_black").apply {
+                    val shadow = r.image(Resources.ux_atlas, "background_black").apply {
                         setSize(affix.width - 2f, affix.height - 2f)
                         setPosition(affix.x + 1f, affix.y + 1f)
                         alpha = 0.7f

@@ -2,10 +2,10 @@ package com.pl00t.swipe_client.battle
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 
 class PopupActor(
-    private val r: R,
+    private val r: Resources,
     private val text: String,
     private val icons: List<String>,
 ) : Table() {
@@ -17,7 +17,7 @@ class PopupActor(
 
     init {
         icons.forEachIndexed { index, icon ->
-            val image = r.image(R.battle_atlas, icon).apply {
+            val image = r.image(Resources.battle_atlas, icon).apply {
                 setSize(24f, 24f)
             }
             add(image).size(24f, 24f)

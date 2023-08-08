@@ -19,9 +19,9 @@ import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.profile.ProfileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 
-typealias SbAssetLoadedCallback = (R) -> Unit
+typealias SbAssetLoadedCallback = (Resources) -> Unit
 
-class R {
+class Resources {
     var width: Float = 0f
     var height: Float = 0f
     var l: Language = Language.RU
@@ -69,7 +69,7 @@ class R {
         if (assetManager.update()) {
             val queueSize = queue.size
             queue.take(queueSize).forEach {
-                it(this@R)
+                it(this@Resources)
                 queue.removeFirst()
             }
         }

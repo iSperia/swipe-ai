@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.home.ReloadableScreen
@@ -18,7 +18,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class MapWindow(
-    private val r: R,
+    private val r: Resources,
     private val act: SwipeAct,
     private val onLocationClicked: (String) -> Unit,
     private val navigateParty: () -> Unit,
@@ -144,8 +144,8 @@ class MapWindow(
     }
 
     private fun addMapImage() {
-        val region = r.region(R.actAtlas(act), "map")
-        mapImage = r.image(R.actAtlas(act), "map").apply {
+        val region = r.region(Resources.actAtlas(act), "map")
+        mapImage = r.image(Resources.actAtlas(act), "map").apply {
             height = mapSize
             width = mapSize
         }

@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.services.battle.BattleResult
@@ -19,7 +19,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class BattleResultDialog(
-    private val r: R,
+    private val r: Resources,
     private val result: BattleResult,
     private val onClose: () -> Unit,
     private val onItemClick: (String) -> Unit,
@@ -41,8 +41,8 @@ class BattleResultDialog(
     private var hasCoins = false
 
     init {
-        background = r.image(R.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); alpha = 0.5f; color = r.skin().getColor("rarity_${if (result.victory) 4 else 0}") }
-        backgroundShadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
+        background = r.image(Resources.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); alpha = 0.5f; color = r.skin().getColor("rarity_${if (result.victory) 4 else 0}") }
+        backgroundShadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
         addActor(background)
         addActor(backgroundShadow)
 
@@ -97,18 +97,18 @@ class BattleResultDialog(
         KtxAsync.launch {
             content.clearChildren()
 
-            val enoughCoins = r.profileService.getProfile().getBalance(SwipeCurrency.ETHERIUM_COIN) >= result.extraRewardsCost
+            val enoughCoins = extraRewards != null || r.profileService.getProfile().getBalance(SwipeCurrency.ETHERIUM_COIN) >= result.extraRewardsCost
 
-            content.add(r.image(R.ux_atlas, "background_black").apply { alpha = 0.5f; setSize(480f, 1f) }).size(480f, 1f).colspan(4).row()
+            content.add(r.image(Resources.ux_atlas, "background_black").apply { alpha = 0.5f; setSize(480f, 1f) }).size(480f, 1f).colspan(4).row()
             val imageBackground = if (result.victory) "background_victory" else "background_defeat"
-            content.add(r.image(R.ux_atlas, imageBackground).apply { setSize(480f, 240f) }).size(480f, 240f).colspan(4).row()
-            content.add(r.image(R.ux_atlas, "background_black").apply { alpha = 0.5f; setSize(480f, 1f) }).size(480f, 1f).colspan(4).row()
+            content.add(r.image(Resources.ux_atlas, imageBackground).apply { setSize(480f, 240f) }).size(480f, 240f).colspan(4).row()
+            content.add(r.image(Resources.ux_atlas, "background_black").apply { alpha = 0.5f; setSize(480f, 1f) }).size(480f, 1f).colspan(4).row()
 
             if (result.exp != null) {
                 val group = Group().apply {
                     setSize(480f, 100f)
                 }
-                val skin = r.image(R.units_atlas, result.exp.skin).apply {
+                val skin = r.image(Resources.units_atlas, result.exp.skin).apply {
                     setSize(60f, 100f)
                 }
                 val name = r.regular24Focus(result.exp.name.value(r.l)).apply {

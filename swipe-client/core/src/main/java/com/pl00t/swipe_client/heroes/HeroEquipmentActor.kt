@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.game7th.items.InventoryItem
 import com.game7th.items.ItemCategory
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.Action
 import com.pl00t.swipe_client.action.ActionCompositeButton
@@ -24,7 +24,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class HeroEquipmentActor(
-    private val r: R,
+    private val r: Resources,
     private val skin: String,
     private val onChanged: () -> Unit,
     private val onItemClicked: (String) -> Unit
@@ -152,7 +152,7 @@ class HeroEquipmentActor(
             setPosition(360f, 0f)
         })
 
-        group.addActor(r.image(R.units_atlas, skin).apply {
+        group.addActor(r.image(Resources.units_atlas, skin).apply {
             setPosition(120f, 0f)
             setSize(240f, 480f)
             align = Align.bottom
@@ -169,12 +169,12 @@ class HeroEquipmentActor(
                 height = 160f
             }
 
-            val shadow = r.image(R.ux_atlas, "gradient_item_background").apply {
+            val shadow = r.image(Resources.ux_atlas, "gradient_item_background").apply {
                 setSize(120f, 120f)
                 setPosition(0f, 30f)
                 alpha = 0.5f
             }
-            val plus = r.image(R.ux_atlas, "button_plus").apply {
+            val plus = r.image(Resources.ux_atlas, "button_plus").apply {
                 setSize(100f, 100f)
                 setPosition(shadow.x + 10f, shadow.y + 10f)
                 setColor(r.skin().getColor("focus_color"))

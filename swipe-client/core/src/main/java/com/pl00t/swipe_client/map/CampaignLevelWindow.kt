@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.monster.MonsterShortDetailsCell
@@ -19,7 +19,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class CampaignLevelWindow(
-    private val r: R,
+    private val r: Resources,
     private val model: FrontLevelModel,
     private val onClose: () -> Unit,
     private val onMonsterClicked: (String, Int) -> Unit,
@@ -39,9 +39,9 @@ class CampaignLevelWindow(
 
     init {
         setSize(r.width, r.height)
-        val texture = r.image(R.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); setScaling(Scaling.fillY) }
-        val background = r.image(R.ux_atlas, "background_solid").apply { setSize(r.width, r.height); alpha = 0.5f }
-        val backgroundShadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
+        val texture = r.image(Resources.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); setScaling(Scaling.fillY) }
+        val background = r.image(Resources.ux_atlas, "background_solid").apply { setSize(r.width, r.height); alpha = 0.5f }
+        val backgroundShadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
         addActor(texture)
         addActor(background)
         addActor(backgroundShadow)
@@ -88,7 +88,7 @@ class CampaignLevelWindow(
     }
 
     private fun addLocationImage() {
-        val drawable = r.atlas(R.actAtlas(model.act)).findRegion(model.locationBackground).let {
+        val drawable = r.atlas(Resources.actAtlas(model.act)).findRegion(model.locationBackground).let {
             val x1 = it.u
             val x2 = it.u2
             val y1 = it.v
@@ -101,9 +101,9 @@ class CampaignLevelWindow(
             height = 240f
             setScaling(Scaling.stretch)
         }
-        content.add(r.image(R.ux_atlas, "background_black").apply { setSize(480f, 1f)}).colspan(3).size(480f, 1f).row()
+        content.add(r.image(Resources.ux_atlas, "background_black").apply { setSize(480f, 1f)}).colspan(3).size(480f, 1f).row()
         content.add(image).size(480f, 240f).colspan(3).row()
-        content.add(r.image(R.ux_atlas, "background_black").apply { setSize(480f, 1f) }).colspan(3).size(480f, 1f).row()
+        content.add(r.image(Resources.ux_atlas, "background_black").apply { setSize(480f, 1f) }).colspan(3).size(480f, 1f).row()
     }
 
     private fun addLore() {

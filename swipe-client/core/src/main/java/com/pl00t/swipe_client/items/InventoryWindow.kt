@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.game7th.items.ItemCategory
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.home.ReloadableScreen
@@ -19,7 +19,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class InventoryWindow(
-    protected val r: R,
+    protected val r: Resources,
     private val onClose: () -> Unit,
     private val onItemClicked: (String) -> Unit,
 ) : Group(), ReloadableScreen {
@@ -44,9 +44,9 @@ class InventoryWindow(
     init {
         setSize(r.width, r.height)
 
-        background = r.image(R.ux_atlas, "texture_screen")
+        background = r.image(Resources.ux_atlas, "texture_screen")
             .apply { setSize(r.width, r.height); alpha = 0.5f; color = r.skin().getColor("bg_color") }
-        backgroundShadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
+        backgroundShadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
         addActor(background)
         addActor(backgroundShadow)
 

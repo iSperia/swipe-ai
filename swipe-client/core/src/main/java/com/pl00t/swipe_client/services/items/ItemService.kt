@@ -13,8 +13,6 @@ interface ItemService {
 
     suspend fun getItemTemplate(skin: String): ItemTemplate?
 
-    suspend fun generateItem(skin: String, rarity: Int): InventoryItem?
-
     suspend fun generateAffix(affixesFilled: List<ItemAffixType>, template: ItemTemplate): ItemAffixType
 
     suspend fun getAffix(affix: ItemAffixType): AffixConfigEntry?
@@ -97,53 +95,6 @@ class ItemServiceImpl(gson: Gson, fileService: FileService): ItemService {
             }.key
         }
         return entry
-    }
-
-    override suspend fun generateItem(skin: String, rarity: Int): InventoryItem? {
-
-        val affixesToGenerate = if (Random.nextFloat() < 0.5f) rarity - 1 else rarity - 2
-        val template = templates[skin] ?: return null
-
-
-        val affixes = mutableListOf<ItemAffix>()
-
-        val affixesFilled = mutableListOf<ItemAffixType>()
-        (0 until affixesToGenerate).forEach { _ ->
-            generateAffix(affixesFilled, template).let { entry ->
-                affixesFilled.add(entry)
-                this.affixes[entry]?.let { ace ->
-                    affixes.add(ItemAffix(
-                        affix = ace.affix,
-                        value = ace.valuePerTier,
-                        level = 1,
-                        scalable = true
-                    ))
-                }
-            }
-        }
-
-        return getItemTemplate(skin)?.let { template ->
-            InventoryItem(
-                id = UUID.randomUUID().toString(),
-                skin = skin,
-                implicit = template.implicit.let { affixConfig ->
-                    this.affixes[affixConfig]!!.let { ace ->
-                        ItemAffix(
-                            affix = ace.affix,
-                            value = ace.valuePerTier,
-                            level = 1,
-                            scalable = ace.scalable ?: true
-                        )
-                    }
-                },
-                affixes = affixes,
-                experience = 0,
-                rarity = rarity,
-                category = template.category,
-                equippedBy = null,
-                maxExperience = SwipeCharacter.experience[max(0, rarity * 5 - 1)]
-            )
-        }
     }
 
     override suspend fun getAffix(affix: ItemAffixType): AffixConfigEntry? = affixes[affix]

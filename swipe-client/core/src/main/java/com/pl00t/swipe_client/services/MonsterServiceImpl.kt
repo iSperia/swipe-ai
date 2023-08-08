@@ -83,7 +83,7 @@ class MonsterServiceImpl(
 //            else -> throw IllegalArgumentException("Can't create monster $skin")
         }
 
-        val health = (configFile.balance.intAttribute("base_health") * (1f + 0.01f * body)).toInt()
+        val health = (configFile.balance.intAttribute("base_health") * (1f + 0.1f * body)).toInt()
         val ult = (configFile.balance.intAttribute("ult") * (1f + 0.05f * mind)).toInt()
         val luck = (configFile.balance.intAttribute("luck") * (1f + 0.1f * spirit))
 

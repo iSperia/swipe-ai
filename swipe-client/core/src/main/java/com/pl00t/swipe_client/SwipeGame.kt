@@ -18,14 +18,14 @@ import ktx.async.KtxAsync
 class SwipeGame : Game() {
 
     var coreLoaded = false
-    lateinit var r: R
+    lateinit var r: Resources
     lateinit var profileService: ProfileService
 
     override fun create() {
         KtxAsync.initiate()
         val ratio = Gdx.graphics.width.toFloat() / Gdx.graphics.height
 
-        r = R().apply {
+        r = Resources().apply {
             width = 480f
             height = 480f / ratio
             fileService = GdxFileService()

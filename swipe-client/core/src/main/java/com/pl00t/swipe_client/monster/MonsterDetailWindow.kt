@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Scaling
 import com.game7th.swipe.game.FrontMonsterConfiguration
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 open class MonsterDetailWindow(
-    protected val r: R,
+    protected val r: Resources,
     protected var model: FrontMonsterConfiguration,
     private val onClose: () -> Unit
 ): Group() {
@@ -33,9 +33,9 @@ open class MonsterDetailWindow(
     init {
         setSize(r.width, r.height)
 
-        val texture = r.image(R.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); setScaling(Scaling.fillY) }
-        background = r.image(R.ux_atlas, "background_solid").apply { setSize(r.width, r.height); alpha = 0.5f }
-        backgroundShadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
+        val texture = r.image(Resources.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); setScaling(Scaling.fillY) }
+        background = r.image(Resources.ux_atlas, "background_solid").apply { setSize(r.width, r.height); alpha = 0.5f }
+        backgroundShadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
         addActor(texture)
         addActor(background)
         addActor(backgroundShadow)

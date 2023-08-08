@@ -9,7 +9,7 @@ import com.game7th.swipe.game.*
 import com.game7th.swipe.game.characters.*
 import com.google.gson.Gson
 import com.game7th.swipe.monsters.MonsterService
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.levels.*
@@ -86,7 +86,7 @@ data class FrontItemEntryModel(
     val currency: SwipeCurrency?,
     val item: InventoryItem?,
 ) {
-    fun getText(r: R) = if (level > 0) "${UiTexts.LvlShortPrefix.value(r.l)}$level" else if (amount > 1) amount.toString() else ""
+    fun getText(r: Resources) = if (level > 0) "${UiTexts.LvlShortPrefix.value(r.l)}$level" else if (amount > 1) amount.toString() else ""
 }
 
 data class SbMysteryItem(
@@ -361,7 +361,7 @@ class ProfileServiceImpl(
                     item = null
                 ))
             } else if (reward.skin != null) {
-                val item = itemService.generateItem(reward.skin, reward.rarity ?: 0)!!
+                val item = generateItem(reward.skin, reward.rarity ?: 0)
                 addItem(item)
                 val template = itemService.getItemTemplate(item.skin)!!
                 result.add(FrontItemEntryModel(
@@ -421,7 +421,7 @@ class ProfileServiceImpl(
                 ))
                 stuffLeft -= reward.currency.type.coins
             } else if (reward.skin != null) {
-                val item = itemService.generateItem(reward.skin, reward.rarity ?: 0)!!
+                val item = generateItem(reward.skin, reward.rarity ?: 0)
                 addItem(item)
                 val template = itemService.getItemTemplate(item.skin)!!
                 result.add(FrontItemEntryModel(

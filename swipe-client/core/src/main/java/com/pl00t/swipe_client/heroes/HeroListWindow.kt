@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.Action
 import com.pl00t.swipe_client.action.ActionCompositeButton
@@ -21,7 +21,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class HeroListWindow(
-    private val r: R,
+    private val r: Resources,
     private val onClose: () -> Unit,
     private val onHeroSelected: (String) -> Unit
 ) : Group() {
@@ -38,8 +38,8 @@ class HeroListWindow(
     init {
         setSize(r.width, r.height)
 
-        val texture = r.image(R.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); setScaling(Scaling.fillY); setColor(r.skin().getColor("rarity_3")) }
-        val backgroundShadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
+        val texture = r.image(Resources.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); setScaling(Scaling.fillY); setColor(r.skin().getColor("rarity_3")) }
+        val backgroundShadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
 
         addActor(texture)
         addActor(backgroundShadow)
@@ -76,14 +76,14 @@ class HeroListWindow(
                 val cell = Group().apply {
                     setSize(actor.width, actor.height)
                 }
-                val bg = r.image(R.ux_atlas, "harmony_portal").apply {
+                val bg = r.image(Resources.ux_atlas, "harmony_portal").apply {
                     align = Align.top
                     setScaling(Scaling.fit)
                     setSize(actor.width, actor.height)
                     alpha = 0.12f
                 }
                 cell.addActor(bg)
-                val shadow = r.image(R.units_atlas, character.skin).apply {
+                val shadow = r.image(Resources.units_atlas, character.skin).apply {
                     setSize(150f, 250f)
                     color = Color.BLACK
                     x = -4f

@@ -1,20 +1,19 @@
 package com.pl00t.swipe_client
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 
 class SplashScreen(
-    r: R
+    r: Resources
 ) : SbBaseScreen(r) {
 
     override fun loadScreenContent() {
-        r.loadAtlas(R.ux_atlas)
-        r.loadAtlas(R.battle_atlas)
-        r.loadAtlas(R.map_atlas)
+        r.loadAtlas(Resources.ux_atlas)
+        r.loadAtlas(Resources.battle_atlas)
+        r.loadAtlas(Resources.map_atlas)
         r.onLoad {
             hideSplash()
-            root.addActor(r.image(R.ux_atlas, "solid_window_background").apply {
+            root.addActor(r.image(Resources.ux_atlas, "solid_window_background").apply {
                 width = r.width
                 height = r.height
                 setScaling(Scaling.fill)

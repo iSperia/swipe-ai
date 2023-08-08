@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
@@ -26,7 +26,7 @@ private enum class BrowseMode {
 }
 
 class InventoryItemWindow(
-    protected val r: R,
+    protected val r: Resources,
     protected var id: String,
     private val onClose: () -> Unit
 ) : Group() {
@@ -62,8 +62,8 @@ class InventoryItemWindow(
         KtxAsync.launch {
             loadData()
 
-            background = r.image(R.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); alpha = 0.5f; color = r.skin().getColor("rarity_${model.rarity}") }
-            backgroundShadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
+            background = r.image(Resources.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); alpha = 0.5f; color = r.skin().getColor("rarity_${model.rarity}") }
+            backgroundShadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
             addActor(background)
             addActor(backgroundShadow)
 
@@ -167,7 +167,7 @@ class InventoryItemWindow(
         }
         levelGroup.addActor(levelProgressActor)
         levelGroup.addActor(maxLevelLabel)
-        levelGroup.addActor(r.image(R.ux_atlas, "fg_complete").apply {
+        levelGroup.addActor(r.image(Resources.ux_atlas, "fg_complete").apply {
             setSize(36f, 36f)
             setPosition(levelProgressActor!!.width, (levelProgressActor!!.height - 36f) / 2f)
 

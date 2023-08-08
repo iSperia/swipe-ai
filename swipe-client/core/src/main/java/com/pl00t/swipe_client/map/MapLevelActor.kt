@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.services.levels.FrontLevelModel
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.ux.require
@@ -14,7 +14,7 @@ import ktx.actors.onTouchDown
 import ktx.async.KtxAsync
 
 class MapLevelActor(
-    private val r: R,
+    private val r: Resources,
     private val model: FrontLevelModel
 ) : Group() {
 
@@ -25,15 +25,15 @@ class MapLevelActor(
     private var foregroundCheckmark: Image? = null
 
     init {
-        backgroundImage = Image(r.atlas(R.actAtlas(model.act)).findRegion("${model.locationBackground}_preview").require()).apply { setOrigin(Align.center) }
-        foregroundTop = r.image(R.ux_atlas, "fg_level_top").apply { setOrigin(Align.center) }
-        foregroundBottom = r.image(R.ux_atlas, "fg_level_bottom").apply { setOrigin(Align.center) }
+        backgroundImage = Image(r.atlas(Resources.actAtlas(model.act)).findRegion("${model.locationBackground}_preview").require()).apply { setOrigin(Align.center) }
+        foregroundTop = r.image(Resources.ux_atlas, "fg_level_top").apply { setOrigin(Align.center) }
+        foregroundBottom = r.image(Resources.ux_atlas, "fg_level_bottom").apply { setOrigin(Align.center) }
 
         addActor(backgroundImage)
         addActor(foregroundTop)
 
         if (model.type == LevelType.BOSS) {
-            foregroundBoss = r.image(R.units_atlas, model.waves[0][0].skin).apply { setOrigin(Align.bottom) }
+            foregroundBoss = r.image(Resources.units_atlas, model.waves[0][0].skin).apply { setOrigin(Align.bottom) }
             addActor(foregroundBoss)
         }
         KtxAsync.launch { loadCheckmark() }
@@ -60,7 +60,7 @@ class MapLevelActor(
                 model.locationId
             )
         ) {
-            foregroundCheckmark = r.image(R.ux_atlas, "fg_complete").apply { setOrigin(Align.center) }
+            foregroundCheckmark = r.image(Resources.ux_atlas, "fg_complete").apply { setOrigin(Align.center) }
             addActor(foregroundCheckmark)
         }
         addActor(foregroundBottom)

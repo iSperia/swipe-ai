@@ -3,25 +3,25 @@ package com.pl00t.swipe_client.ux
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import ktx.actors.alpha
 
 class LevelProgressActor(
-    protected val r: R
+    protected val r: Resources
 ) : Group() {
 
-    protected val progressBackground = r.image(R.ux_atlas, "background_accent").apply {
+    protected val progressBackground = r.image(Resources.ux_atlas, "background_accent").apply {
         setSize(420f, 8f)
         setPosition(10f, 0f)
         alpha = 0.5f
     }
-    protected val progressActual = r.image(R.ux_atlas, "background_white").apply {
+    protected val progressActual = r.image(Resources.ux_atlas, "background_white").apply {
         setSize(progressBackground.width - 4f, progressBackground.height - 4f)
         setPosition(progressBackground.x + 2f, progressBackground.y + 2f)
         scaleX = 0f
     }
-    protected val progressVirtual = r.image(R.ux_atlas, "background_main").apply {
+    protected val progressVirtual = r.image(Resources.ux_atlas, "background_main").apply {
         setSize(progressBackground.width - 4f, progressBackground.height - 4f)
         setPosition(progressBackground.x + 2f, progressBackground.y + 2f)
         scaleX = 0f

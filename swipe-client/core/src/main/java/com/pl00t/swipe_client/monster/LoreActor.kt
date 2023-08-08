@@ -4,10 +4,10 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.game7th.swipe.SbText
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 
 class LoreActor(
-    private val r: R,
+    private val r: Resources,
     private val lore: SbText
 ): Group() {
 

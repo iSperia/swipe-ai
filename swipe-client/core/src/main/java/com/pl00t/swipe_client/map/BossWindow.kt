@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.game7th.swipe.game.FrontMonsterConfiguration
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.services.levels.FrontBossModel
@@ -24,7 +24,7 @@ import ktx.async.KtxAsync
 import kotlin.math.max
 
 class BossWindow(
-    private val r: R,
+    private val r: Resources,
     private val act: SwipeAct,
     private val level: String,
     private val onClose: () -> Unit,
@@ -49,8 +49,8 @@ class BossWindow(
 
     init {
         setSize(r.width, r.height)
-        val texture = r.image(R.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); setScaling(Scaling.fillY); setColor(r.skin().getColor("rarity_3")) }
-        val backgroundShadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
+        val texture = r.image(Resources.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); setScaling(Scaling.fillY); setColor(r.skin().getColor("rarity_3")) }
+        val backgroundShadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
         addActor(texture)
         addActor(backgroundShadow)
         addActor(scrollPane)
@@ -75,7 +75,7 @@ class BossWindow(
                 val actor = Group().apply {
                     setSize(96f, 96f)
                 }
-                val bg = r.image(R.ux_atlas, "gradient_item_background").apply {
+                val bg = r.image(Resources.ux_atlas, "gradient_item_background").apply {
                     setSize(96f, 96f)
                     color = r.skin().getColor(if (i == tier) "main_color" else "accent_color")
                 }
@@ -86,7 +86,7 @@ class BossWindow(
                 }
                 actor.addActor(label)
                 if (!unlocked) {
-                    val lock = r.image(R.ux_atlas, "icon_padlock").apply {
+                    val lock = r.image(Resources.ux_atlas, "icon_padlock").apply {
                         setSize(96f, 96f)
                         setScaling(Scaling.fit)
                         align = Align.center
@@ -187,7 +187,7 @@ class BossWindow(
         val layers = Group().apply {
             setSize(480f, 240f)
         }
-        val drawable = r.atlas(R.actAtlas(model.act)).findRegion(model.locationBackground).let {
+        val drawable = r.atlas(Resources.actAtlas(model.act)).findRegion(model.locationBackground).let {
             val x1 = it.u
             val x2 = it.u2
             val y1 = it.v
@@ -195,7 +195,7 @@ class BossWindow(
             val d = y2 - y1
             TextureRegionDrawable(TextureRegion(it.texture, x1, y1 + d * 0.25f, x2, y1 + d * 0.75f))
         }
-        val unitDrawable = r.atlas(R.units_atlas).findRegion(model.bossSkin).let {
+        val unitDrawable = r.atlas(Resources.units_atlas).findRegion(model.bossSkin).let {
             val x1 = it.u
             val x2 = it.u2
             val y1 = it.v
@@ -222,9 +222,9 @@ class BossWindow(
         }
         layers.addActor(image)
         layers.addActor(unitImage)
-        content.add(r.image(R.ux_atlas, "background_black").apply { setSize(480f, 1f)}).size(480f, 1f).row()
+        content.add(r.image(Resources.ux_atlas, "background_black").apply { setSize(480f, 1f)}).size(480f, 1f).row()
         content.add(layers).size(480f, 240f).row()
-        content.add(r.image(R.ux_atlas, "background_black").apply { setSize(480f, 1f) }).size(480f, 1f).row()
+        content.add(r.image(Resources.ux_atlas, "background_black").apply { setSize(480f, 1f) }).size(480f, 1f).row()
     }
 
 

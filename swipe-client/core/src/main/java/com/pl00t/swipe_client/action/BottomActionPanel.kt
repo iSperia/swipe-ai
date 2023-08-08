@@ -2,27 +2,27 @@ package com.pl00t.swipe_client.action
 
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.utils.Scaling
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import ktx.actors.alpha
 
 class BottomActionPanel(
-    private val r: R,
+    private val r: Resources,
     private val actions: List<ActionCompositeButton>,
     private val backgroundRarity: Int,
 ) : Group() {
 
-    private val texture = r.image(R.ux_atlas, "texture_panel").apply {
+    private val texture = r.image(Resources.ux_atlas, "texture_panel").apply {
         setSize(480f, 110f)
         setScale(1f, -1f)
         y = 110f
         setScaling(Scaling.fillY)
     }
-    private val background = r.image(R.ux_atlas, "item_background", backgroundRarity).apply {
+    private val background = r.image(Resources.ux_atlas, "item_background", backgroundRarity).apply {
         setSize(480f, 110f)
         alpha = 0.5f
     }
-    private val shadow = r.image(R.ux_atlas, "background_transparent50").apply { setSize(480f, 110f) }
-    private val topLine = r.image(R.ux_atlas, "background_black").apply {
+    private val shadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(480f, 110f) }
+    private val topLine = r.image(Resources.ux_atlas, "background_black").apply {
         width = 480f
         height = 1f
         y = 109f

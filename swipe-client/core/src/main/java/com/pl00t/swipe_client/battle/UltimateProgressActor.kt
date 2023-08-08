@@ -5,17 +5,13 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
-import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
-import com.pl00t.swipe_client.Atlases
-import com.pl00t.swipe_client.R
-import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.ux.require
+import com.pl00t.swipe_client.Resources
 import ktx.actors.repeatForever
 
 class UltimateProgressActor(
-    private val r: R
+    private val r: Resources
 ) : Group() {
 
     var imageBg: Image
@@ -26,13 +22,13 @@ class UltimateProgressActor(
     var progress: Float = 0f
 
     init {
-        imageBg = r.image(R.battle_atlas, "semi_black_pixel").apply {
+        imageBg = r.image(Resources.battle_atlas, "semi_black_pixel").apply {
             this.width = 270f
             this.height = 45f
             setScaling(Scaling.stretch)
         }
         addActor(imageBg)
-        iProgress = r.image(R.battle_atlas, "ult_progress").apply {
+        iProgress = r.image(Resources.battle_atlas, "ult_progress").apply {
             this.width = 0f
             this.height = 35f
             setScaling(Scaling.stretch)
@@ -49,7 +45,7 @@ class UltimateProgressActor(
             this.y = 0f
         }
         addActor(description)
-        foreground = r.image(R.battle_atlas, "ult_progress_fg").apply {
+        foreground = r.image(Resources.battle_atlas, "ult_progress_fg").apply {
             this.width = 270f
             this.height = 45f
             setScaling(Scaling.stretch)

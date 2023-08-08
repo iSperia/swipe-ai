@@ -2,27 +2,21 @@ package com.pl00t.swipe_client.battle
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.math.Interpolation.SwingOut
-import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.*
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.game7th.swipe.game.SbDisplayTileType
-import com.pl00t.swipe_client.Atlases
-import com.pl00t.swipe_client.R
-import com.pl00t.swipe_client.SwipeContext
-import com.pl00t.swipe_client.ux.require
+import com.pl00t.swipe_client.Resources
 import ktx.actors.along
 import ktx.actors.alpha
 import ktx.actors.repeatForever
 import ktx.actors.then
 
 class TileActor(
-    private val r: R,
+    private val r: Resources,
     var sectors: Int,
     private var maxSectors: Int,
     private val size: Float,
@@ -44,7 +38,7 @@ class TileActor(
                 val totalGemSize = gemSize * maxSectors * 0.8f
                 val sx = (size - totalGemSize) / 2f
                 (0 until maxSectors).forEach { i ->
-                    val gem = r.image(R.battle_atlas, if (i < sectors) "gem_active" else  "gem_inactive").apply {
+                    val gem = r.image(Resources.battle_atlas, if (i < sectors) "gem_active" else  "gem_inactive").apply {
                         x = sx + gemSize * 0.8f * i
                         y = 1f
                         width = gemSize
@@ -62,13 +56,13 @@ class TileActor(
 
     }
 
-    private fun generateBackground() = r.image(R.skills_atlas, cardTexture).apply {
+    private fun generateBackground() = r.image(Resources.skills_atlas, cardTexture).apply {
         width = size
         height = size
         this.setOrigin(Align.center)
     }
 
-    private fun generateSkill() = r.image(R.skills_atlas, cardTexture).apply {
+    private fun generateSkill() = r.image(Resources.skills_atlas, cardTexture).apply {
             this.height = size * 0.9f
             this.width = size * 0.9f
             this.setOrigin(Align.center)
@@ -81,7 +75,7 @@ class TileActor(
             sectors = target
             (0 until maxSectors).forEach { i ->
                 (getChild(1 + i) as Image).let { gem ->
-                    gem.drawable = TextureRegionDrawable(r.atlas(R.battle_atlas).findRegion(if (i < sectors) "gem_active" else "gem_inactive"))
+                    gem.drawable = TextureRegionDrawable(r.atlas(Resources.battle_atlas).findRegion(if (i < sectors) "gem_active" else "gem_inactive"))
                 }
             }
         }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.StretchViewport
 
 abstract class SbBaseScreen(
-    protected val r: R
+    protected val r: Resources
 ) : Screen {
 
     protected val root: Stage = Stage(StretchViewport(r.width, r.height))
@@ -18,9 +18,9 @@ abstract class SbBaseScreen(
     lateinit var splashActor: Image
 
     override fun show() {
-        r.loadAtlas(R.core_atlas)
+        r.loadAtlas(Resources.core_atlas)
         r.onLoad {
-            splashActor = Image(r.atlas(R.core_atlas).findRegion("loading")).apply {
+            splashActor = Image(r.atlas(Resources.core_atlas).findRegion("loading")).apply {
                 width = r.width
                 height = r.height
                 setScaling(Scaling.fill)

@@ -15,7 +15,7 @@ import com.game7th.swipe.game.SbDisplayEvent
 import com.game7th.swipe.game.SbSoundType
 import com.game7th.swipe.game.SbTileFieldDisplayEffect
 import com.game7th.swipe.gestures.SimpleDirectionGestureDetector
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.services.battle.BattleDecorations
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.levels.DialogEntryModel
@@ -29,7 +29,7 @@ import ktx.async.KtxAsync
 import kotlin.random.Random
 
 class BattleWindow(
-    private val r: R,
+    private val r: Resources,
     private val hideBattleScreen: (BattleResult) -> Unit
 ) : Group(), SimpleDirectionGestureDetector.DirectionListener {
     lateinit var decorations: BattleDecorations
@@ -69,8 +69,8 @@ class BattleWindow(
 
         KtxAsync.launch {
             decorations = r.battleService.getDecorations()
-            r.loadAtlas(R.battle_atlas)
-            r.loadAtlas(R.skills_atlas)
+            r.loadAtlas(Resources.battle_atlas)
+            r.loadAtlas(Resources.skills_atlas)
             r.loadMusic(decorations.music)
             SbSoundType.values().forEach {
                 r.loadSound("sfx/$it.ogg")
@@ -97,7 +97,7 @@ class BattleWindow(
 
         KtxAsync.launch {
 
-            val panelImage = Image(r.atlas(R.battle_atlas).createPatch("panelBg")).apply {
+            val panelImage = Image(r.atlas(Resources.battle_atlas).createPatch("panelBg")).apply {
                 width = 480f
                 height = 510f
             }
@@ -122,7 +122,7 @@ class BattleWindow(
             actId = r.battleService.getActId()
             levelId = r.battleService.getLevelId()
 
-            val locationImage = r.image(R.actAtlas(actId), decorations.background).apply {
+            val locationImage = r.image(Resources.actAtlas(actId), decorations.background).apply {
                 width = 480f
                 height = r.height - 510f
                 setScaling(Scaling.stretch)
@@ -305,7 +305,7 @@ class BattleWindow(
         y: Int,
         skin: String
     ) {
-        val tarot = r.image(R.skills_atlas, skin).apply {
+        val tarot = r.image(Resources.skills_atlas, skin).apply {
             height = tileSize
             width = tileSize * 0.66f
             this.x = tileSize * x + (tileSize - this.width) / 2f
@@ -335,7 +335,7 @@ class BattleWindow(
     private fun processUltimateAnimation(
         animation: SbBattleFieldDisplayEffect.TarotUltimate
     ) {
-        val bg = r.image(R.ux_atlas, "background_black").apply {
+        val bg = r.image(Resources.ux_atlas, "background_black").apply {
             width = r.width
             height = r.height - 480f
             alpha = 0f
@@ -348,7 +348,7 @@ class BattleWindow(
                 Actions.removeActor()
             )
         )
-        val tarot = r.image(R.skills_atlas, animation.skin).apply {
+        val tarot = r.image(Resources.skills_atlas, animation.skin).apply {
             width = characterWidth
             height = characterWidth * 1.66f
             x = (480f - this.width) / 2f
@@ -387,7 +387,7 @@ class BattleWindow(
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.at.toString()) ?: return
         //ok, we have some crazy tarot stuff
-        val tarot = r.image(R.skills_atlas, animation.skin).apply {
+        val tarot = r.image(Resources.skills_atlas, animation.skin).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) characterWidth * 0.1f else -characterWidth * 1.1f
             y = sourceUnit.y + characterWidth * 0.55f
             width = characterWidth * 0.8f
@@ -424,7 +424,7 @@ class BattleWindow(
         animation: SbBattleFieldDisplayEffect.TarotDirectedAoe
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString()) ?: return
-        val tarot = r.image(R.skills_atlas, animation.skin).apply {
+        val tarot = r.image(Resources.skills_atlas, animation.skin).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) characterWidth * 0.1f else -characterWidth * 1.1f
             y = sourceUnit.y + characterWidth * 0.55f
             width = characterWidth * 0.8f
@@ -454,7 +454,7 @@ class BattleWindow(
     ) {
         val sourceUnit = unitsGroup.findActor<UnitActor>(animation.from.toString()) ?: return
         //ok, we have some crazy tarot stuff
-        val tarot = r.image(R.skills_atlas, animation.skin).apply {
+        val tarot = r.image(Resources.skills_atlas, animation.skin).apply {
             x = sourceUnit.x + if (sourceUnit.team == 0) characterWidth * 0.1f else -characterWidth * 1.1f
             y = sourceUnit.y + characterWidth * 0.5f
             width = characterWidth * 0.8f
@@ -610,7 +610,7 @@ class BattleWindow(
             val x = index % 5
             val y = index / 5
 
-            val bg = r.image(R.battle_atlas, "tile_bg").apply {
+            val bg = r.image(Resources.battle_atlas, "tile_bg").apply {
                 this.x = x * tileSize
                 this.y = y * tileSize
                 this.width = tileSize

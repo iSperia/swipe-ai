@@ -3,7 +3,7 @@ package com.pl00t.swipe_client.heroes
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.game7th.swipe.game.FrontMonsterConfiguration
-import com.pl00t.swipe_client.R
+import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.Action
 import com.pl00t.swipe_client.action.ActionCompositeButton
@@ -17,7 +17,7 @@ import ktx.actors.onClick
 import ktx.async.KtxAsync
 
 class HeroDetailWindow(
-    r: R,
+    r: Resources,
     model: FrontMonsterConfiguration,
     onClose: () -> Unit,
     private val onItemClicked: (String) -> Unit
