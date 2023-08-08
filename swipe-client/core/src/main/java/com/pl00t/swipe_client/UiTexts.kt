@@ -20,6 +20,13 @@ object UiTexts {
     val BattleDefeat = SbText("Defeat", "Поражение")
     val ExpBoost = SbText("+$ experience", "+$ очков опыта")
 
+    val RaidPossibleMonsters = SbText("Possible enemies:", "Возможные противники")
+    val RaidPossibleRewards = SbText("Possible rewards:", "Возможные награды")
+    val RaidFreeRewards = SbText("Free rewards collected:", "Полученные бесплатные награды:")
+    val RaidRichRewards = SbText("Rewards collected:", "Полученные награды:")
+    val RaidCollectRewards = SbText("Collect Rewards", "Собрать Награды")
+    val RaidLittleCoins = SbText("You have no enough coins to collect the rewards!", "У вас недостаточно эфирных монет, чтобы собрать награду!")
+
     val LevelUpApply = SbText("Apply", "Применить")
     val PutOff = SbText("Unequip Item", "Снять предмет")
     val PutOn = SbText("Equip Item", "Надеть предмет")

@@ -34,7 +34,9 @@ interface ProfileService {
 
     suspend fun collectFreeReward(act: SwipeAct, level: String, tier: Int): List<FrontItemEntryModel>
 
-    suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward>
+    suspend fun collectFreeRaidReward(expBoost: Int): List<FrontItemEntryModel>
+
+    suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int, cost: Int): List<FrontItemEntryModel>
 
     suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata
 
@@ -66,6 +68,7 @@ interface ProfileService {
 
     suspend fun previewDust(id: String): List<CurrencyBalance>
     suspend fun dustItem(id: String)
+    suspend fun getRaidDetails(act: SwipeAct, level: String): FrontRaidModel
 
 
     data class DustItemResult(
@@ -180,6 +183,9 @@ class ProfileServiceImpl(
                         generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
                         generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
                         generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
+                        generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
+                        generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
+                        generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
                     )
                 },
                 tiersUnlocked = emptyList(),
@@ -346,7 +352,85 @@ class ProfileServiceImpl(
         return result
     }
 
-    override suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int): List<CollectedReward> = emptyList()
+    override suspend fun collectFreeRaidReward(expBoost: Int): List<FrontItemEntryModel> {
+        val minValue = expBoost
+        val maxValue = expBoost * 3
+        val roll = Random.nextInt(minValue, maxValue)
+        profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, roll)
+        val meta = getCurrency(SwipeCurrency.ETHERIUM_COIN)
+        return listOf(FrontItemEntryModel(SwipeCurrency.ETHERIUM_COIN.toString(), roll, 0, meta.rarity, meta.name, meta.currency, null))
+    }
+
+    override suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int, cost: Int): List<FrontItemEntryModel> {
+        if (profile.getBalance(SwipeCurrency.ETHERIUM_COIN) < cost) {
+            return emptyList()
+        }
+        profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -cost)
+
+        var result = mutableListOf<FrontItemEntryModel>()
+
+        val levelModel = levelService.getAct(act).levels.first { it.id == level }
+        val pool = levelModel.tiers!![tier].rewards
+        val totalWeight = pool.sumOf { it.weight }
+        var stuffLeft = cost
+        while (stuffLeft > 0) {
+            val roll = Random.nextInt(totalWeight)
+            var sum = 0
+            val reward = pool.first { sum += it.weight; sum >= roll }
+            if (reward.currency != null) {
+                val currency = reward.currency.type
+                val amount = reward.currency.amount
+                profile = profile.addBalance(currency, amount)
+                val meta = getCurrency(currency)
+                result.add(FrontItemEntryModel(
+                    skin = meta.currency.toString(),
+                    amount = amount,
+                    level = 0,
+                    rarity = meta.rarity,
+                    name = meta.name,
+                    currency = currency,
+                    item = null
+                ))
+                stuffLeft -= reward.currency.type.coins
+            } else if (reward.skin != null) {
+                val item = itemService.generateItem(reward.skin, reward.rarity ?: 0)!!
+                addItem(item)
+                val template = itemService.getItemTemplate(item.skin)!!
+                result.add(FrontItemEntryModel(
+                    skin = item.skin,
+                    amount = 1,
+                    level = SwipeCharacter.getLevel(item.experience),
+                    rarity = item.rarity,
+                    name = template.name,
+                    currency = null,
+                    item = item
+                ))
+                stuffLeft -= ITEM_COST[item.rarity]
+            }
+        }
+        val currencies = SwipeCurrency.values().map { c -> c to result.sumOf { if (it.currency == c) it.amount else 0 } }
+        result = (result.filter { it.currency == null } + currencies.mapNotNull {
+            if (it.second <= 0) {
+                null
+            } else {
+                val meta = getCurrency(it.first)
+                FrontItemEntryModel(
+                    skin = meta.currency.toString(),
+                    amount = it.second,
+                    level = 0,
+                    rarity = meta.rarity,
+                    name = meta.name,
+                    currency = it.first,
+                    item = null
+                )
+            }
+        }).toMutableList()
+
+        saveProfile()
+        return result
+    }
+
+    private val ITEM_COST = arrayOf(500, 1500, 5000, 15000, 50000)
 
     override suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata {
         return currencyCache.currencies.firstOrNull { it.currency == currency } ?: throw IllegalArgumentException("No currency $currency")
@@ -501,6 +585,10 @@ class ProfileServiceImpl(
         }
         profile = profile.copy(items = profile.items.filter { it.id != id })
         saveProfile()
+    }
+
+    override suspend fun getRaidDetails(act: SwipeAct, level: String): FrontRaidModel {
+        return levelService.getRaidDetails(act, level)
     }
 
     override suspend fun generateItem(skin: String, rarity: Int): InventoryItem {

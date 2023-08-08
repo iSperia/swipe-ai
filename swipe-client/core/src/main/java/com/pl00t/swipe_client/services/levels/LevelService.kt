@@ -37,6 +37,8 @@ interface LevelService {
 
     suspend fun getLevelDetails(act: SwipeAct, level: String, enabled: Boolean): FrontLevelModel
 
+    suspend fun getRaidDetails(act: SwipeAct, level: String): FrontRaidModel
+
     suspend fun getFreeReward(act: SwipeAct, level: String): List<LevelReward>
 
     suspend fun getLevelSpecificDrops(act: SwipeAct, level: String, locationLevel: Int): List<SbDropEntry>
@@ -60,11 +62,22 @@ data class FrontLevelModel(
     val locationDescription: SbText,
     val dialog: List<DialogEntryModel>,
     val waves: List<List<FrontMonsterEntryModel>>,
-    val monsterPool: List<String>,
     val enabled: Boolean,
     val type: LevelType,
     val x: Float,
     val y: Float,
+)
+
+data class RaidTierModel(
+    val monster_pool: List<SbMonsterPoolEntry>,
+    val rewards: List<LevelReward>
+)
+data class FrontRaidModel(
+    val act: SwipeAct,
+    val locationId: String,
+    val locationBackground: String,
+    val locationTitle: SbText,
+    val tiers: List<RaidTierModel>
 )
 
 enum class LevelRewardType {
@@ -80,5 +93,6 @@ data class LevelReward(
     val type: LevelRewardType,
     val currency: CurrencyReward?,
     val rarity: Int?,
-    val skin: String?
+    val skin: String?,
+    val weight: Int
 )

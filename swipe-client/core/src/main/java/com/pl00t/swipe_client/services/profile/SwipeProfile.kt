@@ -3,16 +3,16 @@ package com.pl00t.swipe_client.services.profile
 import com.game7th.items.InventoryItem
 import com.game7th.swipe.game.CharacterAttributes
 
-enum class SwipeCurrency(val expBonus: Int = 0) {
+enum class SwipeCurrency(val expBonus: Int = 0, val coins: Int = 1) {
     ETHERIUM_COIN,
-    SCROLL_OF_WISDOM(expBonus = 750),
-    TOME_OF_ENLIGHTMENT(expBonus = 2500),
-    CODEX_OF_ASCENDANCY(expBonus = 7500),
-    GRIMOIRE_OF_OMNISCENCE(expBonus = 25000),
-    INFUSION_ORB(expBonus = 750),
-    INFUSION_SHARD(expBonus = 2500),
-    INFUSION_CRYSTAL(expBonus = 7500),
-    ASCENDANT_ESSENCE(expBonus = 25000),
+    SCROLL_OF_WISDOM(expBonus = 750, coins = 100),
+    TOME_OF_ENLIGHTMENT(expBonus = 2500, coins = 300),
+    CODEX_OF_ASCENDANCY(expBonus = 7500, coins = 900),
+    GRIMOIRE_OF_OMNISCENCE(expBonus = 25000, coins = 3000),
+    INFUSION_ORB(expBonus = 750, coins = 100),
+    INFUSION_SHARD(expBonus = 2500, coins = 300),
+    INFUSION_CRYSTAL(expBonus = 7500, coins = 900),
+    ASCENDANT_ESSENCE(expBonus = 25000, coins = 3000),
 }
 
 enum class SwipeAct {

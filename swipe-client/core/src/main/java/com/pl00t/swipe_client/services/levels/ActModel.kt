@@ -33,7 +33,7 @@ data class DialogEntryModel(
 data class SbMonsterPoolEntry(
     val skin: String,
     val weight: Int,
-    val value: Float,
+    val level: Int,
 )
 
 data class LevelModel(
@@ -46,7 +46,7 @@ data class LevelModel(
     val background: String,
     val music: String?,
     val monsters: List<List<SbMonsterEntry>>?,
-    val monster_pool: List<SbMonsterPoolEntry>?,
     val dialog: List<DialogEntryModel>?,
     val freeReward: List<LevelReward>?,
+    val tiers: List<RaidTierModel>?,
 )

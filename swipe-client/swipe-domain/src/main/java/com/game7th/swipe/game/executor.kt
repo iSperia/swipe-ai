@@ -64,39 +64,9 @@ fun SbContext.createCharacter(skin: String): SbCharacter {
     )
 }
 
-fun SbContext.initHumans(humans: List<SbHumanEntry>) {
+fun SbContext.initHumans(humans: List<FrontMonsterConfiguration>) {
     humans.forEach { config ->
-        val maxHealth = (balance.getMonster(config.skin).balance.intAttribute("base_health") * (1f + 0.1f * config.attributes.body)).toInt()
-
-        var physResist = 0f
-        var coldResist = 0f
-        var lightResist = 0f
-        var fireResist = 0f
-        var darkResist = 0f
-        var shockResist = 0f
-        var physIncrease = 0f
-        var coldIncrease = 0f
-        var lightIncrease = 0f
-        var fireIncrease = 0f
-        var darkIncrease = 0f
-        var shockIncrease = 0f
-        config.items.flatMap { it.affixes + it.implicit }.forEach { affix ->
-            when (affix.affix) {
-                ItemAffixType.PHYS_RESIST_FLAT -> physResist += affix.value
-                ItemAffixType.COLD_RESIST_FLAT -> coldResist += affix.value
-                ItemAffixType.DARK_RESIST_FLAT -> darkResist += affix.value
-                ItemAffixType.FIRE_RESIST_FLAT -> fireResist += affix.value
-                ItemAffixType.LIGHT_RESIST_FLAT -> lightResist += affix.value
-                ItemAffixType.SHOCK_RESIST_FLAT -> shockResist += affix.value
-                ItemAffixType.COLD_DAMAGE_INCREASE -> coldIncrease += affix.value
-                ItemAffixType.DARK_DAMAGE_INCREASE -> darkIncrease += affix.value
-                ItemAffixType.PHYS_DAMAGE_INCREASE -> physIncrease += affix.value
-                ItemAffixType.LIGHT_DAMAGE_INCREASE -> lightIncrease += affix.value
-                ItemAffixType.FIRE_DAMAGE_INCREASE -> fireIncrease += affix.value
-                ItemAffixType.SHOCK_DAMAGE_INCREASE -> shockIncrease += affix.value
-                else -> {}
-            }
-        }
+        val maxHealth = config.health
 
         var character = createCharacter(config.skin).copy(
             human = true,
@@ -109,24 +79,24 @@ fun SbContext.initHumans(humans: List<SbHumanEntry>) {
             id = 0,
             skin = "base.resist",
             mapOf(
-                CommonKeys.Resist.PHYS to physResist,
-                CommonKeys.Resist.COLD to coldResist,
-                CommonKeys.Resist.DARK to darkResist,
-                CommonKeys.Resist.LIGHT to lightResist,
-                CommonKeys.Resist.FIRE to fireResist,
-                CommonKeys.Resist.SHOCK to shockResist,
+                CommonKeys.Resist.PHYS to config.resist.phys,
+                CommonKeys.Resist.COLD to config.resist.cold,
+                CommonKeys.Resist.DARK to config.resist.dark,
+                CommonKeys.Resist.LIGHT to config.resist.light,
+                CommonKeys.Resist.FIRE to config.resist.fire,
+                CommonKeys.Resist.SHOCK to config.resist.shock,
             )
         )).withAddedEffect(
             SbEffect(
                 id = 0,
                 skin = "base.damage",
                 mapOf(
-                    CommonKeys.Damage.PHYS to physIncrease,
-                    CommonKeys.Damage.COLD to coldIncrease,
-                    CommonKeys.Damage.DARK to darkIncrease,
-                    CommonKeys.Damage.LIGHT to lightIncrease,
-                    CommonKeys.Damage.FIRE to fireIncrease,
-                    CommonKeys.Damage.SHOCK to shockIncrease,
+                    CommonKeys.Damage.PHYS to config.damage.phys,
+                    CommonKeys.Damage.COLD to config.damage.cold,
+                    CommonKeys.Damage.DARK to config.damage.dark,
+                    CommonKeys.Damage.LIGHT to config.damage.light,
+                    CommonKeys.Damage.FIRE to config.damage.fire,
+                    CommonKeys.Damage.SHOCK to config.damage.shock,
                 )
             )
         )
@@ -139,28 +109,39 @@ fun SbContext.initHumans(humans: List<SbHumanEntry>) {
     }
 }
 
-fun SbContext.initWave(wave: List<SbMonsterEntry>) {
+fun SbContext.initWave(wave: List<FrontMonsterConfiguration>) {
     wave.forEach { config ->
-        val amountOfAttributes = ((1f + 0.01f * config.level) * config.level * 3).toInt()
-        var body = 0
-        var spirit = 0
-        var mind = 0
-        (1..amountOfAttributes).forEach {
-            val r = Random.nextFloat()
-            when {
-                r <= 0.3333f -> body++
-                r <= 0.6666f -> spirit++
-                else -> mind++
-            }
-        }
-        val attributes = CharacterAttributes(mind, body, spirit)
-        val maxHealth = (balance.getMonster(config.skin).balance.intAttribute("base_health") * (1f + 0.1f * body)).toInt()
         val character = createCharacter(config.skin).copy(
             human = false,
             team = 1,
-            attributes = attributes,
-            maxHealth = maxHealth,
-            health = maxHealth
+            attributes = config.attributes,
+            maxHealth = config.health,
+            health = config.health,
+        ).withAddedEffect(
+            SbEffect(
+                id = 0,
+                skin = "base.resist",
+                mapOf(
+                    CommonKeys.Resist.PHYS to config.resist.phys,
+                    CommonKeys.Resist.COLD to config.resist.cold,
+                    CommonKeys.Resist.DARK to config.resist.dark,
+                    CommonKeys.Resist.LIGHT to config.resist.light,
+                    CommonKeys.Resist.FIRE to config.resist.fire,
+                    CommonKeys.Resist.SHOCK to config.resist.shock,
+                )
+            )).withAddedEffect(
+            SbEffect(
+                id = 0,
+                skin = "base.damage",
+                mapOf(
+                    CommonKeys.Damage.PHYS to config.damage.phys,
+                    CommonKeys.Damage.COLD to config.damage.cold,
+                    CommonKeys.Damage.DARK to config.damage.dark,
+                    CommonKeys.Damage.LIGHT to config.damage.light,
+                    CommonKeys.Damage.FIRE to config.damage.fire,
+                    CommonKeys.Damage.SHOCK to config.damage.shock,
+                )
+            )
         )
         game = game.withAddedCharacter(character)
         events.add(SbDisplayEvent.SbCreateCharacter(

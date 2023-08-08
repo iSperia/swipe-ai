@@ -73,8 +73,8 @@ suspend fun testLevel(
             },
             triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
         ).apply {
-            initHumans(listOf(SbHumanEntry(progression.characterSkin, progression.characterLevel, progression.characterAttributes, emptyList())))
-            initWave(levelModel.monsters?.get(0)!!)
+//            initHumans(listOf(SbHumanEntry(progression.characterSkin, progression.characterLevel, progression.characterAttributes, emptyList())))
+//            initWave(levelModel.monsters?.get(0)!!)
         }
 
         var victory = -1
@@ -106,7 +106,7 @@ suspend fun testLevel(
                     val wavesTotal = waves.size
                     if (context.game.wave < wavesTotal - 1) {
                         context.game = context.game.copy(wave = context.game.wave + 1)
-                        context.initWave(waves[context.game.wave])
+//                        context.initWave(waves[context.game.wave])
                     } else {
                         victory = 0
                     }

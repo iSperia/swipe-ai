@@ -47,7 +47,7 @@ class BattleServiceImpl(
     private val profileService: ProfileService,) : BattleService {
 
     lateinit var context: SbContext
-    lateinit var waves: List<List<SbMonsterEntry>>
+    lateinit var waves: List<List<FrontMonsterConfiguration>>
     lateinit var events: MutableSharedFlow<SbDisplayEvent>
     lateinit var endBattle: MutableSharedFlow<BattleResult>
     private var processEnabled = false
@@ -92,7 +92,7 @@ class BattleServiceImpl(
                 monsterService.loadTriggers(c.skin)
                 triggers.addAll(c.triggers)
             }
-            waves = levelModel.monsters ?: emptyList()
+            waves = levelModel.monsters?.map { it.map { monsterService.createMonster(it.skin, it.level) } } ?: emptyList()
             levelModel.monsters?.forEach { wave ->
                 wave.forEach { monster ->
                     monsterService.getMonster(monster.skin)?.let { c ->
@@ -109,26 +109,30 @@ class BattleServiceImpl(
                 monsterService.loadTriggers(it.skin)
                 triggers.addAll(it.triggers)
             }
-            waves = listOf(monsterConfigs.map { SbMonsterEntry(it.skin, (tier + 1) * 5) })
-        } else if (levelModel.type == LevelType.RAID && levelModel.monster_pool != null) {
+            waves = emptyList()
+        } else if (levelModel.type == LevelType.RAID && levelModel.tiers != null) {
             val totalWaves = if (Random.nextInt(20) < tier + 1) 4 else 3
-            val totalWeight = levelModel.monster_pool.sumOf { it.weight }
+            val totalWeight = levelModel.tiers[tier].monster_pool.sumOf { it.weight }
 
-            val waves = mutableListOf<List<SbMonsterEntry>>()
+            val waves = mutableListOf<List<FrontMonsterConfiguration>>()
             (0 until totalWaves).forEach { waveIndex ->
                 val waveMonsters = if (Random.nextFloat() < 0.25f) 2 else 3
-                val monsters = mutableListOf<SbMonsterEntry>()
+                val monsters = mutableListOf<FrontMonsterConfiguration>()
                 (0 until waveMonsters).forEach { monsterIndex ->
                     val roll = Random.nextInt(totalWeight)
                     var sum = 0
-                    val nextSkin = levelModel.monster_pool.first {
+
+                    val nextMonster = levelModel.tiers[tier].monster_pool.first {
                         sum += it.weight
                         sum > roll
-                    }.skin
+                    }
+                    val nextSkin = nextMonster.skin
+                    val nextLevel = nextMonster.level
+
                     val monsterConfig = monsterService.getMonster(nextSkin)!!
                     monsterService.loadTriggers(monsterConfig.skin)
                     triggers.addAll(monsterConfig.triggers)
-                    monsters.add(SbMonsterEntry(monsterConfig.skin, (tier + 1) * 5))
+                    monsters.add(monsterService.createMonster(nextSkin, nextLevel))
                 }
                 waves.add(monsters)
             }
@@ -150,7 +154,7 @@ class BattleServiceImpl(
             },
             triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
         ).apply {
-            initHumans(listOf(SbHumanEntry(character.skin, SwipeCharacter.getLevel(character.experience), character.attributes, profileService.getItems().filter { it.equippedBy == character.skin })))
+            initHumans(listOf(profileService.createCharacter(character.skin)))
             initWave(waves[0])
         }
         handleContext()
@@ -194,10 +198,19 @@ class BattleServiceImpl(
                     if (profileService.isFreeRewardAvailable(actId, level)) {
                         freeRewards = profileService.collectFreeReward(actId, level, tier)
                     }
+                } else {
+                    freeRewards = profileService.collectFreeRaidReward(experienceIfWin)
                 }
                 profileService.addCharacterExperience("CHARACTER_VALERIAN", experienceIfWin)
                 val monster = monsterService.getMonster("CHARACTER_VALERIAN")!!
-                endBattle.emit(BattleResult(victory = true, actId, level, tier, ExperienceResult(monster.skin, monster.name, experienceIfWin), freeRewards, 0))
+                endBattle.emit(BattleResult(
+                    victory = true,
+                    act = actId,
+                    level = level,
+                    tier = tier,
+                    exp = ExperienceResult(monster.skin, monster.name, experienceIfWin),
+                    freeRewards = freeRewards,
+                    extraRewardsCost = experienceIfWin * 6))
                 profileService.markActComplete(actId, level)
                 if (tier >= 0) {
                     profileService.unlockTier(actId, level, tier + 1)

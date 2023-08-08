@@ -77,7 +77,18 @@ class LevelServiceImpl(
             locationTitle = l.title,
             locationDescription = l.description,
             dialog = l.dialog ?: emptyList(),
-            monsterPool = l.monster_pool?.map { it.skin } ?: emptyList()
+        )
+    }
+
+    override suspend fun getRaidDetails(act: SwipeAct, level: String): FrontRaidModel {
+        val actModel = getAct(act)
+        val l = actModel.levels.firstOrNull { it.type == LevelType.RAID && it.id == level } ?: throw IllegalArgumentException("$act invalid act")
+        return FrontRaidModel(
+            act = act,
+            locationId = l.id,
+            locationBackground = l.background,
+            locationTitle = l.title,
+            tiers = l.tiers!!
         )
     }
 

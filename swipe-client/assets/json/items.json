@@ -26,6 +26,15 @@
       },
       "implicit": "PHYS_DAMAGE_INCREASE",
       "category": "GLOVES"
+    },
+    {
+      "skin": "FROSTGUARD_GAUNTLETS",
+      "name": {
+        "en": "Frostguard Gauntlets",
+        "ru": "Перчатки Морозной Стражи"
+      },
+      "implicit": "COLD_RESIST_FLAT",
+      "category": "GLOVES"
     }
   ]
 }

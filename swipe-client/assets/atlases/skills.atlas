@@ -13,7 +13,7 @@ COMMON_POISON
   index: -1
 COMMON_WEAKNESS
   rotate: false
-  xy: 1550, 776
+  xy: 1292, 265
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -58,6 +58,13 @@ THALENDROS_DARK_AURA
   xy: 1034, 648
   size: 256, 256
   orig: 256, 256
+  offset: 0, 0
+  index: -1
+THALENDROS_DARK_TILE
+  rotate: false
+  xy: 2, 2
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
 THALENDROS_THORN_WHIP
@@ -139,7 +146,7 @@ VALERIAN_SIGIL_OF_RENEWAL
   index: -1
 VALERIAN_SIGIL_OF_RENEWAL_BG
   rotate: false
-  xy: 2, 2
+  xy: 1550, 776
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

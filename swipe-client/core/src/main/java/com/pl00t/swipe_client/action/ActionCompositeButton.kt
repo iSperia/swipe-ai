@@ -115,7 +115,7 @@ class ActionCompositeButton(
             this.width = w
             this.height = when (mode) {
                 is Mode.SingleLine -> freeHeight
-                is Mode.Purchase -> freeHeight / 2f
+                is Mode.Purchase -> freeHeight
                 else -> 0f
             }
             wrap = true
@@ -131,6 +131,6 @@ class ActionCompositeButton(
     private fun getLabelText() = when (mode) {
         is Mode.NoText -> ""
         is Mode.SingleLine -> mode.text
-        is Mode.Purchase -> mode.text
+        is Mode.Purchase -> "${mode.amount}\n${mode.text}"
     }
 }

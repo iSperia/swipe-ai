@@ -12,12 +12,6 @@ data class CharacterAttributes(
     }
 }
 
-data class SbHumanEntry(
-    val skin: String,
-    val level: Int,
-    val attributes: CharacterAttributes,
-    val items: List<InventoryItem>
-)
 
 data class SbMonsterEntry(
     val skin: String,
