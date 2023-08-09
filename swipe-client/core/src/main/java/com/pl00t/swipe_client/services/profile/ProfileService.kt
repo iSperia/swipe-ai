@@ -26,6 +26,8 @@ interface ProfileService {
 
     suspend fun createCharacter(skin: String): FrontMonsterConfiguration
 
+    suspend fun createActiveCharacter(): FrontMonsterConfiguration
+
     suspend fun markActComplete(act: SwipeAct, level: String)
 
     suspend fun getAct(act: SwipeAct): FrontActModel
@@ -70,6 +72,10 @@ interface ProfileService {
     suspend fun dustItem(id: String)
     suspend fun getRaidDetails(act: SwipeAct, level: String): FrontRaidModel
     suspend fun getBossDetails(act: SwipeAct, level: String): FrontBossModel
+
+    suspend fun getActiveCharacter(): String
+
+    suspend fun setActiveCharacter(skin: String)
 
 
     data class DustItemResult(
@@ -118,10 +124,9 @@ sealed interface CollectedReward {
 
 data class CurrencyMetadata(
     val currency: SwipeCurrency,
-    val lore: String,
     val name: SbText,
     val rarity: Int,
-    val description: String,
+    val description: SbText,
 )
 
 data class CurrenciesMetadata(
@@ -161,7 +166,7 @@ class ProfileServiceImpl(
                     actProgress = listOf(
                         ActProgress(
                             SwipeAct.ACT_1,
-                            listOf("c1", "c2", "c3", "c4", "c5", "c6", "c7")
+                            listOf("c1", "c2", "c3", "c4", "c5", "c6", "c7","c8","c9","c10","c11","c12")
                         ),
                     ),
                     rewardsCollected = emptyList(),
@@ -170,30 +175,32 @@ class ProfileServiceImpl(
                             skin = "CHARACTER_VALERIAN",
                             attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
                             experience = 0,
+                        ),
+                        SwipeCharacter(
+                            skin = "CHARACTER_SAFFRON",
+                            attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                            experience = 0
                         )
                     ),
                     items = runBlocking {
                         listOf(
-                            generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)).copy(equippedBy = "CHARACTER_VALERIAN"),
-                            generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
-                            generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
-                            generateItem("HELM_OF_IRON_WILL", Random.nextInt(5)),
-                            generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)).copy(equippedBy = "CHARACTER_VALERIAN"),
-                            generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
-                            generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
-                            generateItem("RING_OF_ILLUMINATION", Random.nextInt(5)),
-                            generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
-                            generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
-                            generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
-                            generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
-                            generateItem("IRONCLAD_GAUNTLETS", Random.nextInt(5)),
-                            generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
-                            generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
-                            generateItem("FROSTGUARD_GAUNTLETS", Random.nextInt(5)),
+                            generateItem("HELM_OF_IRON_WILL", 4),
+                            generateItem("RING_OF_ILLUMINATION", 4),
+                            generateItem("FROSTGUARD_GAUNTLETS", 4),
+                            generateItem("FLAMEHEART_BELT", 4),
+                            generateItem("ENCHANTED_BAND", 4),
+                            generateItem("SHADOWBANE_AMULET", 4),
+                            generateItem("ENIGMA_HELM", 4),
+                            generateItem("CRYSTALWEAVE_LUCK", 4),
+                            generateItem("ENCHANTED_BAND", 4),
+                            generateItem("VERDANT_HEART", 4),
+                            generateItem("RADIANT_EMBRACE", 4),
+                            generateItem("HARMONYS_ECHO", 4),
                         )
                     },
                     tiersUnlocked = emptyList(),
-                    mysteryShop = null
+                    mysteryShop = null,
+                    activeCharacter = "CHARACTER_VALERIAN",
                 )
             } else {
                 SwipeProfile(
@@ -212,11 +219,17 @@ class ProfileServiceImpl(
                             skin = "CHARACTER_VALERIAN",
                             attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
                             experience = 0,
+                        ),
+                        SwipeCharacter(
+                            skin = "CHARACTER_SAFFRON",
+                            attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                            experience = 0
                         )
                     ),
                     items = emptyList(),
                     tiersUnlocked = emptyList(),
-                    mysteryShop = null
+                    mysteryShop = null,
+                    activeCharacter = "CHARACTER_VALERIAN"
                 )
             }
         }
@@ -224,11 +237,11 @@ class ProfileServiceImpl(
 
     override suspend fun getProfile(): SwipeProfile = profile
 
+    override suspend fun createActiveCharacter() = createCharacter(getActiveCharacter())
+
     override suspend fun createCharacter(skin: String): FrontMonsterConfiguration {
         profile.characters.firstOrNull { it.skin == skin }?.let { character ->
             val configFile = monsterService.getMonster(skin) ?: throw IllegalArgumentException("Did not find $skin monster")
-
-
 
             val affixes = profile.items.filter { it.equippedBy == character.skin }.flatMap { it.affixes + it.implicit }
 
@@ -249,6 +262,9 @@ class ProfileServiceImpl(
             val attrBody = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_BODY) it.value.toDouble() else 0.0 }.toInt()
             val attrSpirit = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_SPIRIT) it.value.toDouble() else 0.0 }.toInt()
             val attrMind = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_MIND) it.value.toDouble() else 0.0 }.toInt()
+            val luckFlat = affixes.sumOf { if (it.affix == ItemAffixType.LUCK_FLAT) it.value.toDouble() else 0.0 }.toFloat()
+            val ultFlat = affixes.sumOf { if (it.affix == ItemAffixType.ULT_FLAT) it.value.toDouble() else 0.0 }.toFloat()
+            val ultPrefillPercent = affixes.sumOf { if (it.affix == ItemAffixType.ULT_PREFILL) it.value.toDouble() else 0.0 }.toFloat()
 
             val attributes = character.attributes.copy(
                 body = character.attributes.body + attrBody,
@@ -258,13 +274,14 @@ class ProfileServiceImpl(
 
             val abilities = when (skin) {
                 MonsterService.CHARACTER_VALERIAN -> provideValerianAbilities(configFile.balance, attributes)
+                MonsterService.CHARACTER_SAFFRON -> provideSaffronAbilities(configFile.balance, attributes)
 
                 else -> throw IllegalArgumentException("Can't create monster $skin")
             }
 
             val health = (hpFlat + configFile.balance.intAttribute("base_health") * (1f + 0.01f * hpPercent + 0.1f * attributes.body)).toInt()
-            val ult = (configFile.balance.intAttribute("ult") * (1f + 0.05f * attributes.mind)).toInt()
-            val luck = (configFile.balance.intAttribute("luck") * (1f + 0.1f * attributes.spirit))
+            val ult = ((configFile.balance.intAttribute("ult") + ultFlat) * (1f + 0.05f * attributes.mind)).toInt()
+            val luck = ((configFile.balance.intAttribute("luck") + luckFlat) * (1f + 0.1f * attributes.spirit))
 
             return FrontMonsterConfiguration(
                 skin = skin,
@@ -294,7 +311,8 @@ class ProfileServiceImpl(
                 health = health,
                 luck = luck,
                 ult = ult,
-                ultMax = configFile.balance.intAttribute("ult_max")
+                ultMax = configFile.balance.intAttribute("ult_max"),
+                ultPrefillPercent = ultPrefillPercent.toInt()
             )
 
         } ?: throw IllegalArgumentException("No hero $skin")
@@ -621,6 +639,15 @@ class ProfileServiceImpl(
 
     override suspend fun getBossDetails(act: SwipeAct, level: String): FrontBossModel {
         return levelService.getBossDetails(act, level)
+    }
+
+    override suspend fun getActiveCharacter(): String {
+        return profile.activeCharacter ?: profile.characters.first().skin
+    }
+
+    override suspend fun setActiveCharacter(skin: String) {
+        profile = profile.copy(activeCharacter = skin)
+        saveProfile()
     }
 
     override suspend fun generateItem(skin: String, rarity: Int): InventoryItem {

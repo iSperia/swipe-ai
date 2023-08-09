@@ -62,6 +62,69 @@
       },
       "implicit": "SHOCK_RESIST_FLAT",
       "category": "BOOTS"
+    },
+    {
+      "skin": "ENCHANTED_BAND",
+      "name": {
+        "en": "Enchanted Band",
+        "ru": "Зачарованное Кольцо"
+      },
+      "implicit": "PERCENT_HP",
+      "category": "RING"
+    },
+    {
+      "skin": "VERDANT_HEART",
+      "name": {
+        "en": "Verdant Heart",
+        "ru": "Зеленое Сердце"
+      },
+      "implicit": "FLAT_HP",
+      "category": "AMULET"
+    },
+    {
+      "skin": "THEMPERSTRIDE_BOOTS",
+      "name": {
+        "en": "Themperstride Boots",
+        "ru": "Сапоги Буйного Шага"
+      },
+      "implicit": "SHOCK_RESIST_FLAT",
+      "category": "BOOTS"
+    },
+    {
+      "skin": "CRYSTALWEAVE_LUCK",
+      "name": {
+        "en": "Crystalweave Luck",
+        "ru": "Кристальная Удача"
+      },
+      "implicit": "LUCK_FLAT",
+      "category": "BELT"
+    },
+    {
+      "skin": "ENIGMA_HELM",
+      "name": {
+        "en": "Enigma Helm",
+        "ru": "Загадочный Шлем"
+      },
+      "implicit": "ULT_FLAT",
+      "category": "HELMET"
+    },
+    {
+      "skin": "HARMONYS_ECHO",
+      "name": {
+        "en": "Harmony Echo",
+        "ru": "Эхо гармонии"
+      },
+      "implicit": "ULT_PREFILL",
+      "category": "BOOTS"
+    },
+    {
+      "skin": "RADIANT_EMBRACE",
+      "name": {
+        "en": "Radiant Embrace",
+        "ru": "Сияющие объятия"
+      },
+      "implicit": "ULT_PREFILL",
+      "category": "GLOVES"
     }
   ]
 }

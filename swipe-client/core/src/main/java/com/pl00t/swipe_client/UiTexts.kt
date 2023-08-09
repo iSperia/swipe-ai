@@ -5,6 +5,7 @@ import com.game7th.swipe.SbText
 object UiTexts {
 
     val NavItems = SbText("Items", "Предметы")
+    val MakeActive = SbText("Make Active", "Сделать Активным")
     val NavShop = SbText("Shop", "Лавка")
     val FilterCurrency = SbText("Currency", "Валюта")
     val FilterAmulet = SbText("Amulets", "Подвески")
@@ -19,6 +20,7 @@ object UiTexts {
     val BattleVictory = SbText("Victory", "Победа")
     val BattleDefeat = SbText("Defeat", "Поражение")
     val ExpBoost = SbText("+$ experience", "+$ очков опыта")
+    val RetryLevel = SbText("Try again", "Попробовать заново")
 
     val RaidPossibleMonsters = SbText("Possible enemies:", "Возможные противники")
     val RaidPossibleRewards = SbText("Possible rewards:", "Возможные награды")

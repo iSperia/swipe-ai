@@ -15,6 +15,12 @@ fun SbContext.useUltimate(characterId: Int) {
     handleEvent(SbEvent.UltimateUse(characterId))
 }
 
+fun SbContext.onDamage(event: SbEvent, action: SbContext.(event: SbEvent.DamageDealt) -> Unit) {
+    if (event is SbEvent.DamageDealt) {
+        action(event)
+    }
+}
+
 fun SbContext.useOnComplete(event: SbEvent, tileSkin: String, action: SbContext.(characterId: Int, tileId: Int, koef: Float) -> Unit) {
     if (event is SbEvent.TileReachedMaxProgress1) {
         val character = game.character(event.characterId)

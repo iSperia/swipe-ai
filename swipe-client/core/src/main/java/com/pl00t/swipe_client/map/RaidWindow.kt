@@ -31,7 +31,7 @@ class RaidWindow(
     private val level: String,
     private val onClose: () -> Unit,
     private val onMonsterClicked: (FrontMonsterConfiguration) -> Unit,
-    private val onLaunch: (Int) -> Unit
+    private val onLaunch: () -> Unit
 ) : Group() {
 
     lateinit var model: FrontRaidModel
@@ -187,7 +187,7 @@ class RaidWindow(
                 onClick {
                     KtxAsync.launch {
                         r.battleService.createBattle(model.act, model.locationId, tier)
-                        onLaunch(tier)
+                        onLaunch()
                     }
                 }
             }

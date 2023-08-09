@@ -1,0 +1,41 @@
+{
+  "skin": "MONSTER_MALACHI",
+  "name": {
+    "en": "Malachi, the Corruptor of Light",
+    "ru": "Малахия, Осквернитель Света"
+  },
+  "lore": {
+    "en": "Description: Malachi, once a beacon of light and hope, now stands corrupted by darkness. His towering form radiates a twisted aura, and his eyes glow with malevolent energy. A dark miasma surrounds him, hinting at the immense power he wields.\n\nMalachi, once a protector of harmony, now stands as a corrupted force seeking to plunge the kingdom into eternal darkness. His abilities reflect his mastery over the dark forces that threaten to engulf the land.",
+    "ru": "Малахия, когда-то маяк света и надежды, теперь стоит испорченный тьмой. Его высокая форма излучает искривленную ауру, а его глаза светятся злобной энергией. Его окружают темные миазмы, намекающие на огромную силу, которой он обладает.\n\nМалахия, когда-то защитник гармонии, теперь стремится погрузить королевство в вечную тьму. Его способности отражают его власть над темными силами, которые угрожают поглотить землю."
+  },
+  "attributes": {"mind":  15, "spirit":  70, "body":  15},
+  "tiles": [
+    { "weight": 2, "skin": "MALACHI_ABYSSAL_WEAKNESS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 6 },
+    { "weight": 2, "skin": "MALACHI_UMBRAL_ENSHROUDMENT", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 6 },
+    { "weight": 7, "skin": "MALACHI_VOID_ESSENCE_DRAIN", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 2 }
+  ],
+  "triggers": ["malachi.abyssal_weakness", "malachi.umbral_enshroudment", "malachi.coid_essence_drain", "common.weakness"],
+  "balance": {
+    "base_health": 2000,
+    "luck": 15,
+    "ult": 15,
+    "ult_max": 1000,
+    "resist": {
+      "phys": 0.25,
+      "dark": 0.25,
+      "light": 0.25,
+      "shock": 0.25,
+      "fire": 0.25,
+      "cold": 0.25
+    },
+    "aw_tiles": 10,
+    "ue_base": 60,
+    "ue_scale": 0,
+    "ue_tiles": 10,
+    "ced_base": 10,
+    "ced_scale": 10,
+    "ced_heal_base": 10,
+    "ced_heal_scale": 10
+  },
+  "scale": 1.4
+}

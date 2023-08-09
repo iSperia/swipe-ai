@@ -73,7 +73,7 @@ class BattleWindow(
             r.loadAtlas(Resources.skills_atlas)
             r.loadMusic(decorations.music)
             SbSoundType.values().forEach {
-                r.loadSound("sfx/$it.ogg")
+                r.loadSound(it)
             }
             r.onLoad {
                 amLoaded()

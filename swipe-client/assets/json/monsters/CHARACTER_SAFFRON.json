@@ -1,0 +1,43 @@
+{
+  "skin": "CHARACTER_SAFFRON",
+  "name": {
+    "en": "Saffron, The Phoenix Muse",
+    "ru": "Шафран, Муза Феникса"
+  },
+  "lore": {
+    "en": "Saffron Flameheart, the Phoenix Muse, rises from the ashes of her past to join the noble cause of Prince Valerian. Born from the fiery depths of Aetheria, her homeland, Saffron is a unique fusion of mortal and phoenix spirit. Guided by an unquenchable passion for life, she embodies the balance between inspiration and intuition, offering her fiery expertise to aid in the battle against encroaching darkness.",
+    "ru": "Шафран Пламенное Сердце, муза Феникса, восстает из пепла своего прошлого, чтобы присоединиться к благородному делу принца Валериана. Рожденная из огненных глубин Этерии, ее родины, Шафран представляет собой уникальное слияние духа смертного и феникса. Руководствуясь неутолимой страстью к жизни, она воплощает баланс между вдохновением и интуицией, предлагая свой пламенный опыт, чтобы помочь в битве с надвигающейся тьмой."
+  },
+  "attributes": {"mind":  34, "spirit":  33, "body":  33},
+  "balance": {
+    "base_health": 700,
+    "luck": 5,
+    "ult": 10,
+    "ult_max": 200,
+    "resist": {
+      "phys": 0,
+      "dark": 0,
+      "light": 0,
+      "shock": 0,
+      "fire": 0,
+      "cold": 0
+    },
+    "ii_tiles": 2,
+    "ii_scale": 2,
+    "is_base": 40,
+    "is_scale": 10,
+    "bb_base": 60,
+    "bb_scale": 10,
+    "bb_back_percent": 30,
+    "pb_percent": 40
+  },
+  "triggers": [
+    "saffron.ignite_inspiration", "saffron.inferno_strike", "saffron.phoenix_rebirth", "saffron.blazing_backdraft"
+  ],
+  "tiles": [
+    { "weight": 3, "skin": "SAFFRON_IGINITE_INSPIRATION", "z": 2, "mobility": 5, "mergeStrategy": "SIMPLE", "maxProgress": 2 },
+    { "weight": 3, "skin": "SAFFRON_INFERNO_STRIKE", "z": 2, "mobility": 5, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
+    { "weight": 3, "skin": "SAFFRON_BLAZING_BACKDRAFT", "z": 2, "mobility": 5, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
+  ],
+  "scale": 1
+}

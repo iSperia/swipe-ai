@@ -1,0 +1,42 @@
+{
+  "skin": "MONSTER_SHADOWBLADE_ROGUE",
+  "name": {
+    "en": "Shadowblade Rogue",
+    "ru": "Разбойник Теневого Клинка"
+  },
+  "lore": {
+    "en": "The Shadowblade Rogues are skilled melee fighters who have been ensnared by the darkness, turning their once deadly skills into tools of corruption.",
+    "ru": "Разбойники Теневого Клинка — опытные бойцы ближнего боя, которые попали в ловушку тьмы, превратив свои когда-то смертоносные навыки в орудия порчи."
+  },
+  "attributes": {"mind":  40, "spirit":  20, "body":  40},
+  "tiles": [
+    { "weight": 5, "skin": "SHADOWBLADE_ROGUE_DARKSTRIKE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
+    { "weight": 4, "skin": "SHADOWBLADE_ROGUE_VENOMOUS_LUNGE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+    { "weight": 3, "skin": "SHADOWBLADE_ROGUE_ENFEEBLING_SLASH", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 6 }
+  ],
+  "triggers": ["shadowblade_rogue.darkstrike", "shadowblade_rogue.venomous_lunge", "shadowblade_rogue.enfeebling_slash", "common.weakness", "common.poison"],
+  "balance": {
+    "base_health": 280,
+    "luck": 10,
+    "ult": 10,
+    "ult_max": 1000,
+    "resist": {
+      "phys": 0.1,
+      "dark": 0,
+      "light": 0,
+      "shock": 0,
+      "fire": 0,
+      "cold": 0
+    },
+    "ds_base": 60,
+    "ds_scale": 10,
+    "vl_base": 20,
+    "vl_scale": 10,
+    "vl_poison": 15,
+    "vl_poison_scale": 10,
+    "es_base": 45,
+    "es_scale": 10,
+    "es_tiles": 4
+  },
+  "scale": 0.9
+}

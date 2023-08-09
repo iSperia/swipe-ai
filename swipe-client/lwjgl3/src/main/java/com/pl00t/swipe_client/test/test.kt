@@ -4,6 +4,7 @@ import com.game7th.items.ItemAffix
 import com.game7th.items.ItemAffixType
 import com.game7th.swipe.game.SbMonsterConfiguration
 import com.game7th.swipe.game.*
+import com.game7th.swipe.game.characters.provideSaffronAbilities
 import com.game7th.swipe.game.characters.provideValerianAbilities
 import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.Gson
@@ -76,6 +77,7 @@ private suspend fun createCharacter(monsterService: MonsterService, attributes: 
 
         val abilities = when (skin) {
             MonsterService.CHARACTER_VALERIAN -> provideValerianAbilities(configFile.balance, attributes)
+            MonsterService.CHARACTER_SAFFRON -> provideSaffronAbilities(configFile.balance, attributes)
 
             else -> throw IllegalArgumentException("Can't create monster $skin")
         }
@@ -112,7 +114,8 @@ private suspend fun createCharacter(monsterService: MonsterService, attributes: 
             health = health,
             luck = luck,
             ult = ult,
-            ultMax = configFile.balance.intAttribute("ult_max")
+            ultMax = configFile.balance.intAttribute("ult_max"),
+            ultPrefillPercent = 0,
         )
 }
 

@@ -10,6 +10,7 @@ import com.pl00t.swipe_client.services.profile.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
+import ktx.app.profile
 import java.lang.IllegalStateException
 import kotlin.random.Random
 
@@ -76,7 +77,7 @@ class BattleServiceImpl(
         val actModel = levelService.getAct(actId)
         val levelModel = actModel.levels.firstOrNull { it.id == level } ?: throw IllegalStateException("No level found")
 
-        val character = profileService.getCharacters().first()
+        val character = profileService.getCharacters().first { it.skin == profileService.getActiveCharacter() }
 
         val game = SbGame(0, 1, 0, emptyList())
         val triggers = mutableSetOf<String>()
@@ -193,8 +194,8 @@ class BattleServiceImpl(
                 } else {
                     freeRewards = profileService.collectFreeRaidReward(experienceIfWin)
                 }
-                profileService.addCharacterExperience("CHARACTER_VALERIAN", experienceIfWin)
-                val monster = monsterService.getMonster("CHARACTER_VALERIAN")!!
+                profileService.addCharacterExperience(profileService.getActiveCharacter(), experienceIfWin)
+                val monster = monsterService.getMonster(profileService.getActiveCharacter())!!
                 endBattle.emit(BattleResult(
                     victory = true,
                     act = actId,

@@ -6,11 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.game7th.swipe.game.SbSoundType
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
+import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.ItemCellActor
 import kotlinx.coroutines.launch
@@ -23,6 +25,7 @@ class BattleResultDialog(
     private val result: BattleResult,
     private val onClose: () -> Unit,
     private val onItemClick: (String) -> Unit,
+    private val onStartLevel: (Boolean) -> Unit
 ) : Group() {
 
     private val content = Table().apply {
@@ -52,6 +55,17 @@ class BattleResultDialog(
 
         loadData()
 
+        if (result.victory) {
+            r.loadSound(SbSoundType.FANFARE)
+            r.onLoad {
+                r.playSound(SbSoundType.FANFARE)
+            }
+        } else {
+            r.loadSound(SbSoundType.DEFEAT_MUSIC)
+            r.onLoad {
+                r.playSound(SbSoundType.DEFEAT_MUSIC)
+            }
+        }
     }
 
     private fun addTitle() {
@@ -71,23 +85,39 @@ class BattleResultDialog(
 
     private fun addBottomPanel() {
         KtxAsync.launch {
-            val enoughCoins = r.profileService.getProfile().getBalance(SwipeCurrency.ETHERIUM_COIN) >= result.extraRewardsCost
-            val collectReward = ActionCompositeButton(r, Action.ItemDetails(SwipeCurrency.ETHERIUM_COIN.toString()), Mode.Purchase(UiTexts.RaidCollectRewards.value(r.l), SwipeCurrency.ETHERIUM_COIN, result.extraRewardsCost))
+            var actions = mutableListOf<ActionCompositeButton>()
 
-            if (enoughCoins) {
-                collectReward.onClick {
+            if (result.victory && result.extraRewardsCost > 0) {
+                val enoughCoins = r.profileService.getProfile().getBalance(SwipeCurrency.ETHERIUM_COIN) >= result.extraRewardsCost
+                val collectReward = ActionCompositeButton(r, Action.ItemDetails(SwipeCurrency.ETHERIUM_COIN.toString()), Mode.Purchase(UiTexts.RaidCollectRewards.value(r.l), SwipeCurrency.ETHERIUM_COIN, result.extraRewardsCost))
+
+                if (enoughCoins) {
+                    collectReward.onClick {
+                        KtxAsync.launch {
+                            collectReward.touchable = Touchable.disabled
+                            collectReward.alpha = 0.5f
+                            extraRewards = r.profileService.collectRichReward(result.act, result.level, result.tier, result.extraRewardsCost)
+                            loadData()
+                        }
+                    }
+                } else {
+                    collectReward.touchable = Touchable.disabled
+                    collectReward.alpha = 0.5f
+                }
+                actions.add(collectReward)
+            }
+
+            if (!result.victory) {
+                val retry = ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.RetryLevel.value(r.l)))
+                retry.onClick {
                     KtxAsync.launch {
-                        collectReward.touchable = Touchable.disabled
-                        collectReward.alpha = 0.5f
-                        extraRewards = r.profileService.collectRichReward(result.act, result.level, result.tier, result.extraRewardsCost)
-                        loadData()
+                        r.battleService.createBattle(result.act, result.level, result.tier)
+                        onStartLevel(true)
                     }
                 }
-            } else {
-                collectReward.touchable = Touchable.disabled
-                collectReward.alpha = 0.5f
+                actions.add(retry)
             }
-            val actions = if (result.extraRewardsCost > 0) listOf(collectReward) else emptyList()
+
             bottomPanel = BottomActionPanel(r, actions, if (result.victory) 4 else 0)
             addActor(bottomPanel)
         }

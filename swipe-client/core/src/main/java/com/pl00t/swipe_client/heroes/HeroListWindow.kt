@@ -12,6 +12,7 @@ import com.pl00t.swipe_client.action.Action
 import com.pl00t.swipe_client.action.ActionCompositeButton
 import com.pl00t.swipe_client.action.Mode
 import com.pl00t.swipe_client.action.WindowTitleActor
+import com.pl00t.swipe_client.home.ReloadableScreen
 import com.pl00t.swipe_client.monster.MonsterShortDetailsCell
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
@@ -24,7 +25,7 @@ class HeroListWindow(
     private val r: Resources,
     private val onClose: () -> Unit,
     private val onHeroSelected: (String) -> Unit
-) : Group() {
+) : Group(), ReloadableScreen {
 
     lateinit var title: WindowTitleActor
 
@@ -33,6 +34,10 @@ class HeroListWindow(
     }
     private val scroll = ScrollPane(content).apply {
         setSize(480f, r.height - 80f)
+    }
+
+    override fun reload() {
+        loadHeroes()
     }
 
     init {
@@ -66,6 +71,8 @@ class HeroListWindow(
 
     private fun loadHeroes() {
         KtxAsync.launch {
+            content.clearChildren()
+            val activeSkin = r.profileService.getActiveCharacter()
             r.profileService.getCharacters().forEachIndexed { index, character ->
                 val monster = r.monsterService.getMonster(character.skin)!!
                 val actor = MonsterShortDetailsCell(
@@ -91,7 +98,7 @@ class HeroListWindow(
                     alpha = 0.6f
                 }
                 cell.addActor(shadow)
-                if (index == 0) {
+                if (character.skin == activeSkin) {
                     bg.alpha = 0.36f
                 }
                 cell.addActor(actor)

@@ -44,6 +44,7 @@ data class FrontMonsterConfiguration(
     val ult: Int,
     val ultMax: Int,
     val lore: SbText,
+    val ultPrefillPercent: Int,
 )
 
 data class SbMonsterConfiguration(

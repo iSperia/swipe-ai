@@ -6,8 +6,10 @@
         "en": "Etherium Coins",
         "ru": "Эфирные Монеты"
       },
-      "description": "The currency across the shattered kingdoms",
-      "lore": "Etherium coins, shimmering metallic discs infused with ethereal energy, the currency of choice in the shattered realms.",
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
       "rarity": 1
     },
     {
@@ -16,8 +18,10 @@
         "en": "Scroll of Wisdom",
         "ru": "Свиток Мудрости"
       },
-      "description": "Adds 1 experience to the character",
-      "lore": "An illustrious scroll scribed with the profound insights of the ages, elevating the reader's understanding to new heights",
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
       "rarity": 1
     },
     {
@@ -26,8 +30,10 @@
         "en": "Tome of Enlightment",
         "ru": "Фолиант Просветления"
       },
-      "description": "Adds 10 experience to the character",
-      "lore": "A humble tome filled with ancient teachings, granting a modest boon of knowledge to those who study its contents",
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
       "rarity": 2
     },
     {
@@ -36,8 +42,10 @@
         "en": "Codex of Ascendancy",
         "ru": "Кодекс господства"
       },
-      "description": "Adds 100 experience to the character",
-      "lore": "A refined codex teeming with esoteric knowledge, providing a substantial source of wisdom for the eager seeker",
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
       "rarity": 3
     },
     {
@@ -46,8 +54,10 @@
         "en": "Grimoire of Omniscience",
         "ru": "Гримуар всеведения"
       },
-      "description": "Adds 1000 experience to the character",
-      "lore": "An unparalleled grimoire emanating with boundless wisdom and arcane revelations, unlocking the full potential of those who delve into its secrets.",
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
       "rarity": 4
     },
     {
@@ -56,8 +66,10 @@
         "en": "Infusion Orb",
         "ru": "Сфера Вливания"
       },
-      "description": "Adds 1 experience to the item",
-      "lore": "A shimmering orb containing a faint glimmer of ancient knowledge, granting gentle nourishment to items seeking growth",
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
       "rarity": 1
     },
     {
@@ -66,8 +78,10 @@
         "en": "Infusion Shard",
         "ru": "Осколок Вливания"
       },
-      "description": "Adds 10 experience to the item",
-      "lore": "A radiant crystal resonating with magical energies, bestowing substantial strength to those who seek to enhance their artifacts",
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
       "rarity": 2
     },
     {
@@ -76,8 +90,10 @@
         "en": "Infusion Crystal",
         "ru": "Кристалл Вливания"
       },
-      "description": "Adds 100 experience to the item",
-      "lore": "A crystalline shard pulsating with immense power, capable of unlocking the full potential of even the most legendary items",
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
       "rarity": 3
     },
     {
@@ -86,9 +102,83 @@
         "en": "Ascendant Essence",
         "ru": "Сущность Восхождения"
       },
-      "description": "Adds 1000 experience to the item",
-      "lore": "An ethereal essence that transcends the boundaries of time and space, empowering items with unparalleled might, reserved for only the most legendary crafts",
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
       "rarity": 4
+    },
+    {
+      "currency": "ELIXIR_AMBER",
+      "name": {
+        "en": "Amber Elixir",
+        "ru": "Янтарный Эликсир"
+      },
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
+      "rarity": 3
+    },
+    {
+      "currency": "ELIXIR_TURQUOISE",
+      "name": {
+        "en": "Turquoise Elixir",
+        "ru": "Бирюзовый Эликсир"
+      },
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
+      "rarity": 3
+    },
+    {
+      "currency": "ELIXIR_LAPIS",
+      "name": {
+        "en": "Lapis Elixir",
+        "ru": "Лазуритовый Эликсир"
+      },
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
+      "rarity": 3
+    },
+    {
+      "currency": "ELIXIR_CITRINE",
+      "name": {
+        "en": "Citriner Elixir",
+        "ru": "Цитриновый Эликсир"
+      },
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
+      "rarity": 3
+    },
+    {
+      "currency": "ELIXIR_JADE",
+      "name": {
+        "en": "Jade Elixir",
+        "ru": "Нефритовый Эликсир"
+      },
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
+      "rarity": 3
+    },
+    {
+      "currency": "ELIXIR_AGATE",
+      "name": {
+        "en": "Agate Elixir",
+        "ru": "Агатовый Эликсир"
+      },
+      "description": {
+        "en": "The currency across the shattered kingdoms",
+        "ru": "The currency across the shattered kingdoms"
+      },
+      "rarity": 3
     }
   ]
 }

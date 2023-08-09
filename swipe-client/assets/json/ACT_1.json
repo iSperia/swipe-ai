@@ -50,15 +50,27 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
-            "type": "SCROLL_OF_WISDOM"
+            "amount": 1000,
+            "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 100,
-            "type": "ETHERIUM_COIN"
+            "amount": 2,
+            "type": "SCROLL_OF_WISDOM"
+          }
+        },
+        {
+          "type": "item",
+          "skin": "RING_OF_ILLUMINATION",
+          "rarity": 0
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 2,
+            "type": "INFUSION_ORB"
           }
         }
       ]
@@ -123,21 +135,28 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 3,
-            "type": "SCROLL_OF_WISDOM"
+            "amount": 1500,
+            "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 200,
-            "type": "ETHERIUM_COIN"
+            "amount": 3,
+            "type": "SCROLL_OF_WISDOM"
           }
         },
         {
           "type": "item",
           "skin": "HELM_OF_IRON_WILL",
-          "rarity": 1
+          "rarity": 0
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 3,
+            "type": "INFUSION_ORB"
+          }
         }
       ]
     },
@@ -241,22 +260,29 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
-            "type": "TOME_OF_ENLIGHTMENT"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 10,
+            "amount": 2000,
             "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
+            "amount": 4,
+            "type": "SCROLL_OF_WISDOM"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
             "amount": 1,
-            "type": "INFUSION_ORB"
+            "type": "ELIXIR_LAPIS"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_CITRINE"
           }
         }
       ]
@@ -332,49 +358,220 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 10,
-            "type": "INFUSION_ORB"
+            "amount": 2500,
+            "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 2,
-            "type": "TOME_OF_ENLIGHTMENT"
+            "amount": 4,
+            "type": "SCROLL_OF_WISDOM"
           }
         },
         {
-          "type": "item",
-          "skin": "FROSTGUARD_GAUNTLETS",
-          "rarity": 2
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_LAPIS"
+          }
         },
         {
-          "type": "item",
-          "skin": "SHADOWBANE_AMULET",
-          "rarity": 2
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_CITRINE"
+          }
         }
       ],
       "tiers": [
         {
           "monster_pool": [
-            {"skin": "MONSTER_THALENDROS", "level": 5, "weight": 30}
+            {
+              "skin": "MONSTER_THALENDROS",
+              "level": 5,
+              "weight": 30
+            }
           ],
           "rewards": [
-            {"type": "currency", "currency": {"type": "SCROLL_OF_WISDOM", "amount": 1}, "rarity": 0, "weight": 80},
-            {"type": "currency", "currency": {"type": "TOME_OF_ENLIGHTMENT", "amount": 1}, "rarity": 1, "weight": 20},
-            {"type": "currency", "currency": {"type": "INFUSION_ORB", "amount": 1}, "rarity": 0, "weight": 80},
-            {"type": "currency", "currency": {"type": "INFUSION_SHARD", "amount": 1}, "rarity": 1, "weight": 20}
+            {
+              "type": "item",
+              "skin": "VERDANT_HEART",
+              "rarity": 3,
+              "weight": 5
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "SCROLL_OF_WISDOM",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 100
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "TOME_OF_ENLIGHTMENT",
+                "amount": 1
+              },
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_LAPIS",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_CITRINE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            }
           ]
         },
         {
           "monster_pool": [
-            {"skin": "MONSTER_THALENDROS", "level": 10, "weight": 30}
+            {
+              "skin": "MONSTER_THALENDROS",
+              "level": 10,
+              "weight": 30
+            }
           ],
           "rewards": [
-            {"type": "currency", "currency": {"type": "TOME_OF_ENLIGHTMENT", "amount": 1}, "rarity": 1, "weight": 80},
-            {"type": "currency", "currency": {"type": "CODEX_OF_ASCENDANCY", "amount": 1}, "rarity": 2, "weight": 20},
-            {"type": "currency", "currency": {"type": "INFUSION_SHARD", "amount": 1}, "rarity": 1, "weight": 80},
-            {"type": "currency", "currency": {"type": "INFUSION_CRYSTAL", "amount": 1}, "rarity": 2, "weight": 20}
+            {
+              "type": "item",
+              "skin": "VERDANT_HEART",
+              "rarity": 3,
+              "weight": 7
+            },
+            {
+              "type": "item",
+              "skin": "VERDANT_HEART",
+              "rarity": 4,
+              "weight": 3
+            },
+            {
+              "type": "item",
+              "skin": "ENCHANTED_BAND",
+              "rarity": 3,
+              "weight": 5
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "TOME_OF_ENLIGHTMENT",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 100
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "CODEX_OF_ASCENDANCY",
+                "amount": 1
+              },
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_LAPIS",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_CITRINE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_THALENDROS",
+              "level": 20,
+              "weight": 30
+            }
+          ],
+          "rewards": [
+            {
+              "type": "item",
+              "skin": "VERDANT_HEART",
+              "rarity": 3,
+              "weight": 2
+            },
+            {
+              "type": "item",
+              "skin": "VERDANT_HEART",
+              "rarity": 4,
+              "weight": 8
+            },
+            {
+              "type": "item",
+              "skin": "ENCHANTED_BAND",
+              "rarity": 3,
+              "weight": 7
+            },
+            {
+              "type": "item",
+              "skin": "ENCHANTED_BAND",
+              "rarity": 4,
+              "weight": 3
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "CODEX_OF_ASCENDANCY",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 100
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "GRIMOIRE_OF_OMNISCENCE",
+                "amount": 1
+              },
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_LAPIS",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_CITRINE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            }
           ]
         }
       ]
@@ -410,21 +607,28 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 4000,
-            "type": "ETHERIUM_COINS"
+            "amount": 3000,
+            "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 3,
+            "amount": 2,
             "type": "TOME_OF_ENLIGHTMENT"
           }
         },
         {
           "type": "item",
-          "skin": "IRONCLAD_GAUNTLETS",
-          "rarity": 2
+          "skin": "FROSTGUARD_GAUNTLETS",
+          "rarity": 0
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 2,
+            "type": "INFUSION_SHARD"
+          }
         }
       ]
     },
@@ -483,22 +687,27 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 3000,
-            "type": "ETHERIUM_COINS"
+            "amount": 3500,
+            "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
             "amount": 3,
-            "type": "SCROLL_OF_WISDOM"
+            "type": "TOME_OF_ENLIGHTMENT"
           }
+        },
+        {
+          "type": "item",
+          "skin": "FROSTGUARD_GAUNTLETS",
+          "rarity": 0
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
-            "type": "CODEX_OF_ASCENDANCY"
+            "amount": 3,
+            "type": "INFUSION_SHARD"
           }
         }
       ]
@@ -562,14 +771,14 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 3000,
-            "type": "ETHERIUM_COINS"
+            "amount": 4000,
+            "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 3,
+            "amount": 4,
             "type": "TOME_OF_ENLIGHTMENT"
           }
         },
@@ -577,7 +786,14 @@
           "type": "currency",
           "currency": {
             "amount": 1,
-            "type": "CODEX_OF_ASCENDANCY"
+            "type": "ELIXIR_AMBER"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_TURQUOISE"
           }
         }
       ]
@@ -586,7 +802,7 @@
       "x": 850,
       "y": 218,
       "type": "BOSS",
-      "music": "theme_crystal_caverns",
+      "music": "theme_xalithar",
       "id": "c8",
       "title": {
         "en": "Xalithar, the Crystal Goliath",
@@ -601,9 +817,182 @@
         [
           {
             "skin": "MONSTER_XALITHAR",
-            "level": 1
+            "level": 8
           }
         ]
+      ],
+      "tiers": [
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_XALITHAR",
+              "level": 10,
+              "weight": 30
+            }
+          ],
+          "rewards": [
+            {
+              "type": "currency",
+              "currency": {
+                "type": "TOME_OF_ENLIGHTMENT",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 100
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "CODEX_OF_ASCENDANCY",
+                "amount": 1
+              },
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_AMBER",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_TURQUOISE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_XALITHAR",
+              "level": 15,
+              "weight": 30
+            }
+          ],
+          "rewards": [
+            {
+              "type": "currency",
+              "currency": {
+                "type": "CODEX_OF_ASCENDANCY",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 100
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "GRIMOIRE_OF_OMNISCENCE",
+                "amount": 1
+              },
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_AMBER",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_TURQUOISE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_XALITHAR",
+              "level": 25,
+              "weight": 30
+            }
+          ],
+          "rewards": [
+            {
+              "type": "currency",
+              "currency": {
+                "type": "CODEX_OF_ASCENDANCY",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "GRIMOIRE_OF_OMNISCENCE",
+                "amount": 1
+              },
+              "rarity": 1,
+              "weight": 100
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_AMBER",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_TURQUOISE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            }
+          ]
+        }
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 4500,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 4,
+            "type": "TOME_OF_ENLIGHTMENT"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_AMBER"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_TURQUOISE"
+          }
+        }
       ]
     },
     {
@@ -611,108 +1000,434 @@
       "y": 592,
       "type": "CAMPAIGN",
       "id": "c9",
-      "music": "theme_crystal_caverns",
+      "music": "theme_citadel",
       "title": {
-        "en": "Thalendros, the Corrupted Treant",
-        "ru": "Талендрос, Оскверненный Древень"
+        "en": "The Sacred Citadel",
+        "ru": "Священная Цитадель"
       },
       "description": {
-        "en": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
-        "ru": "Талендрос — массивный древень, когда-то охранявший Зеленую рощу, но теперь испорченный темной энергией. Его когда-то яркая листва увяла, уступив место колючим ветвям и злобным светящимся глазам. Талендрос стоит высокий и внушительный, излучая ауру порчи и разложения."
+        "en": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
+        "ru": "Священная Цитадель — это величественная крепость, возвышающаяся на вершине горы с видом на Королевство Гармонии. Это место медитации и духовного просветления, где находится Орден Света, почитаемая группа просветленных ученых и воинов. Валериан отправляется в Священную Цитадель в поисках руководства у мудрого Великого Магистра Ордена. Великий Магистр передает Валериану древние учения, даруя ему священный Клинок Единства — символ его благородной цели восстановить равновесие и мир."
       },
       "background": "sacred_citadel",
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
+            "skin": "MONSTER_SHADOWBLADE_ROGUE",
+            "level": 9
           },
           {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 9
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 9
           }
         ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 5000,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "CODEX_OF_ASCENDANCY"
+          }
+        },
+        {
+          "type": "item",
+          "skin": "FLAMEHEART_BELT",
+          "rarity": 0
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "INFUSION_CRYSTAL"
+          }
+        }
       ]
     },
     {
       "x": 857,
       "y": 763,
       "type": "CAMPAIGN",
+      "music": "theme_citadel",
       "id": "c10",
       "title": {
-        "en": "Thalendros, the Corrupted Treant",
-        "ru": "Талендрос, Оскверненный Древень"
+        "en": "The Sacred Citadel",
+        "ru": "Священная Цитадель"
       },
       "description": {
-        "en": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
-        "ru": "Талендрос — массивный древень, когда-то охранявший Зеленую рощу, но теперь испорченный темной энергией. Его когда-то яркая листва увяла, уступив место колючим ветвям и злобным светящимся глазам. Талендрос стоит высокий и внушительный, излучая ауру порчи и разложения."
+        "en": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
+        "ru": "Священная Цитадель — это величественная крепость, возвышающаяся на вершине горы с видом на Королевство Гармонии. Это место медитации и духовного просветления, где находится Орден Света, почитаемая группа просветленных ученых и воинов. Валериан отправляется в Священную Цитадель в поисках руководства у мудрого Великого Магистра Ордена. Великий Магистр передает Валериану древние учения, даруя ему священный Клинок Единства — символ его благородной цели восстановить равновесие и мир."
       },
       "background": "sacred_citadel",
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
+            "skin": "MONSTER_SHADOWBLADE_ROGUE",
+            "level": 10
           },
           {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
+            "skin": "MONSTER_SHADOWBLADE_ROGUE",
+            "level": 10
+          },
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
+            "level": 10
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
+            "level": 10
+          },
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
+            "level": 10
+          },
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
+            "level": 9
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_STONE_GOLEM",
+            "level": 10
+          },
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
+            "level": 10
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 10
           }
         ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 5500,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 2,
+            "type": "CODEX_OF_ASCENDANCY"
+          }
+        },
+        {
+          "type": "item",
+          "skin": "THEMPERSTRIDE_BOOTS",
+          "rarity": 0
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 2,
+            "type": "INFUSION_CRYSTAL"
+          }
+        }
       ]
     },
     {
       "x": 676,
       "y": 871,
       "type": "CAMPAIGN",
+      "music": "theme_citadel",
       "id": "c11",
       "title": {
-        "en": "Thalendros, the Corrupted Treant",
-        "ru": "Талендрос, Оскверненный Древень"
+        "en": "The Sacred Citadel",
+        "ru": "Священная Цитадель"
       },
       "description": {
-        "en": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
-        "ru": "Талендрос — массивный древень, когда-то охранявший Зеленую рощу, но теперь испорченный темной энергией. Его когда-то яркая листва увяла, уступив место колючим ветвям и злобным светящимся глазам. Талендрос стоит высокий и внушительный, излучая ауру порчи и разложения."
+        "en": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
+        "ru": "Священная Цитадель — это величественная крепость, возвышающаяся на вершине горы с видом на Королевство Гармонии. Это место медитации и духовного просветления, где находится Орден Света, почитаемая группа просветленных ученых и воинов. Валериан отправляется в Священную Цитадель в поисках руководства у мудрого Великого Магистра Ордена. Великий Магистр передает Валериану древние учения, даруя ему священный Клинок Единства — символ его благородной цели восстановить равновесие и мир."
       },
       "background": "sacred_citadel",
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
+            "skin": "MONSTER_STONE_GOLEM",
+            "level": 11
           },
           {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
+            "skin": "MONSTER_SHADOWBLADE_ROGUE",
+            "level": 11
+          },
+          {
+            "skin": "MONSTER_SHADOWBLADE_ROGUE",
+            "level": 11
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_SHADOWBLADE_ROGUE",
+            "level": 11
+          },
+          {
+            "skin": "MONSTER_SHADOWBLADE_ROGUE",
+            "level": 11
+          },
+          {
+            "skin": "MONSTER_SHADOWBLADE_ROGUE",
+            "level": 11
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_STONE_GOLEM",
+            "level": 11
+          },
+          {
+            "skin": "MONSTER_STONE_GOLEM",
+            "level": 11
+          },
+          {
+            "skin": "MONSTER_SHADOW_OF_CHAOS",
+            "level": 11
           }
         ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 6000,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 4,
+            "type": "TOME_OF_ENLIGHTMENT"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_JADE"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_AGATE"
+          }
+        }
       ]
     },
     {
       "x": 466,
       "y": 809,
       "type": "BOSS",
+      "music": "theme_malachi",
       "id": "c12",
       "title": {
-        "en": "Thalendros, the Corrupted Treant",
-        "ru": "Талендрос, Оскверненный Древень"
+        "en": "Malachi, the Corruptor of Light",
+        "ru": "Малахия, Осквернитель Света"
       },
       "description": {
-        "en": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
-        "ru": "Талендрос — массивный древень, когда-то охранявший Зеленую рощу, но теперь испорченный темной энергией. Его когда-то яркая листва увяла, уступив место колючим ветвям и злобным светящимся глазам. Талендрос стоит высокий и внушительный, излучая ауру порчи и разложения."
+        "en": "Description: Malachi, once a beacon of light and hope, now stands corrupted by darkness. His towering form radiates a twisted aura, and his eyes glow with malevolent energy. A dark miasma surrounds him, hinting at the immense power he wields.\n\nMalachi, once a protector of harmony, now stands as a corrupted force seeking to plunge the kingdom into eternal darkness. His abilities reflect his mastery over the dark forces that threaten to engulf the land.",
+        "ru": "Малахия, когда-то маяк света и надежды, теперь стоит испорченный тьмой. Его высокая форма излучает искривленную ауру, а его глаза светятся злобной энергией. Его окружают темные миазмы, намекающие на огромную силу, которой он обладает.\n\nМалахия, когда-то защитник гармонии, теперь стремится погрузить королевство в вечную тьму. Его способности отражают его власть над темными силами, которые угрожают поглотить землю."
       },
       "background": "sacred_citadel",
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
-          },
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 1
+            "skin": "MONSTER_MALACHI",
+            "level": 13
           }
         ]
+      ],
+      "tiers": [
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_MALACHI",
+              "level": 20,
+              "weight": 30
+            }
+          ],
+          "rewards": [
+            {
+              "type": "currency",
+              "currency": {
+                "type": "CODEX_OF_ASCENDANCY",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 100
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "GRIMOIRE_OF_OMNISCENCE",
+                "amount": 1
+              },
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_JADE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_AGATE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_MALACHI",
+              "level": 25,
+              "weight": 30
+            }
+          ],
+          "rewards": [
+            {
+              "type": "currency",
+              "currency": {
+                "type": "CODEX_OF_ASCENDANCY",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "GRIMOIRE_OF_OMNISCENCE",
+                "amount": 1
+              },
+              "rarity": 1,
+              "weight": 100
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_JADE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_AGATE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_MALACHI",
+              "level": 35,
+              "weight": 30
+            }
+          ],
+          "rewards": [
+            {
+              "type": "currency",
+              "currency": {
+                "type": "CODEX_OF_ASCENDANCY",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 10
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "GRIMOIRE_OF_OMNISCENCE",
+                "amount": 1
+              },
+              "rarity": 1,
+              "weight": 140
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_JADE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "type": "ELIXIR_AGATE",
+                "amount": 1
+              },
+              "rarity": 0,
+              "weight": 50
+            }
+          ]
+        }
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 6500,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 4,
+            "type": "TOME_OF_ENLIGHTMENT"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_JADE"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_AGATE"
+          }
+        }
       ]
     },
     {
@@ -733,44 +1448,267 @@
       "tiers": [
         {
           "monster_pool": [
-            {"skin": "MONSTER_THORNED_CRAWLER", "level": 2, "weight": 30},
-            {"skin": "MONSTER_THORNED_CRAWLER", "level": 3, "weight": 60},
-            {"skin": "MONSTER_THORNED_CRAWLER", "level": 4, "weight": 10},
-            {"skin": "MONSTER_THORNSTALKER", "level": 2, "weight": 30},
-            {"skin": "MONSTER_THORNSTALKER", "level": 3, "weight": 60},
-            {"skin": "MONSTER_THORNSTALKER", "level": 4, "weight": 10},
-            {"skin": "MONSTER_CORRUPTED_DRYAD", "level": 2, "weight": 40},
-            {"skin": "MONSTER_CORRUPTED_DRYAD", "level": 3, "weight": 50},
-            {"skin": "MONSTER_CORRUPTED_DRYAD", "level": 4, "weight": 10}
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 4,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 5,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_THORNSTALKER",
+              "level": 3,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_THORNSTALKER",
+              "level": 4,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_THORNSTALKER",
+              "level": 5,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_CORRUPTED_DRYAD",
+              "level": 3,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_CORRUPTED_DRYAD",
+              "level": 4,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_CORRUPTED_DRYAD",
+              "level": 5,
+              "weight": 10
+            }
           ],
           "rewards": [
-            {"type": "item", "skin": "HELM_OF_IRON_WILL", "rarity": 0, "weight": 80},
-            {"type": "item", "skin": "HELM_OF_IRON_WILL", "rarity": 1, "weight": 20},
-            {"type": "item", "skin": "RING_OF_ILLUMINATION", "rarity": 0, "weight": 80},
-            {"type": "item", "skin": "RING_OF_ILLUMINATION", "rarity": 1, "weight": 20},
-            {"type": "item", "skin": "IRONCLAD_GAUNTLETS", "rarity": 0, "weight": 80},
-            {"type": "item", "skin": "IRONCLAD_GAUNTLETS", "rarity": 1, "weight": 20}
+            {
+              "type": "item",
+              "skin": "HELM_OF_IRON_WILL",
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "HELM_OF_IRON_WILL",
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "RING_OF_ILLUMINATION",
+              "rarity": 0,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "RING_OF_ILLUMINATION",
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_ORB"
+              },
+              "weight": 100
+            }
           ]
         },
         {
           "monster_pool": [
-            {"skin": "MONSTER_THORNED_CRAWLER", "level": 5, "weight": 30},
-            {"skin": "MONSTER_THORNED_CRAWLER", "level": 6, "weight": 60},
-            {"skin": "MONSTER_THORNED_CRAWLER", "level": 7, "weight": 10},
-            {"skin": "MONSTER_THORNSTALKER", "level": 5, "weight": 30},
-            {"skin": "MONSTER_THORNSTALKER", "level": 6, "weight": 60},
-            {"skin": "MONSTER_THORNSTALKER", "level": 7, "weight": 10},
-            {"skin": "MONSTER_CORRUPTED_DRYAD", "level": 5, "weight": 40},
-            {"skin": "MONSTER_CORRUPTED_DRYAD", "level": 6, "weight": 50},
-            {"skin": "MONSTER_CORRUPTED_DRYAD", "level": 7, "weight": 10}
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 9,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 10,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 11,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_THORNSTALKER",
+              "level": 9,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_THORNSTALKER",
+              "level": 10,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_THORNSTALKER",
+              "level": 11,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_CORRUPTED_DRYAD",
+              "level": 9,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_CORRUPTED_DRYAD",
+              "level": 10,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_CORRUPTED_DRYAD",
+              "level": 11,
+              "weight": 10
+            }
           ],
           "rewards": [
-            {"type": "item", "skin": "HELM_OF_IRON_WILL", "rarity": 1, "weight": 80},
-            {"type": "item", "skin": "HELM_OF_IRON_WILL", "rarity": 2, "weight": 20},
-            {"type": "item", "skin": "RING_OF_ILLUMINATION", "rarity": 1, "weight": 80},
-            {"type": "item", "skin": "RING_OF_ILLUMINATION", "rarity": 2, "weight": 20},
-            {"type": "item", "skin": "IRONCLAD_GAUNTLETS", "rarity": 1, "weight": 80},
-            {"type": "item", "skin": "IRONCLAD_GAUNTLETS", "rarity": 2, "weight": 20}
+            {
+              "type": "item",
+              "skin": "HELM_OF_IRON_WILL",
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "HELM_OF_IRON_WILL",
+              "rarity": 2,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "RING_OF_ILLUMINATION",
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "RING_OF_ILLUMINATION",
+              "rarity": 2,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_SHARD"
+              },
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_CRYSTAL"
+              },
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 18,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 20,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 22,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_THORNSTALKER",
+              "level": 18,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_THORNSTALKER",
+              "level": 20,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_THORNSTALKER",
+              "level": 22,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_CORRUPTED_DRYAD",
+              "level": 18,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_CORRUPTED_DRYAD",
+              "level": 20,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_CORRUPTED_DRYAD",
+              "level": 22,
+              "weight": 10
+            }
+          ],
+          "rewards": [
+            {
+              "type": "item",
+              "skin": "HELM_OF_IRON_WILL",
+              "rarity": 2,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "HELM_OF_IRON_WILL",
+              "rarity": 3,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "RING_OF_ILLUMINATION",
+              "rarity": 2,
+              "weight": 25
+            },
+            {
+              "type": "item",
+              "skin": "RING_OF_ILLUMINATION",
+              "rarity": 3,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_CRYSTAL"
+              },
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "ASCENDANT_ESSENCE"
+              },
+              "weight": 50
+            }
           ]
         }
       ]
@@ -794,44 +1732,275 @@
       "tiers": [
         {
           "monster_pool": [
-            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 8, "weight": 30},
-            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 9, "weight": 60},
-            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 10, "weight": 10},
-            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 8, "weight": 30},
-            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 9, "weight": 60},
-            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 10, "weight": 10},
-            {"skin": "MONSTER_STONE_GOLEM", "level": 8, "weight": 40},
-            {"skin": "MONSTER_STONE_GOLEM", "level": 9, "weight": 50},
-            {"skin": "MONSTER_STONE_GOLEM", "level": 10, "weight": 10}
+            {
+              "skin": "MONSTER_CRYSTAL_GUARDIAN",
+              "level": 8,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_CRYSTAL_GUARDIAN",
+              "level": 9,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_CRYSTAL_GUARDIAN",
+              "level": 10,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 8,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 9,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 10,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 8,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 9,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 10,
+              "weight": 10
+            }
           ],
           "rewards": [
-            {"type": "item", "skin": "THEMPERSTRIDE_BOOTS", "rarity": 1, "weight": 80},
-            {"type": "item", "skin": "THEMPERSTRIDE_BOOTS", "rarity": 2, "weight": 20},
-            {"type": "item", "skin": "FLAMEHEART_BELT", "rarity": 1, "weight": 80},
-            {"type": "item", "skin": "FLAMEHEART_BELT", "rarity": 2, "weight": 20},
-            {"type": "item", "skin": "SHADOWBANE_AMULET", "rarity": 1, "weight": 80},
-            {"type": "item", "skin": "SHADOWBANE_AMULET", "rarity": 2, "weight": 20}
+            {
+              "type": "item",
+              "skin": "SHADOWBANE_AMULET",
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "SHADOWBANE_AMULET",
+              "rarity": 2,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "FROSTGUARD_GAUNTLETS",
+              "rarity": 1,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "FROSTGUARD_GAUNTLETS",
+              "rarity": 2,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_SHARD"
+              },
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_CRYSTAL"
+              },
+              "weight": 50
+            }
           ]
         },
         {
           "monster_pool": [
-            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 13, "weight": 30},
-            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 15, "weight": 60},
-            {"skin": "MONSTER_CRYSTAL_GUARDIAN", "level": 17, "weight": 10},
-            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 13, "weight": 30},
-            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 15, "weight": 60},
-            {"skin": "MONSTER_SHADOW_OF_CHAOS", "level": 17, "weight": 10},
-            {"skin": "MONSTER_STONE_GOLEM", "level": 13, "weight": 40},
-            {"skin": "MONSTER_STONE_GOLEM", "level": 15, "weight": 50},
-            {"skin": "MONSTER_STONE_GOLEM", "level": 17, "weight": 10}
+            {
+              "skin": "MONSTER_CRYSTAL_GUARDIAN",
+              "level": 13,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_CRYSTAL_GUARDIAN",
+              "level": 15,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_CRYSTAL_GUARDIAN",
+              "level": 17,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 13,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 15,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 17,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 13,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 15,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 17,
+              "weight": 10
+            }
           ],
           "rewards": [
-            {"type": "item", "skin": "THEMPERSTRIDE_BOOTS", "rarity": 2, "weight": 80},
-            {"type": "item", "skin": "THEMPERSTRIDE_BOOTS", "rarity": 3, "weight": 20},
-            {"type": "item", "skin": "FLAMEHEART_BELT", "rarity": 2, "weight": 80},
-            {"type": "item", "skin": "FLAMEHEART_BELT", "rarity": 3, "weight": 20},
-            {"type": "item", "skin": "SHADOWBANE_AMULET", "rarity": 2, "weight": 80},
-            {"type": "item", "skin": "SHADOWBANE_AMULET", "rarity": 3, "weight": 20}
+            {
+              "type": "item",
+              "skin": "SHADOWBANE_AMULET",
+              "rarity": 2,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "SHADOWBANE_AMULET",
+              "rarity": 3,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "FROSTGUARD_GAUNTLETS",
+              "rarity": 2,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "FROSTGUARD_GAUNTLETS",
+              "rarity": 3,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_SHARD"
+              },
+              "weight": 20
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_CRYSTAL"
+              },
+              "weight": 80
+            }
+          ]
+        },
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_CRYSTAL_GUARDIAN",
+              "level": 23,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_CRYSTAL_GUARDIAN",
+              "level": 25,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_CRYSTAL_GUARDIAN",
+              "level": 27,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 23,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 25,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 27,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 23,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 25,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 27,
+              "weight": 10
+            }
+          ],
+          "rewards": [
+            {
+              "type": "item",
+              "skin": "SHADOWBANE_AMULET",
+              "rarity": 3,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "SHADOWBANE_AMULET",
+              "rarity": 4,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "FROSTGUARD_GAUNTLETS",
+              "rarity": 3,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "FROSTGUARD_GAUNTLETS",
+              "rarity": 4,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_CRYSTAL"
+              },
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "ASCENDANT_ESSENCE"
+              },
+              "weight": 50
+            }
           ]
         }
       ]
@@ -840,21 +2009,337 @@
       "x": 614,
       "y": 772,
       "type": "RAID",
+      "music": "theme_citadel",
       "id": "r3",
       "title": {
-        "en": "Thalendros, the Corrupted Treant",
-        "ru": "Талендрос, Оскверненный Древень"
+        "en": "The Sacred Citadel",
+        "ru": "Священная Цитадель"
       },
       "description": {
-        "en": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
-        "ru": "Талендрос — массивный древень, когда-то охранявший Зеленую рощу, но теперь испорченный темной энергией. Его когда-то яркая листва увяла, уступив место колючим ветвям и злобным светящимся глазам. Талендрос стоит высокий и внушительный, излучая ауру порчи и разложения."
+        "en": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
+        "ru": "Священная Цитадель — это величественная крепость, возвышающаяся на вершине горы с видом на Королевство Гармонии. Это место медитации и духовного просветления, где находится Орден Света, почитаемая группа просветленных ученых и воинов. Валериан отправляется в Священную Цитадель в поисках руководства у мудрого Великого Магистра Ордена. Великий Магистр передает Валериану древние учения, даруя ему священный Клинок Единства — символ его благородной цели восстановить равновесие и мир."
       },
       "background": "sacred_citadel",
       "monsters": [],
-      "monster_pool": [
-        {"skin": "MONSTER_CRYSTAL_GUARDIAN", "value": 0.9, "weight": 40},
-        {"skin": "MONSTER_SHADOW_OF_CHAOS","value": 2, "weight": 30},
-        {"skin": "MONSTER_STONE_GOLEM", "value": 1.5, "weight": 30}
+      "tiers": [
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 13,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 14,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 15,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_SHADOWBLADE_ROGUE",
+              "level": 13,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_SHADOWBLADE_ROGUE",
+              "level": 14,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_SHADOWBLADE_ROGUE",
+              "level": 15,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 13,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 14,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 15,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 13,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 14,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 15,
+              "weight": 10
+            }
+          ],
+          "rewards": [
+            {
+              "type": "item",
+              "skin": "THEMPERSTRIDE_BOOTS",
+              "rarity": 2,
+              "weight": 80
+            },
+            {
+              "type": "item",
+              "skin": "THEMPERSTRIDE_BOOTS",
+              "rarity": 3,
+              "weight": 20
+            },
+            {
+              "type": "item",
+              "skin": "FLAMEHEART_BELT",
+              "rarity": 2,
+              "weight": 80
+            },
+            {
+              "type": "item",
+              "skin": "FLAMEHEART_BELT",
+              "rarity": 3,
+              "weight": 20
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_SHARD"
+              },
+              "weight": 20
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_CRYSTAL"
+              },
+              "weight": 80
+            }
+          ]
+        },
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 18,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 20,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 22,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_SHADOWBLADE_ROGUE",
+              "level": 18,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_SHADOWBLADE_ROGUE",
+              "level": 20,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_SHADOWBLADE_ROGUE",
+              "level": 22,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 18,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 20,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 22,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 18,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 20,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 22,
+              "weight": 10
+            }
+          ],
+          "rewards": [
+            {
+              "type": "item",
+              "skin": "THEMPERSTRIDE_BOOTS",
+              "rarity": 3,
+              "weight": 80
+            },
+            {
+              "type": "item",
+              "skin": "THEMPERSTRIDE_BOOTS",
+              "rarity": 4,
+              "weight": 20
+            },
+            {
+              "type": "item",
+              "skin": "FLAMEHEART_BELT",
+              "rarity": 3,
+              "weight": 80
+            },
+            {
+              "type": "item",
+              "skin": "FLAMEHEART_BELT",
+              "rarity": 4,
+              "weight": 20
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_CRYSTAL"
+              },
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "ASCENDANT_ESSENCE"
+              },
+              "weight": 50
+            }
+          ]
+        },
+        {
+          "monster_pool": [
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 28,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 30,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 32,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_SHADOWBLADE_ROGUE",
+              "level": 28,
+              "weight": 30
+            },
+            {
+              "skin": "MONSTER_SHADOWBLADE_ROGUE",
+              "level": 30,
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_SHADOWBLADE_ROGUE",
+              "level": 32,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 28,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 30,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_STONE_GOLEM",
+              "level": 32,
+              "weight": 10
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 28,
+              "weight": 40
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 30,
+              "weight": 50
+            },
+            {
+              "skin": "MONSTER_SHADOW_OF_CHAOS",
+              "level": 32,
+              "weight": 10
+            }
+          ],
+          "rewards": [
+            {
+              "type": "item",
+              "skin": "THEMPERSTRIDE_BOOTS",
+              "rarity": 3,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "THEMPERSTRIDE_BOOTS",
+              "rarity": 4,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "FLAMEHEART_BELT",
+              "rarity": 3,
+              "weight": 50
+            },
+            {
+              "type": "item",
+              "skin": "FLAMEHEART_BELT",
+              "rarity": 4,
+              "weight": 50
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "INFUSION_CRYSTAL"
+              },
+              "weight": 20
+            },
+            {
+              "type": "currency",
+              "currency": {
+                "amount": 1,
+                "type": "ASCENDANT_ESSENCE"
+              },
+              "weight": 80
+            }
+          ]
+        }
       ]
     }
   ],

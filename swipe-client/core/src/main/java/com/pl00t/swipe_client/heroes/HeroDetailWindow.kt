@@ -33,6 +33,15 @@ class HeroDetailWindow(
             }
         })
         list.add(ActionCompositeButton(r, Action.Tarot, Mode.SingleLine(UiTexts.Tarot.value(r.l))))
+        list.add(ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.MakeActive.value(r.l))).apply {
+            onClick {
+                KtxAsync.launch {
+                    r.profileService.setActiveCharacter(model.skin)
+                    reload()
+                    this@HeroDetailWindow.onClose()
+                }
+            }
+        })
 
     }
 

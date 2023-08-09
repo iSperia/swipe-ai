@@ -41,8 +41,8 @@ class Resources {
         assetManager.load(AssetDescriptor(name, TextureAtlas::class.java))
     }
 
-    fun loadSound(name: String) {
-        assetManager.load(AssetDescriptor(name, Sound::class.java))
+    fun loadSound(name: SbSoundType) {
+        assetManager.load(AssetDescriptor("sfx/${name}.ogg", Sound::class.java))
     }
 
     fun loadMusic(name: String) {

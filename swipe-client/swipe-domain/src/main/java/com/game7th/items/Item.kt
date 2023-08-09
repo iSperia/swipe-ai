@@ -20,6 +20,9 @@ enum class ItemAffixType(val pattern: String) {
     FLAT_MIND("%.0f"),
     FLAT_HP("%.0f"),
     PERCENT_HP("%.0f"),
+    ULT_FLAT("%.0f"),
+    LUCK_FLAT("%.1f"),
+    ULT_PREFILL("%.0f")
 }
 
 data class ItemAffix(

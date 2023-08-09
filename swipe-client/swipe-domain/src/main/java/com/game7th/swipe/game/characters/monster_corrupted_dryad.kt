@@ -90,7 +90,7 @@ fun provideCorruptedDryadTriggers(balance: JsonObject): Map<String, SbTrigger> =
         context.useOnComplete(event, CORRUPTED_DRYAD_VILE_SIPHON) { characterId, tileId, koef ->
             val character = game.character(characterId) ?: return@useOnComplete
             val damage = SbElemental(
-                dark = balance.floatAttribute(vs_dmg_base) * (1f + 0.01f * balance.intAttribute(vs_dmg_scale) * character.attributes.body)
+                dark = balance.floatAttribute(vs_dmg_base) * (1f + 0.01f * balance.intAttribute(vs_dmg_scale) * character.attributes.spirit)
             ).multipledBy(koef)
 
             val healAmount = balance.floatAttribute(vs_heal_base) * (1f + 0.01f * balance.intAttribute(vs_heal_scale) * character.attributes.spirit)

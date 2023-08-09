@@ -66,7 +66,7 @@ data class SbCharacter(
 }
 
 enum class SbTileMergeStrategy {
-    SIMPLE, NONE
+    SIMPLE, NONE, KEEP_MAX
 }
 
 data class SbTileTemplate(

@@ -82,21 +82,7 @@ class HomeScreen(
                                         }
                                     }
                                 },
-                                openBattle = {
-                                    stack.moveBack()
-                                    stack.showScreen(BattleWindow(r, { result ->
-                                        stack.moveBack()
-                                        stack.showScreen(BattleResultDialog(r, result, onClose = {
-                                            stack.moveBack()
-                                        }, onItemClick = {
-                                            stack.showScreen(InventoryItemWindow(
-                                                r = r,
-                                                id = it,
-                                                onClose = { stack.moveBack() }
-                                            ))
-                                        }))
-                                    }))
-                                }
+                                openBattle = this@HomeScreen::openBattle
                             )
                             stack.showScreen(window)
                         } else if (levelModel.type == LevelType.RAID) {
@@ -105,15 +91,7 @@ class HomeScreen(
                                 act = actId,
                                 level = levelModel.locationId,
                                 onClose = { stack.moveBack() },
-                                onLaunch = {
-                                    stack.showScreen(BattleWindow(r, { result ->
-                                        stack.moveBack()
-                                        stack.showScreen(BattleResultDialog(r, result, onClose = { stack.moveBack() },
-                                            onItemClick = {
-                                                stack.showScreen(InventoryItemWindow(r = r, id = it, onClose = { stack.moveBack() }))
-                                            }))
-                                    }))
-                                },
+                                onLaunch = this@HomeScreen::openBattle,
                                 onMonsterClicked = { config ->
                                     stack.showScreen(MonsterDetailWindow(r, config, onClose = { stack.moveBack() }))
                                 }
@@ -125,15 +103,7 @@ class HomeScreen(
                                 act = actId,
                                 level = levelModel.locationId,
                                 onClose = { stack.moveBack() },
-                                onLaunch = {
-                                    stack.showScreen(BattleWindow(r, { result ->
-                                        stack.moveBack()
-                                        stack.showScreen(BattleResultDialog(r, result, onClose = { stack.moveBack() },
-                                            onItemClick = {
-                                                stack.showScreen(InventoryItemWindow(r = r, id = it, onClose = { stack.moveBack() }))
-                                            }))
-                                    }))
-                                },
+                                onLaunch = this@HomeScreen::openBattle,
                                 onMonsterClicked = { config ->
                                     stack.showScreen(MonsterDetailWindow(r, config, onClose = { stack.moveBack() }))
                                 }
@@ -165,5 +135,23 @@ class HomeScreen(
             addAction(Actions.alpha(1f, 0.3f))
         }
         stack.showScreen(mapActor)
+    }
+
+    private fun openBattle() = openBattle(true)
+
+    private fun openBattle(popStack: Boolean) {
+        if (popStack) stack.moveBack()
+        stack.showScreen(BattleWindow(r, { result ->
+            stack.moveBack()
+            stack.showScreen(BattleResultDialog(r, result, onClose = {
+                stack.moveBack()
+            }, onItemClick = {
+                stack.showScreen(InventoryItemWindow(
+                    r = r,
+                    id = it,
+                    onClose = { stack.moveBack() }
+                ))
+            }, onStartLevel = this@HomeScreen::openBattle))
+        }))
     }
 }

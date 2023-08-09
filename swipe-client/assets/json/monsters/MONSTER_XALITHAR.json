@@ -8,38 +8,33 @@
     "en": "Xalithar is a towering, crystalline behemoth formed from the fused shards of the shattered Ethereal Crystal. Its body emanates a pulsating glow, and shards of various colors protrude from its massive form. Xalithar's eyes glow with a malevolent energy, reflecting the corrupted power it has absorbed.",
     "ru": "Ксалитар — огромное кристаллическое чудовиже, образованное из слившихся осколков разрушенного эфирного кристалла. Его тело излучает пульсирующее свечение, а из массивного тела торчат разноцветные осколки. Глаза Ксалитара светятся злобной энергией, отражающей испорченную силу, которую он поглотил"
   },
-  "attributes": {"mind":  25, "spirit":  35, "body":  40},
-  "affixes": {
-    "VULNERABLE_FIRE": 100,
-    "RESIST_PHYSICAL": 50
-  },
+  "attributes": {"mind":  40, "spirit":  20, "body":  40},
   "tiles": [
-    { "weight": 4, "skin": "THALENDROS_THORN_WHIP", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
-    { "weight": 4, "skin": "THALENDROS_EARTHQUAKE_SLAM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 },
-    { "weight": 2, "skin": "THALENDROS_DARK_AURA", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
+    { "weight": 5, "skin": "XALITHAR_FROZEN_IMPACT", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
+    { "weight": 4, "skin": "XALITHAR_MIRRORWEAVE", "z": 2, "mobility": 100, "mergeStrategy": "KEEP_MAX", "maxProgress": 4 },
+    { "weight": 3, "skin": "XALITHAR_CRYSTALINE_CATACLYSM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 6 }
   ],
-  "triggers": ["thalendros.thorn_whip", "thalendros.earthquake_slam", "thalendros.dark_aura"],
+  "triggers": ["xalithar.frozen_impact", "xalithar.mirrorweave", "xalithar.crystalline_cataclysm"],
   "balance": {
-    "base_health": 12,
+    "base_health": 1500,
     "luck": 5,
     "ult": 10,
     "ult_max": 1000,
     "resist": {
-      "phys": 0,
-      "dark": 0,
-      "light": 0,
-      "shock": 0,
-      "fire": 0,
-      "cold": 0
+      "phys": 0.2,
+      "dark": 0.2,
+      "light": 0.2,
+      "shock": 0.2,
+      "fire": 0.2,
+      "cold": 0.2
     },
-    "tw_base": 70,
-    "tw_scale": 10,
-    "es_tiles": 4,
-    "es_damage": 30,
-    "es_scale": 10,
-    "da_tiles": 4,
-    "da_base": 50,
-    "da_scale": 10
+    "fi_phys_base": 40,
+    "fi_cold_base": 40,
+    "fi_phys_scale": 10,
+    "fi_cold_scale": 10,
+    "m_percent": 40,
+    "cc_per_tile_base": 40,
+    "cc_per_tile_scale": 10
   },
   "scale": 1.6
 }

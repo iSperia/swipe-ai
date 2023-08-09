@@ -35,8 +35,8 @@ android {
     applicationId 'com.game7th.swipe_client'
     minSdkVersion 19
     targetSdkVersion 32
-    versionCode 9
-    versionName "0.1.10"
+    versionCode 13
+    versionName "0.1.14"
     multiDexEnabled true
   }
   namespace "com.pl00t.swipe_client"

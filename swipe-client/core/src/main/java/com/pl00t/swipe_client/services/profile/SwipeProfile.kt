@@ -13,6 +13,12 @@ enum class SwipeCurrency(val expBonus: Int = 0, val coins: Int = 1) {
     INFUSION_SHARD(expBonus = 2500, coins = 300),
     INFUSION_CRYSTAL(expBonus = 7500, coins = 900),
     ASCENDANT_ESSENCE(expBonus = 25000, coins = 3000),
+    ELIXIR_AMBER(expBonus = 0, coins = 1000),
+    ELIXIR_TURQUOISE(expBonus = 0, coins = 1000),
+    ELIXIR_LAPIS(expBonus = 0, coins = 1000),
+    ELIXIR_CITRINE(expBonus = 0, coins = 1000),
+    ELIXIR_JADE(expBonus = 0, coins = 1000),
+    ELIXIR_AGATE(expBonus = 0, coins = 1000),
 }
 
 enum class SwipeAct {
@@ -78,6 +84,7 @@ data class SwipeProfile(
     val characters: List<SwipeCharacter>,
     val items: List<InventoryItem>,
     val mysteryShop: List<SbMysteryItem>?,
+    val activeCharacter: String?,
 ) {
     private fun getRewardsCollectedOrEmpty() = rewardsCollected ?: emptyList()
 

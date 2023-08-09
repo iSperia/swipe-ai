@@ -76,12 +76,12 @@ fun SbContext.swipe(characterId: Int, dx: Int, dy: Int) {
                     val t = character.tileAt(nx, ny, tile.z)
                     if (t != null) {
                         //Simple merge us into another stuff
-                        if (t.skin == tile.skin && tile.mergeStrategy == SbTileMergeStrategy.SIMPLE && tile.progress < tile.maxProgress && t.progress < t.maxProgress) {
+                        if (t.skin == tile.skin && (tile.mergeStrategy == SbTileMergeStrategy.SIMPLE || tile.mergeStrategy == SbTileMergeStrategy.KEEP_MAX) && tile.progress < tile.maxProgress && t.progress < t.maxProgress) {
                             merged = true
                             mergedCount++
                             val sumStack = t.progress + tile.progress
                             val newTile = t.copy(progress = min(sumStack, t.maxProgress))
-                            if (newTile.progress == t.maxProgress) {
+                            if (newTile.progress == t.maxProgress && tile.mergeStrategy == SbTileMergeStrategy.SIMPLE) {
                                 tilesComplete.add(newTile.id)
                             }
                             val progressLeft = sumStack - t.maxProgress

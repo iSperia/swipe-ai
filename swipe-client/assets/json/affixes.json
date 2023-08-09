@@ -220,6 +220,45 @@
           "weight": 100
         }
       ]
+    },
+    {
+      "affix": "ULT_FLAT",
+      "valuePerTier": 1,
+      "description": {
+        "en": "Ultimate ability progress +$",
+        "ru": "Наполнение ульт. способности +$"
+      },
+      "weights": [
+        {
+          "weight": 0
+        }
+      ]
+    },
+    {
+      "affix": "LUCK_FLAT",
+      "valuePerTier": 0.4,
+      "description": {
+        "en": "Luck base +$%",
+        "ru": "Базовая удача +$%"
+      },
+      "weights": [
+        {
+          "weight": 0
+        }
+      ]
+    },
+    {
+      "affix": "ULT_PREFILL",
+      "valuePerTier": 5,
+      "description": {
+        "en": "Start battle with $% of ult. progress",
+        "ru": "Начните сражение с $% ульт. прогресса"
+      },
+      "weights": [
+        {
+          "weight": 0
+        }
+      ]
     }
   ]
 }

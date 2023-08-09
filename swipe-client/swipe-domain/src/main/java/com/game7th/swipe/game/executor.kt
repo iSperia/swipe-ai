@@ -59,7 +59,7 @@ fun SbContext.createCharacter(skin: String): SbCharacter {
         health = config.balance.intAttribute("base_health"),
         maxHealth = config.balance.intAttribute("base_health"),
         ultimateProgress = 0,
-        maxUltimateProgress = 1000,
+        maxUltimateProgress = config.balance.intAttribute("ult_max"),
         team = 0,
         attributes = CharacterAttributes.ZERO,
         maxTileId = 0,
@@ -80,6 +80,7 @@ fun SbContext.initHumans(humans: List<FrontMonsterConfiguration>) {
             attributes = config.attributes,
             maxHealth = maxHealth,
             health = maxHealth,
+            ultimateProgress = config.ultMax * config.ultPrefillPercent / 100
         ).withAddedEffect(
             SbEffect(
             id = 0,
@@ -111,6 +112,7 @@ fun SbContext.initHumans(humans: List<FrontMonsterConfiguration>) {
         events.add(SbDisplayEvent.SbCreateCharacter(
             personage = game.characters.last().asDisplayed()
         ))
+        events.add(SbDisplayEvent.SbUpdateCharacter(game.characters.last().asDisplayed()))
         generateTiles(game.characters.last().id, 5)
     }
 }
@@ -207,13 +209,16 @@ fun SbContext.dealDamage(sourceCharacterId: Int?, targetCharacterId: Int, damage
     events.add(SbDisplayEvent.SbUpdateCharacter(target.asDisplayed()))
     events.add(SbDisplayEvent.SbShowPopup(targetCharacterId, "${damageTotal}", icons))
 
-    if (target.health <= 0) {
-        game = game.withRemovedCharacter(target.id)
-        events.add(SbDisplayEvent.SbDestroyCharacter(target.id))
-    }
+    handleEvent(SbEvent.DamageDealt(target.id, sourceCharacterId, damageAfterResist))
 
-    if (healthAfter <= 0) {
-        destroyCharacter(targetCharacterId)
+    if (target.health <= 0) {
+        handleEvent(SbEvent.CharacterPreDeath(target.id))
+        target = game.character(target.id) ?: target
+        if (target.health <= 0) {
+            game = game.withRemovedCharacter(target.id)
+            events.add(SbDisplayEvent.SbDestroyCharacter(target.id))
+            destroyCharacter(targetCharacterId)
+        }
     }
 }
 

@@ -124,7 +124,7 @@ fun provideShadowOfChaosTriggers(balance: JsonObject): Map<String, SbTrigger> = 
         }
 
         context.triggerBackgroundLayerOnComplete(event, THALENDROS_DARK_TILE) { characterId, tileId ->
-            val thalendrosSpirit = game.characters.firstOrNull { it.skin == "MONSTER_THALENDROS" }?.attributes?.spirit ?: 0
+            val thalendrosSpirit = game.characters.firstOrNull { it.skin == "MONSTER_SHADOW_OF_CHAOS" }?.attributes?.spirit ?: 0
             val damage = balance.floatAttribute(da_base) * (1f + 0.01f * balance.intAttribute(da_scale) * thalendrosSpirit)
             dealDamage(null, characterId, SbElemental(dark = damage))
             events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotStatic(THALENDROS_DARK_AURA, characterId), SbSoundType.AOE_SPELL))

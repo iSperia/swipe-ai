@@ -17,7 +17,7 @@ import ktx.async.KtxAsync
 open class MonsterDetailWindow(
     protected val r: Resources,
     protected var model: FrontMonsterConfiguration,
-    private val onClose: () -> Unit
+    protected val onClose: () -> Unit
 ): Group() {
 
     lateinit var title: WindowTitleActor
