@@ -66,14 +66,9 @@ class LevelProgressActor(
         addActor(labelExpBoost)
     }
 
-    fun setState(level: Int, levelBoost: Int, expBoost: Int, baseExp: Int, exp: Int, maxExp: Int) {
+    fun setState(level: Int, levelBoost: Int, expBoost: Int, baseExp: Int, exp: Int, maxExp: Int, maxLevel: Int) {
         labelLevel.setText("${UiTexts.LvlShortPrefix.value(r.l)}$level")
-        if (levelBoost > 0) {
-            labelLevelBoost.setText("+$levelBoost")
-            labelLevelBoost.isVisible = true
-        } else {
-            labelLevelBoost.isVisible = false
-        }
+
         val lExpBoost = if (expBoost > 1000) "${expBoost.toFloat() / 1000f}K" else expBoost.toString()
         labelExpBoost.setText("+$lExpBoost")
         val lExp = if (exp > 1000) "${exp.toFloat() / 1000f}K" else exp.toString()
@@ -82,12 +77,18 @@ class LevelProgressActor(
         labelCurrentExp.setText("$lExp/$lMaxExp")
 
         labelExpBoost.isVisible = expBoost > 0
+        if (maxLevel == level) {
+            labelLevelBoost.setText("MAX")
+        } else {
+            labelLevelBoost.setText("")
+        }
         if (levelBoost > 0) {
             progressActual.isVisible = false
         } else {
             progressActual.isVisible = true
             progressActual.scaleX = baseExp.toFloat() / maxExp
         }
+
         if (level != this.level) {
             this.level = level
         } else {

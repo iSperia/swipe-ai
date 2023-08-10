@@ -180,7 +180,13 @@ class InventoryWindow(
                     item = item
                 )
             }
-        content.add(ItemBrowser(r, items, onItemClicked, null)).colspan(4).row()
+        content.add(ItemBrowser(r, items, onItemClicked) { item ->
+            ActionCompositeButton(r, Action.Resistance, Mode.SingleLine(UiTexts.Details.value(r.l))).apply {
+                onClick {
+                    onItemClicked(item.item!!.id)
+                }
+            }
+        }).colspan(4).row()
     }
 
     private suspend fun showCurrency() {

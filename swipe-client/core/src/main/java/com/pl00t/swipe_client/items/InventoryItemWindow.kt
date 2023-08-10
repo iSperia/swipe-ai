@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.game7th.items.InventoryItem
 import com.game7th.swipe.SbText
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
@@ -13,6 +14,7 @@ import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
+import com.pl00t.swipe_client.ux.ItemBrowser
 import com.pl00t.swipe_client.ux.ItemCellActor
 import com.pl00t.swipe_client.ux.ItemRowActor
 import com.pl00t.swipe_client.ux.LevelProgressActor
@@ -34,14 +36,6 @@ class InventoryItemWindow(
 
     private lateinit var model: FrontItemEntryModel
 
-    protected var balances = arrayOf(0, 0, 0, 0)
-    protected var useCount = arrayOf(0, 0, 0, 0)
-    protected var baseLevel: Int = 0
-    protected var baseExp: Int = 0
-    protected var boostExp: Int = 0
-
-    private var levelProgressActor: LevelProgressActor? = null
-
     private val content = Table().apply {
         width = 480f
     }
@@ -56,6 +50,8 @@ class InventoryItemWindow(
     lateinit var bottomPanel: BottomActionPanel
     lateinit protected var background: Image
     lateinit protected var backgroundShadow: Image
+
+    private var currencyIndexCache: Int? = null
 
     init {
         setSize(r.width, r.height)
@@ -135,7 +131,7 @@ class InventoryItemWindow(
 
         when (mode) {
             BrowseMode.DETAILS -> {
-                showDetails()
+                showDetails(item)
             }
             BrowseMode.DUST -> {
                 showDust()
@@ -146,7 +142,7 @@ class InventoryItemWindow(
         content.add().growY()
     }
 
-    private suspend fun showDetails() {
+    private suspend fun showDetails(item: InventoryItem) {
         val cs = arrayOf(SwipeCurrency.INFUSION_ORB, SwipeCurrency.INFUSION_SHARD, SwipeCurrency.INFUSION_CRYSTAL, SwipeCurrency.ASCENDANT_ESSENCE)
         val actor = ItemRowActor(
             r = r,
@@ -154,86 +150,45 @@ class InventoryItemWindow(
             action = null,
             onItemClick = null
         )
-        if (levelProgressActor == null) {
-            levelProgressActor = LevelProgressActor(r)
-        }
-        val levelGroup = Group().apply {
-            setSize(r.width, levelProgressActor!!.height)
-        }
-        val maxLevelLabel = r.regular24Focus("MAX").apply {
-            setSize(70f, 24f)
-            setPosition(60f, 10f)
-            setAlignment(Align.center)
-            isVisible = model.item!!.experience == model.item!!.maxExperience
-        }
-        levelGroup.addActor(levelProgressActor)
-        levelGroup.addActor(maxLevelLabel)
-        levelGroup.addActor(r.image(Resources.ux_atlas, "fg_complete").apply {
-            setSize(36f, 36f)
-            setPosition(levelProgressActor!!.width, (levelProgressActor!!.height - 36f) / 2f)
+        val levelProgressActor = LevelProgressActor(r).apply {
+            val nowExp = SwipeCharacter.experience[SwipeCharacter.getLevel(item.experience) - 1]
+            val newExp = SwipeCharacter.experience[SwipeCharacter.getLevel(item.experience)]
 
-            onClick {
-                KtxAsync.launch {
-                    if (useCount.any { it > 0 }) {
-                        r.profileService.spendCurrency(cs, useCount)
-                        r.profileService.addItemExperience(id, boostExp)
-                    }
-                    useCount.indices.forEach { useCount[it] = 0 }
-                    loadData()
-                }
-            }
-        })
-
-        val currencyGroup = Group().apply {
-            setSize(480f, 160f)
+            setState(SwipeCharacter.getLevel(item.experience), 0, 0, item.experience - nowExp, item.experience - nowExp, newExp - nowExp, SwipeCharacter.getLevel(item.maxExperience))
         }
-        baseLevel = SwipeCharacter.getLevel(model.item!!.experience)
-        baseExp = model.item!!.experience - SwipeCharacter.experience[baseLevel - 1]
 
-        boostExp = 0
-        cs.forEachIndexed { i, c ->
-            val balance = r.profileService.getProfile().getBalance(c)
-            boostExp += c.expBonus * useCount[i]
-            balances[i] = balance
-            val meta = r.profileService.getCurrency(c)
-            val item = ItemCellActor(
-                r = r,
-                model = FrontItemEntryModel(
-                    skin = c.toString(),
-                    amount = balance - useCount[i],
-                    level = 0,
-                    rarity = meta.rarity,
-                    name = meta.name,
-                    currency = c,
-                    item = null
-                )
-            ).apply {
-                if (balances[i] - useCount[i] <= 0) {
-                    alpha = 0.5f
-                    touchable = Touchable.disabled
-                } else {
-                    onClick {
-                        if (model.item!!.experience + boostExp < model.item!!.maxExperience) {
-                            KtxAsync.launch {
-                                useCount[i]++
-                                loadData()
-                            }
-                        }
+        val profile = r.profileService.getProfile()
+        val items = cs.map {
+            val meta = r.profileService.getCurrency(it)
+            FrontItemEntryModel(
+                skin = meta.currency.toString(),
+                amount = profile.getBalance(it),
+                level = 0,
+                rarity = meta.rarity,
+                name = meta.name,
+                currency = it,
+                item = null
+            )
+        }
+        val itemBrowser = ItemBrowser(r, items, onItemClick = null, actionProvider = { model ->
+            currencyIndexCache = items.indexOfFirst { it.currency == model.currency }
+            ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
+                onClick {
+                    KtxAsync.launch {
+                        r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
+                        r.profileService.addItemExperience(this@InventoryItemWindow.model.item!!.id, model.currency!!.expBonus)
+                        loadData()
                     }
                 }
-                setPosition(120f * i, 0f)
             }
-            currencyGroup.addActor(item)
+        }).apply {
+            selectedIndex = currencyIndexCache
+            drawItems()
         }
 
-        val newExp = min(model.item!!.maxExperience, model.item!!.experience + boostExp)
-        val newLevel = SwipeCharacter.getLevel(newExp)
-        val oldLevel = SwipeCharacter.getLevel(model.item!!.experience)
-
-        levelProgressActor!!.setState(SwipeCharacter.getLevel(model.item!!.experience), newLevel - oldLevel, boostExp, baseExp, newExp - SwipeCharacter.experience[newLevel - 1], SwipeCharacter.experience[newLevel] - SwipeCharacter.experience[newLevel - 1])
         content.add(actor).size(actor.width, actor.height).row()
-        content.add(levelGroup).size(levelGroup.width, levelGroup.height).padTop(10f).row()
-        content.add(currencyGroup).size(currencyGroup.width, currencyGroup.height).padTop(10f).row()
+        content.add(levelProgressActor).padTop(10f).padBottom(10f).row()
+        content.add(itemBrowser).padTop(10f).row()
     }
 
     private suspend fun showDust() {

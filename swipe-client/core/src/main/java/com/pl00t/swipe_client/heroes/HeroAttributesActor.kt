@@ -146,6 +146,6 @@ class HeroAttributesActor(
         val newLevelMax = SwipeCharacter.experience[newLevel]
         val newLevelMin = SwipeCharacter.experience[newLevel - 1]
 
-        progressActor.setState(model.level, levelDelta, expBoost, baseExp - newLevelMin, newExp - newLevelMin, newLevelMax - newLevelMin)
+        progressActor.setState(model.level, levelDelta, expBoost, baseExp - newLevelMin, newExp - newLevelMin, newLevelMax - newLevelMin, 100)
     }
 }

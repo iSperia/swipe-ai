@@ -30,9 +30,10 @@ object UiTexts {
     val RaidLittleCoins = SbText("You have no enough coins to collect the rewards!", "У вас недостаточно эфирных монет, чтобы собрать награду!")
 
     val LevelUpApply = SbText("Apply", "Применить")
+    val Details = SbText("Details", "Детали")
     val PutOff = SbText("Unequip Item", "Снять предмет")
     val PutOn = SbText("Equip Item", "Надеть предмет")
-    val UseItem = SbText("Use item", "Использовать предмет")
+    val UseItem = SbText("Use item", "Применить предмет")
     val Dust = SbText("Dust item", "Распылить предмет")
     val DustWarning = SbText("WARNING: if you dust the item, it is destroyed and cannot be undone\n\nYou will receive:",
         "ПРЕДУПРЕЖДЕНИЕ: Если вы распылите предмет, он будет уничтожен и это нельзя отменить\n\nВы получите:")

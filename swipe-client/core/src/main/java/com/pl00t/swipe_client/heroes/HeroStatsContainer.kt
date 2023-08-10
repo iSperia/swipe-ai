@@ -199,7 +199,7 @@ class HeroStatsContainer(
             val baseExp = SwipeCharacter.experience[level - 1]
             val newExp = SwipeCharacter.experience[level]
             val exp = character.experience - baseExp
-            setState(SwipeCharacter.getLevel(character.experience),0, 0, exp, exp, newExp - baseExp)
+            setState(SwipeCharacter.getLevel(character.experience),0, 0, exp, exp, newExp - baseExp, 100)
         }
         contentTable.add(levelActor).colspan(4).width(480f).padBottom(20f).padTop(20f).row()
 
