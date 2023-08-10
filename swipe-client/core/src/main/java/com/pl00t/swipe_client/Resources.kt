@@ -24,7 +24,7 @@ typealias SbAssetLoadedCallback = (Resources) -> Unit
 class Resources {
     var width: Float = 0f
     var height: Float = 0f
-    var l: Language = Language.RU
+    var l: Language = Language.EN
     lateinit var inputMultiplexer: InputMultiplexer
 
     lateinit var profileService: ProfileService
@@ -99,6 +99,8 @@ class Resources {
     fun regular20White(text: String) = Label(text, skin(), "regular20_white").apply { wrap = true }
     fun regularWhite(text: String) = Label(text, skin(), "regular_white").apply { wrap = true }
     fun regularMain(text: String) = Label(text, skin(), "regular_main").apply { wrap = true }
+    fun regularBlack(text: String) = Label(text, skin(), "regular_black").apply { wrap = true }
+    fun regularFocus(text: String) = Label(text, skin(), "regular_focus").apply { wrap = true }
     fun regular20Accent(text: String) = Label(text, skin(), "regular20_accent").apply { wrap = true }
     fun regular24Outline(text: String) = Label(text, skin(), "regular24outline").apply { wrap = false }
 

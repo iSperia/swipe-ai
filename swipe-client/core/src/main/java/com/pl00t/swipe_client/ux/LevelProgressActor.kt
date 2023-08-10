@@ -12,7 +12,7 @@ class LevelProgressActor(
 ) : Group() {
 
     protected val progressBackground = r.image(Resources.ux_atlas, "background_accent").apply {
-        setSize(420f, 8f)
+        setSize(440f, 8f)
         setPosition(10f, 0f)
         alpha = 0.5f
     }
@@ -55,7 +55,7 @@ class LevelProgressActor(
     protected var levelBoost: Int = 0
 
     init {
-        setSize(440f, 32f)
+        setSize(460f, 32f)
         addActor(progressBackground)
         addActor(progressVirtual)
         addActor(progressActual)

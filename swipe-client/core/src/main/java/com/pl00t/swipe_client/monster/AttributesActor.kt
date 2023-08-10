@@ -107,7 +107,7 @@ abstract class AttributesActor(
         tableLeft.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableLeft.add(r.regular20Focus(UiTexts.AttributeLabelLuck.value(r.l)).apply { setAlignment(Align.right); }).size(columnWidth, 35f).colspan(2).row()
-        tableLeft.add(r.regular20White("${model.luck}%").apply { setAlignment(Align.right) }).height(20f).padRight(3f).growX()
+        tableLeft.add(r.regular20White("${"%.1f".format(model.luck)}%").apply { setAlignment(Align.right) }).height(20f).padRight(3f).growX()
         tableLeft.add(r.image(Resources.ux_atlas, "icon_attr_luck").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f).row()
         tableLeft.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
@@ -136,32 +136,32 @@ abstract class AttributesActor(
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelPhysResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
         tableRight.add(r.image(Resources.ux_atlas, "icon_resist_phys").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
-        tableRight.add(r.regular20White("${"%.2f".format(model.resist.phys * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
+        tableRight.add(r.regular20White("${"%.0f".format(model.resist.phys * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
         tableRight.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelShockResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
         tableRight.add(r.image(Resources.ux_atlas, "icon_resist_shock").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
-        tableRight.add(r.regular20White("${"%.1f".format(model.resist.shock * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
+        tableRight.add(r.regular20White("${"%.0f".format(model.resist.shock * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
         tableRight.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelLightResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
         tableRight.add(r.image(Resources.ux_atlas, "icon_resist_light").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
-        tableRight.add(r.regular20White("${"%.1f".format(model.resist.light * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
+        tableRight.add(r.regular20White("${"%.0f".format(model.resist.light * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
         tableRight.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelDarkResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
         tableRight.add(r.image(Resources.ux_atlas, "icon_resist_dark").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
-        tableRight.add(r.regular20White("${"%.1f".format(model.resist.dark * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
+        tableRight.add(r.regular20White("${"%.0f".format(model.resist.dark * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
         tableRight.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelFireResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
         tableRight.add(r.image(Resources.ux_atlas, "icon_resist_fire").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
-        tableRight.add(r.regular20White("${"%.1f".format(model.resist.fire * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
+        tableRight.add(r.regular20White("${"%.0f".format(model.resist.fire * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
         tableRight.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(columnWidth, 1f); alpha = 0.3f }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.add(r.regular20Focus(UiTexts.AttributeLabelColdResist.value(r.l)).apply { setAlignment(Align.left); }).size(columnWidth, 35f).colspan(2).row()
         tableRight.add(r.image(Resources.ux_atlas, "icon_resist_cold").apply { setSize(18f, 18f) }).size(18f, 18f).padLeft(5f).padRight(3f)
-        tableRight.add(r.regular20White("${"%.1f".format(model.resist.cold * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
+        tableRight.add(r.regular20White("${"%.0f".format(model.resist.cold * 100f)}%").apply { setAlignment(Align.left) }).height(20f).growX().row()
 //        tableRight.add(r.image(R.ux_atlas, "background_white").apply { setSize(columnWidth, 1f) }).size(columnWidth, 1f).colspan(2).row()
 
         tableRight.row()

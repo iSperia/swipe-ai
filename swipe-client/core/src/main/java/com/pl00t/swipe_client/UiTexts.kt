@@ -32,6 +32,7 @@ object UiTexts {
     val LevelUpApply = SbText("Apply", "Применить")
     val PutOff = SbText("Unequip Item", "Снять предмет")
     val PutOn = SbText("Equip Item", "Надеть предмет")
+    val UseItem = SbText("Use item", "Использовать предмет")
     val Dust = SbText("Dust item", "Распылить предмет")
     val DustWarning = SbText("WARNING: if you dust the item, it is destroyed and cannot be undone\n\nYou will receive:",
         "ПРЕДУПРЕЖДЕНИЕ: Если вы распылите предмет, он будет уничтожен и это нельзя отменить\n\nВы получите:")
@@ -42,7 +43,10 @@ object UiTexts {
     val WaveTemplate = SbText("Wave $", "Волна $")
     val ButtonAttack = SbText("Attack", "Атаковать")
     val ButtonSkillset = SbText("Skills", "Навыки")
-    val ButtonStats = SbText("Stats", "Атрибуты")
+    val ButtonStats = SbText("Attributes", "Атрибуты")
+    val ButtonInfo = SbText("Info", "Инфо")
+    val ButtonParameters = SbText("Stats", "Параметры")
+    val ButtonResistances = SbText("Resistances", "Сопротивления")
     val ButtonStory = SbText("Story", "История")
 
     val AttributeLabelBody = SbText("Body", "Тело")

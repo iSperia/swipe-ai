@@ -129,24 +129,24 @@ class HeroEquipmentActor(
 
     private suspend fun createRagdoll(itemMap: Map<ItemCategory, InventoryItem>) {
         val group = Group().apply {
-            setSize(480f, 480f)
+            setSize(480f, 420f)
         }
 
         group.addActor(createItem(itemMap[ItemCategory.AMULET], ItemCategory.AMULET).apply {
-            setPosition(0f, 320f)
+            setPosition(0f, 280f)
         })
         group.addActor(createItem(itemMap[ItemCategory.RING], ItemCategory.RING).apply {
-            setPosition(0f, 160f)
+            setPosition(0f, 140f)
         })
         group.addActor(createItem(itemMap[ItemCategory.BELT], ItemCategory.BELT).apply {
             setPosition(0f, 0f)
         })
 
         group.addActor(createItem(itemMap[ItemCategory.HELMET], ItemCategory.HELMET).apply {
-            setPosition(360f, 320f)
+            setPosition(360f, 280f)
         })
         group.addActor(createItem(itemMap[ItemCategory.GLOVES], ItemCategory.GLOVES).apply {
-            setPosition(360f, 160f)
+            setPosition(360f, 140f)
         })
         group.addActor(createItem(itemMap[ItemCategory.BOOTS], ItemCategory.BOOTS).apply {
             setPosition(360f, 0f)
@@ -154,7 +154,7 @@ class HeroEquipmentActor(
 
         group.addActor(r.image(Resources.units_atlas, skin).apply {
             setPosition(120f, 0f)
-            setSize(240f, 480f)
+            setSize(240f, 420f)
             align = Align.bottom
             setScaling(Scaling.fit)
         })
@@ -166,23 +166,24 @@ class HeroEquipmentActor(
         return if (item == null) {
             val group = Group().apply {
                 width = 120f
-                height = 160f
+                height = 140f
             }
 
             val shadow = r.image(Resources.ux_atlas, "gradient_item_background").apply {
                 setSize(120f, 120f)
-                setPosition(0f, 30f)
+                setPosition(0f, 10f)
                 alpha = 0.5f
             }
             val plus = r.image(Resources.ux_atlas, "button_plus").apply {
-                setSize(100f, 100f)
-                setPosition(shadow.x + 10f, shadow.y + 10f)
-                setColor(r.skin().getColor("focus_color"))
-                alpha = 0.25f
+                setSize(70f, 70f)
+                setPosition(shadow.x + 25f, shadow.y + 25f)
+                alpha = 0.15f
             }
             val label = r.regular20White(category.label.value(r.l)).apply {
                 setSize(120f, 30f)
+                setPosition(0f, 10f)
                 setAlignment(Align.center)
+                alpha = 0.6f
             }
             group.addActor(shadow)
             group.addActor(plus)

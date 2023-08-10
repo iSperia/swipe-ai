@@ -143,7 +143,7 @@ class RaidWindow(
                 val actor = ItemCellActor(r, model).apply {
                     touchable = Touchable.disabled
                 }
-                tableRewards.add(actor).size(120f, 160f)
+                tableRewards.add(actor).size(120f, 140f)
                 if (index % 4 == 3) tableRewards.row()
             }
             tableRewards.add().growX()

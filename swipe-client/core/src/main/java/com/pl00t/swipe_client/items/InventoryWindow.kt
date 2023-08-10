@@ -12,6 +12,7 @@ import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.home.ReloadableScreen
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
+import com.pl00t.swipe_client.ux.ItemBrowser
 import com.pl00t.swipe_client.ux.ItemCellActor
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
@@ -166,12 +167,10 @@ class InventoryWindow(
     }
 
     private suspend fun showItems() {
-        r.profileService.getItems().filter { categoryFilter == null || categoryFilter == it.category }
-            .sortedByDescending { it.rarity * 100000 + it.experience }.forEachIndexed { index, item ->
-            val meta = r.itemService.getItemTemplate(item.skin)!!
-            val actor = ItemCellActor(
-                r = r,
-                model = FrontItemEntryModel(
+        val items = r.profileService.getItems().filter { categoryFilter == null || categoryFilter == it.category }
+            .sortedByDescending { it.rarity * 100000 + it.experience }.map { item ->
+                val meta = r.itemService.getItemTemplate(item.skin)!!
+                FrontItemEntryModel(
                     skin = meta.skin,
                     amount = 1,
                     level = SwipeCharacter.getLevel(item.experience),
@@ -180,43 +179,28 @@ class InventoryWindow(
                     currency = null,
                     item = item
                 )
-            ).apply {
-                onClick { onItemClicked(item.id) }
             }
-            content.add(actor).size(120f, 160f)
-            if (index % 4 == 3) {
-                content.row()
-            }
-        }
+        content.add(ItemBrowser(r, items, onItemClicked, null)).colspan(4).row()
     }
 
     private suspend fun showCurrency() {
-        r.profileService.getProfile().balances.filter { it.amount > 0 }
+        val items = r.profileService.getProfile().balances.filter { it.amount > 0 }
             .map { it to r.profileService.getCurrency(it.currency) }
             .sortedByDescending { it.second.rarity }
-            .forEachIndexed { index, p ->
-                val meta = p.second
-                val balance = p.first
-                val actor = ItemCellActor(
-                    r = r,
-                    model = FrontItemEntryModel(
-                        skin = balance.currency.toString(),
-                        amount = balance.amount,
-                        level = 0,
-                        rarity = meta.rarity,
-                        name = meta.name,
-                        currency = meta.currency,
-                        item = null
-                    )
-                ).apply {
-                    touchable = Touchable.disabled
-                }
-                content.add(actor).size(120f, 160f)
-                if (index % 4 == 3) {
-                    content.row()
-                }
+            .map {
+                val meta = it.second
+                val balance = it.first
+                FrontItemEntryModel(
+                    skin = balance.currency.toString(),
+                    amount = balance.amount,
+                    level = 0,
+                    rarity = meta.rarity,
+                    name = meta.name,
+                    currency = meta.currency,
+                    item = null
+                )
             }
+            val actor = ItemBrowser(r, items, null, null)
+            content.add(actor).colspan(4).row()
     }
-
-
 }

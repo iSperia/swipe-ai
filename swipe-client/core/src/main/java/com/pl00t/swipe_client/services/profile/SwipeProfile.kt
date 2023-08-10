@@ -35,12 +35,6 @@ data class ActProgress(
     val levelsAvailable: List<String>,
 )
 
-data class SwipeCharacterLevelInfo(
-    val experience: Int,
-    val maxExperience: Int,
-    val level: Int,
-)
-
 data class ActCollectedReward(
     val act: SwipeAct,
     val level: String

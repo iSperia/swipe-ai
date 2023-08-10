@@ -76,6 +76,7 @@ interface ProfileService {
     suspend fun getActiveCharacter(): String
 
     suspend fun setActiveCharacter(skin: String)
+    suspend fun useElixir(skin: String, currency: SwipeCurrency): Boolean
 
 
     data class DustItemResult(
@@ -92,7 +93,7 @@ data class FrontItemEntryModel(
     val currency: SwipeCurrency?,
     val item: InventoryItem?,
 ) {
-    fun getText(r: Resources) = if (level > 0) "${UiTexts.LvlShortPrefix.value(r.l)}$level" else if (amount > 1) amount.toString() else ""
+    fun getText(r: Resources) = if (level > 0) "${UiTexts.LvlShortPrefix.value(r.l)}$level" else amount.toString()
 }
 
 data class SbMysteryItem(
@@ -560,6 +561,35 @@ class ProfileServiceImpl(
         saveProfile()
     }
 
+    override suspend fun useElixir(skin: String, currency: SwipeCurrency): Boolean {
+        val character = profile.characters.first { it.skin == skin }
+        var db = 0
+        var ds = 0
+        var dm = 0
+        when (currency) {
+            SwipeCurrency.ELIXIR_AMBER -> { db = 2; ds = -1; dm = -1 }
+            SwipeCurrency.ELIXIR_CITRINE -> { db = 1; ds = 1; dm = -2 }
+            SwipeCurrency.ELIXIR_AGATE -> { db = 1; ds = -2; dm = 1 }
+            SwipeCurrency.ELIXIR_TURQUOISE -> { db = -2; ds = 1; dm = 1 }
+            SwipeCurrency.ELIXIR_JADE -> { db = -1; ds = 2; dm = -1 }
+            SwipeCurrency.ELIXIR_LAPIS -> { db = -1; ds = -1; dm = 2 }
+            else -> {}
+        }
+        val updatedCharacter = character.copy(attributes = character.attributes.copy(
+            body = character.attributes.body + db,
+            spirit = character.attributes.spirit + ds,
+            mind = character.attributes.mind + dm
+        ))
+        if (updatedCharacter.attributes.let { it.spirit >= 0 && it.body >= 0 && it.mind >= 0 }) {
+            profile = profile.copy(characters = profile.characters.map {
+                if (it.skin == updatedCharacter.skin) updatedCharacter else it
+            })
+            saveProfile()
+            return true
+        }
+        return false
+    }
+
     override fun addCharacterExperience(skin: String, boostExp: Int) {
         profile = profile.copy(characters = profile.characters.map { character ->
             if (character.skin == skin) {
@@ -657,7 +687,7 @@ class ProfileServiceImpl(
         val implicitAffix = itemService.getAffix(template.implicit)!!
 
         val affixesList = mutableListOf<ItemAffixType>()
-        (0 until rarity).forEach { i ->
+        (0 until min(4, rarity + 1)).forEach { i ->
             val affix = itemService.generateAffix(affixesList, template)
             affixesList.add(affix)
         }
@@ -685,7 +715,7 @@ class ProfileServiceImpl(
             rarity = rarity,
             category = template.category,
             equippedBy = null,
-            maxExperience = SwipeCharacter.experience[max(0, rarity * 5 - 1)]
+            maxExperience = SwipeCharacter.experience[max(0, (rarity + 1) * 5-1)]
         )
     }
 

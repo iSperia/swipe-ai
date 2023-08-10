@@ -16,23 +16,15 @@ class ItemCellActor(
 ) : Group() {
 
     private val background = r.image(Resources.ux_atlas, "gradient_item_background").apply {
-        setSize(110f, 110f)
+        setSize(110f, 130f)
         color = r.skin().getColor("rarity_${model.rarity}")
         setOrigin(Align.center)
-        y = 40f
-        x = 5f
-    }
-    private val name = r.regularWhite(model.name.value(r.l)).apply {
-        setSize(110f, 40f)
-        setAlignment(Align.center)
-        wrap = true
-        x = 5f
+        setPosition(5f, 5f)
     }
     private val itemImage = r.image(Resources.ux_atlas, model.skin).apply {
         setSize(100f, 100f)
         setOrigin(Align.center)
-        y = 45f
-        x = 10f
+        setPosition(10f, 30f)
     }
     private val itemImageShadow = r.image(Resources.ux_atlas, model.skin).apply {
         setSize(100f, 100f)
@@ -43,69 +35,60 @@ class ItemCellActor(
         alpha = 0.75f
     }
     private val starGroup = Group().apply {
-        x = 10f
-        y = 140f
-        setSize(20f * model.rarity, 20f)
+        setPosition(24f, 118f)
+        setSize(12f * model.rarity, 12f)
         setOrigin(Align.center)
     }
-    private val amountLabel = r.regularWhite(model.getText(r)).apply {
-        setAlignment(Align.left)
-        setSize(140f, 16f)
-        x = itemImage.x
-        y = itemImage.y
+    private val amountBackground = r.image(Resources.ux_atlas, "background_black").apply {
+        setSize(110f, 20f)
+        setPosition(5f, 5f)
+        alpha = 0.5f
     }
-    private val amountLabelShadow = r.regularWhite(model.getText(r)).apply {
-        setAlignment(Align.left)
-        setSize(140f, 16f)
-        setPosition(amountLabel.x - 1f, amountLabel.y - 1f)
-        isVisible = model.amount > 0
-        color = Color.BLACK
+    private val amountLabel = r.regularWhite(model.getText(r)).apply {
+        setAlignment(Align.center)
+        setSize(110f, 20f)
+        setPosition(amountBackground.x, amountBackground.y)
     }
 
     init {
-        setSize(120f, 160f)
+        setSize(120f, 140f)
         addActor(background)
+        addActor(amountBackground)
         addActor(itemImageShadow)
         addActor(itemImage)
         addActor(starGroup)
-        addActor(name)
 
-        addActor(amountLabelShadow)
         addActor(amountLabel)
 
 
-        val padding = 50f - (model.rarity + 1) * 10f
+        val padding = (72f - (model.rarity + 1) * 12f)/2f
         (0..model.rarity).forEach { index ->
             val star = r.image(Resources.ux_atlas, "star").apply {
-                setPosition(padding + index * 20f, 0f)
-                setSize(20f, 20f)
+                setPosition(padding + index * 12f, 0f)
+                setSize(12f, 12f)
                 color = r.skin().getColor("focus_color")
-                alpha = 0.8f
             }
             starGroup.addActor(star)
         }
 
         onTouchDown {
-            starGroup.addAction(Actions.moveTo(10f, 130f, 0.3f))
-            name.addAction(Actions.moveTo(5f, 10f, 0.3f))
-            amountLabel.addAction(Actions.moveTo(14f, 55f, 0.3f))
-            amountLabelShadow.addAction(Actions.moveTo(13f, 54f, 0.3f))
+            starGroup.addAction(Actions.moveTo(24f, 110f, 0.3f))
+            amountLabel.addAction(Actions.moveTo(5f, 13f, 0.3f))
             itemImage.addAction(Actions.scaleTo(0.9f, 0.9f, 0.3f))
             background.addAction(Actions.scaleTo(0.9f, 0.9f, 0.3f))
+            amountBackground.addAction(Actions.moveTo(5f, 13f, 0.3f))
         }
         onExit {
-            starGroup.addAction(Actions.moveTo(10f, 140f, 0.3f))
-            name.addAction(Actions.moveTo(5f, 0f, 0.3f))
-            amountLabel.addAction(Actions.moveTo(10f, 45f, 0.3f))
-            amountLabelShadow.addAction(Actions.moveTo(9f, 44f, 0.3f))
+            starGroup.addAction(Actions.moveTo(24f, 118f, 0.3f))
+            amountLabel.addAction(Actions.moveTo(5f, 5f, 0.3f))
             itemImage.addAction(Actions.scaleTo(1f, 1f, 0.3f))
             background.addAction(Actions.scaleTo(1f, 1f, 0.3f))
+            amountBackground.addAction(Actions.moveTo(5f, 5f, 0.3f))
         }
     }
 
     fun reduceCount() {
         model = model.copy(amount = model.amount - 1)
         amountLabel.setText(model.getText(r))
-        amountLabelShadow.setText(model.getText(r))
     }
 }

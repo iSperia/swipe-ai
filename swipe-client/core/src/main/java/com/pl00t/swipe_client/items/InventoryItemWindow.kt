@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
+import com.game7th.swipe.SbText
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
@@ -149,7 +150,7 @@ class InventoryItemWindow(
         val cs = arrayOf(SwipeCurrency.INFUSION_ORB, SwipeCurrency.INFUSION_SHARD, SwipeCurrency.INFUSION_CRYSTAL, SwipeCurrency.ASCENDANT_ESSENCE)
         val actor = ItemRowActor(
             r = r,
-            model = model,
+            model = model.copy(name = SbText("", "")),
             action = null,
             onItemClick = null
         )
@@ -262,6 +263,6 @@ class InventoryItemWindow(
             }
             curGroup.addActor(actor)
         }
-        content.add(curGroup).size(480f, 160f).row()
+        content.add(curGroup).size(480f, 140f).row()
     }
 }

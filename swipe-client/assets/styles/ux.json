@@ -47,6 +47,14 @@
       font: regular
       fontColor: main_color
     }
+    regular_focus: {
+      font: regular
+      fontColor: focus_color
+    }
+    regular_black: {
+      font: regular
+      fontColor: black
+    }
     regular20_focus: {
       font: regular20
       fontColor: focus_color

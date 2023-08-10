@@ -28,6 +28,8 @@ sealed class Action(val atlas: String, val icon: String) {
     object Complete: Action(Resources.ux_atlas, "fg_complete")
     object Attack: Action(Resources.ux_atlas, "action_icon_attack")
     object Stats: Action(Resources.ux_atlas, "action_icon_stats")
+    object Attributes: Action(Resources.ux_atlas, "action_icon_attributes")
+    object Resistance: Action(Resources.ux_atlas, "action_icon_defence")
     object Skillset: Action(Resources.ux_atlas, "action_icon_skillset")
     object Story: Action(Resources.ux_atlas, "action_icon_story")
 

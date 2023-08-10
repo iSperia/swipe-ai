@@ -172,7 +172,7 @@ class BattleResultDialog(
                             onClick { onItemClick(reward.item!!.id) }
                         }
                     }
-                    content.add(actor).size(120f, 160f)
+                    content.add(actor).size(120f, 140f)
                     if (i % 4 == 3) content.row()
                 }
                 content.add().growX()
@@ -190,7 +190,7 @@ class BattleResultDialog(
                         onClick { onItemClick(reward.item!!.id) }
                     }
                 }
-                content.add(actor).size(120f, 160f)
+                content.add(actor).size(120f, 140f)
                 if (i % 4 == 3) content.row()
             }
             content.add().growX()

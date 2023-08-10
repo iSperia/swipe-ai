@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.monster
 
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -26,7 +27,7 @@ open class MonsterDetailWindow(
     lateinit protected var backgroundShadow: Image
 
     protected var root = Group()
-    protected var attributesActor: AttributesActor? = null
+    protected var attributesActor: Actor? = null
     private var loreActor: LoreActor? = null
     private var abilitiesActor: MonsterAbiltiesActor? = null
 
@@ -48,7 +49,7 @@ open class MonsterDetailWindow(
         showAttributes()
     }
 
-    protected open suspend fun createAttributesActor(): AttributesActor {
+    protected open suspend fun createAttributesActor(): Actor {
         val attributesActor = MonsterAttributesActor(r, model).apply {
             y = 110f
         }
@@ -71,7 +72,7 @@ open class MonsterDetailWindow(
     }
 
     protected suspend open fun fillBottomPanelActions(list: MutableList<ActionCompositeButton>) {
-        list.add(ActionCompositeButton(r, Action.Stats, Mode.SingleLine(UiTexts.ButtonStats.value(r.l)))
+        list.add(ActionCompositeButton(r, Action.Stats, Mode.SingleLine(UiTexts.ButtonInfo.value(r.l)))
             .apply { onClick { showAttributes() } })
         list.add(ActionCompositeButton(r, Action.Skillset, Mode.SingleLine(UiTexts.ButtonSkillset.value(r.l)))
             .apply { onClick { showSkillset() } })

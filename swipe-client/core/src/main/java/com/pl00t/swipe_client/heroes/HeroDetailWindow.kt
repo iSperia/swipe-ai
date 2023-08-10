@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.heroes
 
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.game7th.swipe.game.FrontMonsterConfiguration
@@ -45,9 +46,9 @@ class HeroDetailWindow(
 
     }
 
-    override suspend fun createAttributesActor(): AttributesActor {
+    override suspend fun createAttributesActor(): Actor {
         val character = r.profileService.getCharacters().first { it.skin == model.skin }
-        return HeroAttributesActor(r, character, model).apply {
+        return HeroStatsContainer(r, model).apply {
             y = 110f
         }
     }
