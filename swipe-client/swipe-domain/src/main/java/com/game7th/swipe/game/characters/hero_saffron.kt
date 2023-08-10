@@ -24,8 +24,8 @@ fun provideSaffronAbilities(balance: JsonObject, attributes: CharacterAttributes
     FrontMonsterAbility(
         title = SbText(en = "Inspiration Spark", ru = "Искра Вдохновения"),
         skin = SAFFRON_IGINITE_INSPIRATION,
-        description = SbText(en = "Saffron ignites her inner creativity, conjuring new tiles on her field that burn with potential. These tiles hold the power to fuel her other abilities.",
-            ru = "Шафран зажигает свое внутреннее творчество, создавая на своем поле новые плитки, полные потенциала. Эти плитки обладают силой, подпитывающей другие ее способности."),
+        description = SbText(en = "Saffron ignites her inner creativity, conjuring new tiles on her field that burn with potential. These tiles hold the power to fuel her other abilities.\n\nScale: Spirit",
+            ru = "Шафран зажигает свое внутреннее творчество, создавая на своем поле новые плитки, полные потенциала. Эти плитки обладают силой, подпитывающей другие ее способности.\n\nУлучшается от: Дух"),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Amount of symbols generated", ru = "Количество сгенерированных символов"),
@@ -36,8 +36,8 @@ fun provideSaffronAbilities(balance: JsonObject, attributes: CharacterAttributes
     FrontMonsterAbility(
         title = SbText(en = "Inferno Strike", ru = "Инфернальный удар"),
         skin = SAFFRON_INFERNO_STRIKE,
-        description = SbText(en = "Focusing her fiery essence, Saffron targets the lowest maximum health enemy, delivering a scorching strike that deals moderate fire damage. Her flames seek out vulnerabilities, ensuring the attack is always impactful",
-            ru = "Сосредоточив свою огненную сущность, Шафран нацеливается на врага с наименьшим максимальным здоровьем, нанося обжигающий удар, наносящий умеренный урон от огня. Ее пламя выискивает уязвимые места, гарантируя, что атака всегда будет результативной."),
+        description = SbText(en = "Focusing her fiery essence, Saffron targets the lowest maximum health enemy, delivering a scorching strike that deals moderate fire damage. Her flames seek out vulnerabilities, ensuring the attack is always impactful\n\nScale: Mind",
+            ru = "Сосредоточив свою огненную сущность, Шафран нацеливается на врага с наименьшим максимальным здоровьем, нанося обжигающий удар, наносящий умеренный урон от огня. Ее пламя выискивает уязвимые места, гарантируя, что атака всегда будет результативной.\n\nУлучшается от: Разум"),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Fire damage", ru = "Урон огнём"),
@@ -48,8 +48,8 @@ fun provideSaffronAbilities(balance: JsonObject, attributes: CharacterAttributes
     FrontMonsterAbility(
         title = SbText(en = "Blazing Breath", ru = "Пылающее Дыхание"),
         skin = SAFFRON_BLAZING_BACKDRAFT,
-        description = SbText(en = "Saffron launches a fire-laden strike at the closest target, creating a fiery backdraft that engulfs the enemy behind. The main target takes immediate fire damage, while the secondary target endures residual damage from the scorching aftermath.",
-            ru ="Шафран наносит огненный удар по ближайшей цели, создавая огненную обратную тягу, которая поглощает врага позади. Основная цель получает немедленный урон от огня, в то время как второстепенная цель получает остаточный урон от палящих последствий."),
+        description = SbText(en = "Saffron launches a fire-laden strike at the closest target, creating a fiery backdraft that engulfs the enemy behind. The main target takes immediate fire damage, while the secondary target endures residual damage from the scorching aftermath.\n\nScale: Mind",
+            ru ="Шафран наносит огненный удар по ближайшей цели, создавая огненную обратную тягу, которая поглощает врага позади. Основная цель получает немедленный урон от огня, в то время как второстепенная цель получает остаточный урон от палящих последствий.\n\nУлучшается от: Разум"),
         fields = listOf(
             FrontMonsterAbilityField(
                 title = SbText(en = "Fire damage", ru = "Урон огнём"),

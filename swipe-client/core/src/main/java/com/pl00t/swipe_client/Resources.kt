@@ -24,7 +24,7 @@ typealias SbAssetLoadedCallback = (Resources) -> Unit
 class Resources {
     var width: Float = 0f
     var height: Float = 0f
-    var l: Language = Language.EN
+    var l: Language = Language.RU
     lateinit var inputMultiplexer: InputMultiplexer
 
     lateinit var profileService: ProfileService
