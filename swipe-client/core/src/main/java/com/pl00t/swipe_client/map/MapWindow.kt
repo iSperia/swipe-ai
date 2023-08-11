@@ -1,12 +1,10 @@
 package com.pl00t.swipe_client.map
 
-import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
-import com.game7th.swipe.SbText
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
@@ -18,8 +16,8 @@ import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.HoverAction
 import com.pl00t.swipe_client.ux.TutorialHover
 import com.pl00t.swipe_client.ux.bounds
-import com.pl00t.swipe_client.ux.createTutorial
 import com.pl00t.swipe_client.ux.dialog.DialogScriptActor
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
@@ -190,8 +188,11 @@ class MapWindow(
 
     }
 
+    private var todo1 = false
     private suspend fun checkReloadTutorial(model: FrontActModel) {
-        if (act == SwipeAct.ACT_1 && model.levels[1].enabled && !r.profileService.isFreeRewardAvailable(SwipeAct.ACT_1, "c1") && !r.profileService.getTutorial().a1HeroOpened) {
+        delay(100)
+        if (act == SwipeAct.ACT_1 && model.levels[1].enabled && !r.profileService.isFreeRewardAvailable(SwipeAct.ACT_1, "c1") && !r.profileService.getTutorial().a1HeroOpened && !todo1) {
+            todo1 = true
             addActor(TutorialHover(r, actionInventory.bounds(), UiTexts.Tutorials.Act1Hero1, HoverAction.HoverClick {
                 navigateParty()
             }))
