@@ -1,10 +1,23 @@
 package com.game7th.swipe.game
 
+data class GameTutorialMetadata(
+    val isFirstTutorial: Boolean,
+    val firstTutorialTick: Int,
+) {
+    companion object {
+        val DEFAULT = GameTutorialMetadata(
+            isFirstTutorial = false,
+            firstTutorialTick = 0,
+        )
+    }
+}
+
 data class SbGame(
     val wave: Int,
     val ticksUntilNpc: Int,
     val maxCharacterId: Int = 0,
     val characters: List<SbCharacter> = emptyList(),
+    val tutorialMetadata: GameTutorialMetadata = GameTutorialMetadata.DEFAULT,
 ) {
     fun character(id: Int) = characters.firstOrNull { it.id == id }
     fun team(team: Int) = characters.filter { it.team == team }

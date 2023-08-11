@@ -26,26 +26,6 @@
           }
         ]
       ],
-      "dialog": [
-        {
-          "actor": "CHARACTER_VALERIAN",
-          "side": "left",
-          "text": "The verdant grove, a place teeming with life and mysteries. What brings us here, Saffron?",
-          "title": "Prince Valerian"
-        },
-        {
-          "actor": "CHARACTER_SAFFRON",
-          "side": "right",
-          "text": "Your Highness, the forest holds a shard of great power. Our journey is to reclaim it and restore balance.",
-          "title": "Saffron"
-        },
-        {
-          "actor": "CHARACTER_VALERIAN",
-          "side": "left",
-          "text": "Let us tread carefully and face whatever challenges lie ahead. The fate of our kingdom depends on it.",
-          "title": "Prince Valerian"
-        }
-      ],
       "freeReward": [
         {
           "type": "currency",
@@ -110,26 +90,6 @@
             "level": 2
           }
         ]
-      ],
-      "dialog": [
-        {
-          "actor": "CHARACTER_VALERIAN",
-          "side": "left",
-          "text": "These thorned crawlers have grown bolder. Their presence is a sign of a deeper corruption.",
-          "title": "Prince Valerian"
-        },
-        {
-          "actor": "CHARACTER_SAFFRON",
-          "side": "right",
-          "text": "Indeed, Your Highness. It seems Thalendros, the Corrupted Treant, has tainted this grove. We must restore its purity.",
-          "title": "Saffron"
-        },
-        {
-          "actor": "CHARACTER_VALERIAN",
-          "side": "left",
-          "text": "The shard's power must be reclaimed, and Thalendros must answer for his actions. Onward!",
-          "title": "Prince Valerian"
-        }
       ],
       "freeReward": [
         {
@@ -218,44 +178,6 @@
           }
         ]
       ],
-      "dialog": [
-        {
-          "actor": "CHARACTER_VALERIAN",
-          "side": "left",
-          "text": "These dryads seem to guard the heart of the grove. We must face them to reach the shard.",
-          "title": "Prince Valerian"
-        },
-        {
-          "actor": "CHARACTER_SAFFRON",
-          "side": "right",
-          "text": "They have fallen under corruption, Your Highness. Their once serene spirits are twisted. We have no choice but to fight.",
-          "title": "Saffron"
-        },
-        {
-          "actor": "MONSTER_CORRUPTED_DRYAD",
-          "side": "right",
-          "text": "Intruders! You shall not defile the sacred heart of the grove!",
-          "title": "Dryad Guardian"
-        },
-        {
-          "actor": "CHARACTER_VALERIAN",
-          "side": "left",
-          "text": "We seek to restore balance, but if you stand in our way, we will bring justice upon you!",
-          "title": "Prince Valerian"
-        },
-        {
-          "actor": "CHARACTER_SAFFRON",
-          "side": "right",
-          "text": "The grove mourns your corruption, but we shall cleanse it with our blades!",
-          "title": "Saffron"
-        },
-        {
-          "actor": "MONSTER_CORRUPTED_DRYAD",
-          "side": "right",
-          "text": "You know nothing of balance! Prepare to face the wrath of nature!",
-          "title": "Dryad Guardian"
-        }
-      ],
       "freeReward": [
         {
           "type": "currency",
@@ -309,50 +231,6 @@
             "level": 4
           }
         ]
-      ],
-      "dialog": [
-        {
-          "actor": "MONSTER_THALENDROS",
-          "side": "right",
-          "text": "Intruders! You dare trespass upon my domain?",
-          "title": "Thalendros"
-        },
-        {
-          "actor": "CHARACTER_VALERIAN",
-          "side": "left",
-          "text": "Thalendros, your corruption has brought imbalance to these sacred groves. We have come to restore harmony.",
-          "title": "Prince Valerian"
-        },
-        {
-          "actor": "CHARACTER_SAFFRON",
-          "side": "right",
-          "text": "Your once noble spirit has been tainted, Thalendros. Release your hold on this realm, or face the consequences.",
-          "title": "Saffron"
-        },
-        {
-          "actor": "MONSTER_THALENDROS",
-          "side": "right",
-          "text": "Foolish mortals, you know nothing of the power I possess. Prepare to be ensnared in the thorns of your own demise!",
-          "title": "Thalendros"
-        },
-        {
-          "actor": "CHARACTER_VALERIAN",
-          "side": "left",
-          "text": "We shall vanquish your darkness, treacherous Treant! Light shall prevail!",
-          "title": "Prince Valerian"
-        },
-        {
-          "actor": "CHARACTER_SAFFRON",
-          "side": "right",
-          "text": "Together, we will cleanse these groves and bring peace back to the land. Prepare for the battle of your life, Thalendros!",
-          "title": "Saffron"
-        },
-        {
-          "actor": "MONSTER_THALENDROS",
-          "side": "right",
-          "text": "You shall regret challenging me. The forest shall be your grave!",
-          "title": "Thalendros"
-        }
       ],
       "freeReward": [
         {

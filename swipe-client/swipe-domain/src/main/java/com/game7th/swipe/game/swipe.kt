@@ -157,7 +157,13 @@ fun SbContext.swipe(characterId: Int, dx: Int, dy: Int) {
 
     game = game.withUpdatedCharacter(character)
 
-    generateTiles(character.id, 1)
+    if (character.id == 0 && game.tutorialMetadata.isFirstTutorial && game.tutorialMetadata.firstTutorialTick == 0) {
+        game = game.copy(tutorialMetadata = game.tutorialMetadata.copy(firstTutorialTick = 1, isFirstTutorial = false))
+        game = game.withUpdatedCharacter(game.character(0)!!.withAddedTile(SbTile(0, "VALERIAN_RADIANT_STRIKE", 2, 4, SbTile.LAYER_TILE, true, 5, SbTileMergeStrategy.SIMPLE, 1, 3, 0, emptyList())))
+        events.add(SbDisplayEvent.SbCreateTile(0, game.character(0)!!.tiles.last().asDisplayed()))
+    } else {
+        generateTiles(character.id, 1)
+    }
 
     handleEvent(SbEvent.EndOfSwipe(character.id))
     handleEvent(SbEvent.EndOfTick(character.id))

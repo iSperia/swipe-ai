@@ -1,9 +1,12 @@
 package com.pl00t.swipe_client.map
 
+import com.badlogic.gdx.math.Rectangle
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
+import com.game7th.swipe.SbText
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
@@ -12,6 +15,11 @@ import com.pl00t.swipe_client.screen.map.LinkActor
 import com.pl00t.swipe_client.services.levels.FrontActModel
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import com.pl00t.swipe_client.ux.HoverAction
+import com.pl00t.swipe_client.ux.TutorialHover
+import com.pl00t.swipe_client.ux.bounds
+import com.pl00t.swipe_client.ux.createTutorial
+import com.pl00t.swipe_client.ux.dialog.DialogScriptActor
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
@@ -53,6 +61,26 @@ class MapWindow(
         addMapImage()
         addWindowTitle()
         addBottomPanel()
+
+        checkTutorial()
+    }
+
+    private fun checkTutorial() {
+        KtxAsync.launch {
+            r.profileService.getTutorial().let { tutorial ->
+                if (!tutorial.acti1IntroPassed) {
+                    val dialog = DialogScriptActor(r, r.profileService.getDialogScript("act1Intro")) {
+                        addActor(TutorialHover(r, mapIconsGroup.findActor<Actor>("c1").bounds(), UiTexts.Tutorials.Act1Intro, HoverAction.HoverClick {
+                            KtxAsync.launch {
+                                r.profileService.saveTutorial(tutorial.copy(acti1IntroPassed = true))
+                                onLocationClicked("c1")
+                            }
+                        }))
+                    }
+                    addActor(dialog)
+                }
+            }
+        }
     }
 
     override fun reload() {
@@ -133,6 +161,7 @@ class MapWindow(
                     touchable = Touchable.disabled
                     alpha = 0.5f
                 }
+                name = level.locationId
             }
 
             levelActor.onClick {
@@ -140,6 +169,8 @@ class MapWindow(
             }
 
             mapIconsGroup.addActor(levelActor)
+
+
         }
     }
 

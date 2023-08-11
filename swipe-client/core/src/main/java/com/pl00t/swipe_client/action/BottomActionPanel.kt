@@ -45,6 +45,7 @@ class BottomActionPanel(
             actionButton.apply {
                 setSize(sizePerAction, 110f)
                 x = index * this.width
+                name = index.toString()
             }.let {
                 addActor(it)
             }

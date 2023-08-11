@@ -69,14 +69,14 @@ action_shop
   index: -1
 background_accent
   rotate: false
-  xy: 476, 601
+  xy: 945, 558
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_black
   rotate: false
-  xy: 482, 607
+  xy: 945, 573
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -90,35 +90,35 @@ background_defeat
   index: -1
 background_error
   rotate: false
-  xy: 479, 604
+  xy: 945, 567
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_focus
   rotate: false
-  xy: 476, 610
+  xy: 945, 588
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_main
   rotate: false
-  xy: 479, 601
+  xy: 945, 555
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_solid
   rotate: false
-  xy: 485, 610
+  xy: 945, 552
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_transparent50
   rotate: false
-  xy: 476, 607
+  xy: 945, 579
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -132,7 +132,7 @@ background_victory
   index: -1
 background_white
   rotate: false
-  xy: 482, 610
+  xy: 945, 582
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -153,42 +153,42 @@ filter_currency
   index: -1
 icon_attr_body
   rotate: false
-  xy: 902, 575
+  xy: 476, 613
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_attr_health
   rotate: false
-  xy: 903, 749
+  xy: 390, 541
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_attr_luck
   rotate: false
-  xy: 521, 529
+  xy: 580, 529
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_attr_mind
   rotate: false
-  xy: 559, 529
+  xy: 618, 529
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_attr_spirit
   rotate: false
-  xy: 476, 613
+  xy: 903, 744
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_attr_ult
   rotate: false
-  xy: 903, 711
+  xy: 428, 541
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
@@ -202,77 +202,77 @@ icon_padlock
   index: -1
 icon_resist_cold
   rotate: false
-  xy: 483, 529
+  xy: 542, 529
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_resist_dark
   rotate: false
-  xy: 902, 651
+  xy: 903, 782
   size: 41, 41
   orig: 41, 41
   offset: 0, 0
   index: -1
 icon_resist_fire
   rotate: false
-  xy: 903, 787
+  xy: 903, 706
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_resist_light
   rotate: false
-  xy: 902, 613
+  xy: 466, 541
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_resist_phys
   rotate: false
-  xy: 902, 537
+  xy: 504, 529
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_resist_shock
   rotate: false
-  xy: 440, 536
+  xy: 902, 548
   size: 41, 41
   orig: 41, 41
   offset: 0, 0
   index: -1
 item_background
   rotate: false
-  xy: 479, 610
+  xy: 945, 585
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 3
 item_background
   rotate: false
-  xy: 479, 607
+  xy: 945, 576
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 0
 item_background
   rotate: false
-  xy: 476, 604
+  xy: 945, 570
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 2
 item_background
   rotate: false
-  xy: 482, 604
+  xy: 945, 564
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 4
 item_background
   rotate: false
-  xy: 483, 601
+  xy: 945, 561
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -300,7 +300,7 @@ silh_gauntlets
   index: -1
 star
   rotate: false
-  xy: 390, 529
+  xy: 902, 591
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
@@ -317,6 +317,13 @@ texture_screen
   xy: 0, 825
   size: 954, 1192
   orig: 954, 1192
+  offset: 0, 0
+  index: -1
+tutorial
+  rotate: false
+  xy: 902, 641
+  size: 51, 51
+  orig: 51, 51
   offset: 0, 0
   index: -1
 
@@ -418,7 +425,7 @@ HELM_OF_IRON_WILL
   index: -1
 INFUSION_ORB
   rotate: false
-  xy: 774, 332
+  xy: 1032, 590
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -509,7 +516,7 @@ action_icon_attributes
   index: -1
 action_icon_close
   rotate: false
-  xy: 1032, 588
+  xy: 260, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -544,14 +551,14 @@ action_icon_story
   index: -1
 action_party
   rotate: false
-  xy: 260, 0
+  xy: 1804, 1634
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 action_stash
   rotate: false
-  xy: 1032, 718
+  xy: 1032, 460
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -577,6 +584,13 @@ circle_button_foreground
   orig: 256, 256
   offset: 0, 0
   index: -1
+cursor
+  rotate: false
+  xy: 774, 332
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
 fg_level_bottom
   rotate: false
   xy: 772, 1622
@@ -593,7 +607,7 @@ fg_level_top
   index: -1
 gradient_item_background
   rotate: false
-  xy: 1290, 974
+  xy: 776, 202
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -614,7 +628,7 @@ silh_amulet
   index: -1
 silh_helm
   rotate: false
-  xy: 1804, 1634
+  xy: 1290, 974
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

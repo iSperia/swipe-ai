@@ -39,6 +39,7 @@ class UnitHealthBarActor(
     val _maxWidth = w - 14f
 
     init {
+        setSize(w, h)
         addActor(background)
         addActor(foregound)
         addActor(healthText)

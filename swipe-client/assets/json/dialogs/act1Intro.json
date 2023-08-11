@@ -1,0 +1,68 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Hey, Valerian! Ready to embark on this journey?",
+        "ru": "Эй, Валериан! Готовы отправиться в это путешествие?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Absolutely, Saffron. The kingdom's shards have been scattered, and it's my duty to restore them and bring peace back to our lands.",
+        "ru": "Абсолютно верно, Шафран. Осколки королевства рассеялись, и мой долг восстановить их и вернуть мир на наши земли."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Remember, each location has its own challenges. We should start with the Verdant Groves, where the first shard awaits.",
+        "ru": "Помните, что в каждой локации есть свои проблемы. Начать стоит с Зеленых рощ, где ждет первый осколок."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Why the Verdant Groves?",
+        "ru": "Почему Зеленые Рощи?"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "The groves hold the essence of life itself. Restoring the first shard there will strengthen your connection to the very heart of our world.",
+        "ru": "В рощах содержится сама суть жизни. Восстановление там первого осколка укрепит вашу связь с самым сердцем нашего мира."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Then let's not waste any time. I'll head to the Verdant Groves and retrieve that shard.",
+        "ru": "Тогда не будем терять времени. Я отправлюсь в Зеленые рощи и заберу этот осколок."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "You've got this, Valerian. Remember, the journey is just as important as the destination.",
+        "ru": "Вот это да, Валериан. Помните, что путешествие так же важно, как и пункт назначения."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "I won't forget, Saffron. Let's bring back the light to our kingdom.",
+        "ru": "Я не забуду, Шафран. Вернем свет в наше королевство."
+      },
+      "side": "left"
+    }
+  ]
+}

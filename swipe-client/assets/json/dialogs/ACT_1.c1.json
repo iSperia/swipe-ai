@@ -1,0 +1,52 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "(looking at the surroundings)\nThese groves hold the power of nature itself. We must find the shard that's hidden here.",
+        "ru": "(оглядывая окрестности)\nВ этих рощах заключена сила самой природы. Мы должны найти спрятанный здесь осколок."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "The shard should be somewhere nearby, but be cautious. Nature here can be unpredictable.",
+        "ru": "Осколок должен быть где-то поблизости, но будьте осторожны. Природа здесь может быть непредсказуемой."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_THORNSTALKER",
+      "text": {
+        "en": "(emerging from the shadows)\nIntruders! Why do you seek the shard of the groves?",
+        "ru": "(выходя из тени)\nЗлоумышленники! Зачем вы ищете осколок рощи?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "We mean no harm. We're on a mission to restore the shards and bring balance to our kingdom.",
+        "ru": "Мы не причиним вреда. Наша миссия — восстановить осколки и восстановить равновесие в нашем королевстве."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "It seems this creature won't be easily convinced. We might have to show our strength..",
+        "ru": "Кажется, это существо нелегко убедить. Возможно, нам придется показать свою силу."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Let's be prepared. We won't back down.",
+        "ru": "Давай подготовимся. Мы не отступим."
+      },
+      "side": "left"
+    }
+  ]
+}

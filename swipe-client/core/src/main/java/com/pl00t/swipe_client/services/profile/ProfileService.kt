@@ -78,6 +78,10 @@ interface ProfileService {
     suspend fun setActiveCharacter(skin: String)
     suspend fun useElixir(skin: String, currency: SwipeCurrency): Boolean
 
+    suspend fun getTutorial(): TutorialState
+    suspend fun saveTutorial(tutorial: TutorialState)
+
+    suspend fun getDialogScript(key: String): DialogScript
 
     data class DustItemResult(
         val rewards: List<CurrencyReward>
@@ -134,7 +138,7 @@ data class CurrenciesMetadata(
     val currencies: List<CurrencyMetadata>
 )
 
-val DEBUG = true
+val DEBUG = false
 
 class ProfileServiceImpl(
     val levelService: LevelService,
@@ -202,9 +206,11 @@ class ProfileServiceImpl(
                     tiersUnlocked = emptyList(),
                     mysteryShop = null,
                     activeCharacter = "CHARACTER_VALERIAN",
+                    tutorial = TutorialState()
                 )
             } else {
                 SwipeProfile(
+                    tutorial = TutorialState(),
                     balances = listOf(
                         CurrencyBalance(SwipeCurrency.ETHERIUM_COIN, 1000)
                     ),
@@ -719,7 +725,19 @@ class ProfileServiceImpl(
         )
     }
 
-    companion object {
-        fun getExperience(level: Int): Int = level * level
+    override suspend fun getTutorial(): TutorialState = profile.tutorial
+
+    override suspend fun saveTutorial(tutorial: TutorialState) {
+        profile = profile.copy(tutorial = tutorial)
+        saveProfile()
+    }
+
+    override suspend fun getDialogScript(key: String): DialogScript {
+        return try {
+            val file = Gdx.files.internal("json/dialogs/$key.json").readString("UTF-8")
+            gson.fromJson(file, DialogScript::class.java)
+        } catch (e: Throwable) {
+            DialogScript(emptyList())
+        }
     }
 }

@@ -24,10 +24,13 @@ enum class DialogOrientation {
 }
 
 data class DialogEntryModel(
-    val actor: String,
+    val skin: String,
+    val text: SbText,
     val side: DialogOrientation,
-    val text: String,
-    val title: String,
+)
+
+data class DialogScript(
+    val replicas: List<DialogEntryModel>
 )
 
 data class SbMonsterPoolEntry(

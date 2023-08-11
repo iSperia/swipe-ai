@@ -3,6 +3,7 @@ package com.pl00t.swipe_client.battle
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch
 import com.badlogic.gdx.math.Interpolation
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
@@ -10,16 +11,19 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
-import com.game7th.swipe.game.SbBattleFieldDisplayEffect
-import com.game7th.swipe.game.SbDisplayEvent
-import com.game7th.swipe.game.SbSoundType
-import com.game7th.swipe.game.SbTileFieldDisplayEffect
+import com.game7th.swipe.game.*
 import com.game7th.swipe.gestures.SimpleDirectionGestureDetector
 import com.pl00t.swipe_client.Resources
+import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.services.battle.BattleDecorations
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.levels.DialogEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import com.pl00t.swipe_client.ux.HoverAction
+import com.pl00t.swipe_client.ux.TutorialHover
+import com.pl00t.swipe_client.ux.bounds
+import com.pl00t.swipe_client.ux.dialog.DialogActor
+import com.pl00t.swipe_client.ux.dialog.DialogScriptActor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
@@ -61,7 +65,7 @@ class BattleWindow(
     lateinit var actId: SwipeAct
     lateinit var levelId: String
 
-    private val preBattleDialogs: MutableList<DialogEntryModel> = mutableListOf()
+    private var ignoreSwipe = false
 
     init {
         gestureDetector = SimpleDirectionGestureDetector(this)
@@ -83,7 +87,7 @@ class BattleWindow(
 
     private fun amLoaded() {
         panelGroup = Group()
-        locationGroup = Group()
+        locationGroup = Group().apply { setSize(r.width, r.height - 510f) }
         unitsGroup = Group()
         tarotEffectsGroup = Group()
         ultimateEffectsGroup = Group()
@@ -103,8 +107,8 @@ class BattleWindow(
             }
             panelGroup.addActor(panelImage)
             tileBackgroundsGroup = Group().apply {
-                x = 40f
-                y = 60f
+                setPosition(40f, 60f)
+                setSize(5 * tileSize, 5 * tileSize)
             }
             panelGroup.addActor(tileBackgroundsGroup)
             tilesGroup = mutableListOf()
@@ -148,20 +152,18 @@ class BattleWindow(
             }
             panelGroup.addActor(ultimateActor)
 
-
-            val level = r.levelService.getLevelDetails(actId, levelId, true)
-            preBattleDialogs.addAll(level.dialog)
-            resolvePreBattleDialogs()
-        }
-    }
-
-    private fun resolvePreBattleDialogs() {
-        if (preBattleDialogs.isEmpty()) {
-            connectBattle()
-        } else {
-            val nextDialog = preBattleDialogs.removeFirst()
-            val actor = BattleDialogActor(r, nextDialog) { resolvePreBattleDialogs() }
-            addActor(actor)
+            val dialog = r.profileService.getDialogScript("$actId.$levelId")
+            if (dialog.replicas.isNotEmpty()) {
+                ignoreSwipe = true
+                val dialog = DialogScriptActor(r, dialog) {
+                    connectBattle()
+                    ignoreSwipe = false
+                    checkTutorials()
+                }
+                addActor(dialog)
+            } else {
+                connectBattle()
+            }
         }
     }
 
@@ -572,6 +574,8 @@ class BattleWindow(
         placeTile(tile, event.tile.x, event.tile.y)
         tilesGroup[event.tile.z].addActor(tile)
         tile.animateAppear()
+
+        checkTileTutorial(event)
     }
 
     private fun createUnit(event: SbDisplayEvent.SbCreateCharacter) {
@@ -628,7 +632,7 @@ class BattleWindow(
     }
 
     private fun processSwipe(dx: Int, dy: Int) {
-        KtxAsync.launch { r.battleService.processSwipe(dx, dy) }
+        if (!ignoreSwipe) KtxAsync.launch { r.battleService.processSwipe(dx, dy) }
     }
 
     override fun onLeft() {
@@ -645,5 +649,55 @@ class BattleWindow(
 
     override fun onDown() {
         processSwipe(0, -1)
+    }
+
+    private suspend fun checkTutorials() {
+        if (!r.profileService.getTutorial().c1BattleIntroPassed) {
+            ignoreSwipe = true
+            addActor(TutorialHover(r, locationGroup.bounds(), UiTexts.Tutorials.A1C1.T1, HoverAction.HoverClick {
+                val characterActor = unitsGroup.findActor<UnitActor>("0")
+                addActor(TutorialHover(r, characterActor.bounds(), UiTexts.Tutorials.A1C1.T2, HoverAction.HoverClick {
+                addActor(TutorialHover(r, characterActor.healthBar.bounds(), UiTexts.Tutorials.A1C1.T3, HoverAction.HoverClick {
+                addActor(TutorialHover(r, unitsGroup.findActor<UnitActor>("1").bounds().apply { x -= width }, UiTexts.Tutorials.A1C1.T4, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tileBackgroundsGroup.bounds(), UiTexts.Tutorials.A1C1.T5, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(0).bounds(), UiTexts.Tutorials.A1C1.T6, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(2).bounds(), UiTexts.Tutorials.A1C1.T7, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(3).bounds(), UiTexts.Tutorials.A1C1.T8, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tileBackgroundsGroup.bounds(), UiTexts.Tutorials.A1C1.T9, HoverAction.HoverSwipe(0, 1) {
+                ignoreSwipe = false; processSwipe(0, 1); ignoreSwipe = true
+                KtxAsync.launch {
+                delay(500)
+                addActor(TutorialHover(r, tileBackgroundsGroup.bounds(), UiTexts.Tutorials.A1C1.T10, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(4).bounds(), UiTexts.Tutorials.A1C1.T11, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(0).bounds().apply { width *= 3 }, UiTexts.Tutorials.A1C1.T12, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tileBackgroundsGroup.bounds(), UiTexts.Tutorials.A1C1.T13, HoverAction.HoverSwipe(-1, 0) {
+                ignoreSwipe = false; processSwipe(-1, 0); ignoreSwipe = true
+                KtxAsync.launch {
+                delay(500)
+                addActor(
+                TutorialHover(r, unitsGroup.findActor<UnitActor>("1").bounds().apply { x -= width }, UiTexts.Tutorials.A1C1.T14, HoverAction.HoverClick {
+                    ignoreSwipe = false
+                    KtxAsync.launch { r.profileService.saveTutorial(r.profileService.getTutorial().copy(c1BattleIntroPassed = true)) }
+                }))}}))}))}))}))}}))}))}))}))}))}))}))}))
+            }))
+        }
+    }
+
+    private fun checkTileTutorial(event: SbDisplayEvent.SbCreateTile) {
+        KtxAsync.launch {
+            if (event.tile.skin == "VALERIAN_SIGIL_OF_RENEWAL_BG" && !r.profileService.getTutorial().battleSigilOfRenewalPassed) {
+                r.profileService.saveTutorial(r.profileService.getTutorial().copy(battleSigilOfRenewalPassed = true))
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_BACKGROUND].findActor<Actor>(event.tile.id.toString()).bounds(), UiTexts.Tutorials.Battle.SigilOfRenewal, HoverAction.HoverClick {
+                }))
+            } else if (event.tile.skin == "COMMON_WEAKNESS" && !r.profileService.getTutorial().battleWeaknessPassed) {
+                r.profileService.saveTutorial(r.profileService.getTutorial().copy(battleWeaknessPassed = true))
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_BACKGROUND].findActor<Actor>(event.tile.id.toString()).bounds(), UiTexts.Tutorials.Battle.Weakness, HoverAction.HoverClick {
+                }))
+            } else if (event.tile.skin == "COMMON_POISON" && !r.profileService.getTutorial().battlePoisonPassed) {
+                r.profileService.saveTutorial(r.profileService.getTutorial().copy(battlePoisonPassed = true))
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].findActor<Actor>(event.tile.id.toString()).bounds(), UiTexts.Tutorials.Battle.Poison, HoverAction.HoverClick {
+                }))
+            }
+        }
     }
 }

@@ -113,7 +113,18 @@ fun SbContext.initHumans(humans: List<FrontMonsterConfiguration>) {
             personage = game.characters.last().asDisplayed()
         ))
         events.add(SbDisplayEvent.SbUpdateCharacter(game.characters.last().asDisplayed()))
-        generateTiles(game.characters.last().id, 5)
+        if (game.tutorialMetadata.isFirstTutorial) {
+            game = game.withUpdatedCharacter(game.character(0)!!.withAddedTile(SbTile(0, "VALERIAN_RADIANT_STRIKE", 1, 1, SbTile.LAYER_TILE, true, 5, SbTileMergeStrategy.SIMPLE, 1, 3, 0, emptyList())))
+            events.add(SbDisplayEvent.SbCreateTile(0, game.character(0)!!.tiles.last().asDisplayed()))
+            game = game.withUpdatedCharacter(game.character(0)!!.withAddedTile(SbTile(0, "VALERIAN_RADIANT_STRIKE", 3, 3, SbTile.LAYER_TILE, true, 5, SbTileMergeStrategy.SIMPLE, 1, 3, 0, emptyList())))
+            events.add(SbDisplayEvent.SbCreateTile(0, game.character(0)!!.tiles.last().asDisplayed()))
+            game = game.withUpdatedCharacter(game.character(0)!!.withAddedTile(SbTile(0, "VALERIAN_SIGIL_OF_RENEWAL", 4, 1, SbTile.LAYER_TILE, true, 5, SbTileMergeStrategy.SIMPLE, 1, 3, 0, emptyList())))
+            events.add(SbDisplayEvent.SbCreateTile(0, game.character(0)!!.tiles.last().asDisplayed()))
+            game = game.withUpdatedCharacter(game.character(0)!!.withAddedTile(SbTile(0, "VALERIAN_LUMINOUS_BEAM", 0, 0, SbTile.LAYER_TILE, true, 5, SbTileMergeStrategy.SIMPLE, 1, 4, 0, emptyList())))
+            events.add(SbDisplayEvent.SbCreateTile(0, game.character(0)!!.tiles.last().asDisplayed()))
+        } else {
+            generateTiles(game.characters.last().id, 5)
+        }
     }
 }
 

@@ -79,7 +79,13 @@ class BattleServiceImpl(
 
         val character = profileService.getCharacters().first { it.skin == profileService.getActiveCharacter() }
 
-        val game = SbGame(0, 1, 0, emptyList())
+        val tutorial = if (actId == SwipeAct.ACT_1 && level == "c1" && !profileService.getTutorial().c1BattleIntroPassed) {
+            GameTutorialMetadata.DEFAULT.copy(isFirstTutorial = true)
+        } else {
+            GameTutorialMetadata.DEFAULT
+        }
+
+        val game = SbGame(0, 1, 0, emptyList(), tutorial)
         val triggers = mutableSetOf<String>()
 
         val monsterConfig = monsterService.getMonster(character.skin)!!
@@ -145,7 +151,7 @@ class BattleServiceImpl(
                     return runBlocking { monsterService.getMonster(skin)!! }
                 }
             },
-            triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
+            triggers = triggers.mapNotNull { monsterService.getTrigger(it) },
         ).apply {
             initHumans(listOf(profileService.createCharacter(character.skin)))
             initWave(waves[0])

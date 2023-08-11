@@ -1,6 +1,8 @@
 package com.pl00t.swipe_client.map
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Rectangle
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
@@ -13,6 +15,9 @@ import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.monster.MonsterShortDetailsCell
 import com.pl00t.swipe_client.services.levels.FrontLevelModel
+import com.pl00t.swipe_client.ux.HoverAction
+import com.pl00t.swipe_client.ux.TutorialHover
+import com.pl00t.swipe_client.ux.bounds
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
@@ -69,8 +74,10 @@ class CampaignLevelWindow(
                 }
             }
         )
-        val panel = BottomActionPanel(r, actions, 2)
+        val panel = BottomActionPanel(r, actions, 2).apply { name = "bottom_panel" }
         addActor(panel)
+
+        checkTutorial()
     }
 
     private fun addTitle() {
@@ -130,4 +137,21 @@ class CampaignLevelWindow(
         }
     }
 
+    private fun checkTutorial() {
+        KtxAsync.launch {
+            r.profileService.getTutorial().let { tutorial ->
+                if (!tutorial.c1LevelDetailsPassed) {
+                    addActor(TutorialHover(r,
+                        Rectangle(190f, 10f, 100f, 110f),
+                            UiTexts.Tutorials.C1Details, HoverAction.HoverClick {
+                                KtxAsync.launch {
+                                    r.profileService.saveTutorial(tutorial.copy(c1LevelDetailsPassed = true))
+                                    r.battleService.createBattle(model.act, model.locationId, -1)
+                                    openBattle()
+                                }
+                    }))
+                }
+            }
+        }
+    }
 }

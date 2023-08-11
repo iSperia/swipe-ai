@@ -70,6 +70,15 @@ data class LevelTierUnlocked(
     val act: SwipeAct
 )
 
+data class TutorialState(
+    val acti1IntroPassed: Boolean = false,
+    val c1LevelDetailsPassed: Boolean = false,
+    val c1BattleIntroPassed: Boolean = false,
+    val battleSigilOfRenewalPassed: Boolean = false,
+    val battleWeaknessPassed: Boolean = false,
+    val battlePoisonPassed: Boolean = false,
+)
+
 data class SwipeProfile(
     val balances: List<CurrencyBalance>,
     val actProgress: List<ActProgress>,
@@ -79,6 +88,7 @@ data class SwipeProfile(
     val items: List<InventoryItem>,
     val mysteryShop: List<SbMysteryItem>?,
     val activeCharacter: String?,
+    val tutorial: TutorialState,
 ) {
     private fun getRewardsCollectedOrEmpty() = rewardsCollected ?: emptyList()
 

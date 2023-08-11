@@ -169,7 +169,7 @@ class InventoryItemWindow(
                 currency = it,
                 item = null
             )
-        }
+        }.filter { it.amount > 0 }
         val itemBrowser = ItemBrowser(r, items, onItemClick = null, actionProvider = { model ->
             currencyIndexCache = items.indexOfFirst { it.currency == model.currency }
             ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {

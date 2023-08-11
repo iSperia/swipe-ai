@@ -30,6 +30,7 @@ class TileActor(
     lateinit var skillImage: Image
 
     init {
+        setSize(size, size)
         when (type) {
             SbDisplayTileType.TAROT -> {
                 skillImage = generateSkill()

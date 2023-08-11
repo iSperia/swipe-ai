@@ -38,6 +38,7 @@ class UnitActor(
             this.width = s * w
             this.height = s * w * 1.66f
         }
+        setSize(s * w, s * w * 1.66f)
         addActor(characterImage)
         healthBar = UnitHealthBarActor(r, w * 0.6f, w * 0.2f, health, maxHealth).apply {
             x = if (team == 0) w * 0.2f else -w * 1.2f
