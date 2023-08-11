@@ -46,62 +46,61 @@ class MapWindow(
     lateinit var actionInventory: ActionCompositeButton
 
     init {
-        rootGroup = Group().apply {
-            width = mapSize
-            height = mapSize
-        }
-        scrollPane = ScrollPane(rootGroup).apply {
-            width = r.width
-            height = mapSize
-            y = 110f
-        }
-
-        addActor(scrollPane)
-
-        addMapImage()
-        addWindowTitle()
-        addBottomPanel()
-    }
-
-    private fun checkTutorial(model: FrontActModel) {
         KtxAsync.launch {
-            delay(100)
-            if (act == SwipeAct.ACT_1 && model.levels[1].enabled && !r.profileService.isFreeRewardAvailable(SwipeAct.ACT_1, "c1_5") && !r.profileService.getTutorial().a1HeroOpened && !todo1) {
-                todo1 = true
-                addActor(TutorialHover(r, actionInventory.bounds(), UiTexts.Tutorials.Act1Hero1, HoverAction.HoverClick(true) {
-                    navigateParty()
-                }))
+            rootGroup = Group().apply {
+                width = mapSize
+                height = mapSize
+            }
+            scrollPane = ScrollPane(rootGroup).apply {
+                width = r.width
+                height = mapSize
+                y = 110f
             }
 
-            r.profileService.getTutorial().let { tutorial ->
-                if (!tutorial.acti1IntroPassed) {
-                    val dialog = DialogScriptActor(r, r.profileService.getDialogScript("act1Intro")) {
-                        addActor(TutorialHover(r, mapIconsGroup.findActor<Actor>("c1").bounds(), UiTexts.Tutorials.Act1Intro, HoverAction.HoverClick(true) {
-                            KtxAsync.launch {
-                                r.profileService.saveTutorial(tutorial.copy(acti1IntroPassed = true))
-                                onLocationClicked("c1")
-                            }
-                        }))
-                    }
-                    addActor(dialog)
-                } else if (!tutorial.act1c1_15IntroPassed && !todo2) {
-                    todo2 = true
-                    addActor(TutorialHover(r, mapIconsGroup.findActor<Actor>("c1_5").bounds(), UiTexts.Tutorials.Act1c1_5, HoverAction.HoverClick(true) {
-                        r.profileService.saveTutorial(tutorial.copy(acti1IntroPassed = true))
-                        onLocationClicked("c1_5")
+            addActor(scrollPane)
+
+            reload()
+            addWindowTitle()
+            addBottomPanel()
+        }
+    }
+
+    private suspend fun checkTutorial(model: FrontActModel) {
+        r.profileService.getTutorial().let { tutorial ->
+            if (!tutorial.acti1IntroPassed) {
+                val dialog = DialogScriptActor(r, r.profileService.getDialogScript("act1Intro")) {
+                    addActor(TutorialHover(r, mapIconsGroup.findActor<Actor>("c1").bounds(), UiTexts.Tutorials.Act1Intro, HoverAction.HoverClick(true) {
+                        KtxAsync.launch {
+                            r.profileService.saveTutorial(tutorial.copy(acti1IntroPassed = true))
+                            onLocationClicked("c1")
+                        }
                     }))
                 }
+                addActor(dialog)
             }
+//            else if (!tutorial.act1c1_15IntroPassed) {
+//                addActor(TutorialHover(r, mapIconsGroup.findActor<Actor>("c1_5").bounds(), UiTexts.Tutorials.Act1c1_5, HoverAction.HoverClick(true) {
+//                    r.profileService.saveTutorial(tutorial.copy(acti1IntroPassed = true))
+//                    onLocationClicked("c1_5")
+//                }))
+//            }
         }
+
+//        if (act == SwipeAct.ACT_1 && model.levels[2].enabled && !r.profileService.getTutorial().a1HeroOpened) {
+//            addActor(TutorialHover(r, actionInventory.bounds(), UiTexts.Tutorials.Act1Hero1, HoverAction.HoverClick(true) {
+//                navigateParty()
+//            }))
+//        }
     }
 
-    private var todo2 = false
     override fun reload() {
         KtxAsync.launch {
+            val actModel = r.profileService.getAct(act)
             rootGroup.clearChildren()
             addMapImage()
-            val actModel = r.profileService.getAct(act)
             loadMap(actModel)
+
+            checkTutorial(actModel)
         }
 
     }
@@ -114,15 +113,16 @@ class MapWindow(
         }
     }
 
-    private fun addBottomPanel() {
+    private suspend fun addBottomPanel() {
+        val profile = r.profileService.getProfile()
         val actions = listOf(
-            ActionCompositeButton(r, Action.Shop, Mode.SingleLine(UiTexts.NavShop.value(r.l))),
-            ActionCompositeButton(r, Action.Stash, Mode.SingleLine(UiTexts.NavItems.value(r.l))).apply {
+            ActionCompositeButton(r, Action.Shop, Mode.SingleLine(UiTexts.NavShop.value(r.l)), !profile.shopUnlocked),
+            ActionCompositeButton(r, Action.Stash, Mode.SingleLine(UiTexts.NavItems.value(r.l)), !profile.inventoryUnlocked).apply {
                 onClick {
                     navigateInventory()
                 }
             },
-            ActionCompositeButton(r, Action.Party, Mode.SingleLine(UiTexts.NavParty.value(r.l))).apply {
+            ActionCompositeButton(r, Action.Party, Mode.SingleLine(UiTexts.NavParty.value(r.l)), !profile.partyUnlocked).apply {
                 this@MapWindow.actionInventory = this
                 onClick {
                     navigateParty()
@@ -183,8 +183,6 @@ class MapWindow(
             }
 
             mapIconsGroup.addActor(levelActor)
-
-            checkTutorial(actModel)
         }
     }
 
@@ -198,7 +196,4 @@ class MapWindow(
         rootGroup.addActor(mapImage)
 
     }
-
-    private var todo1 = false
-
 }

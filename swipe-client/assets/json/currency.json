@@ -13,6 +13,18 @@
       "rarity": 1
     },
     {
+      "currency": "ARCANUM",
+      "name": {
+        "en": "Arcane Essence",
+        "ru": "Чародейская Эссенция"
+      },
+      "description": {
+        "en": "The Arcane Essences are fragments of magical energy that once powered the great spells and enchantments of the Arcanum kingdom.",
+        "ru": "Чародейская эссенция - это фрагменты магической энергии, которая когда-то приводила в действие великие заклинания и чары королевства Арканум."
+      },
+      "rarity": 2
+    },
+    {
       "currency": "SCROLL_OF_WISDOM",
       "name": {
         "en": "Scroll of Wisdom",

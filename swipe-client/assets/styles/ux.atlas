@@ -332,6 +332,13 @@ size: 2048, 2048
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
+ARCANUM
+  rotate: false
+  xy: 1030, 1622
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
 CODEX_OF_ASCENDANCY
   rotate: false
   xy: 772, 1364
@@ -341,7 +348,7 @@ CODEX_OF_ASCENDANCY
   index: -1
 CRYSTALWEAVE_LUCK
   rotate: false
-  xy: 774, 1106
+  xy: 516, 590
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -355,42 +362,42 @@ ELIXIR_AGATE
   index: -1
 ELIXIR_AMBER
   rotate: false
-  xy: 774, 590
+  xy: 1032, 848
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 ELIXIR_CITRINE
   rotate: false
-  xy: 516, 1106
+  xy: 516, 848
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 ELIXIR_JADE
   rotate: false
-  xy: 258, 130
+  xy: 1288, 1622
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 ELIXIR_TURQUOISE
   rotate: false
-  xy: 774, 848
+  xy: 1032, 1106
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 ENCHANTED_BAND
   rotate: false
-  xy: 1030, 1622
+  xy: 0, 130
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 FLAMEHEART_BELT
   rotate: false
-  xy: 516, 590
+  xy: 774, 848
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -404,63 +411,63 @@ FROSTGUARD_GAUNTLETS
   index: -1
 GRIMOIRE_OF_OMNISCENCE
   rotate: false
-  xy: 258, 388
+  xy: 258, 130
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 HARMONYS_ECHO
   rotate: false
-  xy: 1546, 1766
+  xy: 1546, 1508
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 HELM_OF_IRON_WILL
   rotate: false
-  xy: 1546, 1250
+  xy: 516, 1106
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 INFUSION_ORB
   rotate: false
-  xy: 1032, 590
+  xy: 1032, 332
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 INFUSION_SHARD
   rotate: false
-  xy: 258, 904
+  xy: 258, 646
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 IRONCLAD_GAUNTLETS
   rotate: false
-  xy: 1288, 1622
+  xy: 1288, 1364
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 RADIANT_EMBRACE
   rotate: false
-  xy: 0, 130
+  xy: 1030, 1364
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 RING_OF_ILLUMINATION
   rotate: false
-  xy: 258, 646
+  xy: 258, 388
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 SCROLL_OF_WISDOM
   rotate: false
-  xy: 1032, 1106
+  xy: 516, 332
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -474,7 +481,7 @@ SHADOWBANE_AMULET
   index: -1
 THEMPERSTRIDE_BOOTS
   rotate: false
-  xy: 1032, 848
+  xy: 774, 332
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -488,7 +495,7 @@ TOME_OF_ENLIGHTMENT
   index: -1
 VERDANT_HEART
   rotate: false
-  xy: 516, 332
+  xy: 774, 590
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -502,7 +509,7 @@ action_equipment
   index: -1
 action_icon_attack
   rotate: false
-  xy: 1804, 1764
+  xy: 1290, 1104
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -516,14 +523,14 @@ action_icon_attributes
   index: -1
 action_icon_close
   rotate: false
-  xy: 260, 0
+  xy: 1804, 1634
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 action_icon_defence
   rotate: false
-  xy: 1288, 1364
+  xy: 1546, 1766
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -537,28 +544,28 @@ action_icon_skillset
   index: -1
 action_icon_stats
   rotate: false
-  xy: 1030, 1364
+  xy: 258, 904
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 action_icon_story
   rotate: false
-  xy: 1290, 1104
+  xy: 646, 202
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 action_party
   rotate: false
-  xy: 1804, 1634
+  xy: 1290, 974
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 action_stash
   rotate: false
-  xy: 1032, 460
+  xy: 130, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -572,21 +579,21 @@ action_tarot
   index: -1
 button_plus
   rotate: false
-  xy: 130, 0
+  xy: 1804, 1764
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 circle_button_foreground
   rotate: false
-  xy: 516, 848
+  xy: 774, 1106
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 cursor
   rotate: false
-  xy: 774, 332
+  xy: 1032, 590
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -600,14 +607,14 @@ fg_level_bottom
   index: -1
 fg_level_top
   rotate: false
-  xy: 1546, 1508
+  xy: 1546, 1250
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 gradient_item_background
   rotate: false
-  xy: 776, 202
+  xy: 1804, 1504
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -628,14 +635,14 @@ silh_amulet
   index: -1
 silh_helm
   rotate: false
-  xy: 1290, 974
+  xy: 776, 202
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 silh_ring
   rotate: false
-  xy: 646, 202
+  xy: 260, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

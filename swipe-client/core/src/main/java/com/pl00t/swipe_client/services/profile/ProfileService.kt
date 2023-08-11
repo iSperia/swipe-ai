@@ -13,6 +13,11 @@ import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.levels.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.lang.IllegalArgumentException
 import java.util.UUID
@@ -21,6 +26,8 @@ import kotlin.math.min
 import kotlin.random.Random
 
 interface ProfileService {
+
+    suspend fun arcanumAddBalance(): Flow<Int>
 
     suspend fun getProfile(): SwipeProfile
 
@@ -138,7 +145,7 @@ data class CurrenciesMetadata(
     val currencies: List<CurrencyMetadata>
 )
 
-val DEBUG = false
+val DEBUG = true
 
 class ProfileServiceImpl(
     val levelService: LevelService,
@@ -153,6 +160,8 @@ class ProfileServiceImpl(
     var profile: SwipeProfile
     val currencyCache: CurrenciesMetadata
 
+    private val arcanumAddBalanceFlow = MutableSharedFlow<Int>(1)
+
     init {
         currencyCache = gson.fromJson(currencyHandle.readString("UTF-8"), CurrenciesMetadata::class.java)
 
@@ -163,15 +172,17 @@ class ProfileServiceImpl(
         } else {
             if (DEBUG) {
                 SwipeProfile(
+                    inventoryUnlocked = true,
                     balances = listOf(CurrencyBalance(SwipeCurrency.TOME_OF_ENLIGHTMENT, 10), CurrencyBalance(SwipeCurrency.SCROLL_OF_WISDOM, 100),
                         CurrencyBalance(SwipeCurrency.GRIMOIRE_OF_OMNISCENCE, 100), CurrencyBalance(SwipeCurrency.INFUSION_ORB, 100),
                         CurrencyBalance(SwipeCurrency.INFUSION_SHARD, 100), CurrencyBalance(SwipeCurrency.INFUSION_CRYSTAL, 100),
-                        CurrencyBalance(SwipeCurrency.ASCENDANT_ESSENCE, 100), CurrencyBalance(SwipeCurrency.ETHERIUM_COIN, 1400)
+                        CurrencyBalance(SwipeCurrency.ASCENDANT_ESSENCE, 100), CurrencyBalance(SwipeCurrency.ETHERIUM_COIN, 1400),
+                        CurrencyBalance(SwipeCurrency.ARCANUM, 600)
                     ),
                     actProgress = listOf(
                         ActProgress(
                             SwipeAct.ACT_1,
-                            listOf("c1", "c2", "c3", "c4", "c5", "c6", "c7","c8","c9","c10","c11","c12")
+                            listOf("c1", "c2", "c3", "c4", "c5", "c6", "c7","c8","c9","c10")
                         ),
                     ),
                     rewardsCollected = emptyList(),
@@ -206,14 +217,18 @@ class ProfileServiceImpl(
                     tiersUnlocked = emptyList(),
                     mysteryShop = null,
                     activeCharacter = "CHARACTER_VALERIAN",
-                    tutorial = TutorialState()
+                    tutorial = TutorialState(true, true, true, true, true, true, true, true, true, true ),
+                    lastArcanumReplenished = System.currentTimeMillis()
                 )
             } else {
                 SwipeProfile(
+                    lastArcanumReplenished = System.currentTimeMillis(),
                     tutorial = TutorialState(),
                     balances = listOf(
-                        CurrencyBalance(SwipeCurrency.ETHERIUM_COIN, 1000)
+                        CurrencyBalance(SwipeCurrency.ETHERIUM_COIN, 0),
+                        CurrencyBalance(SwipeCurrency.ARCANUM, 600)
                     ),
+                    inventoryUnlocked = true,
                     actProgress = listOf(
                         ActProgress(
                             SwipeAct.ACT_1,
@@ -240,7 +255,41 @@ class ProfileServiceImpl(
                 )
             }
         }
+
+        val period = if (DEBUG) 60_000L else 3_600_000L
+
+        val timePassed = System.currentTimeMillis() - profile.lastArcanumReplenished
+        val hoursPassed = (timePassed / period).toInt()
+        val oldArcanum = profile.getBalance(SwipeCurrency.ARCANUM)
+        val newArcanum = min(600, oldArcanum + hoursPassed * 25)
+
+        profile = profile.addBalance(SwipeCurrency.ARCANUM, newArcanum - oldArcanum)
+        profile = profile.copy(lastArcanumReplenished = profile.lastArcanumReplenished + hoursPassed * period)
+
+        GlobalScope.launch {
+            if (hoursPassed > 0) {
+                arcanumAddBalanceFlow.emit(newArcanum - oldArcanum)
+            }
+
+            while (true) {
+                val now = System.currentTimeMillis()
+                val timePassed = now - profile.lastArcanumReplenished
+                val delta = period - (timePassed % (period))
+                println("Waiting $delta for replenish")
+                delay(delta)
+                val balanceDelta = min(profile.getBalance(SwipeCurrency.ARCANUM)+25,600) - profile.getBalance(SwipeCurrency.ARCANUM)
+                if (delta > 0) {
+                    arcanumAddBalanceFlow.emit(balanceDelta)
+                }
+                profile = profile.addBalance(SwipeCurrency.ARCANUM, balanceDelta)
+                profile = profile.copy(lastArcanumReplenished = now)
+                saveProfile()
+            }
+        }
+        saveProfile()
     }
+
+    override suspend fun arcanumAddBalance(): Flow<Int> = arcanumAddBalanceFlow
 
     override suspend fun getProfile(): SwipeProfile = profile
 

@@ -1,15 +1,18 @@
 package com.pl00t.swipe_client.action
 
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import ktx.actors.alpha
 import ktx.actors.onExit
 import ktx.actors.onTouchDown
+import ktx.scene2d.vis.visTextTooltip
 
 sealed class Action(val atlas: String, val icon: String) {
     object Vault: Action(Resources.ux_atlas, "action_icon_vault")
@@ -50,13 +53,15 @@ sealed interface Mode {
 class ActionCompositeButton(
     private val r: Resources,
     private val action: Action,
-    private val mode: Mode
+    private val mode: Mode,
+    private val locked: Boolean = false,
 ): Group() {
 
     private val icon = r.image(action.atlas, action.icon).apply { touchable = Touchable.disabled }
     private val iconShadow = r.image(action.atlas, action.icon).apply { touchable = Touchable.disabled; color = Color.BLACK; setOrigin(Align.center); setScale(1.1f); alpha = 0.5f }
     private val label = r.labelAction(getLabelText()).apply { setAlignment(Align.center); touchable = Touchable.disabled }
     private val background = r.image(Resources.ux_atlas, "background_transparent50")
+    lateinit var iconPadlock: Actor
 
     var labelY = 0f
 
@@ -69,11 +74,27 @@ class ActionCompositeButton(
 
         label.isVisible = mode != Mode.NoText
 
-        onTouchDown {
-            clickedDown()
+        iconPadlock = r.image(Resources.ux_atlas, "icon_padlock").apply {
+            setScaling(Scaling.fit)
+            setOrigin(Align.center)
+            align = Align.center
+            isVisible = locked
+            touchable = Touchable.disabled
+            setScale(1.2f)
         }
-        onExit {
-            clickedUp()
+        addActor(iconPadlock)
+
+        if (locked) {
+            touchable = Touchable.disabled
+            iconPadlock.isVisible = true
+        } else {
+            iconPadlock.isVisible = false
+            onTouchDown {
+                clickedDown()
+            }
+            onExit {
+                clickedUp()
+            }
         }
     }
 
@@ -126,6 +147,11 @@ class ActionCompositeButton(
         background.apply {
             this.width = w
             this.height = h
+            setOrigin(Align.center)
+        }
+        iconPadlock.apply {
+            setSize(icon.width, icon.height)
+            setPosition(icon.x, icon.y)
             setOrigin(Align.center)
         }
     }

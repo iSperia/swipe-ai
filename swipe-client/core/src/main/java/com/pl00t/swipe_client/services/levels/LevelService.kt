@@ -61,7 +61,6 @@ data class FrontLevelModel(
     val locationId: String,
     val locationBackground: String,
     val locationTitle: SbText,
-    val locationDescription: SbText,
     val dialog: List<DialogEntryModel>,
     val waves: List<List<FrontMonsterEntryModel>>,
     val enabled: Boolean,

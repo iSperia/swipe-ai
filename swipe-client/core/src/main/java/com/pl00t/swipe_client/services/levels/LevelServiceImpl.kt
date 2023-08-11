@@ -75,7 +75,6 @@ class LevelServiceImpl(
             act = act,
             locationBackground = l.background,
             locationTitle = l.title,
-            locationDescription = l.description,
             dialog = l.dialog ?: emptyList(),
         )
     }

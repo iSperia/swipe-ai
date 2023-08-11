@@ -1,7 +1,11 @@
 package com.pl00t.swipe_client.home
 
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.math.Interpolation.SwingOut
+import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.SbBaseScreen
 import com.pl00t.swipe_client.battle.BattleResultDialog
@@ -17,6 +21,7 @@ import com.pl00t.swipe_client.map.RaidWindow
 import com.pl00t.swipe_client.monster.MonsterDetailWindow
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.profile.SwipeAct
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.async.KtxAsync
@@ -53,6 +58,41 @@ class HomeScreen(
             r.skin().getFont("regular24outline").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             hideSplash()
             showMap()
+        }
+
+        KtxAsync.launch {
+            delay(3000L)
+            r.profileService.arcanumAddBalance().collect {
+                val g = Group().apply {
+                    setSize(480f, 80f)
+                    setPosition(0f, r.height - 80f)
+                }
+                val bg = r.image(Resources.ux_atlas, "background_black").apply {
+                    alpha = 0.8f
+                    setSize(480f, 80f)
+                }
+                val label = r.regular24Focus("+$it").apply {
+                    setSize(390f, 80f)
+                    setPosition(90f, 0f)
+                    setAlignment(Align.left)
+                }
+                val icon = r.image(Resources.ux_atlas, "ARCANUM").apply {
+                    setSize(76f, 76f)
+                    setPosition(2f, 2f)
+                }
+                g.addActor(bg)
+                g.addActor(icon)
+                g.addActor(label)
+                g.touchable = Touchable.disabled
+                g.addAction(Actions.sequence(
+                    Actions.moveBy(0f, 50f),
+                    Actions.moveBy(0f, -50f, 0.3f, SwingOut(1.6f)),
+                    Actions.delay(2f),
+                    Actions.alpha(0f, 1f),
+                    Actions.removeActor()
+                ))
+                root.addActor(g)
+            }
         }
     }
 

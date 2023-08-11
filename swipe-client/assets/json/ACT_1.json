@@ -1,27 +1,23 @@
 {
   "title": {
-    "ru": "Королевство Гармонии",
-    "en": "Harmony Kingdom"
+    "en": "Verdant Groves",
+    "ru": "Зеленые Рощи"
   },
   "levels": [
     {
-      "x": 140,
-      "y": 700,
+      "x": 162,
+      "y": 162,
       "type": "CAMPAIGN",
       "id": "c1",
       "title": {
-        "en": "The Verdant Grove",
-        "ru": "Зелёная Роща"
-      },
-      "description": {
-        "en": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
-        "ru": "Зеленая роща — пышный и очаровательный лес, расположенный в самом сердце Королевства Гармонии. Его древние деревья и яркая флора славятся своими целебными свойствами. Принц Валериан начинает свое путешествие в Зеленой роще, чтобы обратиться за советом к мудрым старейшинам деревьев. Эти древние существа обладают огромными знаниями о балансе и гармонии миров. Валериан надеется узнать их мнение о надвигающейся угрозе и о том, как он может восстановить мир."
+        "en": "Forest Edge",
+        "ru": "Опушка Леса"
       },
       "background": "groves",
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_THORNED_CRAWLER",
             "level": 1
           }
         ]
@@ -44,23 +40,19 @@
       ]
     },
     {
-      "x": 70,
-      "y": 656,
+      "x": 150,
+      "y": 300,
       "type": "CAMPAIGN",
-      "id": "c1_5",
+      "id": "c2",
       "title": {
-        "en": "The Verdant Grove",
-        "ru": "Зелёная Роща"
-      },
-      "description": {
-        "en": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
-        "ru": "Зеленая роща — пышный и очаровательный лес, расположенный в самом сердце Королевства Гармонии. Его древние деревья и яркая флора славятся своими целебными свойствами. Принц Валериан начинает свое путешествие в Зеленой роще, чтобы обратиться за советом к мудрым старейшинам деревьев. Эти древние существа обладают огромными знаниями о балансе и гармонии миров. Валериан надеется узнать их мнение о надвигающейся угрозе и о том, как он может восстановить мир."
+        "en": "Thorned Thicket",
+        "ru": "Колючая заросль"
       },
       "background": "groves",
       "monsters": [
         [
           {
-            "skin": "MONSTER_THORNSTALKER",
+            "skin": "MONSTER_THORNED_CRAWLER",
             "level": 1
           }
         ]
@@ -69,7 +61,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 1000,
+            "amount": 500,
             "type": "ETHERIUM_COIN"
           }
         },
@@ -79,141 +71,24 @@
             "amount": 1,
             "type": "SCROLL_OF_WISDOM"
           }
-        },
-        {
-          "type": "item",
-          "skin": "RING_OF_ILLUMINATION",
-          "rarity": 0
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 2,
-            "type": "INFUSION_ORB"
-          }
         }
       ]
     },
     {
-      "x": 172,
-      "y": 449,
-      "type": "CAMPAIGN",
-      "id": "c2",
-      "title": {
-        "en": "The Verdant Grove",
-        "ru": "Зелёная Роща"
-      },
-      "description": {
-        "en": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
-        "ru": "Зеленая роща — пышный и очаровательный лес, расположенный в самом сердце Королевства Гармонии. Его древние деревья и яркая флора славятся своими целебными свойствами. Принц Валериан начинает свое путешествие в Зеленой роще, чтобы обратиться за советом к мудрым старейшинам деревьев. Эти древние существа обладают огромными знаниями о балансе и гармонии миров. Валериан надеется узнать их мнение о надвигающейся угрозе и о том, как он может восстановить мир."
-      },
-      "background": "groves",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 2
-          },
-          {
-            "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 2
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 2
-          },
-          {
-            "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 2
-          }
-        ]
-      ],
-      "freeReward": [
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1500,
-            "type": "ETHERIUM_COIN"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 3,
-            "type": "SCROLL_OF_WISDOM"
-          }
-        },
-        {
-          "type": "item",
-          "skin": "HELM_OF_IRON_WILL",
-          "rarity": 0
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 3,
-            "type": "INFUSION_ORB"
-          }
-        }
-      ]
-    },
-    {
-      "x": 110,
-      "y": 334,
+      "x": 320,
+      "y": 267,
       "type": "CAMPAIGN",
       "id": "c3",
       "title": {
-        "en": "The Verdant Grove",
-        "ru": "Зелёная Роща"
-      },
-      "description": {
-        "en": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
-        "ru": "Зеленая роща — пышный и очаровательный лес, расположенный в самом сердце Королевства Гармонии. Его древние деревья и яркая флора славятся своими целебными свойствами. Принц Валериан начинает свое путешествие в Зеленой роще, чтобы обратиться за советом к мудрым старейшинам деревьев. Эти древние существа обладают огромными знаниями о балансе и гармонии миров. Валериан надеется узнать их мнение о надвигающейся угрозе и о том, как он может восстановить мир."
+        "en": "Misty Glade",
+        "ru": "Туманная поляна"
       },
       "background": "groves",
       "monsters": [
         [
           {
-            "skin": "MONSTER_CORRUPTED_DRYAD",
-            "level": 2
-          },
-          {
             "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 3
-          },
-          {
-            "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 2
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_CORRUPTED_DRYAD",
-            "level": 2
-          },
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 3
-          },
-          {
-            "skin": "MONSTER_CORRUPTED_DRYAD",
-            "level": 2
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_CORRUPTED_DRYAD",
-            "level": 3
-          },
-          {
-            "skin": "MONSTER_CORRUPTED_DRYAD",
-            "level": 3
-          },
-          {
-            "skin": "MONSTER_THORNSTALKER",
-            "level": 3
+            "level": 1
           }
         ]
       ],
@@ -221,47 +96,208 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 2000,
+            "amount": 500,
             "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 4,
+            "amount": 1,
             "type": "SCROLL_OF_WISDOM"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_LAPIS"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_CITRINE"
           }
         }
       ]
     },
     {
-      "x": 226,
-      "y": 230,
-      "type": "BOSS",
+      "x": 188,
+      "y": 487,
+      "type": "CAMPAIGN",
       "id": "c4",
       "title": {
-        "en": "Thalendros, the Corrupted Treant",
-        "ru": "Талендрос, Оскверненный Древень"
+        "en": "Ancient Clearing",
+        "ru": "Древняя поляна"
+      },
+      "background": "groves2",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 1
+          }
+        ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 500,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "SCROLL_OF_WISDOM"
+          }
+        }
+      ]
+    },
+    {
+      "x": 466,
+      "y": 599,
+      "type": "CAMPAIGN",
+      "id": "c5",
+      "title": {
+        "en": "Eternal Oak",
+        "ru": "Вечный дуб"
+      },
+      "background": "groves2",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 1
+          }
+        ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 500,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "SCROLL_OF_WISDOM"
+          }
+        }
+      ]
+    },
+    {
+      "x": 546,
+      "y": 439,
+      "type": "CAMPAIGN",
+      "id": "c6",
+      "title": {
+        "en": "Sacred Spring",
+        "ru": "Священный источник"
+      },
+      "background": "groves2",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 1
+          }
+        ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 500,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "SCROLL_OF_WISDOM"
+          }
+        }
+      ]
+    },
+    {
+      "x": 642,
+      "y": 593,
+      "type": "CAMPAIGN",
+      "id": "c7",
+      "title": {
+        "en": "Whispering Woods",
+        "ru": "Шепчущий лес"
+      },
+      "background": "groves3",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 1
+          }
+        ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 500,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "SCROLL_OF_WISDOM"
+          }
+        }
+      ]
+    },
+    {
+      "x": 775,
+      "y": 477,
+      "type": "CAMPAIGN",
+      "id": "c8",
+      "title": {
+        "en": "Thorned Heart",
+        "ru": "Шипастое сердце"
+      },
+      "background": "groves3",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 1
+          }
+        ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 500,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "SCROLL_OF_WISDOM"
+          }
+        }
+      ]
+    },
+    {
+      "x": 615,
+      "y": 205,
+      "type": "BOSS",
+      "id": "c9",
+      "title": {
+        "en": "Thalendros' Lair",
+        "ru": "Логово Талендроса"
       },
       "description": {
         "en": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
         "ru": "Талендрос — массивный древень, когда-то охранявший Зеленую рощу, но теперь испорченный темной энергией. Его когда-то яркая листва увяла, уступив место колючим ветвям и злобным светящимся глазам. Талендрос стоит высокий и внушительный, излучая ауру порчи и разложения."
       },
-      "background": "groves",
+      "background": "groves3",
       "music": "theme_boss",
       "monsters": [
         [
@@ -494,873 +530,15 @@
       ]
     },
     {
-      "x": 412,
-      "y": 200,
-      "type": "CAMPAIGN",
-      "id": "c5",
-      "music": "theme_crystal_caverns",
-      "title": {
-        "en": "The Crystal Caverns",
-        "ru": "Кристальные пещеры"
-      },
-      "description": {
-        "en": "Hidden deep beneath the Kingdom of Harmony, the Crystal Caverns are a breathtaking network of caverns adorned with shimmering crystals of various colors. Valerian embarks on his quest in the Crystal Caverns to uncover an ancient prophecy inscribed on the walls. The prophecy foretells the shattering of the Ethereal Crystal and the role Valerian must play in restoring it.",
-        "ru": "Кристальные пещеры, спрятанные глубоко под Королевством Гармонии, представляют собой захватывающую дух сеть пещер, украшенных мерцающими кристаллами различных цветов. Валериан отправляется в Кристальные пещеры, чтобы найти древнее пророчество, написанное на стенах. Пророчество предсказывает разрушение Эфирного Кристалла и роль Валериана в его восстановлении."
-      },
-      "background": "crystal_coves",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_CRYSTAL_GUARDIAN",
-            "level": 5
-          },
-          {
-            "skin": "MONSTER_CRYSTAL_GUARDIAN",
-            "level": 5
-          }
-        ]
-      ],
-      "freeReward": [
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 3000,
-            "type": "ETHERIUM_COIN"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 2,
-            "type": "TOME_OF_ENLIGHTMENT"
-          }
-        },
-        {
-          "type": "item",
-          "skin": "FROSTGUARD_GAUNTLETS",
-          "rarity": 0
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 2,
-            "type": "INFUSION_SHARD"
-          }
-        }
-      ]
-    },
-    {
-      "x": 577,
-      "y": 251,
-      "type": "CAMPAIGN",
-      "id": "c6",
-      "music": "theme_crystal_caverns",
-      "title": {
-        "en": "The Crystal Caverns",
-        "ru": "Кристальные пещеры"
-      },
-      "description": {
-        "en": "Hidden deep beneath the Kingdom of Harmony, the Crystal Caverns are a breathtaking network of caverns adorned with shimmering crystals of various colors. Valerian embarks on his quest in the Crystal Caverns to uncover an ancient prophecy inscribed on the walls. The prophecy foretells the shattering of the Ethereal Crystal and the role Valerian must play in restoring it.",
-        "ru": "Кристальные пещеры, спрятанные глубоко под Королевством Гармонии, представляют собой захватывающую дух сеть пещер, украшенных мерцающими кристаллами различных цветов. Валериан отправляется в Кристальные пещеры, чтобы найти древнее пророчество, написанное на стенах. Пророчество предсказывает разрушение Эфирного Кристалла и роль Валериана в его восстановлении."
-      },
-      "background": "crystal_coves",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 5
-          },
-          {
-            "skin": "MONSTER_CRYSTAL_GUARDIAN",
-            "level": 6
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 6
-          },
-          {
-            "skin": "MONSTER_CRYSTAL_GUARDIAN",
-            "level": 6
-          },
-          {
-            "skin": "MONSTER_CRYSTAL_GUARDIAN",
-            "level": 6
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 6
-          },
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 6
-          }
-        ]
-      ],
-      "freeReward": [
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 3500,
-            "type": "ETHERIUM_COIN"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 3,
-            "type": "TOME_OF_ENLIGHTMENT"
-          }
-        },
-        {
-          "type": "item",
-          "skin": "FROSTGUARD_GAUNTLETS",
-          "rarity": 0
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 3,
-            "type": "INFUSION_SHARD"
-          }
-        }
-      ]
-    },
-    {
-      "x": 698,
-      "y": 247,
-      "music": "theme_crystal_caverns",
-      "type": "CAMPAIGN",
-      "id": "c7",
-      "title": {
-        "en": "The Crystal Caverns",
-        "ru": "Кристальные пещеры"
-      },
-      "description": {
-        "en": "Hidden deep beneath the Kingdom of Harmony, the Crystal Caverns are a breathtaking network of caverns adorned with shimmering crystals of various colors. Valerian embarks on his quest in the Crystal Caverns to uncover an ancient prophecy inscribed on the walls. The prophecy foretells the shattering of the Ethereal Crystal and the role Valerian must play in restoring it.",
-        "ru": "Кристальные пещеры, спрятанные глубоко под Королевством Гармонии, представляют собой захватывающую дух сеть пещер, украшенных мерцающими кристаллами различных цветов. Валериан отправляется в Кристальные пещеры, чтобы найти древнее пророчество, написанное на стенах. Пророчество предсказывает разрушение Эфирного Кристалла и роль Валериана в его восстановлении."
-      },
-      "background": "crystal_coves",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_CRYSTAL_GUARDIAN",
-            "level": 7
-          },
-          {
-            "skin": "MONSTER_CRYSTAL_GUARDIAN",
-            "level": 7
-          },
-          {
-            "skin": "MONSTER_STONE_GOLEM",
-            "level": 6
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_STONE_GOLEM",
-            "level": 7
-          },
-          {
-            "skin": "MONSTER_STONE_GOLEM",
-            "level": 7
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 7
-          },
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 7
-          },
-          {
-            "skin": "MONSTER_STONE_GOLEM",
-            "level": 7
-          }
-        ]
-      ],
-      "freeReward": [
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 4000,
-            "type": "ETHERIUM_COIN"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 4,
-            "type": "TOME_OF_ENLIGHTMENT"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_AMBER"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_TURQUOISE"
-          }
-        }
-      ]
-    },
-    {
-      "x": 850,
-      "y": 218,
-      "type": "BOSS",
-      "music": "theme_xalithar",
-      "id": "c8",
-      "title": {
-        "en": "Xalithar, the Crystal Goliath",
-        "ru": "Ксалитар, Кристальное Чудовище"
-      },
-      "description": {
-        "en": "Xalithar is a towering, crystalline behemoth formed from the fused shards of the shattered Ethereal Crystal. Its body emanates a pulsating glow, and shards of various colors protrude from its massive form. Xalithar's eyes glow with a malevolent energy, reflecting the corrupted power it has absorbed.",
-        "ru": "Ксалитар — огромное кристаллическое чудовище, образованное из слившихся осколков разрушенного эфирного кристалла. Его тело излучает пульсирующее свечение, а из массивного тела торчат разноцветные осколки. Глаза Ксалитара светятся злобной энергией, отражающей поглощённую им силы Скверны."
-      },
-      "background": "crystal_coves",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_XALITHAR",
-            "level": 8
-          }
-        ]
-      ],
-      "tiers": [
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_XALITHAR",
-              "level": 10,
-              "weight": 30
-            }
-          ],
-          "rewards": [
-            {
-              "type": "currency",
-              "currency": {
-                "type": "TOME_OF_ENLIGHTMENT",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 100
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "CODEX_OF_ASCENDANCY",
-                "amount": 1
-              },
-              "rarity": 1,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_AMBER",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_TURQUOISE",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            }
-          ]
-        },
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_XALITHAR",
-              "level": 15,
-              "weight": 30
-            }
-          ],
-          "rewards": [
-            {
-              "type": "currency",
-              "currency": {
-                "type": "CODEX_OF_ASCENDANCY",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 100
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "GRIMOIRE_OF_OMNISCENCE",
-                "amount": 1
-              },
-              "rarity": 1,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_AMBER",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_TURQUOISE",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            }
-          ]
-        },
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_XALITHAR",
-              "level": 25,
-              "weight": 30
-            }
-          ],
-          "rewards": [
-            {
-              "type": "currency",
-              "currency": {
-                "type": "CODEX_OF_ASCENDANCY",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "GRIMOIRE_OF_OMNISCENCE",
-                "amount": 1
-              },
-              "rarity": 1,
-              "weight": 100
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_AMBER",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_TURQUOISE",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            }
-          ]
-        }
-      ],
-      "freeReward": [
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 4500,
-            "type": "ETHERIUM_COIN"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 4,
-            "type": "TOME_OF_ENLIGHTMENT"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_AMBER"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_TURQUOISE"
-          }
-        }
-      ]
-    },
-    {
-      "x": 740,
-      "y": 592,
-      "type": "CAMPAIGN",
-      "id": "c9",
-      "music": "theme_citadel",
-      "title": {
-        "en": "The Sacred Citadel",
-        "ru": "Священная Цитадель"
-      },
-      "description": {
-        "en": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
-        "ru": "Священная Цитадель — это величественная крепость, возвышающаяся на вершине горы с видом на Королевство Гармонии. Это место медитации и духовного просветления, где находится Орден Света, почитаемая группа просветленных ученых и воинов. Валериан отправляется в Священную Цитадель в поисках руководства у мудрого Великого Магистра Ордена. Великий Магистр передает Валериану древние учения, даруя ему священный Клинок Единства — символ его благородной цели восстановить равновесие и мир."
-      },
-      "background": "sacred_citadel",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_SHADOWBLADE_ROGUE",
-            "level": 9
-          },
-          {
-            "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 9
-          },
-          {
-            "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 9
-          }
-        ]
-      ],
-      "freeReward": [
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 5000,
-            "type": "ETHERIUM_COIN"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "CODEX_OF_ASCENDANCY"
-          }
-        },
-        {
-          "type": "item",
-          "skin": "FLAMEHEART_BELT",
-          "rarity": 0
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "INFUSION_CRYSTAL"
-          }
-        }
-      ]
-    },
-    {
-      "x": 857,
-      "y": 763,
-      "type": "CAMPAIGN",
-      "music": "theme_citadel",
+      "x": 597,
+      "y": 860,
+      "type": "RAID",
       "id": "c10",
       "title": {
-        "en": "The Sacred Citadel",
-        "ru": "Священная Цитадель"
+        "en": "The Verdant Grove: Raid",
+        "ru": "Зелёная Роща: Рейд"
       },
-      "description": {
-        "en": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
-        "ru": "Священная Цитадель — это величественная крепость, возвышающаяся на вершине горы с видом на Королевство Гармонии. Это место медитации и духовного просветления, где находится Орден Света, почитаемая группа просветленных ученых и воинов. Валериан отправляется в Священную Цитадель в поисках руководства у мудрого Великого Магистра Ордена. Великий Магистр передает Валериану древние учения, даруя ему священный Клинок Единства — символ его благородной цели восстановить равновесие и мир."
-      },
-      "background": "sacred_citadel",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_SHADOWBLADE_ROGUE",
-            "level": 10
-          },
-          {
-            "skin": "MONSTER_SHADOWBLADE_ROGUE",
-            "level": 10
-          },
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 10
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 10
-          },
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 10
-          },
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 9
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_STONE_GOLEM",
-            "level": 10
-          },
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 10
-          },
-          {
-            "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 10
-          }
-        ]
-      ],
-      "freeReward": [
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 5500,
-            "type": "ETHERIUM_COIN"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 2,
-            "type": "CODEX_OF_ASCENDANCY"
-          }
-        },
-        {
-          "type": "item",
-          "skin": "THEMPERSTRIDE_BOOTS",
-          "rarity": 0
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 2,
-            "type": "INFUSION_CRYSTAL"
-          }
-        }
-      ]
-    },
-    {
-      "x": 676,
-      "y": 871,
-      "type": "CAMPAIGN",
-      "music": "theme_citadel",
-      "id": "c11",
-      "title": {
-        "en": "The Sacred Citadel",
-        "ru": "Священная Цитадель"
-      },
-      "description": {
-        "en": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
-        "ru": "Священная Цитадель — это величественная крепость, возвышающаяся на вершине горы с видом на Королевство Гармонии. Это место медитации и духовного просветления, где находится Орден Света, почитаемая группа просветленных ученых и воинов. Валериан отправляется в Священную Цитадель в поисках руководства у мудрого Великого Магистра Ордена. Великий Магистр передает Валериану древние учения, даруя ему священный Клинок Единства — символ его благородной цели восстановить равновесие и мир."
-      },
-      "background": "sacred_citadel",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_STONE_GOLEM",
-            "level": 11
-          },
-          {
-            "skin": "MONSTER_SHADOWBLADE_ROGUE",
-            "level": 11
-          },
-          {
-            "skin": "MONSTER_SHADOWBLADE_ROGUE",
-            "level": 11
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_SHADOWBLADE_ROGUE",
-            "level": 11
-          },
-          {
-            "skin": "MONSTER_SHADOWBLADE_ROGUE",
-            "level": 11
-          },
-          {
-            "skin": "MONSTER_SHADOWBLADE_ROGUE",
-            "level": 11
-          }
-        ],
-        [
-          {
-            "skin": "MONSTER_STONE_GOLEM",
-            "level": 11
-          },
-          {
-            "skin": "MONSTER_STONE_GOLEM",
-            "level": 11
-          },
-          {
-            "skin": "MONSTER_SHADOW_OF_CHAOS",
-            "level": 11
-          }
-        ]
-      ],
-      "freeReward": [
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 6000,
-            "type": "ETHERIUM_COIN"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 4,
-            "type": "TOME_OF_ENLIGHTMENT"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_JADE"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_AGATE"
-          }
-        }
-      ]
-    },
-    {
-      "x": 466,
-      "y": 809,
-      "type": "BOSS",
-      "music": "theme_malachi",
-      "id": "c12",
-      "title": {
-        "en": "Malachi, the Corruptor of Light",
-        "ru": "Малахия, Осквернитель Света"
-      },
-      "description": {
-        "en": "Description: Malachi, once a beacon of light and hope, now stands corrupted by darkness. His towering form radiates a twisted aura, and his eyes glow with malevolent energy. A dark miasma surrounds him, hinting at the immense power he wields.\n\nMalachi, once a protector of harmony, now stands as a corrupted force seeking to plunge the kingdom into eternal darkness. His abilities reflect his mastery over the dark forces that threaten to engulf the land.",
-        "ru": "Малахия, когда-то маяк света и надежды, теперь стоит испорченный тьмой. Его высокая форма излучает искривленную ауру, а его глаза светятся злобной энергией. Его окружают темные миазмы, намекающие на огромную силу, которой он обладает.\n\nМалахия, когда-то защитник гармонии, теперь стремится погрузить королевство в вечную тьму. Его способности отражают его власть над темными силами, которые угрожают поглотить землю."
-      },
-      "background": "sacred_citadel",
-      "monsters": [
-        [
-          {
-            "skin": "MONSTER_MALACHI",
-            "level": 13
-          }
-        ]
-      ],
-      "tiers": [
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_MALACHI",
-              "level": 20,
-              "weight": 30
-            }
-          ],
-          "rewards": [
-            {
-              "type": "currency",
-              "currency": {
-                "type": "CODEX_OF_ASCENDANCY",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 100
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "GRIMOIRE_OF_OMNISCENCE",
-                "amount": 1
-              },
-              "rarity": 1,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_JADE",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_AGATE",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            }
-          ]
-        },
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_MALACHI",
-              "level": 25,
-              "weight": 30
-            }
-          ],
-          "rewards": [
-            {
-              "type": "currency",
-              "currency": {
-                "type": "CODEX_OF_ASCENDANCY",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "GRIMOIRE_OF_OMNISCENCE",
-                "amount": 1
-              },
-              "rarity": 1,
-              "weight": 100
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_JADE",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_AGATE",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            }
-          ]
-        },
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_MALACHI",
-              "level": 35,
-              "weight": 30
-            }
-          ],
-          "rewards": [
-            {
-              "type": "currency",
-              "currency": {
-                "type": "CODEX_OF_ASCENDANCY",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 10
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "GRIMOIRE_OF_OMNISCENCE",
-                "amount": 1
-              },
-              "rarity": 1,
-              "weight": 140
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_JADE",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_AGATE",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            }
-          ]
-        }
-      ],
-      "freeReward": [
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 6500,
-            "type": "ETHERIUM_COIN"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 4,
-            "type": "TOME_OF_ENLIGHTMENT"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_JADE"
-          }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_AGATE"
-          }
-        }
-      ]
-    },
-    {
-      "x": 340,
-      "y": 427,
-      "type": "RAID",
-      "id": "r1",
-      "title": {
-        "en": "The Verdant Grove",
-        "ru": "Зелёная Роща"
-      },
-      "description": {
-        "en": "Immerse yourself in the lush and mystical Verdant Groves, where ancient spirits dwell amidst towering trees. Harness the power of nature as you venture deeper into this sacred haven, seeking rare treasures and materials that hold the secrets of life itself.",
-        "ru": "Погрузитесь в пышные и мистические зеленые рощи, где среди высоких деревьев обитают древние духи. Используйте силу природы, отправляясь вглубь этой священной гавани в поисках редких сокровищ и материалов, хранящих секреты самой жизни."
-      },
-      "background": "groves",
+      "background": "groves2",
       "monsters": [],
       "tiers": [
         {
@@ -1629,644 +807,11 @@
           ]
         }
       ]
-    },
-    {
-      "x": 653,
-      "y": 149,
-      "type": "RAID",
-      "id": "r2",
-      "music": "theme_crystal_caverns",
-      "title": {
-        "en": "The Crystal Caverns",
-        "ru": "Кристальные пещеры"
-      },
-      "description": {
-        "en": "Hidden deep beneath the Kingdom of Harmony, the Crystal Caverns are a breathtaking network of caverns adorned with shimmering crystals of various colors. Valerian embarks on his quest in the Crystal Caverns to uncover an ancient prophecy inscribed on the walls. The prophecy foretells the shattering of the Ethereal Crystal and the role Valerian must play in restoring it.",
-        "ru": "Кристальные пещеры, спрятанные глубоко под Королевством Гармонии, представляют собой захватывающую дух сеть пещер, украшенных мерцающими кристаллами различных цветов. Валериан отправляется в Кристальные пещеры, чтобы найти древнее пророчество, написанное на стенах. Пророчество предсказывает разрушение Эфирного Кристалла и роль Валериана в его восстановлении."
-      },
-      "background": "crystal_coves",
-      "monsters": [],
-      "tiers": [
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_CRYSTAL_GUARDIAN",
-              "level": 8,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_CRYSTAL_GUARDIAN",
-              "level": 9,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_CRYSTAL_GUARDIAN",
-              "level": 10,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 8,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 9,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 10,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 8,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 9,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 10,
-              "weight": 10
-            }
-          ],
-          "rewards": [
-            {
-              "type": "item",
-              "skin": "SHADOWBANE_AMULET",
-              "rarity": 1,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "SHADOWBANE_AMULET",
-              "rarity": 2,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "FROSTGUARD_GAUNTLETS",
-              "rarity": 1,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "FROSTGUARD_GAUNTLETS",
-              "rarity": 2,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_SHARD"
-              },
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_CRYSTAL"
-              },
-              "weight": 50
-            }
-          ]
-        },
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_CRYSTAL_GUARDIAN",
-              "level": 13,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_CRYSTAL_GUARDIAN",
-              "level": 15,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_CRYSTAL_GUARDIAN",
-              "level": 17,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 13,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 15,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 17,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 13,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 15,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 17,
-              "weight": 10
-            }
-          ],
-          "rewards": [
-            {
-              "type": "item",
-              "skin": "SHADOWBANE_AMULET",
-              "rarity": 2,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "SHADOWBANE_AMULET",
-              "rarity": 3,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "FROSTGUARD_GAUNTLETS",
-              "rarity": 2,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "FROSTGUARD_GAUNTLETS",
-              "rarity": 3,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_SHARD"
-              },
-              "weight": 20
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_CRYSTAL"
-              },
-              "weight": 80
-            }
-          ]
-        },
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_CRYSTAL_GUARDIAN",
-              "level": 23,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_CRYSTAL_GUARDIAN",
-              "level": 25,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_CRYSTAL_GUARDIAN",
-              "level": 27,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 23,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 25,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 27,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 23,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 25,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 27,
-              "weight": 10
-            }
-          ],
-          "rewards": [
-            {
-              "type": "item",
-              "skin": "SHADOWBANE_AMULET",
-              "rarity": 3,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "SHADOWBANE_AMULET",
-              "rarity": 4,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "FROSTGUARD_GAUNTLETS",
-              "rarity": 3,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "FROSTGUARD_GAUNTLETS",
-              "rarity": 4,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_CRYSTAL"
-              },
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "ASCENDANT_ESSENCE"
-              },
-              "weight": 50
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "x": 614,
-      "y": 772,
-      "type": "RAID",
-      "music": "theme_citadel",
-      "id": "r3",
-      "title": {
-        "en": "The Sacred Citadel",
-        "ru": "Священная Цитадель"
-      },
-      "description": {
-        "en": "The Sacred Citadel is a majestic fortress perched upon a mountain peak, overlooking the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment, housing the Order of Light, a revered group of enlightened scholars and warriors. Valerian ventures to the Sacred Citadel seeking guidance from the wise Grand Master of the Order. The Grand Master imparts ancient teachings to Valerian, bestowing him with the sacred Blade of Unity—a symbol of his noble purpose to restore balance and peace.",
-        "ru": "Священная Цитадель — это величественная крепость, возвышающаяся на вершине горы с видом на Королевство Гармонии. Это место медитации и духовного просветления, где находится Орден Света, почитаемая группа просветленных ученых и воинов. Валериан отправляется в Священную Цитадель в поисках руководства у мудрого Великого Магистра Ордена. Великий Магистр передает Валериану древние учения, даруя ему священный Клинок Единства — символ его благородной цели восстановить равновесие и мир."
-      },
-      "background": "sacred_citadel",
-      "monsters": [],
-      "tiers": [
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 13,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 14,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 15,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_SHADOWBLADE_ROGUE",
-              "level": 13,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_SHADOWBLADE_ROGUE",
-              "level": 14,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_SHADOWBLADE_ROGUE",
-              "level": 15,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 13,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 14,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 15,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 13,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 14,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 15,
-              "weight": 10
-            }
-          ],
-          "rewards": [
-            {
-              "type": "item",
-              "skin": "THEMPERSTRIDE_BOOTS",
-              "rarity": 2,
-              "weight": 80
-            },
-            {
-              "type": "item",
-              "skin": "THEMPERSTRIDE_BOOTS",
-              "rarity": 3,
-              "weight": 20
-            },
-            {
-              "type": "item",
-              "skin": "FLAMEHEART_BELT",
-              "rarity": 2,
-              "weight": 80
-            },
-            {
-              "type": "item",
-              "skin": "FLAMEHEART_BELT",
-              "rarity": 3,
-              "weight": 20
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_SHARD"
-              },
-              "weight": 20
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_CRYSTAL"
-              },
-              "weight": 80
-            }
-          ]
-        },
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 18,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 20,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 22,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_SHADOWBLADE_ROGUE",
-              "level": 18,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_SHADOWBLADE_ROGUE",
-              "level": 20,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_SHADOWBLADE_ROGUE",
-              "level": 22,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 18,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 20,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 22,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 18,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 20,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 22,
-              "weight": 10
-            }
-          ],
-          "rewards": [
-            {
-              "type": "item",
-              "skin": "THEMPERSTRIDE_BOOTS",
-              "rarity": 3,
-              "weight": 80
-            },
-            {
-              "type": "item",
-              "skin": "THEMPERSTRIDE_BOOTS",
-              "rarity": 4,
-              "weight": 20
-            },
-            {
-              "type": "item",
-              "skin": "FLAMEHEART_BELT",
-              "rarity": 3,
-              "weight": 80
-            },
-            {
-              "type": "item",
-              "skin": "FLAMEHEART_BELT",
-              "rarity": 4,
-              "weight": 20
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_CRYSTAL"
-              },
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "ASCENDANT_ESSENCE"
-              },
-              "weight": 50
-            }
-          ]
-        },
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 28,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 30,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 32,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_SHADOWBLADE_ROGUE",
-              "level": 28,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_SHADOWBLADE_ROGUE",
-              "level": 30,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_SHADOWBLADE_ROGUE",
-              "level": 32,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 28,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 30,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_STONE_GOLEM",
-              "level": 32,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 28,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 30,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_SHADOW_OF_CHAOS",
-              "level": 32,
-              "weight": 10
-            }
-          ],
-          "rewards": [
-            {
-              "type": "item",
-              "skin": "THEMPERSTRIDE_BOOTS",
-              "rarity": 3,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "THEMPERSTRIDE_BOOTS",
-              "rarity": 4,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "FLAMEHEART_BELT",
-              "rarity": 3,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "FLAMEHEART_BELT",
-              "rarity": 4,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_CRYSTAL"
-              },
-              "weight": 20
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "ASCENDANT_ESSENCE"
-              },
-              "weight": 80
-            }
-          ]
-        }
-      ]
     }
   ],
   "links": [
     {
       "n1": "c1",
-      "n2": "c1_5"
-    },
-    {
-      "n1": "c1_5",
       "n2": "c2"
     },
     {
@@ -2298,28 +843,9 @@
       "n2": "c9"
     },
     {
-      "n1": "c9",
+      "n1": "c5",
       "n2": "c10"
-    },
-    {
-      "n1": "c10",
-      "n2": "c11"
-    },
-    {
-      "n1": "c11",
-      "n2": "c12"
-    },
-    {
-      "n1": "c3",
-      "n2": "r1"
-    },
-    {
-      "n1": "c7",
-      "n2": "r2"
-    },
-    {
-      "n1": "c11",
-      "n2": "r3"
     }
   ]
 }
+

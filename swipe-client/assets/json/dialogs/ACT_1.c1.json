@@ -17,10 +17,10 @@
       "side": "right"
     },
     {
-      "skin": "MONSTER_THORNSTALKER",
+      "skin": "MONSTER_THORNED_CRAWLER",
       "text": {
-        "en": "(emerging from the shadows)\nIntruders! Why do you seek the shard of the groves?",
-        "ru": "(выходя из тени)\nЗлоумышленники! Зачем вы ищете осколок рощи?"
+        "en": "(emerging from the shadows)\nShhh.... rshhhhh",
+        "ru": "(выходя из тени)\nТссс.... ршшшш"
       },
       "side": "right"
     },

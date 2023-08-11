@@ -5,6 +5,7 @@ import com.game7th.swipe.game.CharacterAttributes
 
 enum class SwipeCurrency(val expBonus: Int = 0, val coins: Int = 1) {
     ETHERIUM_COIN,
+    ARCANUM,
     SCROLL_OF_WISDOM(expBonus = 750, coins = 100),
     TOME_OF_ENLIGHTMENT(expBonus = 2500, coins = 300),
     CODEX_OF_ASCENDANCY(expBonus = 7500, coins = 900),
@@ -93,6 +94,11 @@ data class SwipeProfile(
     val mysteryShop: List<SbMysteryItem>?,
     val activeCharacter: String?,
     val tutorial: TutorialState,
+    val partyUnlocked: Boolean = false,
+    val inventoryUnlocked: Boolean = false,
+    val shopUnlocked: Boolean = false,
+    val atlasUnlocked: Boolean = false,
+    val lastArcanumReplenished: Long
 ) {
     private fun getRewardsCollectedOrEmpty() = rewardsCollected ?: emptyList()
 
@@ -108,7 +114,7 @@ data class SwipeProfile(
         return copy(items = items)
     }
 
-    fun getBalance(currency: SwipeCurrency) = balances.firstOrNull { it.currency == currency }?.amount ?: 0
+    fun getBalance(currency: SwipeCurrency): Int = balances.firstOrNull { it.currency == currency }?.amount ?: 0
 
     fun updateLevel(skin: String, experience: Int): SwipeProfile {
         return copy(characters = characters.map { c ->

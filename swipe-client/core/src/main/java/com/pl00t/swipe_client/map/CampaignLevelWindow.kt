@@ -114,9 +114,6 @@ class CampaignLevelWindow(
     }
 
     private fun addLore() {
-        val loreLabel = r.labelLore(model.locationDescription.value(r.l))
-        content.add(loreLabel).width(460f).pad(10f).colspan(3).row()
-//        content.add(r.image(R.ux_atlas, "background_black").apply { setSize(480f, 1f) }).colspan(3).size(480f, 1f).row()
     }
 
     private fun addWaves() {
