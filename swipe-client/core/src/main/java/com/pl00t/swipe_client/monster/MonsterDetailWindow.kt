@@ -29,7 +29,7 @@ open class MonsterDetailWindow(
     protected var root = Group()
     protected var attributesActor: Actor? = null
     private var loreActor: LoreActor? = null
-    private var abilitiesActor: MonsterAbiltiesActor? = null
+    protected var abilitiesActor: MonsterAbiltiesActor? = null
 
     init {
         setSize(r.width, r.height)

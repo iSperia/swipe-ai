@@ -16,6 +16,10 @@ import com.pl00t.swipe_client.home.ReloadableScreen
 import com.pl00t.swipe_client.monster.MonsterShortDetailsCell
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
+import com.pl00t.swipe_client.ux.HoverAction
+import com.pl00t.swipe_client.ux.TutorialHover
+import com.pl00t.swipe_client.ux.bounds
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
@@ -108,6 +112,17 @@ class HeroListWindow(
             }
             content.row()
             content.add().growY()
+
+            checkTutorials()
+        }
+    }
+
+    private suspend fun checkTutorials() {
+        delay(200)
+        if (!r.profileService.getTutorial().a1HeroOpened) {
+            addActor(TutorialHover(r, content.getChild(0).bounds(), UiTexts.Tutorials.Act1Hero2, HoverAction.HoverClick {
+                onHeroSelected("CHARACTER_VALERIAN")
+            }))
         }
     }
 }

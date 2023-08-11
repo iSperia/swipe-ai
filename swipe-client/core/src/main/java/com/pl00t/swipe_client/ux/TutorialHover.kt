@@ -52,6 +52,29 @@ class TutorialHover(
                     setSize(area.width, area.height)
                 }
                 addActor(fake)
+
+                val cursorActor = r.image(Resources.ux_atlas, "cursor").apply {
+                    setSize(96f, 96f)
+                    setPosition(area.x + area.width / 2f -48f, area.y + area.height / 2f - 92f)
+                    setOrigin(Align.center)
+                    this.touchable = Touchable.disabled
+                    addAction(Actions.sequence(
+                        Actions.parallel(
+                            Actions.rotateBy(-10f, 0.3f),
+                            Actions.scaleTo(0.9f, 1.1f, 0.3f, SwingOut(1.2f)),
+                            Actions.moveBy(0f, 10f, 0.3f)
+                        ),
+                        Actions.parallel(
+                            Actions.rotateBy(10f, 0.3f),
+                            Actions.scaleTo(1f, 1f, 0.3f),
+                            Actions.moveBy(0f, -10f, 0.3f)
+                        ),
+                        Actions.alpha(0f, 0.3f),
+                        Actions.alpha(1f, 0.3f),
+
+                    ).repeatForever())
+                }
+                addActor(cursorActor)
             }
             is HoverAction.HoverSwipe -> {
                 val fake = r.image(Resources.ux_atlas, "background_black").apply {

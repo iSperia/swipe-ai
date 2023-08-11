@@ -45,6 +45,8 @@ class MapWindow(
     private val mapIconSize = r.height / 12f
     private val mapSmallIconSize = r.height / 15f
 
+    lateinit var actionInventory: ActionCompositeButton
+
     init {
         rootGroup = Group().apply {
             width = mapSize
@@ -89,6 +91,8 @@ class MapWindow(
             addMapImage()
             val actModel = r.profileService.getAct(act)
             loadMap(actModel)
+
+            checkReloadTutorial(actModel)
         }
 
     }
@@ -110,6 +114,7 @@ class MapWindow(
                 }
             },
             ActionCompositeButton(r, Action.Party, Mode.SingleLine(UiTexts.NavParty.value(r.l))).apply {
+                this@MapWindow.actionInventory = this
                 onClick {
                     navigateParty()
                 }
@@ -184,4 +189,13 @@ class MapWindow(
         rootGroup.addActor(mapImage)
 
     }
+
+    private suspend fun checkReloadTutorial(model: FrontActModel) {
+        if (act == SwipeAct.ACT_1 && model.levels[1].enabled && !r.profileService.isFreeRewardAvailable(SwipeAct.ACT_1, "c1") && !r.profileService.getTutorial().a1HeroOpened) {
+            addActor(TutorialHover(r, actionInventory.bounds(), UiTexts.Tutorials.Act1Hero1, HoverAction.HoverClick {
+                navigateParty()
+            }))
+        }
+    }
+
 }

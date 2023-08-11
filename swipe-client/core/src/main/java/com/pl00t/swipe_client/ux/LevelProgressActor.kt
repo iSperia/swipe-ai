@@ -28,7 +28,7 @@ class LevelProgressActor(
     }
 
     protected val labelLevel = r.regular24White("Lv. 1").apply {
-        setSize(65f, 24f)
+        setSize(85f, 24f)
         setAlignment(Align.left)
         setPosition(progressBackground.x, progressBackground.y + 10f)
     }
@@ -36,7 +36,7 @@ class LevelProgressActor(
     protected val labelLevelBoost = r.regular24Focus("+6").apply {
         setSize(65f, 24f)
         setAlignment(Align.left)
-        setPosition(labelLevel.x + 70f, labelLevel.y)
+        setPosition(labelLevel.x + 90f, labelLevel.y)
     }
 
     protected val labelCurrentExp = r.regular20White("0/1500").apply {

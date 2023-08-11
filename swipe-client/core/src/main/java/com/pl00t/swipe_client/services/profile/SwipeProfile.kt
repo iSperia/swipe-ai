@@ -49,7 +49,7 @@ data class SwipeCharacter(
         val experience = mutableListOf<Int>()
 
         init {
-            (0 until 100).forEach { i ->
+            (0 until 101).forEach { i ->
                 if (i == 0) {
                     0
                 } else {
@@ -74,6 +74,8 @@ data class TutorialState(
     val acti1IntroPassed: Boolean = false,
     val c1LevelDetailsPassed: Boolean = false,
     val c1BattleIntroPassed: Boolean = false,
+    val a1c1ResultPassed: Boolean = false,
+    val a1HeroOpened: Boolean = false,
     val battleSigilOfRenewalPassed: Boolean = false,
     val battleWeaknessPassed: Boolean = false,
     val battlePoisonPassed: Boolean = false,

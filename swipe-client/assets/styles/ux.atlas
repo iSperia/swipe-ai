@@ -69,14 +69,14 @@ action_shop
   index: -1
 background_accent
   rotate: false
-  xy: 945, 558
+  xy: 476, 601
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_black
   rotate: false
-  xy: 945, 573
+  xy: 482, 607
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -90,35 +90,35 @@ background_defeat
   index: -1
 background_error
   rotate: false
-  xy: 945, 567
+  xy: 479, 604
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_focus
   rotate: false
-  xy: 945, 588
+  xy: 476, 610
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_main
   rotate: false
-  xy: 945, 555
+  xy: 479, 601
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_solid
   rotate: false
-  xy: 945, 552
+  xy: 485, 610
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 background_transparent50
   rotate: false
-  xy: 945, 579
+  xy: 476, 607
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -132,7 +132,7 @@ background_victory
   index: -1
 background_white
   rotate: false
-  xy: 945, 582
+  xy: 482, 610
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -153,42 +153,42 @@ filter_currency
   index: -1
 icon_attr_body
   rotate: false
-  xy: 476, 613
+  xy: 902, 575
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_attr_health
   rotate: false
-  xy: 390, 541
+  xy: 903, 749
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_attr_luck
   rotate: false
-  xy: 580, 529
+  xy: 521, 529
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_attr_mind
   rotate: false
-  xy: 618, 529
+  xy: 559, 529
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_attr_spirit
   rotate: false
-  xy: 903, 744
+  xy: 476, 613
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_attr_ult
   rotate: false
-  xy: 428, 541
+  xy: 903, 711
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
@@ -202,77 +202,77 @@ icon_padlock
   index: -1
 icon_resist_cold
   rotate: false
-  xy: 542, 529
+  xy: 483, 529
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_resist_dark
   rotate: false
-  xy: 903, 782
+  xy: 902, 651
   size: 41, 41
   orig: 41, 41
   offset: 0, 0
   index: -1
 icon_resist_fire
   rotate: false
-  xy: 903, 706
+  xy: 903, 787
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_resist_light
   rotate: false
-  xy: 466, 541
+  xy: 902, 613
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_resist_phys
   rotate: false
-  xy: 504, 529
+  xy: 902, 537
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 icon_resist_shock
   rotate: false
-  xy: 902, 548
+  xy: 440, 536
   size: 41, 41
   orig: 41, 41
   offset: 0, 0
   index: -1
 item_background
   rotate: false
-  xy: 945, 585
+  xy: 479, 610
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 3
 item_background
   rotate: false
-  xy: 945, 576
+  xy: 479, 607
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 0
 item_background
   rotate: false
-  xy: 945, 570
+  xy: 476, 604
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 2
 item_background
   rotate: false
-  xy: 945, 564
+  xy: 482, 604
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: 4
 item_background
   rotate: false
-  xy: 945, 561
+  xy: 483, 601
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
@@ -300,7 +300,7 @@ silh_gauntlets
   index: -1
 star
   rotate: false
-  xy: 902, 591
+  xy: 390, 529
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
@@ -321,9 +321,9 @@ texture_screen
   index: -1
 tutorial
   rotate: false
-  xy: 902, 641
-  size: 51, 51
-  orig: 51, 51
+  xy: 1928, 457
+  size: 61, 61
+  orig: 61, 61
   offset: 0, 0
   index: -1
 

@@ -14,7 +14,8 @@ import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
-import com.pl00t.swipe_client.ux.ItemCellActor
+import com.pl00t.swipe_client.ux.*
+import com.pl00t.swipe_client.ux.dialog.DialogScriptActor
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
@@ -44,7 +45,10 @@ class BattleResultDialog(
     private var hasCoins = false
 
     init {
-        background = r.image(Resources.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); alpha = 0.5f; color = r.skin().getColor("rarity_${if (result.victory) 4 else 0}") }
+        background = r.image(Resources.ux_atlas, "texture_screen").apply {
+            setSize(r.width, r.height); alpha = 0.5f; color =
+            r.skin().getColor("rarity_${if (result.victory) 4 else 0}")
+        }
         backgroundShadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
         addActor(background)
         addActor(backgroundShadow)
@@ -75,8 +79,10 @@ class BattleResultDialog(
         closeButton.onClick {
             onClose()
         }
-        title = WindowTitleActor(r, if (result.victory) UiTexts.BattleVictory.value(r.l) else UiTexts.BattleDefeat.value(r.l),
-            closeButton, null, if (result.victory) 4 else 0).apply {
+        title = WindowTitleActor(
+            r, if (result.victory) UiTexts.BattleVictory.value(r.l) else UiTexts.BattleDefeat.value(r.l),
+            closeButton, null, if (result.victory) 4 else 0
+        ).apply {
             y = r.height - this.height
         }
 
@@ -88,15 +94,29 @@ class BattleResultDialog(
             var actions = mutableListOf<ActionCompositeButton>()
 
             if (result.victory && result.extraRewardsCost > 0) {
-                val enoughCoins = r.profileService.getProfile().getBalance(SwipeCurrency.ETHERIUM_COIN) >= result.extraRewardsCost
-                val collectReward = ActionCompositeButton(r, Action.ItemDetails(SwipeCurrency.ETHERIUM_COIN.toString()), Mode.Purchase(UiTexts.RaidCollectRewards.value(r.l), SwipeCurrency.ETHERIUM_COIN, result.extraRewardsCost))
+                val enoughCoins =
+                    r.profileService.getProfile().getBalance(SwipeCurrency.ETHERIUM_COIN) >= result.extraRewardsCost
+                val collectReward = ActionCompositeButton(
+                    r,
+                    Action.ItemDetails(SwipeCurrency.ETHERIUM_COIN.toString()),
+                    Mode.Purchase(
+                        UiTexts.RaidCollectRewards.value(r.l),
+                        SwipeCurrency.ETHERIUM_COIN,
+                        result.extraRewardsCost
+                    )
+                )
 
                 if (enoughCoins) {
                     collectReward.onClick {
                         KtxAsync.launch {
                             collectReward.touchable = Touchable.disabled
                             collectReward.alpha = 0.5f
-                            extraRewards = r.profileService.collectRichReward(result.act, result.level, result.tier, result.extraRewardsCost)
+                            extraRewards = r.profileService.collectRichReward(
+                                result.act,
+                                result.level,
+                                result.tier,
+                                result.extraRewardsCost
+                            )
                             loadData()
                         }
                     }
@@ -127,12 +147,16 @@ class BattleResultDialog(
         KtxAsync.launch {
             content.clearChildren()
 
-            val enoughCoins = extraRewards != null || r.profileService.getProfile().getBalance(SwipeCurrency.ETHERIUM_COIN) >= result.extraRewardsCost
+            val enoughCoins = extraRewards != null || r.profileService.getProfile()
+                .getBalance(SwipeCurrency.ETHERIUM_COIN) >= result.extraRewardsCost
 
-            content.add(r.image(Resources.ux_atlas, "background_black").apply { alpha = 0.5f; setSize(480f, 1f) }).size(480f, 1f).colspan(4).row()
+            content.add(r.image(Resources.ux_atlas, "background_black").apply { alpha = 0.5f; setSize(480f, 1f) })
+                .size(480f, 1f).colspan(4).row()
             val imageBackground = if (result.victory) "background_victory" else "background_defeat"
-            content.add(r.image(Resources.ux_atlas, imageBackground).apply { setSize(480f, 240f) }).size(480f, 240f).colspan(4).row()
-            content.add(r.image(Resources.ux_atlas, "background_black").apply { alpha = 0.5f; setSize(480f, 1f) }).size(480f, 1f).colspan(4).row()
+            content.add(r.image(Resources.ux_atlas, imageBackground).apply { setSize(480f, 240f) }).size(480f, 240f)
+                .colspan(4).row()
+            content.add(r.image(Resources.ux_atlas, "background_black").apply { alpha = 0.5f; setSize(480f, 1f) })
+                .size(480f, 1f).colspan(4).row()
 
             if (result.exp != null) {
                 val group = Group().apply {
@@ -146,11 +170,12 @@ class BattleResultDialog(
                     setPosition(70f, 70f)
                     setAlignment(Align.left)
                 }
-                val expCount = r.regular24White(UiTexts.ExpBoost.value(r.l).replace("$", result.exp.expBoost.toString())).apply {
-                    setSize(410f, 30f)
-                    setPosition(70f, 40f)
-                    setAlignment(Align.left)
-                }
+                val expCount =
+                    r.regular24White(UiTexts.ExpBoost.value(r.l).replace("$", result.exp.expBoost.toString())).apply {
+                        setSize(410f, 30f)
+                        setPosition(70f, 40f)
+                        setAlignment(Align.left)
+                    }
                 group.addActor(name)
                 group.addActor(expCount)
                 group.addActor(skin)
@@ -159,46 +184,62 @@ class BattleResultDialog(
             }
 
             if (!enoughCoins) {
-                content.add(r.regular24Error(UiTexts.RaidLittleCoins.value(r.l)).apply { width = 480f }).width(480f).colspan(5).row()
+                content.add(r.regular24Error(UiTexts.RaidLittleCoins.value(r.l)).apply { width = 480f }).width(480f)
+                    .colspan(5).row()
             }
 
             extraRewards?.let { rewards ->
-                content.add(r.regular24Focus(UiTexts.RaidRichRewards.value(r.l)).apply { width = 480f; setAlignment(Align.center) }).width(480f).colspan(5).row()
-                rewards.forEachIndexed { i, reward ->
-                    val actor = ItemCellActor(r, reward).apply {
-                        if (reward.currency != null) {
-                            touchable = Touchable.disabled
-                        } else {
-                            onClick { onItemClick(reward.item!!.id) }
-                        }
-                    }
-                    content.add(actor).size(120f, 140f)
-                    if (i % 4 == 3) content.row()
-                }
-                content.add().growX()
-                content.row()
+                content.add(
+                    r.regular24Focus(UiTexts.RaidRichRewards.value(r.l))
+                        .apply { width = 480f; setAlignment(Align.center) }).width(480f).colspan(5).row()
+                val browser = ItemBrowser(r, rewards, null, null)
+                content.add(browser).row()
             }
 
             if (result.freeRewards.isNotEmpty()) {
-                content.add(r.regular24Focus(UiTexts.RaidFreeRewards.value(r.l)).apply { width = 480f; setAlignment(Align.center) }).width(480f).colspan(5).row()
+                content.add(
+                    r.regular24Focus(UiTexts.RaidFreeRewards.value(r.l))
+                        .apply { width = 480f; setAlignment(Align.center) }).width(480f).colspan(5).row()
             }
-            result.freeRewards.forEachIndexed { i, reward ->
-                val actor = ItemCellActor(r, reward).apply {
-                    if (reward.currency != null) {
-                        touchable = Touchable.disabled
-                    } else {
-                        onClick { onItemClick(reward.item!!.id) }
-                    }
-                }
-                content.add(actor).size(120f, 140f)
-                if (i % 4 == 3) content.row()
-            }
-            content.add().growX()
-            content.row()
+            val browser = ItemBrowser(r, result.freeRewards, null, null)
+            content.add(browser).row()
 
             content.row()
             content.add().growY()
+
+            checkTutorial()
         }
     }
 
+    private suspend fun checkTutorial() {
+        if (!r.profileService.getTutorial().a1c1ResultPassed && result.act == SwipeAct.ACT_1 && result.level == "c1") {
+            addActor(DialogScriptActor(r, r.profileService.getDialogScript("a1c1result")) {
+                addActor(
+                    TutorialHover(
+                        r,
+                        content.getChild(3).bounds(),
+                        UiTexts.Tutorials.A1C1R1,
+                        HoverAction.HoverClick {
+                            if (content.children.size > 5) {
+                                addActor(
+                                    TutorialHover(
+                                        r,
+                                        content.getChild(5).bounds(),
+                                        UiTexts.Tutorials.A1C1R2,
+                                        HoverAction.HoverClick {
+                                            r.profileService.saveTutorial(
+                                                r.profileService.getTutorial().copy(a1c1ResultPassed = true)
+                                            )
+                                        })
+                                )
+                            } else {
+                                r.profileService.saveTutorial(
+                                    r.profileService.getTutorial().copy(a1c1ResultPassed = true)
+                                )
+                            }
+                        })
+                )
+            })
+        }
+    }
 }

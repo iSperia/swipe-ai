@@ -39,8 +39,8 @@ class HeroEquipmentActor(
         y = 110f
     }
 
-    private var selectedCategory: ItemCategory? = null
-    private var selectedItemId: String? = null
+    var selectedCategory: ItemCategory? = null
+    var selectedItemId: String? = null
 
     init {
         addActor(scrollpane)

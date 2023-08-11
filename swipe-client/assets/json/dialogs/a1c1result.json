@@ -1,0 +1,28 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Wow, Valerian! You handled that fight like a true warrior! Great job!",
+        "ru": "Ого, Валериан! Ты справился с этим боем, как настоящий воин! Отличная работа!"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Thanks, Saffron. But we can't slow down now. We need to keep searching for the crystal shard.",
+        "ru": "Спасибо, Шафран. Но мы не можем замедляться сейчас. Нам нужно продолжать искать осколок кристалла."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Absolutely, let's keep moving deeper into the groves. There's more to discover, and I have a feeling we're up to the challenge!",
+        "ru": "Верно, будем двигаться глубже в рощи. Нам предстоит открыть еще больше, и я чувствую, что мы готовы принять вызов!"
+      },
+      "side": "right"
+    }
+  ]
+}

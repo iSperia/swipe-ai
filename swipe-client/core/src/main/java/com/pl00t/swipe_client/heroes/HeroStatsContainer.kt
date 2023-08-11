@@ -30,18 +30,20 @@ class HeroStatsContainer(
         STATS, ATTRIBUTES, RESISTANCES
     }
 
-    private var cachedSelectedExpCurrency: Int? = null
-    private var cachedSelectedElixir: Int? = null
+    var cachedSelectedExpCurrency: Int? = null
+    var cachedSelectedElixir: Int? = null
 
     private var mode = BrowseMode.STATS
 
-    private val contentTable = Table().apply {
+    val contentTable = Table().apply {
         width = 480f
     }
     private val scrollPane = ScrollPane(contentTable).apply {
         setPosition(0f, 110f)
         setSize(480f, r.height - 300f)
     }
+
+    lateinit var bottomActionPanel: BottomActionPanel
 
     private fun reload() {
         KtxAsync.launch {
@@ -83,7 +85,7 @@ class HeroStatsContainer(
                 }
             }
         )
-        val bottomPanel = BottomActionPanel(
+        bottomActionPanel = BottomActionPanel(
             r = r,
             actions = actions,
             backgroundRarity = 1
@@ -91,13 +93,13 @@ class HeroStatsContainer(
 
         addActor(scrollPane)
 
-        addActor(bottomPanel)
+        addActor(bottomActionPanel)
         addActor(scrollPane)
 
         loadData()
     }
 
-    private fun loadData() {
+    fun loadData() {
         KtxAsync.launch {
             contentTable.clearChildren()
             when (mode) {
@@ -174,12 +176,7 @@ class HeroStatsContainer(
                     cachedSelectedElixir = items.indexOfFirst { it.currency == model.currency }
                     ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
                         onClick {
-                            KtxAsync.launch {
-                                if (r.profileService.useElixir(this@HeroStatsContainer.model.skin, model.currency!!)) {
-                                    r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
-                                    reload()
-                                }
-                            }
+                            useElixir(model)
                         }
                     }
                 }
@@ -190,6 +187,15 @@ class HeroStatsContainer(
             contentTable.add(browser).colspan(4).row()
         }
 
+    }
+
+    fun useElixir(model: FrontItemEntryModel) {
+        KtxAsync.launch {
+            if (r.profileService.useElixir(this@HeroStatsContainer.model.skin, model.currency!!)) {
+                r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
+                reload()
+            }
+        }
     }
 
     private suspend fun renderStats() {
@@ -238,9 +244,7 @@ class HeroStatsContainer(
                     cachedSelectedExpCurrency = items.indexOfFirst { it.currency == model.currency }
                     ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
                         onClick {
-                            r.profileService.addCharacterExperience(this@HeroStatsContainer.model.skin, model.currency?.expBonus ?: 0)
-                            r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
-                            reload()
+                            useExperienceItem(model)
                         }
                     }
                 }
@@ -250,5 +254,11 @@ class HeroStatsContainer(
             }
             contentTable.add(browser).colspan(4).row()
         }
+    }
+
+    fun useExperienceItem(model: FrontItemEntryModel) {
+        r.profileService.addCharacterExperience(this@HeroStatsContainer.model.skin, model.currency?.expBonus ?: 0)
+        r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
+        reload()
     }
 }
