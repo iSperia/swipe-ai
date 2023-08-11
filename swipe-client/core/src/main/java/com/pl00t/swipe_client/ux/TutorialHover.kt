@@ -18,7 +18,7 @@ import ktx.actors.repeatForever
 import ktx.async.KtxAsync
 
 sealed interface HoverAction {
-    data class HoverClick(val onClick: suspend () -> Unit): HoverAction
+    data class HoverClick(val exact: Boolean, val onClick: suspend () -> Unit): HoverAction
     data class HoverSwipe(val dx: Int, val dy: Int, val onSwipe: () -> Unit): HoverAction
 }
 
@@ -48,8 +48,12 @@ class TutorialHover(
                         }
                     }
                     alpha = 0f
-                    setPosition(area.x, area.y)
-                    setSize(area.width, area.height)
+                    if (action.exact) {
+                        setPosition(area.x, area.y)
+                        setSize(area.width, area.height)
+                    } else {
+                        setSize(r.width, r.height)
+                    }
                 }
                 addActor(fake)
 

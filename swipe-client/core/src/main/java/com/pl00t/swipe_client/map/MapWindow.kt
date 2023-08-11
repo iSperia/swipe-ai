@@ -61,16 +61,22 @@ class MapWindow(
         addMapImage()
         addWindowTitle()
         addBottomPanel()
-
-        checkTutorial()
     }
 
-    private fun checkTutorial() {
+    private fun checkTutorial(model: FrontActModel) {
         KtxAsync.launch {
+            delay(100)
+            if (act == SwipeAct.ACT_1 && model.levels[1].enabled && !r.profileService.isFreeRewardAvailable(SwipeAct.ACT_1, "c1_5") && !r.profileService.getTutorial().a1HeroOpened && !todo1) {
+                todo1 = true
+                addActor(TutorialHover(r, actionInventory.bounds(), UiTexts.Tutorials.Act1Hero1, HoverAction.HoverClick(true) {
+                    navigateParty()
+                }))
+            }
+
             r.profileService.getTutorial().let { tutorial ->
                 if (!tutorial.acti1IntroPassed) {
                     val dialog = DialogScriptActor(r, r.profileService.getDialogScript("act1Intro")) {
-                        addActor(TutorialHover(r, mapIconsGroup.findActor<Actor>("c1").bounds(), UiTexts.Tutorials.Act1Intro, HoverAction.HoverClick {
+                        addActor(TutorialHover(r, mapIconsGroup.findActor<Actor>("c1").bounds(), UiTexts.Tutorials.Act1Intro, HoverAction.HoverClick(true) {
                             KtxAsync.launch {
                                 r.profileService.saveTutorial(tutorial.copy(acti1IntroPassed = true))
                                 onLocationClicked("c1")
@@ -78,19 +84,24 @@ class MapWindow(
                         }))
                     }
                     addActor(dialog)
+                } else if (!tutorial.act1c1_15IntroPassed && !todo2) {
+                    todo2 = true
+                    addActor(TutorialHover(r, mapIconsGroup.findActor<Actor>("c1_5").bounds(), UiTexts.Tutorials.Act1c1_5, HoverAction.HoverClick(true) {
+                        r.profileService.saveTutorial(tutorial.copy(acti1IntroPassed = true))
+                        onLocationClicked("c1_5")
+                    }))
                 }
             }
         }
     }
 
+    private var todo2 = false
     override fun reload() {
         KtxAsync.launch {
             rootGroup.clearChildren()
             addMapImage()
             val actModel = r.profileService.getAct(act)
             loadMap(actModel)
-
-            checkReloadTutorial(actModel)
         }
 
     }
@@ -173,7 +184,7 @@ class MapWindow(
 
             mapIconsGroup.addActor(levelActor)
 
-
+            checkTutorial(actModel)
         }
     }
 
@@ -189,14 +200,5 @@ class MapWindow(
     }
 
     private var todo1 = false
-    private suspend fun checkReloadTutorial(model: FrontActModel) {
-        delay(100)
-        if (act == SwipeAct.ACT_1 && model.levels[1].enabled && !r.profileService.isFreeRewardAvailable(SwipeAct.ACT_1, "c1") && !r.profileService.getTutorial().a1HeroOpened && !todo1) {
-            todo1 = true
-            addActor(TutorialHover(r, actionInventory.bounds(), UiTexts.Tutorials.Act1Hero1, HoverAction.HoverClick {
-                navigateParty()
-            }))
-        }
-    }
 
 }

@@ -219,14 +219,14 @@ class BattleResultDialog(
                         r,
                         content.getChild(3).bounds(),
                         UiTexts.Tutorials.A1C1R1,
-                        HoverAction.HoverClick {
+                        HoverAction.HoverClick(false) {
                             if (content.children.size > 5) {
                                 addActor(
                                     TutorialHover(
                                         r,
                                         content.getChild(5).bounds(),
                                         UiTexts.Tutorials.A1C1R2,
-                                        HoverAction.HoverClick {
+                                        HoverAction.HoverClick(false) {
                                             r.profileService.saveTutorial(
                                                 r.profileService.getTutorial().copy(a1c1ResultPassed = true)
                                             )

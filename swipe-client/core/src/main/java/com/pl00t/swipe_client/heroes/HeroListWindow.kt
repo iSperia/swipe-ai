@@ -120,7 +120,7 @@ class HeroListWindow(
     private suspend fun checkTutorials() {
         delay(200)
         if (!r.profileService.getTutorial().a1HeroOpened) {
-            addActor(TutorialHover(r, content.getChild(0).bounds(), UiTexts.Tutorials.Act1Hero2, HoverAction.HoverClick {
+            addActor(TutorialHover(r, content.getChild(0).bounds(), UiTexts.Tutorials.Act1Hero2, HoverAction.HoverClick(true) {
                 onHeroSelected("CHARACTER_VALERIAN")
             }))
         }

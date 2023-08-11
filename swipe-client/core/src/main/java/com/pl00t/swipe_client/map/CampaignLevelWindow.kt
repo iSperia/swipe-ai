@@ -143,7 +143,7 @@ class CampaignLevelWindow(
                 if (!tutorial.c1LevelDetailsPassed) {
                     addActor(TutorialHover(r,
                         Rectangle(190f, 10f, 100f, 110f),
-                            UiTexts.Tutorials.C1Details, HoverAction.HoverClick {
+                            UiTexts.Tutorials.C1Details, HoverAction.HoverClick(true) {
                                 KtxAsync.launch {
                                     r.profileService.saveTutorial(tutorial.copy(c1LevelDetailsPassed = true))
                                     r.battleService.createBattle(model.act, model.locationId, -1)

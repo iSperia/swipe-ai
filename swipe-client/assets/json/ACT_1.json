@@ -5,10 +5,49 @@
   },
   "levels": [
     {
+      "x": 140,
+      "y": 700,
+      "type": "CAMPAIGN",
+      "id": "c1",
+      "title": {
+        "en": "The Verdant Grove",
+        "ru": "Зелёная Роща"
+      },
+      "description": {
+        "en": "The Verdant Grove is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties. Prince Valerian begins his journey in the Verdant Grove to seek the counsel of the wise Tree Elders. These ancient beings possess immense knowledge about the balance and harmony of the realms. Valerian hopes to gain their insights on the imminent threat and how he can restore peace.",
+        "ru": "Зеленая роща — пышный и очаровательный лес, расположенный в самом сердце Королевства Гармонии. Его древние деревья и яркая флора славятся своими целебными свойствами. Принц Валериан начинает свое путешествие в Зеленой роще, чтобы обратиться за советом к мудрым старейшинам деревьев. Эти древние существа обладают огромными знаниями о балансе и гармонии миров. Валериан надеется узнать их мнение о надвигающейся угрозе и о том, как он может восстановить мир."
+      },
+      "background": "groves",
+      "monsters": [
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 1
+          }
+        ]
+      ],
+      "freeReward": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 500,
+            "type": "ETHERIUM_COIN"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "SCROLL_OF_WISDOM"
+          }
+        }
+      ]
+    },
+    {
       "x": 70,
       "y": 656,
       "type": "CAMPAIGN",
-      "id": "c1",
+      "id": "c1_5",
       "title": {
         "en": "The Verdant Grove",
         "ru": "Зелёная Роща"
@@ -37,7 +76,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 2,
+            "amount": 1,
             "type": "SCROLL_OF_WISDOM"
           }
         },
@@ -2224,6 +2263,10 @@
   "links": [
     {
       "n1": "c1",
+      "n2": "c1_5"
+    },
+    {
+      "n1": "c1_5",
       "n2": "c2"
     },
     {

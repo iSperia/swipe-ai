@@ -72,9 +72,11 @@ data class LevelTierUnlocked(
 
 data class TutorialState(
     val acti1IntroPassed: Boolean = false,
+    val act1c1_15IntroPassed: Boolean = false,
     val c1LevelDetailsPassed: Boolean = false,
     val c1BattleIntroPassed: Boolean = false,
     val a1c1ResultPassed: Boolean = false,
+    val c2LevelDetailsPasses: Boolean = false,
     val a1HeroOpened: Boolean = false,
     val battleSigilOfRenewalPassed: Boolean = false,
     val battleWeaknessPassed: Boolean = false,

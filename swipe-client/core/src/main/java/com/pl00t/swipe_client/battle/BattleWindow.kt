@@ -654,28 +654,28 @@ class BattleWindow(
     private suspend fun checkTutorials() {
         if (!r.profileService.getTutorial().c1BattleIntroPassed) {
             ignoreSwipe = true
-            addActor(TutorialHover(r, locationGroup.bounds(), UiTexts.Tutorials.A1C1.T1, HoverAction.HoverClick {
+            addActor(TutorialHover(r, locationGroup.bounds(), UiTexts.Tutorials.A1C1.T1, HoverAction.HoverClick(false) {
                 val characterActor = unitsGroup.findActor<UnitActor>("0")
-                addActor(TutorialHover(r, characterActor.bounds(), UiTexts.Tutorials.A1C1.T2, HoverAction.HoverClick {
-                addActor(TutorialHover(r, characterActor.healthBar.bounds(), UiTexts.Tutorials.A1C1.T3, HoverAction.HoverClick {
-                addActor(TutorialHover(r, unitsGroup.findActor<UnitActor>("1").bounds().apply { x -= width }, UiTexts.Tutorials.A1C1.T4, HoverAction.HoverClick {
-                addActor(TutorialHover(r, tileBackgroundsGroup.bounds(), UiTexts.Tutorials.A1C1.T5, HoverAction.HoverClick {
-                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(0).bounds(), UiTexts.Tutorials.A1C1.T6, HoverAction.HoverClick {
-                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(2).bounds(), UiTexts.Tutorials.A1C1.T7, HoverAction.HoverClick {
-                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(3).bounds(), UiTexts.Tutorials.A1C1.T8, HoverAction.HoverClick {
+                addActor(TutorialHover(r, characterActor.bounds(), UiTexts.Tutorials.A1C1.T2, HoverAction.HoverClick(false) {
+                addActor(TutorialHover(r, characterActor.healthBar.bounds(), UiTexts.Tutorials.A1C1.T3, HoverAction.HoverClick(false) {
+                addActor(TutorialHover(r, unitsGroup.findActor<UnitActor>("1").bounds().apply { x -= width }, UiTexts.Tutorials.A1C1.T4, HoverAction.HoverClick(false) {
+                addActor(TutorialHover(r, tileBackgroundsGroup.bounds(), UiTexts.Tutorials.A1C1.T5, HoverAction.HoverClick(false) {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(0).bounds(), UiTexts.Tutorials.A1C1.T6, HoverAction.HoverClick(false) {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(2).bounds(), UiTexts.Tutorials.A1C1.T7, HoverAction.HoverClick(false) {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(3).bounds(), UiTexts.Tutorials.A1C1.T8, HoverAction.HoverClick(false) {
                 addActor(TutorialHover(r, tileBackgroundsGroup.bounds(), UiTexts.Tutorials.A1C1.T9, HoverAction.HoverSwipe(0, 1) {
                 ignoreSwipe = false; processSwipe(0, 1); ignoreSwipe = true
                 KtxAsync.launch {
                 delay(500)
-                addActor(TutorialHover(r, tileBackgroundsGroup.bounds(), UiTexts.Tutorials.A1C1.T10, HoverAction.HoverClick {
-                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(4).bounds(), UiTexts.Tutorials.A1C1.T11, HoverAction.HoverClick {
-                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(0).bounds().apply { width *= 3 }, UiTexts.Tutorials.A1C1.T12, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tileBackgroundsGroup.bounds(), UiTexts.Tutorials.A1C1.T10, HoverAction.HoverClick(false) {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(4).bounds(), UiTexts.Tutorials.A1C1.T11, HoverAction.HoverClick(false) {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].getChild(0).bounds().apply { width *= 3 }, UiTexts.Tutorials.A1C1.T12, HoverAction.HoverClick(false) {
                 addActor(TutorialHover(r, tileBackgroundsGroup.bounds(), UiTexts.Tutorials.A1C1.T13, HoverAction.HoverSwipe(-1, 0) {
                 ignoreSwipe = false; processSwipe(-1, 0); ignoreSwipe = true
                 KtxAsync.launch {
                 delay(500)
                 addActor(
-                TutorialHover(r, unitsGroup.findActor<UnitActor>("1").bounds().apply { x -= width }, UiTexts.Tutorials.A1C1.T14, HoverAction.HoverClick {
+                TutorialHover(r, unitsGroup.findActor<UnitActor>("1").bounds().apply { x -= width }, UiTexts.Tutorials.A1C1.T14, HoverAction.HoverClick(false) {
                     ignoreSwipe = false
                     KtxAsync.launch { r.profileService.saveTutorial(r.profileService.getTutorial().copy(c1BattleIntroPassed = true)) }
                 }))}}))}))}))}))}}))}))}))}))}))}))}))}))
@@ -687,15 +687,15 @@ class BattleWindow(
         KtxAsync.launch {
             if (event.tile.skin == "VALERIAN_SIGIL_OF_RENEWAL_BG" && !r.profileService.getTutorial().battleSigilOfRenewalPassed) {
                 r.profileService.saveTutorial(r.profileService.getTutorial().copy(battleSigilOfRenewalPassed = true))
-                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_BACKGROUND].findActor<Actor>(event.tile.id.toString()).bounds(), UiTexts.Tutorials.Battle.SigilOfRenewal, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_BACKGROUND].findActor<Actor>(event.tile.id.toString()).bounds(), UiTexts.Tutorials.Battle.SigilOfRenewal, HoverAction.HoverClick(false) {
                 }))
             } else if (event.tile.skin == "COMMON_WEAKNESS" && !r.profileService.getTutorial().battleWeaknessPassed) {
                 r.profileService.saveTutorial(r.profileService.getTutorial().copy(battleWeaknessPassed = true))
-                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_BACKGROUND].findActor<Actor>(event.tile.id.toString()).bounds(), UiTexts.Tutorials.Battle.Weakness, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_BACKGROUND].findActor<Actor>(event.tile.id.toString()).bounds(), UiTexts.Tutorials.Battle.Weakness, HoverAction.HoverClick(false) {
                 }))
             } else if (event.tile.skin == "COMMON_POISON" && !r.profileService.getTutorial().battlePoisonPassed) {
                 r.profileService.saveTutorial(r.profileService.getTutorial().copy(battlePoisonPassed = true))
-                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].findActor<Actor>(event.tile.id.toString()).bounds(), UiTexts.Tutorials.Battle.Poison, HoverAction.HoverClick {
+                addActor(TutorialHover(r, tilesGroup[SbTile.LAYER_TILE].findActor<Actor>(event.tile.id.toString()).bounds(), UiTexts.Tutorials.Battle.Poison, HoverAction.HoverClick(false) {
                 }))
             }
         }
