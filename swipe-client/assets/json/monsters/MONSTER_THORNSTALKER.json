@@ -8,7 +8,6 @@
     "en": "Deep within the enchanted groves, the Thornstalkers roam with their sinewy forms and razor-sharp thorns. These elusive creatures embody the untamed spirit of the forest, blending seamlessly with the verdant surroundings. They strike swiftly and silently, relying on their natural camouflage to ambush unsuspecting prey. Legends whisper of their ability to communicate with the ancient trees and harness the raw power of nature. Caution is advised when venturing into their territory, for the Thornstalkers are fierce protectors of the groves and will not hesitate to defend their realm with untamed ferocity.",
     "ru": "Глубоко в заколдованных рощах бродят Тернистые охотники со своими жилистыми телами и острыми как бритва шипами. Эти неуловимые существа воплощают дикий дух леса, органично вписываясь в зеленую среду. Они атакуют быстро и бесшумно, полагаясь на свой естественный камуфляж, чтобы устроить засаду на ничего не подозревающую добычу. Легенды шепчут об их способности общаться с древними деревьями и использовать грубую силу природы. Рекомендуется проявлять осторожность, отправляясь на их территорию, потому что Тернистые охотники — свирепые защитники рощ и без колебаний будут защищать свое королевство с неукротимой яростью"
   },
-  "baseHealth": 250,
   "attributes": {
     "mind": 25,
     "spirit": 25,
@@ -47,7 +46,7 @@
     "common.poison"
   ],
   "balance": {
-    "base_health": 190,
+    "base_health": 350,
     "luck": 5,
     "ult": 10,
     "ult_max": 1000,
@@ -61,9 +60,9 @@
     },
     "pa_base": 30,
     "pa_scale": 10,
-    "vb_base": 10,
+    "vb_base": 8,
     "vb_scale": 10,
-    "rg_base": 30,
+    "rg_base": 50,
     "rg_scale": 10
   },
   "affixes": {

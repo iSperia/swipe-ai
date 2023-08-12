@@ -4,33 +4,82 @@
       "act": "ACT_1",
       "level": "c1",
       "characterAttributes": {"mind": 1, "spirit": 1, "body": 1},
+      "characterItems": [],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 1,
-      "targetWinrate": 0.95
+      "targetWinrate": 1
     },
     {
       "act": "ACT_1",
       "level": "c2",
-      "characterAttributes": {"mind": 2, "spirit": 2, "body": 2},
+      "characterAttributes": {"mind": 1, "spirit": 1, "body": 1},
+      "characterItems": [],
       "characterSkin": "CHARACTER_VALERIAN",
-      "characterLevel": 2,
-      "targetWinrate": 0.6
+      "characterLevel": 1,
+      "targetWinrate": 0.75
     },
     {
       "act": "ACT_1",
       "level": "c3",
-      "characterAttributes": {"mind": 3, "spirit": 3, "body": 3},
+      "characterAttributes": {"mind": 2, "spirit": 2, "body": 2},
+      "characterItems": [],
       "characterSkin": "CHARACTER_VALERIAN",
-      "characterLevel": 3,
-      "targetWinrate": 0.3
+      "characterLevel": 2,
+      "targetWinrate": 0.5
     },
     {
       "act": "ACT_1",
       "level": "c4",
+      "characterAttributes": {"mind": 2, "spirit": 2, "body": 2},
+      "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 1}],
+      "characterSkin": "CHARACTER_VALERIAN",
+      "characterLevel": 2,
+      "targetWinrate": 0.25
+    },
+    {
+      "act": "ACT_1",
+      "level": "c5",
+      "characterAttributes": {"mind": 3, "spirit": 3, "body": 3},
+      "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 1},{"skin": "HELM_OF_IRON_WILL", "rarity": 0, "level": 1}],
+      "characterSkin": "CHARACTER_VALERIAN",
+      "characterLevel": 3,
+      "targetWinrate": 0.25
+    },
+    {
+      "act": "ACT_1",
+      "level": "c6",
       "characterAttributes": {"mind": 4, "spirit": 4, "body": 4},
+      "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 1},{"skin": "HELM_OF_IRON_WILL", "rarity": 0, "level": 1}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 4,
       "targetWinrate": 0.25
+    },
+    {
+      "act": "ACT_1",
+      "level": "c7",
+      "characterAttributes": {"mind": 5, "spirit": 5, "body": 5},
+      "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 2},{"skin": "HELM_OF_IRON_WILL", "rarity": 0, "level": 2}],
+      "characterSkin": "CHARACTER_VALERIAN",
+      "characterLevel":5,
+      "targetWinrate": 0.4
+    },
+    {
+      "act": "ACT_1",
+      "level": "c8",
+      "characterAttributes": {"mind": 3, "spirit": 6, "body": 6},
+      "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 2},{"skin": "HELM_OF_IRON_WILL", "rarity": 0, "level": 2}],
+      "characterSkin": "CHARACTER_VALERIAN",
+      "characterLevel":5,
+      "targetWinrate": 0.2
+    },
+    {
+      "act": "ACT_1",
+      "level": "c9",
+      "characterAttributes": {"mind": 4, "spirit": 7, "body": 8},
+      "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 3},{"skin": "HELM_OF_IRON_WILL", "rarity": 0, "level": 2}],
+      "characterSkin": "CHARACTER_VALERIAN",
+      "characterLevel":6,
+      "targetWinrate": 0.1
     }
   ]
 }

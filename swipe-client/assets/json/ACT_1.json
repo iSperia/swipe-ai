@@ -29,13 +29,6 @@
             "amount": 500,
             "type": "ETHERIUM_COIN"
           }
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "SCROLL_OF_WISDOM"
-          }
         }
       ]
     },
@@ -54,6 +47,14 @@
           {
             "skin": "MONSTER_THORNED_CRAWLER",
             "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 1
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 1
           }
         ]
       ],
@@ -61,7 +62,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 500,
+            "amount": 1000,
             "type": "ETHERIUM_COIN"
           }
         },
@@ -88,7 +89,29 @@
         [
           {
             "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 1
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 3
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 3
           }
         ]
       ],
@@ -96,7 +119,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 500,
+            "amount": 1500,
             "type": "ETHERIUM_COIN"
           }
         },
@@ -106,6 +129,11 @@
             "amount": 1,
             "type": "SCROLL_OF_WISDOM"
           }
+        },
+        {
+          "type": "item",
+          "skin": "RING_OF_ILLUMINATION",
+          "rarity": 0
         }
       ]
     },
@@ -123,7 +151,43 @@
         [
           {
             "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 1
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 3
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 2
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 2
           }
         ]
       ],
@@ -131,16 +195,21 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 500,
+            "amount": 2000,
             "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
+            "amount": 2,
             "type": "SCROLL_OF_WISDOM"
           }
+        },
+        {
+          "type": "item",
+          "skin": "HELM_OF_IRON_WILL",
+          "rarity": 0
         }
       ]
     },
@@ -157,8 +226,44 @@
       "monsters": [
         [
           {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 3
+          },
+          {
             "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 1
+            "level": 3
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 3
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 3
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 3
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 3
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 3
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 3
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 3
           }
         ]
       ],
@@ -166,15 +271,22 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 500,
+            "amount": 2500,
             "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
+            "amount": 3,
             "type": "SCROLL_OF_WISDOM"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "TOME_OF_ENLIGHTMENT"
           }
         }
       ]
@@ -192,8 +304,40 @@
       "monsters": [
         [
           {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 4
+          },
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 4
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 4
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 4
+          },
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 4
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 4
+          },
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 4
+          },
+          {
             "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 1
+            "level": 4
           }
         ]
       ],
@@ -201,7 +345,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 500,
+            "amount": 3000,
             "type": "ETHERIUM_COIN"
           }
         },
@@ -211,12 +355,26 @@
             "amount": 1,
             "type": "SCROLL_OF_WISDOM"
           }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "TOME_OF_ENLIGHTMENT"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 2,
+            "type": "INFUSION_ORB"
+          }
         }
       ]
     },
     {
-      "x": 642,
-      "y": 593,
+      "x": 740,
+      "y": 343,
       "type": "CAMPAIGN",
       "id": "c7",
       "title": {
@@ -227,8 +385,44 @@
       "monsters": [
         [
           {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 5
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 5
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 5
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 5
+          },
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 5
+          },
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 5
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 5
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 5
+          },
+          {
             "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 1
+            "level": 5
           }
         ]
       ],
@@ -236,7 +430,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 500,
+            "amount": 3500,
             "type": "ETHERIUM_COIN"
           }
         },
@@ -244,14 +438,35 @@
           "type": "currency",
           "currency": {
             "amount": 1,
+            "type": "ELIXIR_CITRINE"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_AMBER"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 2,
+            "type": "INFUSION_ORB"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 2,
             "type": "SCROLL_OF_WISDOM"
           }
         }
       ]
     },
     {
-      "x": 775,
-      "y": 477,
+      "x": 722,
+      "y": 146,
       "type": "CAMPAIGN",
       "id": "c8",
       "title": {
@@ -263,7 +478,57 @@
         [
           {
             "skin": "MONSTER_THORNED_CRAWLER",
-            "level": 1
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 6
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 6
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_THORNSTALKER",
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 6
+          }
+        ],
+        [
+          {
+            "skin": "MONSTER_CORRUPTED_DRYAD",
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 6
+          },
+          {
+            "skin": "MONSTER_THORNED_CRAWLER",
+            "level": 6
           }
         ]
       ],
@@ -271,7 +536,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 500,
+            "amount": 4000,
             "type": "ETHERIUM_COIN"
           }
         },
@@ -279,14 +544,35 @@
           "type": "currency",
           "currency": {
             "amount": 1,
+            "type": "TOME_OF_ENLIGHTMENT"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 2,
             "type": "SCROLL_OF_WISDOM"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 1,
+            "type": "ELIXIR_CITRINE"
+          }
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 4,
+            "type": "INFUSION_ORB"
           }
         }
       ]
     },
     {
-      "x": 615,
-      "y": 205,
+      "x": 420,
+      "y": 200,
       "type": "BOSS",
       "id": "c9",
       "title": {
@@ -303,7 +589,7 @@
         [
           {
             "skin": "MONSTER_THALENDROS",
-            "level": 4
+            "level": 6
           }
         ]
       ],
@@ -311,30 +597,26 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 2500,
+            "amount": 4500,
             "type": "ETHERIUM_COIN"
           }
         },
         {
           "type": "currency",
           "currency": {
-            "amount": 4,
-            "type": "SCROLL_OF_WISDOM"
+            "amount": 2,
+            "type": "TOME_OF_ENLIGHTMENT"
           }
         },
         {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_LAPIS"
-          }
+          "type": "item",
+          "skin": "FROSTGUARD_GAUNTLETS",
+          "rarity": 0
         },
         {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
-            "type": "ELIXIR_CITRINE"
-          }
+          "type": "item",
+          "skin": "FLAMEHEART_BELT",
+          "rarity": 0
         }
       ],
       "tiers": [
@@ -342,22 +624,25 @@
           "monster_pool": [
             {
               "skin": "MONSTER_THALENDROS",
-              "level": 5,
+              "level": 10,
               "weight": 30
             }
           ],
           "rewards": [
             {
-              "type": "item",
-              "skin": "VERDANT_HEART",
-              "rarity": 3,
-              "weight": 5
+              "type": "currency",
+              "currency": {
+                "type": "SCROLL_OF_WISDOM",
+                "amount": 0
+              },
+              "rarity": 0,
+              "weight": 400
             },
             {
               "type": "currency",
               "currency": {
-                "type": "SCROLL_OF_WISDOM",
-                "amount": 1
+                "type": "ELIXIR_LAPIS",
+                "amount": 0
               },
               "rarity": 0,
               "weight": 100
@@ -365,29 +650,11 @@
             {
               "type": "currency",
               "currency": {
-                "type": "TOME_OF_ENLIGHTMENT",
-                "amount": 1
-              },
-              "rarity": 1,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "type": "ELIXIR_LAPIS",
-                "amount": 1
-              },
-              "rarity": 0,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
                 "type": "ELIXIR_CITRINE",
-                "amount": 1
+                "amount": 0
               },
               "rarity": 0,
-              "weight": 50
+              "weight": 100
             }
           ]
         },
@@ -530,13 +797,13 @@
       ]
     },
     {
-      "x": 597,
-      "y": 860,
+      "x": 458,
+      "y": 799,
       "type": "RAID",
       "id": "c10",
       "title": {
-        "en": "The Verdant Grove: Raid",
-        "ru": "Зелёная Роща: Рейд"
+        "en": "The Verdant Groves: Raid",
+        "ru": "Зелёные Рощи: Рейд"
       },
       "background": "groves2",
       "monsters": [],
@@ -545,48 +812,48 @@
           "monster_pool": [
             {
               "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 3,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
               "level": 4,
-              "weight": 60
+              "weight": 20
             },
             {
               "skin": "MONSTER_THORNED_CRAWLER",
               "level": 5,
-              "weight": 10
+              "weight": 60
             },
             {
-              "skin": "MONSTER_THORNSTALKER",
-              "level": 3,
-              "weight": 30
+              "skin": "MONSTER_THORNED_CRAWLER",
+              "level": 6,
+              "weight": 20
             },
             {
               "skin": "MONSTER_THORNSTALKER",
               "level": 4,
+              "weight": 20
+            },
+            {
+              "skin": "MONSTER_THORNSTALKER",
+              "level": 5,
               "weight": 60
             },
             {
               "skin": "MONSTER_THORNSTALKER",
               "level": 5,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_CORRUPTED_DRYAD",
-              "level": 3,
-              "weight": 40
+              "weight": 20
             },
             {
               "skin": "MONSTER_CORRUPTED_DRYAD",
               "level": 4,
-              "weight": 50
+              "weight": 20
             },
             {
               "skin": "MONSTER_CORRUPTED_DRYAD",
               "level": 5,
-              "weight": 10
+              "weight": 60
+            },
+            {
+              "skin": "MONSTER_CORRUPTED_DRYAD",
+              "level": 6,
+              "weight": 20
             }
           ],
           "rewards": [
@@ -594,25 +861,25 @@
               "type": "item",
               "skin": "HELM_OF_IRON_WILL",
               "rarity": 0,
-              "weight": 50
+              "weight": 90
             },
             {
               "type": "item",
               "skin": "HELM_OF_IRON_WILL",
               "rarity": 1,
-              "weight": 50
+              "weight": 10
             },
             {
               "type": "item",
               "skin": "RING_OF_ILLUMINATION",
               "rarity": 0,
-              "weight": 50
+              "weight": 90
             },
             {
               "type": "item",
               "skin": "RING_OF_ILLUMINATION",
               "rarity": 1,
-              "weight": 50
+              "weight": 10
             },
             {
               "type": "currency",
@@ -620,189 +887,7 @@
                 "amount": 1,
                 "type": "INFUSION_ORB"
               },
-              "weight": 100
-            }
-          ]
-        },
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 9,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 10,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 11,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_THORNSTALKER",
-              "level": 9,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_THORNSTALKER",
-              "level": 10,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_THORNSTALKER",
-              "level": 11,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_CORRUPTED_DRYAD",
-              "level": 9,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_CORRUPTED_DRYAD",
-              "level": 10,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_CORRUPTED_DRYAD",
-              "level": 11,
-              "weight": 10
-            }
-          ],
-          "rewards": [
-            {
-              "type": "item",
-              "skin": "HELM_OF_IRON_WILL",
-              "rarity": 1,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "HELM_OF_IRON_WILL",
-              "rarity": 2,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "RING_OF_ILLUMINATION",
-              "rarity": 1,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "RING_OF_ILLUMINATION",
-              "rarity": 2,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_SHARD"
-              },
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_CRYSTAL"
-              },
-              "weight": 50
-            }
-          ]
-        },
-        {
-          "monster_pool": [
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 18,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 20,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_THORNED_CRAWLER",
-              "level": 22,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_THORNSTALKER",
-              "level": 18,
-              "weight": 30
-            },
-            {
-              "skin": "MONSTER_THORNSTALKER",
-              "level": 20,
-              "weight": 60
-            },
-            {
-              "skin": "MONSTER_THORNSTALKER",
-              "level": 22,
-              "weight": 10
-            },
-            {
-              "skin": "MONSTER_CORRUPTED_DRYAD",
-              "level": 18,
-              "weight": 40
-            },
-            {
-              "skin": "MONSTER_CORRUPTED_DRYAD",
-              "level": 20,
-              "weight": 50
-            },
-            {
-              "skin": "MONSTER_CORRUPTED_DRYAD",
-              "level": 22,
-              "weight": 10
-            }
-          ],
-          "rewards": [
-            {
-              "type": "item",
-              "skin": "HELM_OF_IRON_WILL",
-              "rarity": 2,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "HELM_OF_IRON_WILL",
-              "rarity": 3,
-              "weight": 50
-            },
-            {
-              "type": "item",
-              "skin": "RING_OF_ILLUMINATION",
-              "rarity": 2,
-              "weight": 25
-            },
-            {
-              "type": "item",
-              "skin": "RING_OF_ILLUMINATION",
-              "rarity": 3,
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "INFUSION_CRYSTAL"
-              },
-              "weight": 50
-            },
-            {
-              "type": "currency",
-              "currency": {
-                "amount": 1,
-                "type": "ASCENDANT_ESSENCE"
-              },
-              "weight": 50
+              "weight": 300
             }
           ]
         }
@@ -848,4 +933,3 @@
     }
   ]
 }
-

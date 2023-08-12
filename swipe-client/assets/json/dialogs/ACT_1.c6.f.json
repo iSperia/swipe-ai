@@ -1,0 +1,60 @@
+{
+  "replicas": [
+    {
+      "skin": "MONSTER_CORRUPTED_DRYAD",
+      "text": {
+        "en": "No... we are defeated...",
+        "ru": "Нет... мы побеждены..."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Tell us, where is the shard?",
+        "ru": "Скажи нам, где осколок?"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "MONSTER_CORRUPTED_DRYAD",
+      "text": {
+        "en": "Deep within the heart of these groves, beneath the roots of the Eternal Oak. But beware, Thalendros guards it fiercely.",
+        "ru": "Глубоко в сердце этих рощ, под корнями Вечного Дуба. Но будьте осторожны, Талендрос яростно охраняет его."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Thalendros... who is he?",
+        "ru": "Талендрос... кто он?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_CORRUPTED_DRYAD",
+      "text": {
+        "en": "A force born of darkness, once a guardian of these lands. Now corrupted, he seeks to harness the shard's power for his own malevolent purposes.",
+        "ru": "Сила, рожденная тьмой, когда-то хранившая эти земли. Оскверненный, он пытается использовать силу осколка в своих злонамеренных целях."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "We will face him, no matter the danger. This threat must be ended.",
+        "ru": "Мы встретимся с ним, несмотря ни на что. Эта угроза должна быть устранена."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Let's press on, Valerian. The shard must be reclaimed, and these groves must be healed.",
+        "ru": "Давай, Валериан. Осколок должен быть восстановлен, и эти рощи должны быть исцелены."
+      },
+      "side": "right"
+    }
+  ]
+}

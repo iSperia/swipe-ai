@@ -8,17 +8,17 @@
     "en": "Once the graceful guardians of the forest, the Corrupted Dryads now bear a twisted visage, consumed by darkness and despair. Once embodying nature's harmony and beauty, they have succumbed to corruption, their essence tainted by an unknown malevolence. Their once melodious voices now echo with haunting wails, and their graceful movements have been replaced by unsettling contortions. Beware their deceitful allure, for they will stop at nothing to lure unsuspecting wanderers into their sinister grasp. Redemption seems but a distant memory as they cling desperately to their fading connection with the natural world.",
     "ru": "Когда-то грациозные стражи леса, оскверненные дриады теперь имеют искаженное лицо, поглощенное тьмой и отчаянием. Когда-то воплощая гармонию и красоту природы, они поддались порче, их сущность испорчена неизвестной злобой. Их когда-то мелодичные голоса теперь перекликаются с навязчивым воплем, а изящные движения сменились тревожными движениями. Остерегайтесь их обманчивого очарования, ибо они не остановятся ни перед чем, чтобы заманить ничего не подозревающих странников в свои зловещие объятия. Искупление кажется далеким воспоминанием, поскольку они отчаянно цепляются за свою угасающую связь с миром природы."
   },
-  "attributes": {"mind":  20, "spirit":  40, "body":  40},
+  "attributes": {"mind":  10, "spirit":  50, "body":  40},
   "triggers": [
     "corrupted_dryad.arboreal_fangs", "corrupted_dryad.vile_siphon", "corrupted_dryad.shadowed_annihilation"
   ],
   "tiles": [
-    { "weight": 4, "skin": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+    { "weight": 4, "skin": "CORRUPTED_DRYAD_ARBOREAL_FANGS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
     { "weight": 4, "skin": "CORRUPTED_DRYAD_VILE_SIPHON", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
     { "weight": 2, "skin": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
   ],
   "balance": {
-    "base_health": 115,
+    "base_health": 210,
     "luck": 5,
     "ult": 10,
     "ult_max": 1000,
@@ -32,11 +32,11 @@
     },
     "af_base": 25,
     "af_scale": 10,
-    "vs_dmg_base": 20,
+    "vs_dmg_base": 35,
     "vs_dmg_scale": 10,
-    "vs_heal_base": 20,
+    "vs_heal_base": 25,
     "vs_heal_scale": 10,
-    "sa_base": 5,
+    "sa_base": 12,
     "sa_scale": 10,
     "sa_tiles": 5
   },

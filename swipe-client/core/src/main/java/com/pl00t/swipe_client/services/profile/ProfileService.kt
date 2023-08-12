@@ -95,6 +95,80 @@ interface ProfileService {
     )
 }
 
+suspend fun generateCharacter(monsterService: MonsterService, level: Int, skin: String, attributes: CharacterAttributes, affixes: List<ItemAffix>): FrontMonsterConfiguration {
+    val configFile = monsterService.getMonster(skin) ?: throw IllegalArgumentException("Did not find $skin monster")
+
+    val hpPercent = affixes.sumOf { if (it.affix == ItemAffixType.PERCENT_HP) it.value.toDouble() else 0.0 }.toFloat()
+    val hpFlat = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_HP) it.value.toDouble() else 0.0 }.toFloat()
+    val dmgPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val resPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val resCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val resFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val resDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val resLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val resShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val attrBody = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_BODY) it.value.toDouble() else 0.0 }.toInt()
+    val attrSpirit = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_SPIRIT) it.value.toDouble() else 0.0 }.toInt()
+    val attrMind = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_MIND) it.value.toDouble() else 0.0 }.toInt()
+    val luckFlat = affixes.sumOf { if (it.affix == ItemAffixType.LUCK_FLAT) it.value.toDouble() else 0.0 }.toFloat()
+    val ultFlat = affixes.sumOf { if (it.affix == ItemAffixType.ULT_FLAT) it.value.toDouble() else 0.0 }.toFloat()
+    val ultPrefillPercent = affixes.sumOf { if (it.affix == ItemAffixType.ULT_PREFILL) it.value.toDouble() else 0.0 }.toFloat()
+
+    val attributes = attributes.copy(
+        body = attributes.body + attrBody,
+        spirit = attributes.spirit + attrSpirit,
+        mind = attributes.mind + attrMind,
+    )
+
+    val abilities = when (skin) {
+        MonsterService.CHARACTER_VALERIAN -> provideValerianAbilities(configFile.balance, attributes)
+        MonsterService.CHARACTER_SAFFRON -> provideSaffronAbilities(configFile.balance, attributes)
+
+        else -> throw IllegalArgumentException("Can't create monster $skin")
+    }
+
+    val health = (hpFlat + configFile.balance.intAttribute("base_health") * (1f + 0.01f * hpPercent + 0.1f * attributes.body)).toInt()
+    val ult = ((configFile.balance.intAttribute("ult") + ultFlat) * (1f + 0.05f * attributes.mind)).toInt()
+    val luck = ((configFile.balance.intAttribute("luck") + luckFlat) * (1f + 0.1f * attributes.spirit))
+
+    return FrontMonsterConfiguration(
+        skin = skin,
+        name = configFile.name,
+        level = level,
+        attributes = attributes,
+        resist = configFile.balance.getAsJsonObject("resist").let { r ->
+            SbElemental(
+                phys = r.floatAttribute("phys") + resPhys,
+                dark = r.floatAttribute("dark") + resDark,
+                light = r.floatAttribute("light") + resLight,
+                shock = r.floatAttribute("shock") + resShock,
+                fire = r.floatAttribute("fire") + resFire,
+                cold = r.floatAttribute("cold") + resCold,
+            )
+        },
+        damage = SbElemental(
+            phys = dmgPhys,
+            dark = dmgDark,
+            light = dmgLight,
+            shock = dmgShock,
+            fire = dmgFire,
+            cold = dmgCold
+        ),
+        abilities = abilities,
+        lore = configFile.lore,
+        health = health,
+        luck = luck,
+        ult = ult,
+        ultMax = configFile.balance.intAttribute("ult_max"),
+        ultPrefillPercent = ultPrefillPercent.toInt()
+    )
+}
+
 data class FrontItemEntryModel(
     val skin: String,
     val amount: Int,
@@ -145,7 +219,7 @@ data class CurrenciesMetadata(
     val currencies: List<CurrencyMetadata>
 )
 
-val DEBUG = true
+val DEBUG = false
 
 class ProfileServiceImpl(
     val levelService: LevelService,
@@ -173,6 +247,7 @@ class ProfileServiceImpl(
             if (DEBUG) {
                 SwipeProfile(
                     inventoryUnlocked = true,
+                    partyUnlocked = true,
                     balances = listOf(CurrencyBalance(SwipeCurrency.TOME_OF_ENLIGHTMENT, 10), CurrencyBalance(SwipeCurrency.SCROLL_OF_WISDOM, 100),
                         CurrencyBalance(SwipeCurrency.GRIMOIRE_OF_OMNISCENCE, 100), CurrencyBalance(SwipeCurrency.INFUSION_ORB, 100),
                         CurrencyBalance(SwipeCurrency.INFUSION_SHARD, 100), CurrencyBalance(SwipeCurrency.INFUSION_CRYSTAL, 100),
@@ -201,7 +276,7 @@ class ProfileServiceImpl(
                     items = runBlocking {
                         listOf(
                             generateItem("HELM_OF_IRON_WILL", 4),
-                            generateItem("RING_OF_ILLUMINATION", 4),
+                            generateItem("RING_OF_ILLUMINATION", 0),
                             generateItem("FROSTGUARD_GAUNTLETS", 4),
                             generateItem("FLAMEHEART_BELT", 4),
                             generateItem("ENCHANTED_BAND", 4),
@@ -229,6 +304,7 @@ class ProfileServiceImpl(
                         CurrencyBalance(SwipeCurrency.ARCANUM, 600)
                     ),
                     inventoryUnlocked = true,
+                    partyUnlocked = true,
                     actProgress = listOf(
                         ActProgress(
                             SwipeAct.ACT_1,
@@ -267,21 +343,20 @@ class ProfileServiceImpl(
         profile = profile.copy(lastArcanumReplenished = profile.lastArcanumReplenished + hoursPassed * period)
 
         GlobalScope.launch {
-            if (hoursPassed > 0) {
+            if (hoursPassed > 0 && newArcanum > oldArcanum) {
                 arcanumAddBalanceFlow.emit(newArcanum - oldArcanum)
             }
 
+            delay(period - timePassed % period)
+
             while (true) {
                 val now = System.currentTimeMillis()
-                val timePassed = now - profile.lastArcanumReplenished
-                val delta = period - (timePassed % (period))
-                println("Waiting $delta for replenish")
-                delay(delta)
+                delay(period)
                 val balanceDelta = min(profile.getBalance(SwipeCurrency.ARCANUM)+25,600) - profile.getBalance(SwipeCurrency.ARCANUM)
-                if (delta > 0) {
+                if (balanceDelta > 0) {
                     arcanumAddBalanceFlow.emit(balanceDelta)
+                    profile = profile.addBalance(SwipeCurrency.ARCANUM, balanceDelta)
                 }
-                profile = profile.addBalance(SwipeCurrency.ARCANUM, balanceDelta)
                 profile = profile.copy(lastArcanumReplenished = now)
                 saveProfile()
             }
@@ -296,81 +371,15 @@ class ProfileServiceImpl(
     override suspend fun createActiveCharacter() = createCharacter(getActiveCharacter())
 
     override suspend fun createCharacter(skin: String): FrontMonsterConfiguration {
-        profile.characters.firstOrNull { it.skin == skin }?.let { character ->
-            val configFile = monsterService.getMonster(skin) ?: throw IllegalArgumentException("Did not find $skin monster")
+        return profile.characters.firstOrNull { it.skin == skin }?.let { character ->
 
-            val affixes = profile.items.filter { it.equippedBy == character.skin }.flatMap { it.affixes + it.implicit }
-
-            val hpPercent = affixes.sumOf { if (it.affix == ItemAffixType.PERCENT_HP) it.value.toDouble() else 0.0 }.toFloat()
-            val hpFlat = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_HP) it.value.toDouble() else 0.0 }.toFloat()
-            val dmgPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val dmgCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val dmgFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val dmgDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val dmgLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val dmgShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val resPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val resCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val resFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val resDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val resLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val resShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-            val attrBody = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_BODY) it.value.toDouble() else 0.0 }.toInt()
-            val attrSpirit = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_SPIRIT) it.value.toDouble() else 0.0 }.toInt()
-            val attrMind = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_MIND) it.value.toDouble() else 0.0 }.toInt()
-            val luckFlat = affixes.sumOf { if (it.affix == ItemAffixType.LUCK_FLAT) it.value.toDouble() else 0.0 }.toFloat()
-            val ultFlat = affixes.sumOf { if (it.affix == ItemAffixType.ULT_FLAT) it.value.toDouble() else 0.0 }.toFloat()
-            val ultPrefillPercent = affixes.sumOf { if (it.affix == ItemAffixType.ULT_PREFILL) it.value.toDouble() else 0.0 }.toFloat()
-
-            val attributes = character.attributes.copy(
-                body = character.attributes.body + attrBody,
-                spirit = character.attributes.spirit + attrSpirit,
-                mind = character.attributes.mind + attrMind,
+            generateCharacter(
+                monsterService,
+                SwipeCharacter.getLevel(character.experience),
+                character.skin,
+                character.attributes,
+                profile.items.filter { it.equippedBy == character.skin }.flatMap { it.affixes + it.implicit }
             )
-
-            val abilities = when (skin) {
-                MonsterService.CHARACTER_VALERIAN -> provideValerianAbilities(configFile.balance, attributes)
-                MonsterService.CHARACTER_SAFFRON -> provideSaffronAbilities(configFile.balance, attributes)
-
-                else -> throw IllegalArgumentException("Can't create monster $skin")
-            }
-
-            val health = (hpFlat + configFile.balance.intAttribute("base_health") * (1f + 0.01f * hpPercent + 0.1f * attributes.body)).toInt()
-            val ult = ((configFile.balance.intAttribute("ult") + ultFlat) * (1f + 0.05f * attributes.mind)).toInt()
-            val luck = ((configFile.balance.intAttribute("luck") + luckFlat) * (1f + 0.1f * attributes.spirit))
-
-            return FrontMonsterConfiguration(
-                skin = skin,
-                name = configFile.name,
-                level = SwipeCharacter.getLevel(character.experience),
-                attributes = attributes,
-                resist = configFile.balance.getAsJsonObject("resist").let { r ->
-                    SbElemental(
-                        phys = r.floatAttribute("phys") + resPhys,
-                        dark = r.floatAttribute("dark") + resDark,
-                        light = r.floatAttribute("light") + resLight,
-                        shock = r.floatAttribute("shock") + resShock,
-                        fire = r.floatAttribute("fire") + resFire,
-                        cold = r.floatAttribute("cold") + resCold,
-                    )
-                },
-                damage = SbElemental(
-                    phys = dmgPhys,
-                    dark = dmgDark,
-                    light = dmgLight,
-                    shock = dmgShock,
-                    fire = dmgFire,
-                    cold = dmgCold
-                ),
-                abilities = abilities,
-                lore = configFile.lore,
-                health = health,
-                luck = luck,
-                ult = ult,
-                ultMax = configFile.balance.intAttribute("ult_max"),
-                ultPrefillPercent = ultPrefillPercent.toInt()
-            )
-
         } ?: throw IllegalArgumentException("No hero $skin")
     }
 
@@ -405,6 +414,9 @@ class ProfileServiceImpl(
                 pap
             }
         })
+        if (act == SwipeAct.ACT_1 && level == "c2") {
+            profile = profile.copy(partyUnlocked = true)
+        }
         saveProfile()
     }
 

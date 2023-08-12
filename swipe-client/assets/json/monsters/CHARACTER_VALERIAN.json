@@ -10,10 +10,10 @@
   },
   "attributes": {"mind":  33, "spirit":  33, "body":  34},
   "balance": {
-    "base_health": 700,
+    "base_health": 800,
     "luck": 5,
     "ult": 10,
-    "ult_max": 1000,
+    "ult_max": 800,
     "resist": {
       "phys": 0,
       "dark": 0,
@@ -27,7 +27,7 @@
     "lb_base": 30,
     "lb_scale_spirit": 10,
     "sor_tiles": 2,
-    "sor_h_base": 50,
+    "sor_h_base": 60,
     "sor_h_scale_spirit": 10,
     "dc_dmg_base": 25,
     "dc_heal_base": 25,

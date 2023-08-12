@@ -4,7 +4,7 @@ import com.game7th.items.ItemAffixType
 import kotlin.math.min
 import kotlin.random.Random
 
-class SbContext(
+data class SbContext(
     var game: SbGame,
     var balance: SbBalanceProvider,
     val triggers: List<SbTrigger>,

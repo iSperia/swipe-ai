@@ -39,6 +39,7 @@ class MapWindow(
     private lateinit var scrollPane: ScrollPane
     private lateinit var linkActor: LinkActor
     private lateinit var mapIconsGroup: Group
+    private var bottomActionPanel: BottomActionPanel? = null
     private var mapScale = 1f
     private val mapIconSize = r.height / 12f
     private val mapSmallIconSize = r.height / 15f
@@ -61,7 +62,7 @@ class MapWindow(
 
             reload()
             addWindowTitle()
-            addBottomPanel()
+
         }
     }
 
@@ -100,6 +101,8 @@ class MapWindow(
             addMapImage()
             loadMap(actModel)
 
+            addBottomPanel()
+
             checkTutorial(actModel)
         }
 
@@ -114,6 +117,7 @@ class MapWindow(
     }
 
     private suspend fun addBottomPanel() {
+        bottomActionPanel?.remove()
         val profile = r.profileService.getProfile()
         val actions = listOf(
             ActionCompositeButton(r, Action.Shop, Mode.SingleLine(UiTexts.NavShop.value(r.l)), !profile.shopUnlocked),
@@ -129,8 +133,8 @@ class MapWindow(
                 }
             },
         )
-        val bottomPanel = BottomActionPanel(r, actions, 4)
-        addActor(bottomPanel)
+        bottomActionPanel = BottomActionPanel(r, actions, 4)
+        addActor(bottomActionPanel)
     }
 
     private fun addTitle(actModel: FrontActModel) {

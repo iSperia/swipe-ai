@@ -1,0 +1,52 @@
+{
+  "replicas": [
+    {
+      "skin": "MONSTER_THALENDROS",
+      "text": {
+        "en": "So, you've come to challenge me, little mortals? Your audacity knows no bounds.",
+        "ru": "Итак, вы пришли бросить мне вызов, маленькие смертные? Ваша наглость не знает границ."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "We seek the shard that lies within these groves. Return it, and we'll spare you further conflict.",
+        "ru": "Мы ищем осколок, который лежит в этих рощах. Верните его, и мы избавим тебя от дальнейших конфликтов."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Thalendros, your corruption has spread far enough. The groves must be cleansed.",
+        "ru": "Талендрос, твоя порча распространилась достаточно далеко. Рощи должны быть очищены."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_THALENDROS",
+      "text": {
+        "en": "Ah, the arrogance of youth. You believe you can simply demand what you want?",
+        "ru": "Ах, высокомерие юности. Вы верите, что можете просто требовать то, что хотите?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "We will do whatever it takes to protect this realm from your darkness.",
+        "ru": "Мы сделаем все возможное, чтобы защитить это царство от твоей тьмы."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Prepare yourself, Thalendros. Your reign of corruption ends here!",
+        "ru": "Приготовься, Талендрос. Твое оскверненное царствование заканчивается здесь!"
+      },
+      "side": "right"
+    }
+  ]
+}

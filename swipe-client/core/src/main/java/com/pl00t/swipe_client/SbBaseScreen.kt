@@ -3,6 +3,7 @@ package com.pl00t.swipe_client
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
@@ -14,10 +15,12 @@ abstract class SbBaseScreen(
 ) : Screen {
 
     protected val root: Stage = Stage(StretchViewport(r.width, r.height))
+    protected val rootGroup = Group()
 
     lateinit var splashActor: Image
 
     override fun show() {
+        root.addActor(rootGroup)
         r.loadAtlas(Resources.core_atlas)
         r.onLoad {
             splashActor = Image(r.atlas(Resources.core_atlas).findRegion("loading")).apply {

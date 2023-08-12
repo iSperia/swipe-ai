@@ -1,0 +1,28 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Well done, Valerian. But stay vigilant, I sense more movement in the mist.",
+        "ru": "Молодец, Валериан. Но будьте бдительны, я чувствую больше движения в тумане."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "They keep coming. We need to push through, Saffron!",
+        "ru": "Они продолжают прибывать. Нам нужно прорваться, Шафран!"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Let's show them the strength of our resolve!",
+        "ru": "Давайте покажем им силу нашей решимости!"
+      },
+      "side": "right"
+    }
+  ]
+}

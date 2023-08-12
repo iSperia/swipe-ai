@@ -1,0 +1,28 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Valerian, the Misty Glade is shrouded in an eerie fog. We should proceed cautiously.",
+        "ru": "Валериан, поляна окутана жутким туманом. Мы должны действовать осторожно."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Agreed, Saffron. There's something unsettling about this place.",
+        "ru": "Согласен, Шафран. Есть что-то тревожное в этом месте."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Be prepared, the creatures here might be more tenacious. Let's stand our ground!",
+        "ru": "Будьте готовы, существа здесь могут быть более живучими. Давайте стоять на своем!"
+      },
+      "side": "right"
+    }
+  ]
+}

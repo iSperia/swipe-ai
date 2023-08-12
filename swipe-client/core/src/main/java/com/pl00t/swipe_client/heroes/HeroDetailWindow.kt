@@ -41,7 +41,7 @@ class HeroDetailWindow(
     init {
         KtxAsync.launch {
             delay(200)
-            checkTutorial()
+//            checkTutorial()
         }
     }
 

@@ -3,6 +3,7 @@ package com.pl00t.swipe_client.battle
 import com.badlogic.gdx.audio.Music
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch
 import com.badlogic.gdx.math.Interpolation
+import com.badlogic.gdx.math.Interpolation.SwingOut
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
@@ -197,24 +198,51 @@ class BattleWindow(
     private fun processEvent(event: SbDisplayEvent) {
         when (event) {
             is SbDisplayEvent.SbWave -> {
-                rightUnitsCount = 0
-                val wave = r.labelWindowTitle("Wave ${event.wave}").apply {
-                    width = r.width
-                    height = r.height * 0.2f
-                    y = r.height * 0.2f
-                    alpha = 0f
-                    setAlignment(Align.bottom)
+                KtxAsync.launch {
+                    if (event.wave == 2 && !r.profileService.getTutorial().a1c3w2) {
+                        ignoreSwipe = true
+                        addActor(DialogScriptActor(r, r.profileService.getDialogScript("ACT_1.c3.w2")) {
+                            ignoreSwipe = false
+                            r.profileService.saveTutorial(r.profileService.getTutorial().copy(a1c3w2 = true))
+                        })
+                    }
                 }
-                addActor(wave)
-                wave.addAction(
+                rightUnitsCount = 0
+                val wave = r.regular24Focus(UiTexts.WaveTemplate.value(r.l).replace("$", event.wave.toString())).apply {
+                    setSize(400f, 60f)
+                    setOrigin(Align.center)
+                    setAlignment(Align.center)
+                    setFontScale(1.6f)
+                }
+                val bg = r.image(Resources.ux_atlas, "background_black").apply {
+                    setSize(wave.width, wave.height)
+                    alpha = 0.6f
+                }
+                val g = Group().apply {
+                    setPosition(40f, locationGroup.y + characterWidth * 1.66f)
+                }
+                g.addActor(bg)
+                g.addActor(wave)
+                addActor(g)
+                g.addAction(
                     Actions.sequence(
-                    Actions.parallel(
-                        Actions.alpha(1f, 0.2f),
-                        Actions.moveBy(0f, r.height * 0.6f, 2f)
-                    ),
-                    Actions.alpha(0f, 0.5f),
-                    Actions.removeActor()
-                ))
+                        Actions.alpha(0f),
+                        Actions.moveBy(0f, -40f),
+                        Actions.parallel(
+                            Actions.alpha(1f, 0.3f),
+                            Actions.moveBy(0f, 40f, 0.3f, SwingOut(1.6f))
+                        ),
+                        Actions.sequence(
+                            Actions.alpha(0.6f, 0.05f),
+                            Actions.alpha(1f, 0.05f)
+                        ).repeat(8),
+                        Actions.parallel(
+                            Actions.moveBy(0f, 100f, 2f),
+                            Actions.alpha(0f, 2f)
+                        ),
+                        Actions.removeActor()
+                    )
+                )
             }
 
             is SbDisplayEvent.SbCreateCharacter -> {

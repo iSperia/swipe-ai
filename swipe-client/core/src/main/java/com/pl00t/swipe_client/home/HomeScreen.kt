@@ -32,7 +32,7 @@ class HomeScreen(
 
     lateinit var actId: SwipeAct
 
-    private var stack = StackDelegate(root)
+    private var stack = StackDelegate(rootGroup)
 
     override fun loadScreenContent() {
         actId = SwipeAct.ACT_1
@@ -48,7 +48,7 @@ class HomeScreen(
                 width = r.width
                 height = r.height
             }
-            root.addActor(background)
+            rootGroup.addActor(background)
 
             r.skin().getFont("caption").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             r.skin().getFont("caption30").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)

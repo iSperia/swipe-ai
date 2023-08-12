@@ -1,0 +1,52 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Look around, Valerian. The Thicket seems to be thriving with these thorned crawlers.",
+        "ru": "Оглянись, Валериан. Чаща, кажется, процветает благодаря этим колючим ползунам."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "These creatures don't seem as hostile as the ones before. Perhaps we can find out more about the shard from them.",
+        "ru": "Эти существа не кажутся такими враждебными, как те, что были раньше. Возможно, мы сможем узнать больше об осколке от них."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Approach with caution. Let's see if we can establish some form of communication.",
+        "ru": "Подходи с осторожностью. Посмотрим, сможем ли мы установить какую-то форму связи."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_THORNED_CRAWLER",
+      "text": {
+        "en": "(growls and hisses)",
+        "ru": "(рычит и шипит)"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "They don't seem interested in conversation, Saffron. Prepare yourself.",
+        "ru": "Кажется, они не заинтересованы в разговоре, Шафран. Приготовься."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Agreed. Let's show them we mean no harm, but won't hesitate to defend ourselves.",
+        "ru": "Давай покажем им, что мы не причиняем вреда, но без колебаний будем защищаться."
+      },
+      "side": "right"
+    }
+  ]
+}

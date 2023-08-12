@@ -14,6 +14,12 @@ td.red {
 }
 td.violet {
     background-color: #6639b3;
+}
+tr.grey {
+    background: #cccccc
+}
+tr.white {
+    background: #eeeeee
 }</style>
   </head>
   <body>
@@ -23,43 +29,141 @@ td.violet {
           <td>Act</td>
           <td>Level</td>
           <td>Config</td>
+          <td>Avg. Swipes</td>
           <td>Winrate</td>
           <td>Target Winrate</td>
           <td>Delta winrate</td>
+          <td>Estimate time to complete</td>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr class="grey">
           <td>ACT_1</td>
           <td>c1</td>
-          <td>CHARACTER_VALERIAN 1 CharacterAttributes(mind=1, body=1, spirit=1)</td>
-          <td>97%</td>
-          <td>95%</td>
-          <td class="green">2%</td>
+          <td>
+            <p>CHARACTER_VALERIAN Lv.1</p>
+            <p>CharacterAttributes(mind=1, body=1, spirit=1)</p>
+          </td>
+          <td>32</td>
+          <td>100%</td>
+          <td>100%</td>
+          <td class="green">0%</td>
+          <td>0 m. 32 s.</td>
         </tr>
-        <tr>
+        <tr class="white">
           <td>ACT_1</td>
           <td>c2</td>
-          <td>CHARACTER_VALERIAN 2 CharacterAttributes(mind=2, body=2, spirit=2)</td>
-          <td>78%</td>
-          <td>60%</td>
-          <td class="violet">18%</td>
+          <td>
+            <p>CHARACTER_VALERIAN Lv.1</p>
+            <p>CharacterAttributes(mind=1, body=1, spirit=1)</p>
+          </td>
+          <td>95</td>
+          <td>74%</td>
+          <td>75%</td>
+          <td class="green">0%</td>
+          <td>2 m. 7 s.</td>
         </tr>
-        <tr>
+        <tr class="grey">
           <td>ACT_1</td>
           <td>c3</td>
-          <td>CHARACTER_VALERIAN 3 CharacterAttributes(mind=3, body=3, spirit=3)</td>
-          <td>31%</td>
-          <td>30%</td>
-          <td class="green">1%</td>
+          <td>
+            <p>CHARACTER_VALERIAN Lv.2</p>
+            <p>CharacterAttributes(mind=2, body=2, spirit=2)</p>
+          </td>
+          <td>168</td>
+          <td>46%</td>
+          <td>50%</td>
+          <td class="green">-3%</td>
+          <td>6 m. 2 s.</td>
         </tr>
-        <tr>
+        <tr class="white">
           <td>ACT_1</td>
           <td>c4</td>
-          <td>CHARACTER_VALERIAN 4 CharacterAttributes(mind=4, body=4, spirit=4)</td>
-          <td>0%</td>
+          <td>
+            <p>CHARACTER_VALERIAN Lv.2</p>
+            <p>CharacterAttributes(mind=2, body=2, spirit=2)</p>
+            <p>TestItemDescription(skin=RING_OF_ILLUMINATION, rarity=0, level=1)</p>
+          </td>
+          <td>245</td>
+          <td>24%</td>
           <td>25%</td>
-          <td class="red">-25%</td>
+          <td class="green">0%</td>
+          <td>16 m. 34 s.</td>
+        </tr>
+        <tr class="grey">
+          <td>ACT_1</td>
+          <td>c5</td>
+          <td>
+            <p>CHARACTER_VALERIAN Lv.3</p>
+            <p>CharacterAttributes(mind=3, body=3, spirit=3)</p>
+            <p>TestItemDescription(skin=RING_OF_ILLUMINATION, rarity=0, level=1)</p>
+            <p>TestItemDescription(skin=HELM_OF_IRON_WILL, rarity=0, level=1)</p>
+          </td>
+          <td>181</td>
+          <td>21%</td>
+          <td>25%</td>
+          <td class="green">-3%</td>
+          <td>14 m. 17 s.</td>
+        </tr>
+        <tr class="white">
+          <td>ACT_1</td>
+          <td>c6</td>
+          <td>
+            <p>CHARACTER_VALERIAN Lv.4</p>
+            <p>CharacterAttributes(mind=4, body=4, spirit=4)</p>
+            <p>TestItemDescription(skin=RING_OF_ILLUMINATION, rarity=0, level=1)</p>
+            <p>TestItemDescription(skin=HELM_OF_IRON_WILL, rarity=0, level=1)</p>
+          </td>
+          <td>179</td>
+          <td>19%</td>
+          <td>25%</td>
+          <td class="green">-5%</td>
+          <td>15 m. 7 s.</td>
+        </tr>
+        <tr class="grey">
+          <td>ACT_1</td>
+          <td>c7</td>
+          <td>
+            <p>CHARACTER_VALERIAN Lv.5</p>
+            <p>CharacterAttributes(mind=5, body=5, spirit=5)</p>
+            <p>TestItemDescription(skin=RING_OF_ILLUMINATION, rarity=0, level=2)</p>
+            <p>TestItemDescription(skin=HELM_OF_IRON_WILL, rarity=0, level=2)</p>
+          </td>
+          <td>220</td>
+          <td>35%</td>
+          <td>40%</td>
+          <td class="green">-4%</td>
+          <td>10 m. 26 s.</td>
+        </tr>
+        <tr class="white">
+          <td>ACT_1</td>
+          <td>c8</td>
+          <td>
+            <p>CHARACTER_VALERIAN Lv.5</p>
+            <p>CharacterAttributes(mind=3, body=6, spirit=6)</p>
+            <p>TestItemDescription(skin=RING_OF_ILLUMINATION, rarity=0, level=2)</p>
+            <p>TestItemDescription(skin=HELM_OF_IRON_WILL, rarity=0, level=2)</p>
+          </td>
+          <td>204</td>
+          <td>15%</td>
+          <td>20%</td>
+          <td class="green">-4%</td>
+          <td>22 m. 15 s.</td>
+        </tr>
+        <tr class="grey">
+          <td>ACT_1</td>
+          <td>c9</td>
+          <td>
+            <p>CHARACTER_VALERIAN Lv.6</p>
+            <p>CharacterAttributes(mind=4, body=8, spirit=7)</p>
+            <p>TestItemDescription(skin=RING_OF_ILLUMINATION, rarity=0, level=3)</p>
+            <p>TestItemDescription(skin=HELM_OF_IRON_WILL, rarity=0, level=2)</p>
+          </td>
+          <td>108</td>
+          <td>10%</td>
+          <td>10%</td>
+          <td class="green">0%</td>
+          <td>17 m. 47 s.</td>
         </tr>
       </tbody>
     </table>

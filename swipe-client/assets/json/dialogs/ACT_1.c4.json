@@ -1,0 +1,44 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "This place seems ancient, steeped in history.",
+        "ru": "Это место кажется древним, с богатой историей."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Indeed, Valerian. These woods hold secrets, and danger too, I suspect.",
+        "ru": "Действительно, Валериан. В этих лесах есть тайны и опасность, как я подозреваю."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Look, Saffron. Those creatures, they're different from the thorned crawlers.",
+        "ru": "Слушай, Шафран. Эти существа, они отличаются от шипастых ползунов."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "These are thornstalkers. Guardians of the grove. They won't let us pass without a challenge.",
+        "ru": "Это терновники. Хранители рощи. Они не пропустят нас без испытания."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Then let's be ready for whatever they bring. Our journey must continue.",
+        "ru": "Тогда давай будем готовы ко всему, что они приготовили. Наше путешествие должно продолжаться."
+      },
+      "side": "left"
+    }
+  ]
+}

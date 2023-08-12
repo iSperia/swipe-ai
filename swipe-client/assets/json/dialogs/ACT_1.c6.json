@@ -1,0 +1,52 @@
+{
+  "replicas": [
+    {
+      "skin": "MONSTER_CORRUPTED_DRYAD",
+      "text": {
+        "en": "Halt, intruders! You tread upon sacred ground, tainted by your presence.",
+        "ru": "Стой, незваные гости! Вы ступаете на священную землю, испорченную вашим присутствием."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "We mean no harm to this land. We seek the shard to restore balance.",
+        "ru": "Мы не причиним вреда этой земле. Мы ищем осколок, чтобы восстановить равновесие."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "The shard holds the key to healing these groves, to saving both your realm and ours.",
+        "ru": "В этом осколке находится ключ к исцелению этих рощ, к спасению вашего и нашего владений."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "MONSTER_CORRUPTED_DRYAD",
+      "text": {
+        "en": "The shard... It is both life and death. It must not fall into unworthy hands.",
+        "ru": "Осколок... Это и жизнь, и смерть. Он не должен попасть в недостойные руки."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "We understand the danger, but we aim to use its power for good. Will you help us?",
+        "ru": "Мы понимаем опасность, но стремимся использовать его силу во благо. Вы поможете нам?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_CORRUPTED_DRYAD",
+      "text": {
+        "en": "Prove yourselves. Face us, and only then shall we consider your plea.",
+        "ru": "Проявите себя. Встретьтесь с нами, и только тогда мы рассмотрим вашу просьбу."
+      },
+      "side": "right"
+    }
+  ]
+}

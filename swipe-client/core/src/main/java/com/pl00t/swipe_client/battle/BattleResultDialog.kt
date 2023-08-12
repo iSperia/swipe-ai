@@ -240,6 +240,15 @@ class BattleResultDialog(
                         })
                 )
             })
+        } else if (result.tier == -1) {
+            if (result.victory) {
+                val dialogScript = r.profileService.getDialogScript("${result.act}.${result.level}.f")
+                if (dialogScript.replicas.isNotEmpty()) {
+                    addActor(DialogScriptActor(r, dialogScript) {
+
+                    })
+                }
+            }
         }
     }
 }

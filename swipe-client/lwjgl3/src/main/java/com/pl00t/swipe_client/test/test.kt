@@ -4,21 +4,22 @@ import com.game7th.items.ItemAffix
 import com.game7th.items.ItemAffixType
 import com.game7th.swipe.game.SbMonsterConfiguration
 import com.game7th.swipe.game.*
-import com.game7th.swipe.game.characters.provideSaffronAbilities
-import com.game7th.swipe.game.characters.provideValerianAbilities
 import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.Gson
 import com.pl00t.swipe_client.services.MonsterServiceImpl
 import com.pl00t.swipe_client.services.files.FileService
+import com.pl00t.swipe_client.services.items.ItemService
+import com.pl00t.swipe_client.services.items.ItemServiceImpl
 import com.pl00t.swipe_client.services.levels.LevelService
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
 import com.pl00t.swipe_client.services.profile.SwipeAct
-import com.pl00t.swipe_client.services.profile.SwipeCharacter
+import com.pl00t.swipe_client.services.profile.generateCharacter
 import kotlinx.coroutines.*
 import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 import java.io.File
-import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
+import kotlin.math.min
 import kotlin.random.Random
 
 data class ProgressionEntry(
@@ -26,6 +27,7 @@ data class ProgressionEntry(
     val level: String,
     val characterAttributes: CharacterAttributes,
     val characterSkin: String,
+    val characterItems: List<TestItemDescription>,
     val characterLevel: Int,
     val targetWinrate: Float,
 )
@@ -39,92 +41,56 @@ data class TestResult(
     val level: String,
     val winrate: Float,
     val targetWinrate: Float,
-    val delta: Float
+    val delta: Float,
+    val avgSwipe: Int,
 )
 
-private const val ITERATIONS = 1000
+data class TestItemDescription(
+    val skin: String,
+    val rarity: Int,
+    val level: Int,
+)
 
-private suspend fun createCharacter(monsterService: MonsterService, attributes: CharacterAttributes, skin: String): FrontMonsterConfiguration {
-        val configFile = monsterService.getMonster(skin) ?: throw IllegalArgumentException("Did not find $skin monster")
+private const val ITERATIONS = 10000
 
+private suspend fun createCharacter(monsterService: MonsterService, itemService: ItemService, attributes: CharacterAttributes, skin: String,
+                                    items: List<TestItemDescription>, level: Int): FrontMonsterConfiguration {
+        val affixes = mutableListOf<ItemAffix>()
+        items.forEach { item ->
+            val template = itemService.getItemTemplate(item.skin)!!
+            val implicitLevel = item.rarity + 2
+            val implicitAffix = itemService.getAffix(template.implicit)!!
+            affixes.add(ItemAffix(implicitAffix.affix, implicitAffix.valuePerTier * implicitLevel, implicitLevel, true))
 
-
-//        val affixes = profile.items.filter { it.equippedBy == character.skin }.flatMap { it.affixes + it.implicit }
-        val affixes = emptyList<ItemAffix>()
-        val hpPercent = affixes.sumOf { if (it.affix == ItemAffixType.PERCENT_HP) it.value.toDouble() else 0.0 }.toFloat()
-        val hpFlat = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_HP) it.value.toDouble() else 0.0 }.toFloat()
-        val dmgPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val dmgCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val dmgFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val dmgDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val dmgLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val dmgShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val resPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val resCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val resFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val resDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val resLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val resShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-        val attrBody = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_BODY) it.value.toDouble() else 0.0 }.toInt()
-        val attrSpirit = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_SPIRIT) it.value.toDouble() else 0.0 }.toInt()
-        val attrMind = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_MIND) it.value.toDouble() else 0.0 }.toInt()
-
-        val attributes = attributes.copy(
-            body = attributes.body + attrBody,
-            spirit = attributes.spirit + attrSpirit,
-            mind = attributes.mind + attrMind,
-        )
-
-        val abilities = when (skin) {
-            MonsterService.CHARACTER_VALERIAN -> provideValerianAbilities(configFile.balance, attributes)
-            MonsterService.CHARACTER_SAFFRON -> provideSaffronAbilities(configFile.balance, attributes)
-
-            else -> throw IllegalArgumentException("Can't create monster $skin")
+            val affixCount = min(4, item.rarity + 1)
+            val guaranteedTiers = (item.level - 1) / affixCount
+            val extraTiers = (item.level - 1) % affixCount
+            val affixesFilled = mutableListOf<ItemAffixType>()
+            (0 until affixCount).forEach { index ->
+                val affix = itemService.generateAffix(affixesFilled, template)
+                val affixMeta = itemService.getAffix(affix)!!
+                affixesFilled.add(affix)
+                val affixLevel = 1 + guaranteedTiers + (if (index < extraTiers) 1 else 0)
+                affixes.add(ItemAffix(affix, affixMeta.valuePerTier * affixLevel, affixLevel, true))
+            }
         }
 
-        val health = (hpFlat + configFile.balance.intAttribute("base_health") * (1f + 0.01f * hpPercent + 0.1f * attributes.body)).toInt()
-        val ult = (configFile.balance.intAttribute("ult") * (1f + 0.05f * attributes.mind)).toInt()
-        val luck = (configFile.balance.intAttribute("luck") * (1f + 0.1f * attributes.spirit))
-
-        return FrontMonsterConfiguration(
-            skin = skin,
-            name = configFile.name,
-            level = SwipeCharacter.getLevel(1),
-            attributes = attributes,
-            resist = configFile.balance.getAsJsonObject("resist").let { r ->
-                SbElemental(
-                    phys = r.floatAttribute("phys") + resPhys,
-                    dark = r.floatAttribute("dark") + resDark,
-                    light = r.floatAttribute("light") + resLight,
-                    shock = r.floatAttribute("shock") + resShock,
-                    fire = r.floatAttribute("fire") + resFire,
-                    cold = r.floatAttribute("cold") + resCold,
-                )
-            },
-            damage = SbElemental(
-                phys = dmgPhys,
-                dark = dmgDark,
-                light = dmgLight,
-                shock = dmgShock,
-                fire = dmgFire,
-                cold = dmgCold
-            ),
-            abilities = abilities,
-            lore = configFile.lore,
-            health = health,
-            luck = luck,
-            ult = ult,
-            ultMax = configFile.balance.intAttribute("ult_max"),
-            ultPrefillPercent = 0,
-        )
+        return generateCharacter(monsterService, level, skin, attributes, affixes)
 }
+
+data class LevelTestResult(
+    val winrate: Float,
+    val avgSwipes: Int,
+)
 
 suspend fun testLevel(
     levelService: LevelService,
     monsterService: MonsterService,
+    itemService: ItemService,
     progression: ProgressionEntry
-): Float {
+): LevelTestResult {
     var victories = 0
+    var swipes = 0
     (0 until ITERATIONS).forEach { _ ->
         val game = SbGame(0, 1, 0, emptyList())
         val triggers = mutableSetOf<String>()
@@ -133,7 +99,7 @@ suspend fun testLevel(
             monsterService.loadTriggers(c.skin)
             triggers.addAll(c.triggers)
         }
-        val levelModel = levelService.getAct(progression.act).levels.firstOrNull { it.id == progression.level } ?: return 0f
+        val levelModel = levelService.getAct(progression.act).levels.firstOrNull { it.id == progression.level } ?: throw IllegalStateException()
 
         val waves = levelModel.monsters ?: emptyList()
         levelModel.monsters?.forEach { wave ->
@@ -145,7 +111,7 @@ suspend fun testLevel(
             }
         }
 
-        val context: SbContext = SbContext(
+        var context: SbContext = SbContext(
             game = game,
             balance = object : SbBalanceProvider {
                 override fun getBalance(key: String) = TODO("Not Implemented")
@@ -154,7 +120,7 @@ suspend fun testLevel(
             },
             triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
         ).apply {
-            initHumans(listOf(createCharacter(monsterService, progression.characterAttributes, progression.characterSkin)))
+            initHumans(listOf(createCharacter(monsterService, itemService, progression.characterAttributes, progression.characterSkin, progression.characterItems, progression.characterLevel)))
             initWave(levelModel.monsters?.get(0)!!.map { monsterService.createMonster(it.skin, it.level) })
         }
 
@@ -164,21 +130,29 @@ suspend fun testLevel(
                 if (hero.ultimateProgress == hero.maxUltimateProgress) {
                     context.useUltimate(0)
                 }
-                val action = Random.nextInt(4)
-                val dx = when (action) {
-                    0 -> 1
-                    1,3 -> 0
-                    else -> -1
+                var evaluation = Integer.MIN_VALUE
+                (0 until 4).forEach {action ->
+                    val dx = when (action) {
+                        0 -> 1
+                        1,3 -> 0
+                        else -> -1
+                    }
+                    val dy = when (action) {
+                        0, 2 -> 0
+                        1 -> 1
+                        else -> -1
+                    }
+
+                    val contextCopy = context.copy()
+                    contextCopy.swipe(0, dx, dy)
+                    swipes++
+                    var maxSubEv = contextCopy.evaluateSimple()
+
+                    if (maxSubEv > evaluation) {
+                        context = contextCopy
+                    }
                 }
-                val dy = when (action) {
-                    0, 2 -> 0
-                    1 -> 1
-                    else -> -1
-                }
-                context.swipe(0, dx, dy)
-//                context.events.forEach { e ->
-//                    println(e)
-//                }
+
                 context.events.clear()
 
                 if (!context.game.teamAlive(0)) {
@@ -198,13 +172,14 @@ suspend fun testLevel(
             victories++
         }
     }
-    return victories.toFloat() / ITERATIONS
+    return LevelTestResult(victories.toFloat() / ITERATIONS, avgSwipes = swipes / ITERATIONS)
 }
 
 suspend fun testAct(
     gson: Gson,
     fileService: FileService,
     monsterService: MonsterService,
+    itemService: ItemService,
     levelService: LevelService,
     act: SwipeAct
 ) {
@@ -215,10 +190,11 @@ suspend fun testAct(
             val jobs = mutableListOf<Deferred<Unit>>()
             progressionFile.tests.forEach { entry ->
                 jobs.add(async {
-                    val winrate = testLevel(levelService, monsterService, entry)
-                    val humanWinrate = winrate
-                    println("$entry\nwinrate=$humanWinrate\nthread=${Thread.currentThread().name}\n\n")
-                    resultMap[entry.level] = TestResult(entry.act, entry.level, humanWinrate, entry.targetWinrate, humanWinrate - entry.targetWinrate)
+                    val testResult = testLevel(levelService, monsterService, itemService, entry)
+                    val humanWinrate = testResult.winrate
+                    val avgSwipes = testResult.avgSwipes
+                    println("$entry\nwinrate=$humanWinrate; avgSwipes=$avgSwipes\nthread=${Thread.currentThread().name}\n\n")
+                    resultMap[entry.level] = TestResult(entry.act, entry.level, humanWinrate, entry.targetWinrate, humanWinrate - entry.targetWinrate, avgSwipes)
                 })
             }
             jobs.forEach { it.await() }
@@ -247,6 +223,12 @@ suspend fun testAct(
                             td.violet {
                                 background-color: #6639b3;
                             }
+                            tr.grey {
+                                background: #cccccc
+                            }
+                            tr.white {
+                                background: #eeeeee
+                            }
                         """.trimIndent())
                             }
                         }
@@ -254,18 +236,20 @@ suspend fun testAct(
                     body {
                         table {
                             thead {
-                                tr {
+                                tr() {
                                     td { text("Act") }
                                     td { text("Level") }
                                     td { text("Config") }
+                                    td { text("Avg. Swipes") }
                                     td { text("Winrate") }
                                     td { text("Target Winrate") }
                                     td { text("Delta winrate") }
+                                    td { text("Estimate time to complete") }
                                 }
                             }
                             tbody {
-                                progressionFile.tests.forEach { progression ->
-                                    tr {
+                                progressionFile.tests.forEachIndexed { i, progression ->
+                                    tr(classes = if (i % 2 == 0) "grey" else "white") {
                                         td {
                                             text(progression.act.toString())
                                         }
@@ -273,7 +257,14 @@ suspend fun testAct(
                                             text(progression.level.toString())
                                         }
                                         td {
-                                            text("${progression.characterSkin} ${progression.characterLevel} ${progression.characterAttributes}")
+                                            p { text("${progression.characterSkin} Lv.${progression.characterLevel}") }
+                                            p { text("${progression.characterAttributes}") }
+                                            progression.characterItems.forEach {
+                                                p { text("$it")}
+                                            }
+                                        }
+                                        td {
+                                            text("${resultMap[progression.level]?.avgSwipe ?: 0}")
                                         }
                                         td {
                                             text("${((resultMap[progression.level]?.winrate ?: 0f) * 100f).toInt()}%")
@@ -281,16 +272,25 @@ suspend fun testAct(
                                         td {
                                             text("${((resultMap[progression.level]?.targetWinrate ?: 0f) * 100f).toInt()}%")
                                         }
+
                                         val delta = ((resultMap[progression.level]?.delta ?: 0f) * 100f).toInt()
-                                        val c = if (delta >= -5 && delta <= 5) "green"
-                                        else if (delta in 6..10) "blue"
-                                        else if (delta > 10) "violet"
-                                        else if (delta >= -10 && delta < -5) "yellow"
-                                        else if (delta < -10) "red"
+                                        val c = if (delta >= -8 && delta <= 8) "green"
+                                        else if (delta in 6..16) "blue"
+                                        else if (delta > 16) "violet"
+                                        else if (delta >= -16 && delta < -6) "yellow"
+                                        else if (delta < -16) "red"
                                         else "green"
                                         td(classes = c) {
 
                                             text("$delta%")
+                                        }
+                                        td {
+                                            resultMap[progression.level]?.let {
+                                                val seconds = (it.avgSwipe * 1f / it.winrate).toInt()
+                                                val min = seconds / 60
+                                                val sec = seconds % 60
+                                                text("$min m. $sec s.")
+                                            }
                                         }
                                     }
 
@@ -324,6 +324,7 @@ suspend fun main() {
 
     val monsterService = MonsterServiceImpl(fileService)
     val levelService = LevelServiceImpl(fileService, monsterService)
+    val itemService = ItemServiceImpl(Gson(), fileService)
 
-    testAct(Gson(), fileService, monsterService, levelService, SwipeAct.ACT_1)
+    testAct(Gson(), fileService, monsterService, itemService, levelService, SwipeAct.ACT_1)
 }

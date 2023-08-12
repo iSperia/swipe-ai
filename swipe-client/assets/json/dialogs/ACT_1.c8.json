@@ -1,0 +1,52 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "The battle grows fiercer. Our determination will see us through.",
+        "ru": "Битва становится все ожесточеннее. Наша решимость поможет нам пройти через это."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "MONSTER_THORNSTALKER",
+      "text": {
+        "en": "You may have reached this place, but you shall go no further!",
+        "ru": "Возможно, ты и достиг этого места, но дальше ты не пойдешь!"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_CORRUPTED_DRYAD",
+      "text": {
+        "en": "The heart of the groves belongs to us, and we shall defend it!",
+        "ru": "Сердце рощ принадлежит нам, и мы будем защищать его!"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_THORNED_CRAWLER",
+      "text": {
+        "en": "ntttrdrss... rlllbckmn thfrshhdrkshsh...",
+        "ru": "злмммшшшшшшнк... тссссншшш ннцмммстммрщщщщщ..."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "They're desperate to stop us. But we can't let them stand in our way.",
+        "ru": "Они отчаянно пытаются нас остановить. Но мы не можем позволить им встать у нас на пути."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "This is the final trial before Thalendros. Let's give it everything we have!",
+        "ru": "Это последнее испытание перед Талендросом. Отдадим все, что у нас есть!"
+      },
+      "side": "left"
+    }
+  ]
+}

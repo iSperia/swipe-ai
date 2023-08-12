@@ -3,7 +3,7 @@ package com.pl00t.swipe_client.home
 import com.badlogic.gdx.math.Interpolation.SwingIn
 import com.badlogic.gdx.math.Interpolation.SwingOut
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import ktx.actors.alpha
@@ -12,7 +12,7 @@ interface ReloadableScreen {
     fun reload()
 }
 
-class StackDelegate(private val root: Stage) {
+class StackDelegate(private val root: Group) {
 
     private val stack = mutableListOf<Actor>()
 

@@ -1,8 +1,8 @@
 {
   "skin": "MONSTER_THALENDROS",
   "name": {
-    "en": "Thalendros, the Corrupted Treant",
-    "ru": "Талендрос, Оскверненный Древень"
+    "en": "Thalendros, the Corrupted",
+    "ru": "Талендрос, Оскверненный"
   },
   "lore": {
     "en": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
@@ -12,10 +12,6 @@
     "mind": 25,
     "spirit": 35,
     "body": 40
-  },
-  "affixes": {
-    "VULNERABLE_FIRE": 100,
-    "RESIST_PHYSICAL": 50
   },
   "tiles": [
     {
@@ -49,7 +45,7 @@
     "thalendros.dark_aura"
   ],
   "balance": {
-    "base_health": 1400,
+    "base_health": 1700,
     "luck": 5,
     "ult": 10,
     "ult_max": 1000,
@@ -61,13 +57,13 @@
       "fire": 0,
       "cold": 0.1
     },
-    "tw_base": 70,
+    "tw_base": 90,
     "tw_scale": 10,
     "es_tiles": 4,
-    "es_damage": 30,
+    "es_damage": 80,
     "es_scale": 10,
     "da_tiles": 4,
-    "da_base": 50,
+    "da_base": 30,
     "da_scale": 10
   },
   "scale": 1.5

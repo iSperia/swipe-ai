@@ -1,0 +1,44 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Valerian, this tree... It radiates an ancient energy.",
+        "ru": "Валериан, это дерево... Оно излучает древнюю энергию."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "The Eternal Oak... Its presence is overwhelming. But what does it mean?",
+        "ru": "Вечный дуб... Его присутствие ошеломляет. Но что это значит?"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Legends say this tree holds a connection to the shard, a link to the heart of these groves.",
+        "ru": "Легенды гласят, что это дерево связано с осколком, с сердцем этих рощ.."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "If that's true, then maybe the shard's power is why these creatures have become so hostile.",
+        "ru": "Если это правда, то, возможно, сила осколка стала причиной того, что эти существа стали такими враждебными."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Precisely. Defending the shard is likely their primal instinct, and we must be prepared for their resistance.",
+        "ru": "Именно. Защита осколка, вероятно, является их основным инстинктом, и мы должны быть готовы к их сопротивлению."
+      },
+      "side": "right"
+    }
+  ]
+}

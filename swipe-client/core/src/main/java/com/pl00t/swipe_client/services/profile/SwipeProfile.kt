@@ -6,14 +6,14 @@ import com.game7th.swipe.game.CharacterAttributes
 enum class SwipeCurrency(val expBonus: Int = 0, val coins: Int = 1) {
     ETHERIUM_COIN,
     ARCANUM,
-    SCROLL_OF_WISDOM(expBonus = 750, coins = 100),
-    TOME_OF_ENLIGHTMENT(expBonus = 2500, coins = 300),
-    CODEX_OF_ASCENDANCY(expBonus = 7500, coins = 900),
-    GRIMOIRE_OF_OMNISCENCE(expBonus = 25000, coins = 3000),
-    INFUSION_ORB(expBonus = 750, coins = 100),
-    INFUSION_SHARD(expBonus = 2500, coins = 300),
-    INFUSION_CRYSTAL(expBonus = 7500, coins = 900),
-    ASCENDANT_ESSENCE(expBonus = 25000, coins = 3000),
+    SCROLL_OF_WISDOM(expBonus = 1000, coins = 100),
+    TOME_OF_ENLIGHTMENT(expBonus = 3000, coins = 300),
+    CODEX_OF_ASCENDANCY(expBonus = 9000, coins = 900),
+    GRIMOIRE_OF_OMNISCENCE(expBonus = 27000, coins = 3000),
+    INFUSION_ORB(expBonus = 500, coins = 100),
+    INFUSION_SHARD(expBonus = 1500, coins = 300),
+    INFUSION_CRYSTAL(expBonus = 4500, coins = 900),
+    ASCENDANT_ESSENCE(expBonus = 13500, coins = 3000),
     ELIXIR_AMBER(expBonus = 0, coins = 1000),
     ELIXIR_TURQUOISE(expBonus = 0, coins = 1000),
     ELIXIR_LAPIS(expBonus = 0, coins = 1000),
@@ -50,11 +50,11 @@ data class SwipeCharacter(
         val experience = mutableListOf<Int>()
 
         init {
-            (0 until 101).forEach { i ->
+            (0 until 100).forEach { i ->
                 if (i == 0) {
                     0
                 } else {
-                    experience[i-1] + 1000 + (i-1) * 500
+                    experience[i-1] + (Math.pow(i.toDouble(), 1.toDouble() + (i - 1) / 100)).toInt() * 1000
                 }.let { experience.add(it) }
             }
         }
@@ -82,6 +82,8 @@ data class TutorialState(
     val battleSigilOfRenewalPassed: Boolean = false,
     val battleWeaknessPassed: Boolean = false,
     val battlePoisonPassed: Boolean = false,
+    val a1c3w2: Boolean = false,
+    val firstItemGenerated: Boolean = false,
 )
 
 data class SwipeProfile(
