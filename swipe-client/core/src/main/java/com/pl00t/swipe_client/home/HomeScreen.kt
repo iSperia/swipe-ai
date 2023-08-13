@@ -18,6 +18,7 @@ import com.pl00t.swipe_client.map.CampaignLevelWindow
 import com.pl00t.swipe_client.map.MapWindow
 import com.pl00t.swipe_client.map.RaidWindow
 import com.pl00t.swipe_client.monster.MonsterDetailWindow
+import com.pl00t.swipe_client.screen.zephyr_shop.ZephyrShopWindow
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import kotlinx.coroutines.delay
@@ -136,6 +137,12 @@ class HomeScreen(
                                 }
                             )
                             stack.showScreen(window)
+                        } else if (levelModel.type == LevelType.ZEPHYR_SHOP) {
+                            val window = ZephyrShopWindow(
+                                r = r,
+                                onClose = { stack.moveBack() }
+                            )
+                            stack.showScreen(window)
                         }
                     }
                 }
@@ -164,7 +171,9 @@ class HomeScreen(
         stack.showScreen(mapActor)
     }
 
-    private fun openBattle() = openBattle(true)
+    private fun openBattle() {
+        openBattle(true)
+    }
 
     private fun openBattle(popStack: Boolean) {
         if (popStack) stack.moveBack()

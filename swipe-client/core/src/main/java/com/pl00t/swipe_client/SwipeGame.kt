@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.pl00t.swipe_client.services.battle.BattleServiceImpl
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
 import com.google.gson.Gson
+import com.pl00t.swipe_client.analytics.AnalyticsInterface
 import com.pl00t.swipe_client.home.HomeScreen
 import com.pl00t.swipe_client.services.MonsterServiceImpl
 import com.pl00t.swipe_client.services.files.GdxFileService
@@ -15,7 +16,7 @@ import com.pl00t.swipe_client.services.profile.ProfileServiceImpl
 import ktx.async.KtxAsync
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
-class SwipeGame : Game() {
+class SwipeGame(private val analyticsInterface: AnalyticsInterface) : Game() {
 
     var coreLoaded = false
     lateinit var r: Resources
@@ -34,6 +35,7 @@ class SwipeGame : Game() {
             levelService = LevelServiceImpl(fileService, monsterService)
             profileService = ProfileServiceImpl(levelService, monsterService, itemService)
             battleService = BattleServiceImpl(levelService, monsterService, profileService)
+            analytics = this@SwipeGame.analyticsInterface
         }
 
         setScreen(HomeScreen(r))

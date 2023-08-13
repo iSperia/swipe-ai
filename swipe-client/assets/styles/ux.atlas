@@ -488,14 +488,14 @@ VERDANT_HEART
   index: -1
 action_equipment
   rotate: false
-  xy: 130, 12
+  xy: 1162, 130
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 action_icon_attack
   rotate: false
-  xy: 1032, 0
+  xy: 1162, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -509,7 +509,7 @@ action_icon_attributes
   index: -1
 action_icon_close
   rotate: false
-  xy: 1422, 130
+  xy: 1422, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -523,7 +523,7 @@ action_icon_defence
   index: -1
 action_icon_skillset
   rotate: false
-  xy: 1162, 130
+  xy: 1800, 1822
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -537,7 +537,7 @@ action_icon_stats
   index: -1
 action_icon_story
   rotate: false
-  xy: 1162, 0
+  xy: 1292, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -551,28 +551,35 @@ action_icon_vault
   index: -1
 action_party
   rotate: false
-  xy: 1422, 0
+  xy: 1546, 1692
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+action_reroll
+  rotate: false
+  xy: 0, 12
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 action_stash
   rotate: false
-  xy: 260, 12
+  xy: 1292, 130
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 action_tarot
   rotate: false
-  xy: 1670, 1822
+  xy: 130, 12
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 button_plus
   rotate: false
-  xy: 1292, 130
+  xy: 1032, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -593,7 +600,7 @@ cursor
   index: -1
 fg_complete
   rotate: false
-  xy: 0, 12
+  xy: 1032, 130
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -614,14 +621,14 @@ fg_level_top
   index: -1
 filter_currency
   rotate: false
-  xy: 1032, 130
+  xy: 1670, 1822
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 gradient_item_background
   rotate: false
-  xy: 1546, 1562
+  xy: 1676, 1692
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -635,21 +642,21 @@ harmony_portal
   index: -1
 silh_amulet
   rotate: false
-  xy: 1800, 1822
+  xy: 260, 12
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 silh_helm
   rotate: false
-  xy: 1546, 1692
+  xy: 1546, 1562
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 silh_ring
   rotate: false
-  xy: 1292, 0
+  xy: 1422, 130
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

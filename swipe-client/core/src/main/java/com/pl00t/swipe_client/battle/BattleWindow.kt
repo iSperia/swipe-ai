@@ -81,6 +81,7 @@ class BattleWindow(
                 r.loadSound(it)
             }
             r.onLoad {
+                r.music("theme_global").stop()
                 amLoaded()
             }
         }

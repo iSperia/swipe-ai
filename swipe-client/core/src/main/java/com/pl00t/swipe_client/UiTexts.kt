@@ -4,6 +4,14 @@ import com.game7th.swipe.SbText
 
 object UiTexts {
 
+    object ZephyrShop {
+        val Title = SbText("Mystic Shop", "Мистическая Лавка")
+        val Reroll = SbText("Refresh", "Обновить")
+        val Upgrade = SbText("Upgrade", "Улучшить")
+        val MaxLevel = SbText("Max Level", "Макс. Уровень")
+        val Buy = SbText("Purchase", "Купить")
+    }
+
     val NavItems = SbText("Items", "Предметы")
     val MakeActive = SbText("Make Active", "Сделать Активным")
     val NavShop = SbText("Shop", "Лавка")

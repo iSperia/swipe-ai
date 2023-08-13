@@ -30,6 +30,7 @@ sealed class Action(val atlas: String, val icon: String) {
     object FilterBelt: Action(Resources.ux_atlas, "silh_belt")
     object Complete: Action(Resources.ux_atlas, "fg_complete")
     object Attack: Action(Resources.ux_atlas, "action_icon_attack")
+    object Purchase: Action(Resources.ux_atlas, "action_reroll")
     object Stats: Action(Resources.ux_atlas, "action_icon_stats")
     object Attributes: Action(Resources.ux_atlas, "action_icon_attributes")
     object Resistance: Action(Resources.ux_atlas, "action_icon_defence")

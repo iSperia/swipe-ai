@@ -63,11 +63,15 @@ interface ProfileService {
 
     suspend fun unlockTier(act: SwipeAct, level: String, tier: Int)
 
-    suspend fun getMysteryShop(): List<SbMysteryItem>
+    suspend fun getMysteryShop(): List<Pair<FrontItemEntryModel, Int>>
+
+    suspend fun upgradeMysteryShop()
+
+    suspend fun getMysteryShopUpgradeCost(): Int
 
     suspend fun rerollMysteryShop()
 
-    suspend fun buyMysteryItem(id: String): List<CollectedReward>
+    suspend fun buyMysteryItem(item: FrontItemEntryModel)
     fun spendCurrency(currencies: Array<SwipeCurrency>, useCount: Array<Int>)
 
     fun addCharacterExperience(skin: String, boostExp: Int)
@@ -219,7 +223,7 @@ data class CurrenciesMetadata(
 
 object Debug {
     val RichStart = false
-    val FastArcanum = true
+    val FastArcanum = false
 }
 
 class ProfileServiceImpl(
@@ -604,18 +608,100 @@ class ProfileServiceImpl(
         saveProfile()
     }
 
-    override suspend fun getMysteryShop(): List<SbMysteryItem> {
+    override suspend fun getMysteryShop(): List<Pair<FrontItemEntryModel, Int>> {
         if (profile.mysteryShop == null) {
-            rerollMysteryShop()
+            generateMysteryShop()
         }
         return profile.mysteryShop ?: emptyList()
     }
 
     override suspend fun rerollMysteryShop() {
-
+        val cost = 300
+        val balance = profile.getBalance(SwipeCurrency.ARCANUM)
+        if (balance >= cost) {
+            profile = profile.addBalance(SwipeCurrency.ARCANUM, -cost)
+            generateMysteryShop()
+        }
     }
 
-    override suspend fun buyMysteryItem(id: String): List<CollectedReward> = emptyList()
+    private suspend fun generateMysteryShop() {
+        val level = levelService.getAct(SwipeAct.ACT_1).levels.first { it.id == "zephyr_shop" }
+        val pool = level.tiers!![profile.mysteryShopLevel].rewards
+        var costLeft = level.tiers!![profile.mysteryShopLevel].rewardTotal
+        val totalWeight = pool.sumOf { it.weight }
+        val result = mutableListOf<Pair<FrontItemEntryModel, Int>>()
+        while (costLeft > 0) {
+            val roll = Random.nextInt(totalWeight)
+            var sum = 0
+            val reward = pool.first { sum += it.weight; sum >= roll }
+            if (reward.currency != null) {
+                val currency = reward.currency.type
+                val amount = reward.currency.amount
+                profile = profile.addBalance(currency, amount)
+                val meta = getCurrency(currency)
+                result.add(FrontItemEntryModel(
+                    skin = meta.currency.toString(),
+                    amount = amount,
+                    level = 0,
+                    rarity = meta.rarity,
+                    name = meta.name,
+                    currency = currency,
+                    item = null
+                ) to reward.currency.type.coins * amount)
+                costLeft -= reward.currency.type.coins * amount
+            } else if (reward.skin != null) {
+                val item = generateItem(reward.skin, reward.rarity ?: 0)
+                val template = itemService.getItemTemplate(item.skin)!!
+                result.add(FrontItemEntryModel(
+                    skin = item.skin,
+                    amount = 1,
+                    level = SwipeCharacter.getLevel(item.experience),
+                    rarity = item.rarity,
+                    name = template.name,
+                    currency = null,
+                    item = item
+                ) to ITEM_COST[item.rarity])
+                costLeft -= ITEM_COST[item.rarity]
+            }
+        }
+        profile = profile.copy(mysteryShop = result)
+        saveProfile()
+    }
+
+    override suspend fun upgradeMysteryShop() {
+        val balance = profile.getBalance(SwipeCurrency.ETHERIUM_COIN)
+        val cost = getMysteryShopUpgradeCost()
+        if (balance > cost && profile.mysteryShopLevel < 4) {
+            profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -cost)
+            profile = profile.copy(mysteryShopLevel = profile.mysteryShopLevel + 1)
+            rerollMysteryShop()
+            saveProfile()
+        }
+    }
+
+    override suspend fun getMysteryShopUpgradeCost(): Int {
+        if (profile.mysteryShopLevel >= 1) return 0
+        return 5000 + profile.mysteryShopLevel * profile.mysteryShopLevel * 2000
+    }
+
+    override suspend fun buyMysteryItem(item: FrontItemEntryModel) {
+        val entryIndex = profile.mysteryShop!!.indexOfFirst { it.first == item }
+        val entry = profile.mysteryShop!![entryIndex]
+        val cost = entry.second
+        val balance = profile.getBalance(SwipeCurrency.ETHERIUM_COIN)
+        if (balance >= cost) {
+            profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -cost)
+            if (entry.first.currency != null) {
+                profile = profile.addBalance(entry.first.currency!!, entry.first.amount)
+            } else if (entry.first.item != null) {
+                profile = profile.addItem(entry.first.item!!)
+            }
+            val shop = profile.mysteryShop!!.toMutableList()
+            shop.removeAt(entryIndex)
+            profile = profile.copy(mysteryShop = shop.toList())
+            saveProfile()
+        }
+    }
 
     override fun spendCurrency(currencies: Array<SwipeCurrency>, useCount: Array<Int>) {
         currencies.forEachIndexed { i, c ->

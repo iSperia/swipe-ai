@@ -60,6 +60,7 @@ class RaidWindow(
         addActor(backgroundShadow)
         addActor(scrollPane)
         loadData()
+        addBottomPanel()
     }
 
     private fun loadData() {
@@ -68,7 +69,6 @@ class RaidWindow(
 
             model = r.profileService.getRaidDetails(act, level)
             addTitle()
-            addBottomPanel()
 
             addLocationImage()
 

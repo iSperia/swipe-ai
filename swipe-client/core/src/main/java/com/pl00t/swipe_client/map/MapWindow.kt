@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
 import ktx.async.KtxAsync
-import java.util.logging.Level
 
 class MapWindow(
     private val r: Resources,
@@ -48,22 +47,30 @@ class MapWindow(
     lateinit var actionInventory: ActionCompositeButton
 
     init {
-        KtxAsync.launch {
-            rootGroup = Group().apply {
-                width = mapSize
-                height = mapSize
+        r.loadMusic("theme_global")
+        r.onLoad {
+            r.music("theme_global").apply {
+                volume = 0.25f
+                isLooping = true
+                play()
             }
-            scrollPane = ScrollPane(rootGroup).apply {
-                width = r.width
-                height = mapSize
-                y = 110f
+            KtxAsync.launch {
+                rootGroup = Group().apply {
+                    width = mapSize
+                    height = mapSize
+                }
+                scrollPane = ScrollPane(rootGroup).apply {
+                    width = r.width
+                    height = mapSize
+                    y = 110f
+                }
+
+                addActor(scrollPane)
+
+                reload()
+                addWindowTitle()
+
             }
-
-            addActor(scrollPane)
-
-            reload()
-            addWindowTitle()
-
         }
     }
 
@@ -97,6 +104,11 @@ class MapWindow(
 
     override fun reload() {
         KtxAsync.launch {
+            r.music("theme_global").apply {
+                volume = 0.25f
+                isLooping = true
+                play()
+            }
             val actModel = r.profileService.getAct(act)
             rootGroup.clearChildren()
             addMapImage()
