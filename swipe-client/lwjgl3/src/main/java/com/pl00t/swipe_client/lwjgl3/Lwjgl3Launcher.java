@@ -2,7 +2,6 @@ package com.pl00t.swipe_client.lwjgl3;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowConfiguration;
 import com.pl00t.swipe_client.SwipeGame;
 import com.pl00t.swipe_client.analytics.AnalyticsInterface;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +16,9 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(new SwipeGame(new AnalyticsInterface() {
+        return new Lwjgl3Application(new SwipeGame(
+            "en",
+            new AnalyticsInterface() {
             @Override
             public void trackEvent(@NotNull String event, @NotNull Map<String, String> data) {
                 System.out.println(event);

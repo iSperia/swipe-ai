@@ -34,7 +34,7 @@ configure(subprojects - project(':android')) {
 
 subprojects {
   version = '1.0.0'
-  ext.appName = 'swipe-client'
+  ext.appName = 'Swipe Battles'
   repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }

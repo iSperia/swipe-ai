@@ -1,6 +1,6 @@
 package com.game7th.swipe
 
-enum class Language {
+enum class Lang {
     EN, RU
 }
 
@@ -8,8 +8,8 @@ data class SbText(
     val en: String,
     val ru: String?,
 ) {
-    fun value(l: Language) = when (l) {
-        Language.EN -> en
-        Language.RU -> ru ?: en
+    fun value(l: Lang) = when (l) {
+        Lang.EN -> en
+        Lang.RU -> ru ?: en
     }
 }

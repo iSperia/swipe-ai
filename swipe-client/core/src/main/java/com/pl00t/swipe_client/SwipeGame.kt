@@ -3,6 +3,7 @@ package com.pl00t.swipe_client
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
+import com.game7th.swipe.Lang
 import com.pl00t.swipe_client.services.battle.BattleServiceImpl
 import com.pl00t.swipe_client.services.levels.LevelServiceImpl
 import com.google.gson.Gson
@@ -16,7 +17,9 @@ import com.pl00t.swipe_client.services.profile.ProfileServiceImpl
 import ktx.async.KtxAsync
 
 /** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
-class SwipeGame(private val analyticsInterface: AnalyticsInterface) : Game() {
+class SwipeGame(
+    private val lang: String,
+    private val analyticsInterface: AnalyticsInterface) : Game() {
 
     var coreLoaded = false
     lateinit var r: Resources
@@ -29,6 +32,7 @@ class SwipeGame(private val analyticsInterface: AnalyticsInterface) : Game() {
         r = Resources().apply {
             width = 480f
             height = 480f / ratio
+            l = if (lang.startsWith("ru")) Lang.RU else Lang.EN
             fileService = GdxFileService()
             itemService = ItemServiceImpl(Gson(), fileService)
             monsterService = MonsterServiceImpl(fileService)

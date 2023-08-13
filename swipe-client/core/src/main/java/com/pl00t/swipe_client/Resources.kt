@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.game7th.swipe.Language
+import com.game7th.swipe.Lang
 import com.game7th.swipe.game.SbSoundType
 import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.analytics.AnalyticsInterface
@@ -25,7 +25,7 @@ typealias SbAssetLoadedCallback = (Resources) -> Unit
 class Resources {
     var width: Float = 0f
     var height: Float = 0f
-    var l: Language = Language.EN
+    var l: Lang = Lang.EN
     lateinit var inputMultiplexer: InputMultiplexer
 
     lateinit var profileService: ProfileService

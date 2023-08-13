@@ -35,8 +35,8 @@ android {
     applicationId 'com.game7th.swipe_client'
     minSdkVersion 19
     targetSdkVersion 32
-    versionCode 17
-    versionName "0.1.17"
+    versionCode 22
+    versionName "0.1.22"
     multiDexEnabled true
   }
   namespace "com.game7th.swipebattles"
@@ -64,6 +64,7 @@ repositories {
 configurations { natives }
 
 dependencies {
+  implementation 'org.jetbrains:annotations:24.0.0'
   coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
   implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
   implementation project(':core')
