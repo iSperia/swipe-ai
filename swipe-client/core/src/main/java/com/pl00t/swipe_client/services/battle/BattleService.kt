@@ -56,6 +56,7 @@ class BattleServiceImpl(
     private var actId = SwipeAct.ACT_1
     private var level = "c1"
     private var tier = -1
+    private var rewardCollectCost = 0
     private var experienceIfWin = 0
 
     override suspend fun getDecorations(): BattleDecorations {
@@ -76,6 +77,12 @@ class BattleServiceImpl(
         this.tier = tier
         val actModel = levelService.getAct(actId)
         val levelModel = actModel.levels.firstOrNull { it.id == level } ?: throw IllegalStateException("No level found")
+        rewardCollectCost = when (levelModel.type) {
+            LevelType.CAMPAIGN -> 0
+            LevelType.BOSS -> 200
+            LevelType.RAID -> 120
+            else -> 0
+        }
 
         val character = profileService.getCharacters().first { it.skin == profileService.getActiveCharacter() }
 
@@ -109,12 +116,12 @@ class BattleServiceImpl(
                 }
             }
         } else if ((levelModel.type == LevelType.BOSS || levelModel.type == LevelType.RAID) && levelModel.tiers != null) {
-            val totalWaves = if (levelModel.type == LevelType.BOSS) 1 else if (Random.nextInt(20) < tier + 1) 4 else 3
+            val totalWaves = if (levelModel.type == LevelType.BOSS) 1 else if (Random.nextInt(20) < tier + 1) 5 else 4
             val totalWeight = levelModel.tiers[tier].monster_pool.sumOf { it.weight }
 
             val waves = mutableListOf<List<FrontMonsterConfiguration>>()
             (0 until totalWaves).forEach { waveIndex ->
-                val waveMonsters = if (levelModel.type == LevelType.BOSS) 1 else if (Random.nextFloat() < 0.25f) 2 else 3
+                val waveMonsters = if (levelModel.type == LevelType.BOSS) 1 else if (Random.nextFloat() < 0.1f) 2 else 3
                 val monsters = mutableListOf<FrontMonsterConfiguration>()
                 (0 until waveMonsters).forEach { monsterIndex ->
                     val roll = Random.nextInt(totalWeight)
@@ -209,7 +216,7 @@ class BattleServiceImpl(
                     tier = tier,
                     exp = ExperienceResult(monster.skin, monster.name, experienceIfWin),
                     freeRewards = freeRewards,
-                    extraRewardsCost = if (tier == -1) 0 else experienceIfWin * 6))
+                    extraRewardsCost = if (tier == -1) 0 else rewardCollectCost))
                 profileService.markActComplete(actId, level)
                 if (tier >= 0) {
                     profileService.unlockTier(actId, level, tier + 1)

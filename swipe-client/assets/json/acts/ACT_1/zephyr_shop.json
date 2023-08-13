@@ -1,0 +1,13 @@
+{
+  "x": 775,
+  "y": 595,
+  "type": "ZEPHYR_SHOP",
+  "id": "zephyr_shop",
+  "title": {
+    "en": "Mystic Shop",
+    "ru": "Мистическая Лавка"
+  },
+  "background": "zephyr_shop",
+  "monsters": [],
+  "tiers": []
+}

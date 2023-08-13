@@ -1,0 +1,134 @@
+{
+  "x": 458,
+  "y": 799,
+  "type": "RAID",
+  "id": "c10",
+  "title": {
+    "en": "The Verdant Groves: Raid",
+    "ru": "Зелёные Рощи: Рейд"
+  },
+  "background": "groves2",
+  "monsters": [],
+  "tiers": [
+    {
+      "rewardTotal": 2000,
+      "monster_pool": [
+        {
+          "skin": "MONSTER_THORNED_CRAWLER",
+          "level": 4,
+          "weight": 20
+        },
+        {
+          "skin": "MONSTER_THORNED_CRAWLER",
+          "level": 5,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_THORNED_CRAWLER",
+          "level": 6,
+          "weight": 20
+        },
+        {
+          "skin": "MONSTER_THORNSTALKER",
+          "level": 4,
+          "weight": 20
+        },
+        {
+          "skin": "MONSTER_THORNSTALKER",
+          "level": 5,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_THORNSTALKER",
+          "level": 5,
+          "weight": 20
+        },
+        {
+          "skin": "MONSTER_CORRUPTED_DRYAD",
+          "level": 4,
+          "weight": 20
+        },
+        {
+          "skin": "MONSTER_CORRUPTED_DRYAD",
+          "level": 5,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_CORRUPTED_DRYAD",
+          "level": 6,
+          "weight": 20
+        }
+      ],
+      "rewards": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 500,
+            "type": "ETHERIUM_COIN"
+          },
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "rewardTotal": 10000,
+      "monster_pool": [
+        {
+          "skin": "MONSTER_THORNED_CRAWLER",
+          "level": 9,
+          "weight": 20
+        },
+        {
+          "skin": "MONSTER_THORNED_CRAWLER",
+          "level": 10,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_THORNED_CRAWLER",
+          "level": 11,
+          "weight": 20
+        },
+        {
+          "skin": "MONSTER_THORNSTALKER",
+          "level": 9,
+          "weight": 20
+        },
+        {
+          "skin": "MONSTER_THORNSTALKER",
+          "level": 10,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_THORNSTALKER",
+          "level": 11,
+          "weight": 20
+        },
+        {
+          "skin": "MONSTER_CORRUPTED_DRYAD",
+          "level": 9,
+          "weight": 20
+        },
+        {
+          "skin": "MONSTER_CORRUPTED_DRYAD",
+          "level": 10,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_CORRUPTED_DRYAD",
+          "level": 11,
+          "weight": 20
+        }
+      ],
+      "rewards": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 2500,
+            "type": "ETHERIUM_COIN"
+          },
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

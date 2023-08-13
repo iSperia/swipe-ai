@@ -14,12 +14,15 @@ import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.monster.MonsterShortDetailsCell
+import com.pl00t.swipe_client.monster.MonsterTinyDetailsCell
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.pl00t.swipe_client.services.levels.FrontRaidModel
 import com.pl00t.swipe_client.services.levels.LevelRewardType
+import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.ItemCellActor
+import com.pl00t.swipe_client.ux.TinyItemCellActor
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
 import ktx.async.KtxAsync
@@ -72,7 +75,7 @@ class RaidWindow(
             val tableTiers = Table()
             val tiersToDisplay = max(5, model.tiers.size)
             (0 until tiersToDisplay).forEach { i ->
-                val unlocked = i < model.tiers.size
+                val unlocked = i < model.tiers.size && i <= r.profileService.getTierUnlocked(act, level)
 
                 val actor = Group().apply {
                     setSize(96f, 96f)
@@ -107,7 +110,7 @@ class RaidWindow(
             tableTiers.add().growX().row()
             content.add(tableTiers).row()
 
-            content.add(r.labelFocusedCaption(UiTexts.RaidPossibleRewards.value(r.l)).apply {
+            content.add(r.regular20White(UiTexts.RaidPossibleRewards.value(r.l)).apply {
                 width = 480f
                 setAlignment(Align.center)
             }).width(480f).align(Align.center).padTop(5f).padBottom(5f).row()
@@ -140,40 +143,41 @@ class RaidWindow(
                         )
                     }
                 }
-                val actor = ItemCellActor(r, model).apply {
+                val actor = TinyItemCellActor(r, model).apply {
                     touchable = Touchable.disabled
                 }
-                tableRewards.add(actor).size(120f, 140f)
-                if (index % 4 == 3) tableRewards.row()
+                tableRewards.add(actor).size(60f, 60f)
+                if (index % 8 == 7) tableRewards.row()
             }
-            tableRewards.add().growX()
+            tableRewards.add().growX().row()
             content.add(tableRewards).row()
 
-            content.add(r.labelFocusedCaption(UiTexts.RaidPossibleMonsters.value(r.l)).apply {
-                width = 480f
-                setAlignment(Align.center)
-            }).width(480f).align(Align.center).padTop(5f).padBottom(5f).row()
-            val tableMonsters = Table()
+            if (model.locationType == LevelType.RAID) {
+                content.add(r.regular20White(UiTexts.RaidPossibleMonsters.value(r.l)).apply {
+                    width = 480f
+                    setAlignment(Align.center)
+                }).width(480f).align(Align.center).padTop(5f).padBottom(5f).row()
+                val tableMonsters = Table()
 
-            model.tiers[tier].monster_pool.forEachIndexed { i, entry ->
-                val meta = r.monsterService.getMonster(entry.skin)!!
-                val actor = MonsterShortDetailsCell(r, FrontMonsterEntryModel(
-                    skin = entry.skin,
-                    name = meta.name,
-                    level = entry.level
-                ))
-                actor.onClick {
-                    KtxAsync.launch {
-                        val monster = r.monsterService.createMonster(meta.skin, entry.level)
-                        onMonsterClicked(monster)
+                model.tiers[tier].monster_pool.forEachIndexed { i, entry ->
+                    val meta = r.monsterService.getMonster(entry.skin)!!
+                    val actor = MonsterTinyDetailsCell(r, FrontMonsterEntryModel(
+                        skin = entry.skin,
+                        name = meta.name,
+                        level = entry.level
+                    ))
+                    actor.onClick {
+                        KtxAsync.launch {
+                            val monster = r.monsterService.createMonster(meta.skin, entry.level)
+                            onMonsterClicked(monster)
+                        }
                     }
+                    tableMonsters.add(actor).size(80f, 132f)
+                    if (i % 6 == 5) tableMonsters.row()
                 }
-                tableMonsters.add(actor).size(150f, 310f)
-                if (i % 3 == 2) tableMonsters.row()
+                tableMonsters.add().growX().row()
+                content.add(tableMonsters).row()
             }
-            tableMonsters.add().growX().row()
-            content.add(tableMonsters).row()
-
 
 
             content.row()
@@ -213,6 +217,10 @@ class RaidWindow(
     }
 
     private fun addLocationImage() {
+
+        val layers = Group().apply {
+            setSize(480f, 240f)
+        }
         val drawable = r.atlas(Resources.actAtlas(model.act)).findRegion(model.locationBackground).let {
             val x1 = it.u
             val x2 = it.u2
@@ -226,8 +234,41 @@ class RaidWindow(
             height = 240f
             setScaling(Scaling.stretch)
         }
+        layers.addActor(image)
+        if (model.locationType == LevelType.BOSS) {
+            val unitDrawable = r.atlas(Resources.units_atlas).findRegion(model.bossSkin).let {
+                val x1 = it.u
+                val x2 = it.u2
+                val y1 = it.v
+                val y2 = it.v2
+                val d = y1 - y2
+                TextureRegionDrawable(TextureRegion(it.texture, x1, y1, x2, y2 + d * 0.5f))
+            }
+
+            val unitImage = Image(unitDrawable).apply {
+                width = 240f
+                height = 240f
+                setScaling(Scaling.stretch)
+                setPosition(0f, 0f)
+            }
+            unitImage.onClick {
+                KtxAsync.launch {
+                    val meta = r.monsterService.createMonster(model.tiers[tier].monster_pool.first().skin, model.tiers[tier].monster_pool.first().level)
+                    onMonsterClicked(meta)
+                }
+            }
+            layers.addActor(unitImage)
+
+            val unitLevel = r.regular24White("${UiTexts.LvlPrefix.value(r.l)} ${model.tiers[tier].monster_pool.first().level}").apply {
+                setPosition(unitImage.x, unitImage.y)
+                setSize(unitImage.width, 30f)
+                setAlignment(Align.center)
+                touchable = Touchable.disabled
+            }
+            layers.addActor(unitLevel)
+        }
         content.add(r.image(Resources.ux_atlas, "background_black").apply { setSize(480f, 1f)}).size(480f, 1f).row()
-        content.add(image).size(480f, 240f).row()
+        content.add(layers).size(480f, 240f).row()
         content.add(r.image(Resources.ux_atlas, "background_black").apply { setSize(480f, 1f) }).size(480f, 1f).row()
     }
 

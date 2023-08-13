@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
 import ktx.async.KtxAsync
+import java.util.logging.Level
 
 class MapWindow(
     private val r: Resources,
@@ -112,7 +113,6 @@ class MapWindow(
         KtxAsync.launch {
             val actModel = r.profileService.getAct(act)
             addTitle(actModel)
-            loadMap(actModel)
         }
     }
 
@@ -120,7 +120,6 @@ class MapWindow(
         bottomActionPanel?.remove()
         val profile = r.profileService.getProfile()
         val actions = listOf(
-            ActionCompositeButton(r, Action.Shop, Mode.SingleLine(UiTexts.NavShop.value(r.l)), !profile.shopUnlocked),
             ActionCompositeButton(r, Action.Stash, Mode.SingleLine(UiTexts.NavItems.value(r.l)), !profile.inventoryUnlocked).apply {
                 onClick {
                     navigateInventory()
@@ -165,13 +164,18 @@ class MapWindow(
                 LevelType.RAID -> mapIconSize
                 LevelType.CAMPAIGN -> mapSmallIconSize
                 LevelType.BOSS -> mapIconSize
+                LevelType.ZEPHYR_SHOP -> mapIconSize
             }
 
             val iconX = level.x * mapScale
             val iconY = level.y * mapScale
 
             val isBoss = level.type == LevelType.BOSS && !r.profileService.isFreeRewardAvailable(act, level.locationId)
-            val levelActor = MapLevelActor(r, level.copy(type = if (isBoss) LevelType.BOSS else LevelType.CAMPAIGN)).apply {
+            val type = when (level.type) {
+                LevelType.BOSS -> if (isBoss) LevelType.BOSS else LevelType.CAMPAIGN
+                else -> level.type
+            }
+            val levelActor = MapLevelActor(r, level.copy(type = type)).apply {
                 setSize(iconSize, iconSize)
                 x = iconX - iconSize / 2f
                 y = iconY - iconSize / 2f

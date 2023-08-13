@@ -14,7 +14,6 @@ import com.pl00t.swipe_client.heroes.HeroDetailWindow
 import com.pl00t.swipe_client.heroes.HeroListWindow
 import com.pl00t.swipe_client.items.InventoryItemWindow
 import com.pl00t.swipe_client.items.InventoryWindow
-import com.pl00t.swipe_client.map.BossWindow
 import com.pl00t.swipe_client.map.CampaignLevelWindow
 import com.pl00t.swipe_client.map.MapWindow
 import com.pl00t.swipe_client.map.RaidWindow
@@ -125,20 +124,8 @@ class HomeScreen(
                                 openBattle = this@HomeScreen::openBattle
                             )
                             stack.showScreen(window)
-                        } else if (levelModel.type == LevelType.RAID) {
+                        } else if (levelModel.type == LevelType.RAID || levelModel.type == LevelType.BOSS) {
                             val window = RaidWindow(
-                                r = r,
-                                act = actId,
-                                level = levelModel.locationId,
-                                onClose = { stack.moveBack() },
-                                onLaunch = this@HomeScreen::openBattle,
-                                onMonsterClicked = { config ->
-                                    stack.showScreen(MonsterDetailWindow(r, config, onClose = { stack.moveBack() }))
-                                }
-                            )
-                            stack.showScreen(window)
-                        } else if (levelModel.type == LevelType.BOSS) {
-                            val window = BossWindow(
                                 r = r,
                                 act = actId,
                                 level = levelModel.locationId,

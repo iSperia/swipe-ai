@@ -1,11 +1,18 @@
 package com.pl00t.swipe_client.services.levels
 
+import com.game7th.swipe.SbText
 import com.google.gson.Gson
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.services.files.FileService
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import java.lang.IllegalArgumentException
+
+private data class ActFileModel(
+    val title: SbText,
+    val levels: List<String>,
+    val links: List<LinkModel>
+)
 
 class LevelServiceImpl(
     private val fileService: FileService,
@@ -53,9 +60,16 @@ class LevelServiceImpl(
     }
 
     private suspend fun loadAct(act: SwipeAct): ActModel {
-        val actModel = gson.fromJson(fileService.internalFile("json/${act.name}.json"), ActModel::class.java)
-        acts[act] = actModel
-        return actModel
+        val actModel = gson.fromJson(fileService.internalFile("json/acts/${act.name}/act.json"), ActFileModel::class.java)
+        val levels = actModel.levels.map {
+            gson.fromJson(fileService.internalFile("json/acts/${act.name}/$it.json"), LevelModel::class.java)
+        }
+        acts[act] = ActModel(
+            levels = levels,
+            links = actModel.links,
+            title = actModel.title
+        )
+        return acts[act]!!
     }
 
     override suspend fun getLevelDetails(act: SwipeAct, level: String, enabled: Boolean): FrontLevelModel {
@@ -81,26 +95,15 @@ class LevelServiceImpl(
 
     override suspend fun getRaidDetails(act: SwipeAct, level: String): FrontRaidModel {
         val actModel = getAct(act)
-        val l = actModel.levels.firstOrNull { it.type == LevelType.RAID && it.id == level } ?: throw IllegalArgumentException("$act invalid act")
+        val l = actModel.levels.firstOrNull { it.id == level } ?: throw IllegalArgumentException("$act invalid act")
         return FrontRaidModel(
             act = act,
             locationId = l.id,
             locationBackground = l.background,
             locationTitle = l.title,
-            tiers = l.tiers!!
-        )
-    }
-
-    override suspend fun getBossDetails(act: SwipeAct, level: String): FrontBossModel {
-        val actModel = getAct(act)
-        val l = actModel.levels.firstOrNull { it.type == LevelType.BOSS && it.id == level } ?: throw IllegalArgumentException("$act invalid act")
-        return FrontBossModel(
-            act = act,
-            locationId = l.id,
-            locationBackground = l.background,
-            locationTitle = l.title,
             tiers = l.tiers!!,
-            bossSkin = l.monsters!!.first().first().skin
+            locationType = l.type,
+            bossSkin = if (l.type == LevelType.BOSS) l.monsters!!.first().first().skin else null
         )
     }
 

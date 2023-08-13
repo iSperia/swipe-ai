@@ -1,0 +1,92 @@
+{
+  "x": 740,
+  "y": 343,
+  "type": "CAMPAIGN",
+  "id": "c7",
+  "title": {
+    "en": "Whispering Woods",
+    "ru": "Шепчущий лес"
+  },
+  "background": "groves3",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 5
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 5
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 5
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 5
+      },
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 5
+      },
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 5
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 5
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 5
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 5
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 3500,
+        "type": "ETHERIUM_COIN"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1,
+        "type": "ELIXIR_CITRINE"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1,
+        "type": "ELIXIR_AMBER"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 2,
+        "type": "INFUSION_ORB"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 2,
+        "type": "SCROLL_OF_WISDOM"
+      }
+    }
+  ]
+}

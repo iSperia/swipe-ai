@@ -78,8 +78,6 @@ interface ProfileService {
     suspend fun previewDust(id: String): List<CurrencyBalance>
     suspend fun dustItem(id: String)
     suspend fun getRaidDetails(act: SwipeAct, level: String): FrontRaidModel
-    suspend fun getBossDetails(act: SwipeAct, level: String): FrontBossModel
-
     suspend fun getActiveCharacter(): String
 
     suspend fun setActiveCharacter(skin: String)
@@ -219,7 +217,10 @@ data class CurrenciesMetadata(
     val currencies: List<CurrencyMetadata>
 )
 
-val DEBUG = false
+object Debug {
+    val RichStart = false
+    val FastArcanum = true
+}
 
 class ProfileServiceImpl(
     val levelService: LevelService,
@@ -244,7 +245,7 @@ class ProfileServiceImpl(
             val text = handle.readString()
             gson.fromJson(text, SwipeProfile::class.java)
         } else {
-            if (DEBUG) {
+            if (Debug.RichStart) {
                 SwipeProfile(
                     inventoryUnlocked = true,
                     partyUnlocked = true,
@@ -332,7 +333,7 @@ class ProfileServiceImpl(
             }
         }
 
-        val period = if (DEBUG) 60_000L else 3_600_000L
+        val period = if (Debug.FastArcanum) 60_000L else 3_600_000L
 
         val timePassed = System.currentTimeMillis() - profile.lastArcanumReplenished
         val hoursPassed = (timePassed / period).toInt()
@@ -467,26 +468,21 @@ class ProfileServiceImpl(
     }
 
     override suspend fun collectFreeRaidReward(expBoost: Int): List<FrontItemEntryModel> {
-        val minValue = expBoost
-        val maxValue = expBoost * 3
-        val roll = Random.nextInt(minValue, maxValue)
-        profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, roll)
-        val meta = getCurrency(SwipeCurrency.ETHERIUM_COIN)
-        return listOf(FrontItemEntryModel(SwipeCurrency.ETHERIUM_COIN.toString(), roll, 0, meta.rarity, meta.name, meta.currency, null))
+        return emptyList()
     }
 
     override suspend fun collectRichReward(act: SwipeAct, level: String, tier: Int, cost: Int): List<FrontItemEntryModel> {
-        if (profile.getBalance(SwipeCurrency.ETHERIUM_COIN) < cost) {
+        if (profile.getBalance(SwipeCurrency.ARCANUM) < cost) {
             return emptyList()
         }
-        profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -cost)
+        profile = profile.addBalance(SwipeCurrency.ARCANUM, -cost)
 
         var result = mutableListOf<FrontItemEntryModel>()
 
         val levelModel = levelService.getAct(act).levels.first { it.id == level }
         val pool = levelModel.tiers!![tier].rewards
         val totalWeight = pool.sumOf { it.weight }
-        var stuffLeft = cost
+        var stuffLeft = levelModel.tiers[tier].rewardTotal
         while (stuffLeft > 0) {
             val roll = Random.nextInt(totalWeight)
             var sum = 0
@@ -505,7 +501,7 @@ class ProfileServiceImpl(
                     currency = currency,
                     item = null
                 ))
-                stuffLeft -= reward.currency.type.coins
+                stuffLeft -= reward.currency.type.coins * amount
             } else if (reward.skin != null) {
                 val item = generateItem(reward.skin, reward.rarity ?: 0)
                 addItem(item)
@@ -544,7 +540,7 @@ class ProfileServiceImpl(
         return result
     }
 
-    private val ITEM_COST = arrayOf(500, 1500, 5000, 15000, 50000)
+    private val ITEM_COST = arrayOf(1000, 5000, 25000, 125000, 625000)
 
     override suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata {
         return currencyCache.currencies.firstOrNull { it.currency == currency } ?: throw IllegalArgumentException("No currency $currency")
@@ -732,10 +728,6 @@ class ProfileServiceImpl(
 
     override suspend fun getRaidDetails(act: SwipeAct, level: String): FrontRaidModel {
         return levelService.getRaidDetails(act, level)
-    }
-
-    override suspend fun getBossDetails(act: SwipeAct, level: String): FrontBossModel {
-        return levelService.getBossDetails(act, level)
     }
 
     override suspend fun getActiveCharacter(): String {

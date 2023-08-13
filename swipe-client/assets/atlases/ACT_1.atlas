@@ -18,13 +18,6 @@ groves2
   orig: 1024, 1024
   offset: 0, 0
   index: -1
-groves3
-  rotate: false
-  xy: 1024, 0
-  size: 1024, 1024
-  orig: 1024, 1024
-  offset: 0, 0
-  index: -1
 map
   rotate: false
   xy: 0, 1024
@@ -32,29 +25,50 @@ map
   orig: 1024, 1024
   offset: 0, 0
   index: -1
+zephyr_shop
+  rotate: false
+  xy: 1024, 0
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
 
 ACT_12.png
-size: 512, 128
+size: 2048, 1024
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
 groves2_preview
   rotate: false
-  xy: 0, 0
+  xy: 1024, 896
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+groves3
+  rotate: false
+  xy: 0, 0
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
 groves3_preview
   rotate: false
-  xy: 256, 0
+  xy: 1024, 640
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 groves_preview
   rotate: false
-  xy: 128, 0
+  xy: 1152, 896
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+zephyr_shop_preview
+  rotate: false
+  xy: 1024, 768
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

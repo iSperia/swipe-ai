@@ -6,12 +6,11 @@ import com.game7th.swipe.game.SbMonsterEntry
 data class ActModel(
     val levels: List<LevelModel>,
     val links: List<LinkModel>,
-    val background: String,
     val title: SbText
 )
 
 enum class LevelType {
-    CAMPAIGN, RAID, BOSS
+    CAMPAIGN, RAID, BOSS, ZEPHYR_SHOP
 }
 
 data class LinkModel(

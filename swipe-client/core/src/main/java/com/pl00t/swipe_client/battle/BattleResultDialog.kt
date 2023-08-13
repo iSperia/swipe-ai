@@ -94,11 +94,11 @@ class BattleResultDialog(
             var actions = mutableListOf<ActionCompositeButton>()
 
             if (result.victory && result.extraRewardsCost > 0) {
-                val enoughCoins =
-                    r.profileService.getProfile().getBalance(SwipeCurrency.ETHERIUM_COIN) >= result.extraRewardsCost
+                val enoughArcanum =
+                    r.profileService.getProfile().getBalance(SwipeCurrency.ARCANUM) >= result.extraRewardsCost
                 val collectReward = ActionCompositeButton(
                     r,
-                    Action.ItemDetails(SwipeCurrency.ETHERIUM_COIN.toString()),
+                    Action.ItemDetails(SwipeCurrency.ARCANUM.toString()),
                     Mode.Purchase(
                         UiTexts.RaidCollectRewards.value(r.l),
                         SwipeCurrency.ETHERIUM_COIN,
@@ -106,7 +106,7 @@ class BattleResultDialog(
                     )
                 )
 
-                if (enoughCoins) {
+                if (enoughArcanum) {
                     collectReward.onClick {
                         KtxAsync.launch {
                             collectReward.touchable = Touchable.disabled
@@ -148,7 +148,7 @@ class BattleResultDialog(
             content.clearChildren()
 
             val enoughCoins = extraRewards != null || r.profileService.getProfile()
-                .getBalance(SwipeCurrency.ETHERIUM_COIN) >= result.extraRewardsCost
+                .getBalance(SwipeCurrency.ARCANUM) >= result.extraRewardsCost
 
             content.add(r.image(Resources.ux_atlas, "background_black").apply { alpha = 0.5f; setSize(480f, 1f) })
                 .size(480f, 1f).colspan(4).row()
@@ -184,7 +184,7 @@ class BattleResultDialog(
             }
 
             if (!enoughCoins) {
-                content.add(r.regular24Error(UiTexts.RaidLittleCoins.value(r.l)).apply { width = 480f }).width(480f)
+                content.add(r.regular24Error("${UiTexts.RaidLittleArcanum.value(r.l)} (${r.profileService.getProfile().getBalance(SwipeCurrency.ARCANUM)}/${result.extraRewardsCost})").apply { width = 460f }).width(460f)
                     .colspan(5).row()
             }
 
@@ -200,9 +200,10 @@ class BattleResultDialog(
                 content.add(
                     r.regular24Focus(UiTexts.RaidFreeRewards.value(r.l))
                         .apply { width = 480f; setAlignment(Align.center) }).width(480f).colspan(5).row()
+
+                val browser = ItemBrowser(r, result.freeRewards, null, null)
+                content.add(browser).row()
             }
-            val browser = ItemBrowser(r, result.freeRewards, null, null)
-            content.add(browser).row()
 
             content.row()
             content.add().growY()

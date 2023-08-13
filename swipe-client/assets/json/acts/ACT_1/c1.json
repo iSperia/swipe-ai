@@ -1,0 +1,28 @@
+{
+  "x": 162,
+  "y": 162,
+  "type": "CAMPAIGN",
+  "id": "c1",
+  "title": {
+    "en": "Forest Edge",
+    "ru": "Опушка Леса"
+  },
+  "background": "groves",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 1
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 500,
+        "type": "ETHERIUM_COIN"
+      }
+    }
+  ]
+}

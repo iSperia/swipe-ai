@@ -1,0 +1,43 @@
+{
+  "skin": "CHARACTER_ZEPHYR",
+  "name": {
+    "en": "Zephyr, Enigmatic Trader",
+    "ru": "Зефир, Торговец Энигмы"
+  },
+  "attributes": {"mind":  33, "spirit":  33, "body":  34},
+  "balance": {
+    "base_health": 800,
+    "luck": 5,
+    "ult": 10,
+    "ult_max": 800,
+    "resist": {
+      "phys": 0,
+      "dark": 0,
+      "light": 0,
+      "shock": 0,
+      "fire": 0,
+      "cold": 0
+    },
+    "rs_base": 5000,
+    "rs_scale_body": 10,
+    "lb_base": 3000,
+    "lb_scale_spirit": 10,
+    "sor_tiles": 2,
+    "sor_h_base": 60,
+    "sor_h_scale_spirit": 10,
+    "dc_dmg_base": 25,
+    "dc_heal_base": 25,
+    "dc_scale_dmg_spirit": 10,
+    "dc_scale_h_spirit": 10,
+    "dc_scale_h_body": 10
+  },
+  "triggers": [
+    "valerian.radiant_strike", "valerian.luminous_beam", "valerian.sigil_of_renewal", "valerian.divine_convergence"
+  ],
+  "tiles": [
+    { "weight": 3, "skin": "VALERIAN_RADIANT_STRIKE", "z": 2, "mobility": 5, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
+    { "weight": 3, "skin": "VALERIAN_LUMINOUS_BEAM", "z": 2, "mobility": 5, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
+    { "weight": 3, "skin": "VALERIAN_SIGIL_OF_RENEWAL", "z": 2, "mobility": 5, "mergeStrategy": "SIMPLE", "maxProgress": 3 }
+  ],
+  "scale": 1
+}

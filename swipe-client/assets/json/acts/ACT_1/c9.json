@@ -1,0 +1,145 @@
+{
+  "x": 420,
+  "y": 200,
+  "type": "BOSS",
+  "id": "c9",
+  "title": {
+    "en": "Thalendros' Lair",
+    "ru": "Логово Талендроса"
+  },
+  "description": {
+    "en": "Thalendros is a massive treant, once a guardian of the Verdant Grove, but now corrupted by dark energies. Its once vibrant foliage has withered, replaced by thorny branches and malevolent glowing eyes. Thalendros stands tall and imposing, radiating an aura of corruption and decay.",
+    "ru": "Талендрос — массивный древень, когда-то охранявший Зеленую рощу, но теперь испорченный темной энергией. Его когда-то яркая листва увяла, уступив место колючим ветвям и злобным светящимся глазам. Талендрос стоит высокий и внушительный, излучая ауру порчи и разложения."
+  },
+  "background": "groves3",
+  "music": "theme_boss",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_THALENDROS",
+        "level": 6
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 4500,
+        "type": "ETHERIUM_COIN"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 2,
+        "type": "TOME_OF_ENLIGHTMENT"
+      }
+    },
+    {
+      "type": "item",
+      "skin": "FROSTGUARD_GAUNTLETS",
+      "rarity": 0
+    },
+    {
+      "type": "item",
+      "skin": "FLAMEHEART_BELT",
+      "rarity": 0
+    }
+  ],
+  "tiers": [
+    {
+      "monster_pool": [
+        {
+          "skin": "MONSTER_THALENDROS",
+          "level": 10,
+          "weight": 30
+        }
+      ],
+      "rewardTotal": 4000,
+      "rewards": [
+        {
+          "type": "currency",
+          "currency": {
+            "type": "SCROLL_OF_WISDOM",
+            "amount": 1
+          },
+          "rarity": 0,
+          "weight": 400
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "type": "ELIXIR_LAPIS",
+            "amount": 1
+          },
+          "rarity": 0,
+          "weight": 100
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "type": "ELIXIR_CITRINE",
+            "amount": 1
+          },
+          "rarity": 0,
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "monster_pool": [
+        {
+          "skin": "MONSTER_THALENDROS",
+          "level": 20,
+          "weight": 30
+        }
+      ],
+      "rewardTotal": 20000,
+      "rewards": [
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "ENCHANTED_BAND",
+          "weight": 160
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "type": "SCROLL_OF_WISDOM",
+            "amount": 1
+          },
+          "rarity": 0,
+          "weight": 500
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "type": "TOME_OF_ENLIGHTMENT",
+            "amount": 1
+          },
+          "rarity": 0,
+          "weight": 100
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "type": "ELIXIR_LAPIS",
+            "amount": 1
+          },
+          "rarity": 0,
+          "weight": 150
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "type": "ELIXIR_CITRINE",
+            "amount": 1
+          },
+          "rarity": 0,
+          "weight": 150
+        }
+      ]
+    }
+  ]
+}

@@ -27,7 +27,7 @@ object UiTexts {
     val RaidFreeRewards = SbText("Free rewards collected:", "Полученные бесплатные награды:")
     val RaidRichRewards = SbText("Rewards collected:", "Полученные награды:")
     val RaidCollectRewards = SbText("Collect Rewards", "Собрать Награды")
-    val RaidLittleCoins = SbText("You have no enough coins to collect the rewards!", "У вас недостаточно эфирных монет, чтобы собрать награду!")
+    val RaidLittleArcanum = SbText("You have no enough arcane essence to collect the rewards!", "У вас недостаточно чародейской эссенции для сбора наград!")
 
     val LevelUpApply = SbText("Apply", "Применить")
     val Details = SbText("Details", "Детали")

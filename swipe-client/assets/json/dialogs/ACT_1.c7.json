@@ -1,66 +1,50 @@
 {
   "replicas": [
     {
-      "skin": "CHARACTER_VALERIAN",
+      "skin": "MONSTER_CORRUPTED_DRYAD",
       "text": {
-        "en": "The forest seems to darken... Thalendros must sense our presence.",
-        "ru": "Кажется, лес темнеет... Талендрос должен почувствовать наше присутствие."
+        "en": "Halt, intruders! You tread upon sacred ground, tainted by your presence.",
+        "ru": "Стой, незваные гости! Вы ступаете на священную землю, испорченную вашим присутствием."
       },
-      "side": "left"
+      "side": "right"
     },
     {
       "skin": "CHARACTER_SAFFRON",
       "text": {
-        "en": "We're getting close to his lair. Be prepared, Valerian.",
-        "ru": "Мы приближаемся к его логову. Будь готов, Валериан."
+        "en": "We mean no harm to this land. We seek the shard to restore balance.",
+        "ru": "Мы не причиним вреда этой земле. Мы ищем осколок, чтобы восстановить равновесие."
       },
       "side": "right"
     },
     {
       "skin": "CHARACTER_VALERIAN",
       "text": {
-        "en": "I can feel the tension in the air. This battle won't be easy.",
-        "ru": "Я чувствую напряжение в воздухе. Эта битва не будет легкой."
+        "en": "The shard holds the key to healing these groves, to saving both your realm and ours.",
+        "ru": "В этом осколке находится ключ к исцелению этих рощ, к спасению вашего и нашего владений."
       },
       "side": "left"
     },
     {
-      "skin": "CHARACTER_SAFFRON",
+      "skin": "MONSTER_CORRUPTED_DRYAD",
       "text": {
-        "en": "We've faced numerous challenges together. We won't back down now.",
-        "ru": "Вместе мы столкнулись с множеством проблем. Мы не отступим сейчас."
+        "en": "The shard... It is both life and death. It must not fall into unworthy hands.",
+        "ru": "Осколок... Это и жизнь, и смерть. Он не должен попасть в недостойные руки."
       },
       "side": "right"
     },
     {
-      "skin": "MONSTER_THORNSTALKER",
+      "skin": "CHARACTER_SAFFRON",
       "text": {
-        "en": "You dare intrude upon Thalendros' domain! You will pay for your audacity!",
-        "ru": "Ты посмел вторгнуться во владения Талендроса! Ты заплатишь за свою наглость!"
+        "en": "We understand the danger, but we aim to use its power for good. Will you help us?",
+        "ru": "Мы понимаем опасность, но стремимся использовать его силу во благо. Вы поможете нам?"
       },
       "side": "right"
     },
     {
       "skin": "MONSTER_CORRUPTED_DRYAD",
       "text": {
-        "en": "The forest shall rise against you! You will not reach our master!",
-        "ru": "Лес восстанет против тебя! Вы не дойдете до нашего мастера!"
-      },
-      "side": "right"
-    },
-    {
-      "skin": "CHARACTER_VALERIAN",
-      "text": {
-        "en": "Stand strong, Saffron. We must overcome this trial to reach Thalendros.",
-        "ru": "Держись, Шафран. Мы должны преодолеть это испытание, чтобы добраться до Талендроса."
-      },
-      "side": "left"
-    },
-    {
-      "skin": "CHARACTER_SAFFRON",
-      "text": {
-        "en": "Together, we'll show them the strength of unity and determination!",
-        "ru": "Вместе мы покажем им силу единства и решимости!"
+        "en": "Prove yourselves. Face us, and only then shall we consider your plea.",
+        "ru": "Проявите себя. Встретьтесь с нами, и только тогда мы рассмотрим вашу просьбу."
       },
       "side": "right"
     }

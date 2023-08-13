@@ -22,9 +22,9 @@
       "fire": 0,
       "cold": 0
     },
-    "rs_base": 50,
+    "rs_base": 5000,
     "rs_scale_body": 10,
-    "lb_base": 30,
+    "lb_base": 3000,
     "lb_scale_spirit": 10,
     "sor_tiles": 2,
     "sor_h_base": 60,

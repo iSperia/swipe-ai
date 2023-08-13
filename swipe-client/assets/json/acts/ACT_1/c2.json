@@ -1,0 +1,43 @@
+{
+  "x": 150,
+  "y": 300,
+  "type": "CAMPAIGN",
+  "id": "c2",
+  "title": {
+    "en": "Thorned Thicket",
+    "ru": "Колючая заросль"
+  },
+  "background": "groves",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 1
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 1
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 1
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1000,
+        "type": "ETHERIUM_COIN"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1,
+        "type": "SCROLL_OF_WISDOM"
+      }
+    }
+  ]
+}

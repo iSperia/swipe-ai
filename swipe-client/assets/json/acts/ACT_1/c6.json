@@ -1,0 +1,81 @@
+{
+  "x": 546,
+  "y": 439,
+  "type": "CAMPAIGN",
+  "id": "c6",
+  "title": {
+    "en": "Sacred Spring",
+    "ru": "Священный источник"
+  },
+  "background": "groves2",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 4
+      },
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 4
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 4
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 4
+      },
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 4
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 4
+      },
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 4
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 4
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 3000,
+        "type": "ETHERIUM_COIN"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1,
+        "type": "SCROLL_OF_WISDOM"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1,
+        "type": "TOME_OF_ENLIGHTMENT"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 2,
+        "type": "INFUSION_ORB"
+      }
+    }
+  ]
+}

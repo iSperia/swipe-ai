@@ -1,58 +1,90 @@
 {
   "replicas": [
     {
-      "skin": "MONSTER_CORRUPTED_DRYAD",
+      "skin": "CHARACTER_ZEPHYR",
       "text": {
-        "en": "No... we are defeated...",
-        "ru": "Нет... мы побеждены..."
-      },
-      "side": "right"
-    },
-    {
-      "skin": "CHARACTER_VALERIAN",
-      "text": {
-        "en": "Tell us, where is the shard?",
-        "ru": "Скажи нам, где осколок?"
-      },
-      "side": "left"
-    },
-    {
-      "skin": "MONSTER_CORRUPTED_DRYAD",
-      "text": {
-        "en": "Deep within the heart of these groves, beneath the roots of the Eternal Oak. But beware, Thalendros guards it fiercely.",
-        "ru": "Глубоко в сердце этих рощ, под корнями Вечного Дуба. Но будьте осторожны, Талендрос яростно охраняет его."
+        "en": "Thank you both for saving me back there. I'm Zephyr, by the way.",
+        "ru": "Спасибо вам обоим, что спасли меня там. Я, кстати, Зефир."
       },
       "side": "right"
     },
     {
       "skin": "CHARACTER_SAFFRON",
       "text": {
-        "en": "Thalendros... who is he?",
-        "ru": "Талендрос... кто он?"
+        "en": "You're welcome, Zephyr. But what were you doing in these dangerous groves?",
+        "ru": "Не за что, Зефир. Но что ты делал в этих опасных рощах?"
       },
       "side": "right"
     },
     {
-      "skin": "MONSTER_CORRUPTED_DRYAD",
+      "skin": "CHARACTER_ZEPHYR",
       "text": {
-        "en": "A force born of darkness, once a guardian of these lands. Now corrupted, he seeks to harness the shard's power for his own malevolent purposes.",
-        "ru": "Сила, рожденная тьмой, когда-то хранившая эти земли. Оскверненный, он пытается использовать силу осколка в своих злонамеренных целях."
+        "en": "I was seeking something... something of great importance hidden within these woods.",
+        "ru": "Я искал что-то... что-то очень важное, спрятанное в этих лесах."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "What kind of thing? Why venture into such perilous territory?",
+        "ru": "Что за вещь? Зачем рисковать на такой опасной территории?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_ZEPHYR",
+      "text": {
+        "en": "It's a personal matter. But I appreciate your help. In fact, I'm so grateful that I'd like to offer something in return.",
+        "ru": "Это личное дело. Но я ценю вашу помощь. На самом деле, я так благодарен, что хотел бы предложить что-то взамен."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_ZEPHYR",
+      "text": {
+        "en": "I run a small shop, and I happen to have a special collection of items that might be of use to you.",
+        "ru": "У меня небольшой магазин, и у меня есть особая коллекция предметов, которые могут вам пригодиться."
       },
       "side": "right"
     },
     {
       "skin": "CHARACTER_VALERIAN",
       "text": {
-        "en": "We will face him, no matter the danger. This threat must be ended.",
-        "ru": "Мы встретимся с ним, несмотря ни на что. Эта угроза должна быть устранена."
+        "en": "A shop in the heart of the groves? That's an unusual choice.",
+        "ru": "Магазин посреди рощи? Это необычный выбор."
       },
       "side": "left"
     },
     {
+      "skin": "CHARACTER_ZEPHYR",
+      "text": {
+        "en": "I find inspiration in unexpected places. I believe these artifacts, elixirs, and various items might aid you in your journey.",
+        "ru": "Я нахожу вдохновение в неожиданных местах. Я верю, что эти артефакты, эликсиры и различные предметы могут помочь вам в вашем путешествии."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_ZEPHYR",
+      "text": {
+        "en": "I accept etherium coins, and in return, I offer rare goods. You can find my shop marked on your map now. Feel free to visit whenever you like.",
+        "ru": "Я принимаю эфирные монеты, а взамен предлагаю редкие товары. Теперь вы можете найти мой магазин, отмеченный на вашей карте. Не стесняйтесь посещать, когда захотите."
+      },
+      "side": "right"
+    },
+    {
       "skin": "CHARACTER_SAFFRON",
       "text": {
-        "en": "Let's press on, Valerian. The shard must be reclaimed, and these groves must be healed.",
-        "ru": "Давай, Валериан. Осколок должен быть восстановлен, и эти рощи должны быть исцелены."
+        "en": "Thank you, Zephyr. We might take you up on that offer.",
+        "ru": "Спасибо, Зефир. Мы могли бы воспользоваться этим предложением."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_ZEPHYR",
+      "text": {
+        "en": "Safe travels, adventurers. May our paths cross again in the future.",
+        "ru": "Безопасных путешествий, искатели приключений. Пусть наши пути снова пересекутся в будущем."
       },
       "side": "right"
     }

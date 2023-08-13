@@ -1,0 +1,106 @@
+{
+  "x": 722,
+  "y": 146,
+  "type": "CAMPAIGN",
+  "id": "c8",
+  "title": {
+    "en": "Thorned Heart",
+    "ru": "Шипастое сердце"
+  },
+  "background": "groves3",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 6
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 6
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 6
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 6
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 6
+      },
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 6
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 6
+      },
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 6
+      },
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 6
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_CORRUPTED_DRYAD",
+        "level": 6
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 6
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 6
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 4000,
+        "type": "ETHERIUM_COIN"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1,
+        "type": "TOME_OF_ENLIGHTMENT"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 2,
+        "type": "SCROLL_OF_WISDOM"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1,
+        "type": "ELIXIR_CITRINE"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 4,
+        "type": "INFUSION_ORB"
+      }
+    }
+  ]
+}

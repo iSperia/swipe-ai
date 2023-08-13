@@ -1,0 +1,76 @@
+{
+  "x": 188,
+  "y": 487,
+  "type": "CAMPAIGN",
+  "id": "c4",
+  "title": {
+    "en": "Ancient Clearing",
+    "ru": "Древняя поляна"
+  },
+  "background": "groves2",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 3
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 2
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 2
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 2000,
+        "type": "ETHERIUM_COIN"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 2,
+        "type": "SCROLL_OF_WISDOM"
+      }
+    },
+    {
+      "type": "item",
+      "skin": "HELM_OF_IRON_WILL",
+      "rarity": 0
+    }
+  ]
+}

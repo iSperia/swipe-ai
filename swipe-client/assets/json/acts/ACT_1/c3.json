@@ -1,0 +1,62 @@
+{
+  "x": 320,
+  "y": 267,
+  "type": "CAMPAIGN",
+  "id": "c3",
+  "title": {
+    "en": "Misty Glade",
+    "ru": "Туманная поляна"
+  },
+  "background": "groves",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 3
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 3
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1500,
+        "type": "ETHERIUM_COIN"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1,
+        "type": "SCROLL_OF_WISDOM"
+      }
+    },
+    {
+      "type": "item",
+      "skin": "RING_OF_ILLUMINATION",
+      "rarity": 0
+    }
+  ]
+}

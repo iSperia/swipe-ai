@@ -1,0 +1,78 @@
+{
+  "x": 466,
+  "y": 599,
+  "type": "CAMPAIGN",
+  "id": "c5",
+  "title": {
+    "en": "Eternal Oak",
+    "ru": "Вечный дуб"
+  },
+  "background": "groves2",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 3
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 3
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 3
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 3
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 3
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 3
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 3
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 3
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 3
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 2500,
+        "type": "ETHERIUM_COIN"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 3,
+        "type": "SCROLL_OF_WISDOM"
+      }
+    },
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 1,
+        "type": "TOME_OF_ENLIGHTMENT"
+      }
+    }
+  ]
+}
