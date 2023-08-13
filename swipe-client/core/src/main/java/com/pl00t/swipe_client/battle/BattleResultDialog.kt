@@ -10,6 +10,8 @@ import com.game7th.swipe.game.SbSoundType
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
+import com.pl00t.swipe_client.analytics.AnalyticEvents
+import com.pl00t.swipe_client.analytics.AnalyticsInterface
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeAct
@@ -69,6 +71,12 @@ class BattleResultDialog(
             r.onLoad {
                 r.playSound(SbSoundType.DEFEAT_MUSIC)
             }
+        }
+
+        if (result.victory) {
+            r.analytics.trackEvent(AnalyticEvents.BattleEvent.EVENT_BATTLE_VICTORY, AnalyticEvents.BattleEvent.create(result.act, result.level, result.tier))
+        } else {
+            r.analytics.trackEvent(AnalyticEvents.BattleEvent.EVENT_BATTLE_DEFEAT, AnalyticEvents.BattleEvent.create(result.act, result.level, result.tier))
         }
     }
 
@@ -131,6 +139,7 @@ class BattleResultDialog(
                 val retry = ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.RetryLevel.value(r.l)))
                 retry.onClick {
                     KtxAsync.launch {
+                        r.analytics.trackEvent(AnalyticEvents.BattleEvent.EVENT_BATTLE_START, AnalyticEvents.BattleEvent.create(result.act, result.level, result.tier))
                         r.battleService.createBattle(result.act, result.level, result.tier)
                         onStartLevel(true)
                     }

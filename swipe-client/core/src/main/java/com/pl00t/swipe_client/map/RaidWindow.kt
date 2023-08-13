@@ -13,6 +13,7 @@ import com.game7th.swipe.game.FrontMonsterConfiguration
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
+import com.pl00t.swipe_client.analytics.AnalyticEvents
 import com.pl00t.swipe_client.monster.MonsterShortDetailsCell
 import com.pl00t.swipe_client.monster.MonsterTinyDetailsCell
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
@@ -190,6 +191,7 @@ class RaidWindow(
             ActionCompositeButton(r, Action.Attack, Mode.SingleLine(UiTexts.ButtonAttack.value(r.l))).apply {
                 onClick {
                     KtxAsync.launch {
+                        r.analytics.trackEvent(AnalyticEvents.BattleEvent.EVENT_BATTLE_START, AnalyticEvents.BattleEvent.create(model.act, model.locationId, tier))
                         r.battleService.createBattle(model.act, model.locationId, tier)
                         onLaunch()
                     }

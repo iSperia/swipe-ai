@@ -67,7 +67,7 @@ dependencies {
   coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
   implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
   implementation project(':core')
-  implementation 'com.gameanalytics.sdk:gameanalytics-android:3.4.2'
+  implementation 'com.yandex.android:mobmetricalib:5.3.0'
 
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"

@@ -1,36 +1,34 @@
 package com.pl00t.swipe_client.android;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.gameanalytics.sdk.GameAnalytics;
 import com.pl00t.swipe_client.SwipeGame;
 import com.pl00t.swipe_client.analytics.AnalyticsInterface;
+import com.yandex.metrica.YandexMetrica;
+import com.yandex.metrica.YandexMetricaConfig;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /** Launches the Android application. */
 public class AndroidLauncher extends AndroidApplication implements AnalyticsInterface {
+
+    private static String YMAK = "5c63eabc-0a52-4b2d-ae67-b30aec022e11";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        PackageManager pm = getPackageManager();
-        try {
-            PackageInfo info = pm.getPackageInfo(getPackageName(), 0);
-            GameAnalytics.setEnabledInfoLog(true);
-            GameAnalytics.setEnabledVerboseLog(true);
-            GameAnalytics.configureBuild(info.versionName);
-            GameAnalytics.initializeWithGameKey("7e317788e1340f0d6eaa3e65b4d42cc2", "1b95a324841fd91773967d880b4bc98442c8f242");
-        } catch (PackageManager.NameNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-
+        // Creating an extended library configuration.
+        YandexMetricaConfig config = YandexMetricaConfig.newConfigBuilder(YMAK)
+            .withSessionTimeout(15)
+            .withLogs()
+            .build();
+        // Initializing the AppMetrica SDK.
+        YandexMetrica.activate(getApplicationContext(), config);
+        // Automatic tracking of user activity.
+        YandexMetrica.enableActivityAutoTracking(getApplication());
 
         AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
         configuration.useImmersiveMode = true; // Recommended, but not required.
@@ -39,13 +37,29 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsInte
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        YandexMetrica.getReporter(getApplicationContext(), YMAK).pauseSession();
+    }
+
+    @Override
+    protected void onResume() {
+        YandexMetrica.getReporter(getApplicationContext(), YMAK).resumeSession();
+        super.onResume();
+    }
+
+    @Override
     public void trackEvent(String event, Map<String, String> data) {
-        GameAnalytics.addDesignEventWithEventId(event);
+        Map<String, Object> dataMapped = new HashMap<>();
+        for (Map.Entry<String, String> entry : data.entrySet()) {
+            dataMapped.put(entry.getKey(), entry.getValue());
+        }
+        YandexMetrica.getReporter(getApplicationContext(), YMAK).reportEvent(event, dataMapped);
     }
 
     @Override
     public void trackEvent(String event) {
-        GameAnalytics.addDesignEventWithEventId(event);
+        YandexMetrica.getReporter(getApplicationContext(), YMAK).reportEvent(event);
     }
 
 }

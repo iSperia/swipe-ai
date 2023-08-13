@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
+import com.pl00t.swipe_client.analytics.AnalyticEvents
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.ItemBrowser
@@ -83,6 +84,7 @@ class ZephyrShopWindow(
                 ).apply {
                     onClick {
                         KtxAsync.launch {
+                            r.analytics.trackEvent(AnalyticEvents.MysteryShopEvent.EVENT_PURCHASE, mapOf(AnalyticEvents.MysteryShopEvent.KEY_COST to entry.second.toString()))
                             r.profileService.buyMysteryItem(entry.first)
                             loadData()
                         }
@@ -131,6 +133,7 @@ class ZephyrShopWindow(
                     onClick {
                         KtxAsync.launch {
                             r.profileService.upgradeMysteryShop()
+                            r.analytics.trackEvent(AnalyticEvents.MysteryShopEvent.EVENT_UPGRADE, mapOf(AnalyticEvents.MysteryShopEvent.KEY_TIER to r.profileService.getProfile().mysteryShopLevel.toString()))
                             loadData()
                         }
                     }
@@ -138,6 +141,7 @@ class ZephyrShopWindow(
                 ActionCompositeButton(r, Action.ItemDetails(SwipeCurrency.ARCANUM.toString()), Mode.SingleLine("300/${r.profileService.getProfile().getBalance(SwipeCurrency.ARCANUM)}\n${UiTexts.ZephyrShop.Reroll.value(r.l)}"), !enoughForReroll).apply {
                     onClick {
                         KtxAsync.launch {
+                            r.analytics.trackEvent(AnalyticEvents.MysteryShopEvent.EVENT_REFRESH)
                             r.profileService.rerollMysteryShop()
                             loadData()
                         }

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
+import com.pl00t.swipe_client.analytics.AnalyticEvents
 import com.pl00t.swipe_client.monster.MonsterShortDetailsCell
 import com.pl00t.swipe_client.services.levels.FrontLevelModel
 import com.pl00t.swipe_client.ux.HoverAction
@@ -68,6 +69,7 @@ class CampaignLevelWindow(
             ActionCompositeButton(r, Action.Attack, Mode.SingleLine(UiTexts.ButtonAttack.value(r.l))).apply {
                 onClick {
                     KtxAsync.launch {
+                        r.analytics.trackEvent(AnalyticEvents.BattleEvent.EVENT_BATTLE_START, AnalyticEvents.BattleEvent.create(model.act, model.locationId, -1))
                         r.battleService.createBattle(model.act, model.locationId, -1)
                         openBattle()
                     }
@@ -143,6 +145,7 @@ class CampaignLevelWindow(
                             UiTexts.Tutorials.C1Details, HoverAction.HoverClick(true) {
                                 KtxAsync.launch {
                                     r.profileService.saveTutorial(tutorial.copy(c1LevelDetailsPassed = true))
+                                    r.analytics.trackEvent(AnalyticEvents.BattleEvent.EVENT_BATTLE_START, AnalyticEvents.BattleEvent.create(model.act, model.locationId, -1))
                                     r.battleService.createBattle(model.act, model.locationId, -1)
                                     openBattle()
                                 }

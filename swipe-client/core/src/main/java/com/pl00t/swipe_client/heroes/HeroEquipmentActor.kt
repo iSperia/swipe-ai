@@ -13,6 +13,7 @@ import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.Action
 import com.pl00t.swipe_client.action.ActionCompositeButton
 import com.pl00t.swipe_client.action.Mode
+import com.pl00t.swipe_client.analytics.AnalyticEvents
 import com.pl00t.swipe_client.home.ReloadableScreen
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeCharacter
@@ -78,6 +79,7 @@ class HeroEquipmentActor(
                         onClick {
                             KtxAsync.launch {
                                 selectedItemId = null
+                                r.analytics.trackEvent(AnalyticEvents.EquipEvent.EVENT_UNEQUIP)
                                 r.profileService.unequipItem(item.id)
                                 loadData()
                                 onChanged()
@@ -110,6 +112,7 @@ class HeroEquipmentActor(
                             onClick {
                                 KtxAsync.launch {
                                     selectedItemId = inventoryItem.id
+                                    r.analytics.trackEvent(AnalyticEvents.EquipEvent.EVENT_EQUIP)
                                     r.profileService.equipItem(skin, inventoryItem)
                                     loadData()
                                     onChanged()
