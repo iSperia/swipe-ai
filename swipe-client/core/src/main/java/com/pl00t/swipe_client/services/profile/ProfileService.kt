@@ -570,7 +570,7 @@ class ProfileServiceImpl(
         return result
     }
 
-    private val ITEM_COST = arrayOf(1000, 5000, 25000, 125000, 625000)
+    private val ITEM_COST = arrayOf(1250, 10000, 80000, 640000, 5000000)
 
     override suspend fun getCurrency(currency: SwipeCurrency): CurrencyMetadata {
         return currencyCache.currencies.firstOrNull { it.currency == currency } ?: throw IllegalArgumentException("No currency $currency")

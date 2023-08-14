@@ -10,6 +10,7 @@ object UiTexts {
         val Upgrade = SbText("Upgrade", "Улучшить")
         val MaxLevel = SbText("Max Level", "Макс. Уровень")
         val Buy = SbText("Purchase", "Купить")
+        val Balance = SbText("Your coin balance: ", "Монет в наличии: ")
     }
 
     object Atlas {

@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
+import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
@@ -15,6 +16,7 @@ import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.services.profile.SwipeCurrency
 import com.pl00t.swipe_client.ux.ItemBrowser
 import kotlinx.coroutines.launch
+import ktx.actors.alpha
 import ktx.actors.onClick
 import ktx.async.KtxAsync
 
@@ -61,13 +63,33 @@ class ZephyrShopWindow(
                 val d = y2 - y1
                 TextureRegionDrawable(TextureRegion(it.texture, x1, y1 + d * 0.25f, x2, y1 + d * 0.75f))
             }
+            val g = Group().apply {
+                setSize(480f, 240f)
+            }
             val image = Image(drawable).apply {
                 width = 480f
                 height = 240f
                 setScaling(Scaling.stretch)
             }
+            val balance = r.profileService.getProfile().getBalance(SwipeCurrency.ETHERIUM_COIN)
+            val label = r.regular20Focus("${UiTexts.ZephyrShop.Balance.value(r.l)}$balance").apply {
+                setSize(450f, 30f)
+                setPosition(30f, 0f)
+                setAlignment(Align.left)
+            }
+            val shadow = r.image(Resources.ux_atlas, "background_black").apply {
+                alpha = 0.5f
+                setSize(480f, 30f)
+            }
+            val icon = r.image(Resources.ux_atlas, SwipeCurrency.ETHERIUM_COIN.toString()).apply {
+                setSize(30f, 30f)
+            }
+            g.addActor(image)
+            g.addActor(shadow)
+            g.addActor(label)
+            g.addActor(icon)
             content.add(r.image(Resources.ux_atlas, "background_black").apply { setSize(480f, 1f)}).colspan(3).size(480f, 1f).row()
-            content.add(image).size(480f, 240f).colspan(3).row()
+            content.add(g).size(480f, 240f).colspan(3).row()
             content.add(r.image(Resources.ux_atlas, "background_black").apply { setSize(480f, 1f) }).colspan(3).size(480f, 1f).row()
 
 

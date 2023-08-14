@@ -17,7 +17,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 5,
+            "amount": 3,
             "type": "SCROLL_OF_WISDOM"
           },
           "weight": 1000
@@ -25,10 +25,18 @@
         {
           "type": "currency",
           "currency": {
+            "amount": 5,
+            "type": "INFUSION_ORB"
+          },
+          "weight": 1000
+        },
+        {
+          "type": "currency",
+          "currency": {
             "amount": 1,
             "type": "ELIXIR_AMBER"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -36,7 +44,7 @@
             "amount": 1,
             "type": "ELIXIR_TURQUOISE"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -44,7 +52,7 @@
             "amount": 1,
             "type": "ELIXIR_LAPIS"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -52,7 +60,7 @@
             "amount": 1,
             "type": "ELIXIR_CITRINE"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -60,7 +68,7 @@
             "amount": 1,
             "type": "ELIXIR_JADE"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -68,18 +76,18 @@
             "amount": 1,
             "type": "ELIXIR_AGATE"
           },
-          "weight": 500
+          "weight": 1000
         }
       ]
     },
     {
-      "rewardTotal": 25000,
+      "rewardTotal": 30000,
       "monster_pool": [],
       "rewards": [
         {
           "type": "currency",
           "currency": {
-            "amount": 5,
+            "amount": 3,
             "type": "TOME_OF_ENLIGHTMENT"
           },
           "weight": 1000
@@ -87,10 +95,18 @@
         {
           "type": "currency",
           "currency": {
+            "amount": 5,
+            "type": "INFUSION_SHARD"
+          },
+          "weight": 1000
+        },
+        {
+          "type": "currency",
+          "currency": {
             "amount": 2,
             "type": "ELIXIR_AMBER"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -98,7 +114,7 @@
             "amount": 2,
             "type": "ELIXIR_TURQUOISE"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -106,7 +122,7 @@
             "amount": 2,
             "type": "ELIXIR_LAPIS"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -114,7 +130,7 @@
             "amount": 2,
             "type": "ELIXIR_CITRINE"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -122,7 +138,7 @@
             "amount": 2,
             "type": "ELIXIR_JADE"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -130,19 +146,27 @@
             "amount": 2,
             "type": "ELIXIR_AGATE"
           },
-          "weight": 500
+          "weight": 1000
         }
       ]
     },
     {
-      "rewardTotal": 60000,
+      "rewardTotal": 90000,
       "monster_pool": [],
       "rewards": [
         {
           "type": "currency",
           "currency": {
-            "amount": 5,
+            "amount": 3,
             "type": "CODEX_OF_ASCENDANCY"
+          },
+          "weight": 1000
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 5,
+            "type": "INFUSION_CRYSTAL"
           },
           "weight": 1000
         },
@@ -152,7 +176,7 @@
             "amount": 4,
             "type": "ELIXIR_AMBER"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -160,7 +184,7 @@
             "amount": 4,
             "type": "ELIXIR_TURQUOISE"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -168,7 +192,7 @@
             "amount": 4,
             "type": "ELIXIR_LAPIS"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -176,7 +200,7 @@
             "amount": 4,
             "type": "ELIXIR_CITRINE"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -184,7 +208,7 @@
             "amount": 4,
             "type": "ELIXIR_JADE"
           },
-          "weight": 500
+          "weight": 1000
         },
         {
           "type": "currency",
@@ -192,7 +216,7 @@
             "amount": 4,
             "type": "ELIXIR_AGATE"
           },
-          "weight": 500
+          "weight": 1000
         }
       ]
     }
