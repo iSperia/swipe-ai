@@ -25,6 +25,8 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
 
+
+
 interface ProfileService {
 
     suspend fun arcanumAddBalance(): Flow<Int>
@@ -92,10 +94,19 @@ interface ProfileService {
 
     suspend fun getDialogScript(key: String): DialogScript
 
+    suspend fun getAtlas(): List<FrontAdventureModel>
+
     data class DustItemResult(
         val rewards: List<CurrencyReward>
     )
 }
+
+data class FrontAdventureModel(
+    val act: SwipeAct,
+    val title: SbText,
+    val available: Boolean,
+    val lore: SbText,
+)
 
 suspend fun generateCharacter(monsterService: MonsterService, level: Int, skin: String, attributes: CharacterAttributes, affixes: List<ItemAffix>): FrontMonsterConfiguration {
     val configFile = monsterService.getMonster(skin) ?: throw IllegalArgumentException("Did not find $skin monster")
@@ -222,8 +233,9 @@ data class CurrenciesMetadata(
 )
 
 object Debug {
-    val RichStart = false
+    val RichStart = true
     val FastArcanum = false
+    val NoMusic = true
 }
 
 class ProfileServiceImpl(
@@ -262,7 +274,11 @@ class ProfileServiceImpl(
                     actProgress = listOf(
                         ActProgress(
                             SwipeAct.ACT_1,
-                            listOf("c1", "c2", "c3", "c4", "c5", "c6", "c7","c8","c9","c10")
+                            listOf("c1", "c2", "c3", "c4", "c5", "c6", "c7","c8","c9","c10","zephyr_shop")
+                        ),
+                        ActProgress(
+                            SwipeAct.ACT_2,
+                            listOf("c1", "c2", "c3", "c4", "c5", "c6", "c7","c8","c9","c10","crystal_mine")
                         ),
                     ),
                     rewardsCollected = emptyList(),
@@ -390,7 +406,14 @@ class ProfileServiceImpl(
 
     override suspend fun getAct(act: SwipeAct): FrontActModel {
         val actModel = levelService.getAct(act)
-        val progress = profile.actProgress.firstOrNull { it.act == act } ?: throw IllegalArgumentException("No act $act found")
+        val progress = profile.actProgress.firstOrNull { it.act == act }.let {
+            if (it == null) {
+                val progress = ActProgress(act, listOf(actModel.levels.first().id))
+                profile = profile.copy(actProgress = profile.actProgress + progress)
+                saveProfile()
+                progress
+            } else it
+        }
         val availableLevels = actModel.levels.filter { progress.levelsAvailable.contains(it.id) }
         val availableLinks = actModel.links.filter { progress.levelsAvailable.contains(it.n1) || progress.levelsAvailable.contains(it.n2) }
         val disabledLevels = actModel.levels.filter { l -> !progress.levelsAvailable.contains(l.id) && availableLinks.any { it.n1 == l.id || it.n2 == l.id } }
@@ -406,6 +429,9 @@ class ProfileServiceImpl(
     }
 
     override suspend fun markActComplete(act: SwipeAct, level: String) {
+        if (act == SwipeAct.ACT_1 && level == "c9") {
+            profile = profile.copy(atlasUnlocked = true)
+        }
         val actModel = levelService.getAct(act)
         val actProgress = profile.actProgress.firstOrNull { it.act == act } ?: return
         val levelsToUnlock = actModel.links
@@ -877,6 +903,18 @@ class ProfileServiceImpl(
             gson.fromJson(file, DialogScript::class.java)
         } catch (e: Throwable) {
             DialogScript(emptyList())
+        }
+    }
+
+    override suspend fun getAtlas(): List<FrontAdventureModel> {
+        return listOf(SwipeAct.ACT_1, SwipeAct.ACT_2, SwipeAct.ACT_3).map { actId ->
+            val act = levelService.getAct(actId)
+            FrontAdventureModel(
+                actId,
+                act.title,
+                true,
+                act.lore
+            )
         }
     }
 }

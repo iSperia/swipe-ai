@@ -8,16 +8,16 @@
     "en": "Massive constructs formed from enchanted stone, Stone Golems can be found in the Crystal Caverns or even guarding the entrance to the King's Castle. These hulking creatures are formidable adversaries, possessing immense strength and resilience. They attack with powerful, crushing blows and can withstand a significant amount of damage.",
     "ru": "Массивные конструкции, созданные из зачарованного камня, каменные големы можно найти в Хрустальных пещерах или даже охранять вход в Королевский замок. Эти неуклюжие существа — грозные противники, обладающие огромной силой и стойкостью. Они атакуют мощными, сокрушительными ударами и могут выдержать значительный урон"
   },
-  "attributes": {"mind":  10, "spirit":  10, "body":  80},
+  "attributes": {"mind":  30, "spirit":  30, "body":  40},
   "tiles": [
     { "weight": 4, "skin": "STONE_GOLEM_STONE_SMASH", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
     { "weight": 4, "skin": "STONE_GOLEM_PETRIFYING_STRIKE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 },
-    { "weight": 2, "skin": "STONE_GOLEM_CRUSHING_MOMENTUM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 }
+    { "weight": 2, "skin": "STONE_GOLEM_CRUSHING_MOMENTUM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
   ],
   "triggers": ["stone_golem.stone_smash", "stone_golem.petrifying_strike", "stone_golem.crushing_momentum", "common.stun"],
   "balance": {
-    "base_health": 200,
-    "luck": 5,
+    "base_health": 500,
+    "luck": 3,
     "ult": 10,
     "ult_max": 1000,
     "resist": {
@@ -28,14 +28,14 @@
       "fire": 0.25,
       "cold": 0
     },
-    "ss_base": 35,
+    "ss_base": 30,
     "ss_scale": 10,
-    "ps_base": 20,
+    "ps_base": 15,
     "ps_scale": 10,
     "ps_tiles": 2,
-    "cm_base": 40,
+    "cm_base": 30,
     "cm_scale": 10,
-    "cm_per_tile": 14,
+    "cm_per_tile": 15,
     "cm_per_tile_scale": 5
   },
   "scale": 1.25

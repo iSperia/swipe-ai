@@ -1,0 +1,78 @@
+{
+  "x": 262,
+  "y": 592,
+  "type": "CAMPAIGN",
+  "id": "c2",
+  "title": {
+    "en": "Crystal Coves",
+    "ru": "Кристальные пещеры"
+  },
+  "background": "crystal_coves",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 10
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 10
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 10
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 10
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 10
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 10
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 10
+      },
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 10
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 10
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 10
+      },
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 10
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 10
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 5000,
+        "type": "ETHERIUM_COIN"
+      }
+    }
+  ]
+}

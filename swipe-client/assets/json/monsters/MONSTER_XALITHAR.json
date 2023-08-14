@@ -16,24 +16,24 @@
   ],
   "triggers": ["xalithar.frozen_impact", "xalithar.mirrorweave", "xalithar.crystalline_cataclysm"],
   "balance": {
-    "base_health": 1500,
-    "luck": 5,
+    "base_health": 2000,
+    "luck": 10,
     "ult": 10,
     "ult_max": 1000,
     "resist": {
-      "phys": 0.2,
-      "dark": 0.2,
-      "light": 0.2,
-      "shock": 0.2,
-      "fire": 0.2,
-      "cold": 0.2
+      "phys": 0.3,
+      "dark": 0.3,
+      "light": 0.3,
+      "shock": 0.3,
+      "fire": 0.3,
+      "cold": 0.3
     },
-    "fi_phys_base": 40,
-    "fi_cold_base": 40,
-    "fi_phys_scale": 10,
-    "fi_cold_scale": 10,
+    "fi_phys_base": 42,
+    "fi_cold_base": 42,
+    "fi_phys_scale": 11,
+    "fi_cold_scale": 11,
     "m_percent": 40,
-    "cc_per_tile_base": 40,
+    "cc_per_tile_base": 45,
     "cc_per_tile_scale": 10
   },
   "scale": 1.6

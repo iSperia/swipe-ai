@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.SbBaseScreen
+import com.pl00t.swipe_client.atlas.AtlasWindow
 import com.pl00t.swipe_client.battle.BattleResultDialog
 import com.pl00t.swipe_client.battle.BattleWindow
 import com.pl00t.swipe_client.heroes.HeroDetailWindow
@@ -30,18 +31,14 @@ class HomeScreen(
     r: Resources
 ) : SbBaseScreen(r) {
 
-    lateinit var actId: SwipeAct
-
     private var stack = StackDelegate(rootGroup)
 
     override fun loadScreenContent() {
-        actId = SwipeAct.ACT_1
-
-        r.loadAtlas(Resources.actAtlas(actId))
         r.loadAtlas(Resources.ux_atlas)
         r.loadAtlas(Resources.units_atlas)
         r.loadAtlas(Resources.skills_atlas)
         r.loadSkin(Resources.SKIN)
+        r.loadAtlas(Resources.atlas_atlas)
 
         r.onLoad {
             val background = r.image(Resources.ux_atlas, "background_solid").apply {
@@ -57,7 +54,7 @@ class HomeScreen(
             r.skin().getFont("regular24").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             r.skin().getFont("regular24outline").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             hideSplash()
-            showMap()
+            showMap(SwipeAct.ACT_1)
         }
 
         KtxAsync.launch {
@@ -96,79 +93,86 @@ class HomeScreen(
         }
     }
 
-    private fun showMap() {
-        val mapActor = MapWindow(r, actId, onLocationClicked =  { locationId ->
-            KtxAsync.launch {
-                r.profileService.getAct(actId).levels.firstOrNull { it.locationId == locationId }?.let { levelModel ->
-                    if (levelModel.enabled) {
-                        if (levelModel.type == LevelType.CAMPAIGN || (levelModel.type == LevelType.BOSS && r.profileService.isFreeRewardAvailable(actId, levelModel.locationId))) {
-                            val window = CampaignLevelWindow(
-                                r = r,
-                                model = levelModel,
-                                onClose = {
-                                    stack.moveBack()
-                                },
-                                onMonsterClicked = { skin, level ->
-                                    KtxAsync.launch {
-                                        r.monsterService.createMonster(skin, level).let { monsterModel ->
-                                            val window = MonsterDetailWindow(
-                                                r = r,
-                                                model = monsterModel,
-                                                onClose = {
-                                                    stack.moveBack()
-                                                }
-                                            )
-                                            stack.showScreen(window)
+    private fun showMap(act: SwipeAct) {
+        stack.moveBack()
+        r.loadAtlas(Resources.actAtlas(act))
+        r.onLoad {
+            val mapActor = MapWindow(r, act, onLocationClicked =  { locationId ->
+                KtxAsync.launch {
+                    r.profileService.getAct(act).levels.firstOrNull { it.locationId == locationId }?.let { levelModel ->
+                        if (levelModel.enabled) {
+                            if (levelModel.type == LevelType.CAMPAIGN || (levelModel.type == LevelType.BOSS && r.profileService.isFreeRewardAvailable(act, levelModel.locationId))) {
+                                val window = CampaignLevelWindow(
+                                    r = r,
+                                    model = levelModel,
+                                    onClose = {
+                                        stack.moveBack()
+                                    },
+                                    onMonsterClicked = { skin, level ->
+                                        KtxAsync.launch {
+                                            r.monsterService.createMonster(skin, level).let { monsterModel ->
+                                                val window = MonsterDetailWindow(
+                                                    r = r,
+                                                    model = monsterModel,
+                                                    onClose = {
+                                                        stack.moveBack()
+                                                    }
+                                                )
+                                                stack.showScreen(window)
+                                            }
                                         }
+                                    },
+                                    openBattle = this@HomeScreen::openBattle
+                                )
+                                stack.showScreen(window)
+                            } else if (levelModel.type == LevelType.RAID || levelModel.type == LevelType.BOSS) {
+                                val window = RaidWindow(
+                                    r = r,
+                                    act = act,
+                                    level = levelModel.locationId,
+                                    onClose = { stack.moveBack() },
+                                    onLaunch = this@HomeScreen::openBattle,
+                                    onMonsterClicked = { config ->
+                                        stack.showScreen(MonsterDetailWindow(r, config, onClose = { stack.moveBack() }))
                                     }
-                                },
-                                openBattle = this@HomeScreen::openBattle
-                            )
-                            stack.showScreen(window)
-                        } else if (levelModel.type == LevelType.RAID || levelModel.type == LevelType.BOSS) {
-                            val window = RaidWindow(
-                                r = r,
-                                act = actId,
-                                level = levelModel.locationId,
-                                onClose = { stack.moveBack() },
-                                onLaunch = this@HomeScreen::openBattle,
-                                onMonsterClicked = { config ->
-                                    stack.showScreen(MonsterDetailWindow(r, config, onClose = { stack.moveBack() }))
-                                }
-                            )
-                            stack.showScreen(window)
-                        } else if (levelModel.type == LevelType.ZEPHYR_SHOP) {
-                            val window = ZephyrShopWindow(
-                                r = r,
-                                onClose = { stack.moveBack() }
-                            )
-                            stack.showScreen(window)
+                                )
+                                stack.showScreen(window)
+                            } else if (levelModel.type == LevelType.ZEPHYR_SHOP) {
+                                val window = ZephyrShopWindow(
+                                    r = r,
+                                    onClose = { stack.moveBack() }
+                                )
+                                stack.showScreen(window)
+                            }
                         }
                     }
                 }
-            }
-        }, navigateParty = {
-            stack.showScreen(HeroListWindow(r, onClose = { stack.moveBack() }, onHeroSelected = { skin ->
-                KtxAsync.launch {
-                    val heroConfig = r.profileService.createCharacter(skin)
-                    stack.showScreen(HeroDetailWindow(r, heroConfig, { stack.moveBack() }, { id ->
+            }, navigateParty = {
+                stack.showScreen(HeroListWindow(r, onClose = { stack.moveBack() }, onHeroSelected = { skin ->
+                    KtxAsync.launch {
+                        val heroConfig = r.profileService.createCharacter(skin)
+                        stack.showScreen(HeroDetailWindow(r, heroConfig, { stack.moveBack() }, { id ->
+                            val window = InventoryItemWindow(r, id, onClose = { stack.moveBack() })
+                            stack.showScreen(window)
+                        }))
+                    }
+                }))
+            }, navigateInventory = {
+                stack.showScreen(InventoryWindow(r, onClose = { stack.moveBack() }, onItemClicked = { id ->
+                    KtxAsync.launch {
                         val window = InventoryItemWindow(r, id, onClose = { stack.moveBack() })
                         stack.showScreen(window)
-                    }))
-                }
-            }))
-        }, navigateInventory = {
-            stack.showScreen(InventoryWindow(r, onClose = { stack.moveBack() }, onItemClicked = { id ->
-                KtxAsync.launch {
-                    val window = InventoryItemWindow(r, id, onClose = { stack.moveBack() })
-                    stack.showScreen(window)
-                }
-            }))
-        }).apply {
-            alpha = 0f
-            addAction(Actions.alpha(1f, 0.3f))
+                    }
+                }))
+            }, navigateAtlas = {
+                stack.moveBack()
+                stack.showScreen(AtlasWindow(r, this::showMap))
+            }).apply {
+                alpha = 0f
+                addAction(Actions.alpha(1f, 0.3f))
+            }
+            stack.showScreen(mapActor)
         }
-        stack.showScreen(mapActor)
     }
 
     private fun openBattle() {

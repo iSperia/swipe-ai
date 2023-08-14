@@ -15,23 +15,8 @@
       "monster_pool": [
         {
           "skin": "MONSTER_THORNED_CRAWLER",
-          "level": 4,
-          "weight": 20
-        },
-        {
-          "skin": "MONSTER_THORNED_CRAWLER",
           "level": 5,
           "weight": 60
-        },
-        {
-          "skin": "MONSTER_THORNED_CRAWLER",
-          "level": 6,
-          "weight": 20
-        },
-        {
-          "skin": "MONSTER_THORNSTALKER",
-          "level": 4,
-          "weight": 20
         },
         {
           "skin": "MONSTER_THORNSTALKER",
@@ -39,24 +24,9 @@
           "weight": 60
         },
         {
-          "skin": "MONSTER_THORNSTALKER",
-          "level": 5,
-          "weight": 20
-        },
-        {
-          "skin": "MONSTER_CORRUPTED_DRYAD",
-          "level": 4,
-          "weight": 20
-        },
-        {
           "skin": "MONSTER_CORRUPTED_DRYAD",
           "level": 5,
           "weight": 60
-        },
-        {
-          "skin": "MONSTER_CORRUPTED_DRYAD",
-          "level": 6,
-          "weight": 20
         }
       ],
       "rewards": [
@@ -75,23 +45,8 @@
       "monster_pool": [
         {
           "skin": "MONSTER_THORNED_CRAWLER",
-          "level": 9,
-          "weight": 20
-        },
-        {
-          "skin": "MONSTER_THORNED_CRAWLER",
           "level": 10,
           "weight": 60
-        },
-        {
-          "skin": "MONSTER_THORNED_CRAWLER",
-          "level": 11,
-          "weight": 20
-        },
-        {
-          "skin": "MONSTER_THORNSTALKER",
-          "level": 9,
-          "weight": 20
         },
         {
           "skin": "MONSTER_THORNSTALKER",
@@ -99,24 +54,9 @@
           "weight": 60
         },
         {
-          "skin": "MONSTER_THORNSTALKER",
-          "level": 11,
-          "weight": 20
-        },
-        {
-          "skin": "MONSTER_CORRUPTED_DRYAD",
-          "level": 9,
-          "weight": 20
-        },
-        {
           "skin": "MONSTER_CORRUPTED_DRYAD",
           "level": 10,
           "weight": 60
-        },
-        {
-          "skin": "MONSTER_CORRUPTED_DRYAD",
-          "level": 11,
-          "weight": 20
         }
       ],
       "rewards": [

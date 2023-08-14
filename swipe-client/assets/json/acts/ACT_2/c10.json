@@ -1,0 +1,124 @@
+{
+  "x": 536,
+  "y": 221,
+  "type": "RAID",
+  "id": "c10",
+  "title": {
+    "en": "The Crystal Caverns: Raid",
+    "ru": "Кристальные Пещеры: Рейд"
+  },
+  "background": "crystal_corridors",
+  "monsters": [],
+  "tiers": [
+    {
+      "rewardTotal": 30000,
+      "monster_pool": [
+        {
+          "skin": "MONSTER_THORNED_CRAWLER",
+          "level": 15,
+          "weight": 30
+        },
+        {
+          "skin": "MONSTER_SHADOW_OF_CHAOS",
+          "level": 15,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_CRYSTAL_GUARDIAN",
+          "level": 15,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_STONE_GOLEM",
+          "level": 15,
+          "weight": 30
+        }
+
+      ],
+      "rewards": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 5,
+            "type": "INFUSION_ORB"
+          },
+          "weight": 100
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 3,
+            "type": "INFUSION_SHARD"
+          },
+          "weight": 80
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "HELM_OF_IRON_WILL",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "RING_OF_ILLUMINATION",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "FROSTGUARD_GAUNTLETS",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "SHADOWBANE_AMULET",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "FLAMEHEART_BELT",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "rewardTotal": 50000,
+      "monster_pool": [
+        {
+          "skin": "MONSTER_THORNED_CRAWLER",
+          "level": 20,
+          "weight": 30
+        },
+        {
+          "skin": "MONSTER_SHADOW_OF_CHAOS",
+          "level": 20,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_CRYSTAL_GUARDIAN",
+          "level": 20,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_STONE_GOLEM",
+          "level": 20,
+          "weight": 30
+        }
+
+      ],
+      "rewards": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 2500,
+            "type": "ETHERIUM_COIN"
+          },
+          "weight": 100
+        }
+      ]
+    }
+  ]
+}

@@ -51,7 +51,7 @@ data class TestItemDescription(
     val level: Int,
 )
 
-private const val ITERATIONS = 10000
+private const val ITERATIONS = 300
 
 private suspend fun createCharacter(monsterService: MonsterService, itemService: ItemService, attributes: CharacterAttributes, skin: String,
                                     items: List<TestItemDescription>, level: Int): FrontMonsterConfiguration {
@@ -326,5 +326,5 @@ suspend fun main() {
     val levelService = LevelServiceImpl(fileService, monsterService)
     val itemService = ItemServiceImpl(Gson(), fileService)
 
-    testAct(Gson(), fileService, monsterService, itemService, levelService, SwipeAct.ACT_1)
+    testAct(Gson(), fileService, monsterService, itemService, levelService, SwipeAct.ACT_2)
 }

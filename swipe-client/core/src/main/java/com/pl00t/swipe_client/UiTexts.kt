@@ -12,6 +12,11 @@ object UiTexts {
         val Buy = SbText("Purchase", "Купить")
     }
 
+    object Atlas {
+        val Title = SbText("Adventures", "Приключения")
+        val Navigate = SbText("Travel", "Перейти")
+    }
+
     val NavItems = SbText("Items", "Предметы")
     val MakeActive = SbText("Make Active", "Сделать Активным")
     val NavShop = SbText("Shop", "Лавка")

@@ -1,0 +1,46 @@
+{
+  "x": 863,
+  "y": 688,
+  "type": "CAMPAIGN",
+  "id": "c6",
+  "title": {
+    "en": "Crystal Coves",
+    "ru": "Кристальные пещеры"
+  },
+  "background": "crystal_corridors",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_CRYSTAL_GUARDIAN",
+        "level": 12
+      },
+      {
+        "skin": "MONSTER_CRYSTAL_GUARDIAN",
+        "level": 12
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_CRYSTAL_GUARDIAN",
+        "level": 12
+      },
+      {
+        "skin": "MONSTER_CRYSTAL_GUARDIAN",
+        "level": 12
+      },
+      {
+        "skin": "MONSTER_STONE_GOLEM",
+        "level": 12
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 500,
+        "type": "ETHERIUM_COIN"
+      }
+    }
+  ]
+}

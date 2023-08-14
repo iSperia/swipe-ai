@@ -19,6 +19,7 @@ import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.services.battle.BattleDecorations
 import com.pl00t.swipe_client.services.battle.BattleResult
 import com.pl00t.swipe_client.services.levels.DialogEntryModel
+import com.pl00t.swipe_client.services.profile.Debug
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.HoverAction
 import com.pl00t.swipe_client.ux.TutorialHover
@@ -99,7 +100,7 @@ class BattleWindow(
 
         music = r.music(decorations.music)
         music.isLooping = true
-        music.play()
+        if (!Debug.NoMusic) music.play()
 
         KtxAsync.launch {
 

@@ -251,7 +251,7 @@ item_background
   index: 1
 raid
   rotate: false
-  xy: 516, 0
+  xy: 514, 427
   size: 256, 425
   orig: 256, 425
   offset: 0, 0
@@ -300,7 +300,7 @@ tutorial
   index: -1
 zephyr_shop
   rotate: false
-  xy: 514, 427
+  xy: 516, 0
   size: 256, 425
   orig: 256, 425
   offset: 0, 0
@@ -486,6 +486,13 @@ VERDANT_HEART
   orig: 256, 256
   offset: 0, 0
   index: -1
+action_atlas
+  rotate: false
+  xy: 0, 12
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
 action_equipment
   rotate: false
   xy: 1162, 130
@@ -552,13 +559,6 @@ action_icon_vault
 action_party
   rotate: false
   xy: 1546, 1692
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-action_reroll
-  rotate: false
-  xy: 0, 12
   size: 128, 128
   orig: 128, 128
   offset: 0, 0

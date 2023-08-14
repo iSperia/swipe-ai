@@ -1,0 +1,28 @@
+{
+  "x": 808,
+  "y": 202,
+  "type": "CAMPAIGN",
+  "id": "c9",
+  "title": {
+    "en": "Crystal Coves",
+    "ru": "Кристальные пещеры"
+  },
+  "background": "stoneheart_confluence",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_XALITHAR",
+        "level": 14
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 500,
+        "type": "ETHERIUM_COIN"
+      }
+    }
+  ]
+}

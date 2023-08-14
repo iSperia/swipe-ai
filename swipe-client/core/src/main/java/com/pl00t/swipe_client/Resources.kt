@@ -113,6 +113,7 @@ class Resources {
     companion object {
         const val ui_atlas = "styles/ui.atlas"
         const val ux_atlas = "styles/ux.atlas"
+        const val atlas_atlas = "atlases/atlas.atlas"
         const val battle_atlas = "atlases/battle.atlas"
         const val core_atlas = "atlases/core.atlas"
         const val tarot_atlas = "atlases/tarot.atlas"

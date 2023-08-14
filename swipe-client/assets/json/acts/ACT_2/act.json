@@ -1,0 +1,53 @@
+{
+  "title": {
+    "en": "Crystal Caverns",
+    "ru": "Кристальные Пещеры"
+  },
+  "lore": {
+    "en": "Hidden deep beneath the Kingdom of Harmony, the Crystal Caverns are a breathtaking network of caverns adorned with shimmering crystals of various colors. ",
+    "ru": "Кристальные пещеры, спрятанные глубоко под Царством Гармонии, представляют собой захватывающую дух сеть пещер, украшенных мерцающими кристаллами различных цветов."
+  },
+  "levels": [ "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "crystal_mine"],
+  "links": [
+    {
+      "n1": "c1",
+      "n2": "c2"
+    },
+    {
+      "n1": "c2",
+      "n2": "c3"
+    },
+    {
+      "n1": "c3",
+      "n2": "c4"
+    },
+    {
+      "n1": "c4",
+      "n2": "c5"
+    },
+    {
+      "n1": "c5",
+      "n2": "c6"
+    },
+    {
+      "n1": "c6",
+      "n2": "c7"
+    },
+    {
+      "n1": "c7",
+      "n2": "c8"
+    },
+    {
+      "n1": "c8",
+      "n2": "c9"
+    },
+    {
+      "n1": "c4",
+      "n2": "c10"
+    },
+    {
+      "n1": "c6",
+      "n2": "crystal_mine"
+    }
+  ]
+}

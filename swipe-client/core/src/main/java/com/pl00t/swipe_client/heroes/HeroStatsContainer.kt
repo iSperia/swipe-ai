@@ -33,7 +33,7 @@ class HeroStatsContainer(
     var cachedSelectedExpCurrency: Int? = null
     var cachedSelectedElixir: Int? = null
 
-    private var mode = BrowseMode.STATS
+    private var browseMode = BrowseMode.STATS
 
     val contentTable = Table().apply {
         width = 480f
@@ -60,7 +60,7 @@ class HeroStatsContainer(
                 mode = Mode.SingleLine(UiTexts.ButtonParameters.value(r.l))
             ).apply {
                 onClick {
-                    mode = BrowseMode.STATS
+                    browseMode = BrowseMode.STATS
                     loadData()
                 }
             },
@@ -70,7 +70,7 @@ class HeroStatsContainer(
                 mode = Mode.SingleLine(UiTexts.ButtonStats.value(r.l))
             ).apply {
                 onClick {
-                    mode = BrowseMode.ATTRIBUTES
+                    browseMode = BrowseMode.ATTRIBUTES
                     loadData()
                 }
             },
@@ -80,7 +80,7 @@ class HeroStatsContainer(
                 mode = Mode.SingleLine(UiTexts.ButtonResistances.value(r.l))
             ).apply {
                 onClick {
-                    mode = BrowseMode.RESISTANCES
+                    browseMode = BrowseMode.RESISTANCES
                     loadData()
                 }
             }
@@ -102,7 +102,7 @@ class HeroStatsContainer(
     fun loadData() {
         KtxAsync.launch {
             contentTable.clearChildren()
-            when (mode) {
+            when (browseMode) {
                 BrowseMode.ATTRIBUTES -> {
                     renderAttributes()
                 }

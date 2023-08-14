@@ -44,7 +44,7 @@ class InventoryItemWindow(
         setPosition(0f, 110f)
     }
 
-    private var mode = BrowseMode.DETAILS
+    private var browseMode = BrowseMode.DETAILS
 
     lateinit var title: WindowTitleActor
     lateinit var bottomPanel: BottomActionPanel
@@ -91,7 +91,7 @@ class InventoryItemWindow(
                 ActionCompositeButton(r, Action.Stats, Mode.SingleLine(UiTexts.ButtonStats.value(r.l))).apply {
                     onClick {
                         KtxAsync.launch {
-                            mode = BrowseMode.DETAILS
+                            browseMode = BrowseMode.DETAILS
                             loadData()
                         }
                     }
@@ -99,11 +99,11 @@ class InventoryItemWindow(
                 ActionCompositeButton(r, Action.Close, Mode.SingleLine(UiTexts.Dust.value(r.l))).apply {
                     onClick {
                         KtxAsync.launch {
-                            if (mode == BrowseMode.DUST) {
+                            if (browseMode == BrowseMode.DUST) {
                                 r.profileService.dustItem(model.item!!.id)
                                 onClose()
                             } else {
-                                mode = BrowseMode.DUST
+                                browseMode = BrowseMode.DUST
                                 loadData()
                             }
                         }
@@ -129,7 +129,7 @@ class InventoryItemWindow(
             item = item
         )
 
-        when (mode) {
+        when (browseMode) {
             BrowseMode.DETAILS -> {
                 showDetails(item)
             }

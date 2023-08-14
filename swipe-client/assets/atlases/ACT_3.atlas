@@ -1,0 +1,27 @@
+
+ACT_3.png
+size: 2048, 2048
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: none
+map
+  rotate: false
+  xy: 0, 1024
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+sacred_citadel
+  rotate: false
+  xy: 0, 0
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+sacred_citadel_preview
+  rotate: false
+  xy: 1024, 1920
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

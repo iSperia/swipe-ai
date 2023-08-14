@@ -1,0 +1,12 @@
+{
+  "title": {
+    "en": "The Sacred Citadel",
+    "ru": "Священная Цитадель"
+  },
+  "lore": {
+    "en": "The Sacred Citadel is a majestic fortress perched on a separate island inside the Kingdom of Harmony. It is a place of meditation and spiritual enlightenment.",
+    "ru": "Священная Цитадель — величественная крепость, расположенная на отдельном острове внутри Королевства Гармонии. Это место медитации и духовного просветления."
+  },
+  "levels": ["c1"],
+  "links": []
+}

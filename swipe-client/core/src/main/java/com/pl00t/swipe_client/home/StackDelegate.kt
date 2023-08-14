@@ -1,5 +1,10 @@
 package com.pl00t.swipe_client.home
 
+import com.badlogic.gdx.math.Interpolation.ElasticIn
+import com.badlogic.gdx.math.Interpolation.ElasticOut
+import com.badlogic.gdx.math.Interpolation.ExpIn
+import com.badlogic.gdx.math.Interpolation.ExpOut
+import com.badlogic.gdx.math.Interpolation.Pow
 import com.badlogic.gdx.math.Interpolation.SwingIn
 import com.badlogic.gdx.math.Interpolation.SwingOut
 import com.badlogic.gdx.scenes.scene2d.Actor
@@ -24,7 +29,7 @@ class StackDelegate(private val root: Group) {
         actor.setScale(1.3f)
         actor.addAction(Actions.parallel(
             Actions.alpha(1f, 0.25f),
-            Actions.scaleTo(1f, 1f, 0.5f, SwingOut(1.5f))
+            Actions.scaleTo(1f, 1f, 0.5f, Pow(2))
         ))
     }
 
@@ -32,7 +37,7 @@ class StackDelegate(private val root: Group) {
         val actor = stack.removeLastOrNull() ?: return
         actor.addAction(Actions.sequence(
             Actions.parallel(
-                Actions.scaleTo(1.3f, 1.3f, 0.5f, SwingIn(1.5f)),
+                Actions.scaleTo(1.3f, 1.3f, 0.5f, Pow(2)),
                 Actions.delay(0.3f, Actions.alpha(0f, 0.2f))
             ),
             Actions.removeActor()

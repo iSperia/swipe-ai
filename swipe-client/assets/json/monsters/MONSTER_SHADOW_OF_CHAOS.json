@@ -9,7 +9,7 @@
     "ru": "Тёмные проявления, рождённые из разбитого Эфирного Кристалла, Тени Хаоса — существа чистой тьмы. Они обитают в глубинах Хрустальных пещер, привлеченные остаточной энергией. Их агрессия к Валериану проистекает из их желания поглотить его жизненную силу и использовать его сущность, чтобы укрепить себя"
   },
   "baseHealth": 250,
-  "attributes": {"mind":  30, "spirit":  50, "body":  20},
+  "attributes": {"mind":  25, "spirit":  55, "body":  20},
   "tiles": [
     { "weight": 5, "skin": "SHADOW_OF_CHAOS_ABYSSAL_REND", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
     { "weight": 3, "skin": "SHADOW_OF_CHAOS_EVASIVE_SHADOWS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
@@ -19,25 +19,25 @@
     "shadow_of_chaos.evasive_shadows", "shadow_of_chaos.dark_aura", "shadow_of_chaos.abyssal_rend"
   ],
   "balance": {
-    "base_health": 100,
-    "luck": 10,
+    "base_health": 300,
+    "luck": 15,
     "ult": 10,
     "ult_max": 1000,
     "resist": {
       "phys": 0,
-      "dark": 0.50,
+      "dark": 0.5,
       "light": -0.25,
       "shock": 0,
       "fire": 0,
       "cold": 0
     },
-    "ar_base": 30,
+    "ar_base": 95,
     "ar_scale": 10,
-    "es_res_base": 30,
+    "es_res_base": 50,
     "es_res_scale": 10,
     "es_duration": 5,
     "da_tiles": 3,
-    "da_base": 30,
+    "da_base": 60,
     "da_scale": 10
   },
   "scale": 0.8

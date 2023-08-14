@@ -1,0 +1,60 @@
+{
+  "x": 893,
+  "y": 434,
+  "type": "CAMPAIGN",
+  "id": "c7",
+  "title": {
+    "en": "Crystal Coves",
+    "ru": "Кристальные пещеры"
+  },
+  "background": "stoneheart_confluence",
+  "monsters": [
+    [
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 13
+      },
+      {
+        "skin": "MONSTER_STONE_GOLEM",
+        "level": 13
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 13
+      },
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 13
+      },
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 13
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_STONE_GOLEM",
+        "level": 13
+      },
+      {
+        "skin": "MONSTER_SHADOW_OF_CHAOS",
+        "level": 13
+      },
+      {
+        "skin": "MONSTER_CRYSTAL_GUARDIAN",
+        "level": 13
+      }
+    ]
+  ],
+  "freeReward": [
+    {
+      "type": "currency",
+      "currency": {
+        "amount": 500,
+        "type": "ETHERIUM_COIN"
+      }
+    }
+  ]
+}

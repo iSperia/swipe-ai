@@ -6,7 +6,8 @@ import com.game7th.swipe.game.SbMonsterEntry
 data class ActModel(
     val levels: List<LevelModel>,
     val links: List<LinkModel>,
-    val title: SbText
+    val title: SbText,
+    val lore: SbText,
 )
 
 enum class LevelType {

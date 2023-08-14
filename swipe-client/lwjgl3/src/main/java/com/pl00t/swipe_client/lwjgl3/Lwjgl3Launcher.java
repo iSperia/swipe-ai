@@ -17,7 +17,7 @@ public class Lwjgl3Launcher {
 
     private static Lwjgl3Application createApplication() {
         return new Lwjgl3Application(new SwipeGame(
-            "en",
+            "ru",
             new AnalyticsInterface() {
             @Override
             public void trackEvent(@NotNull String event, @NotNull Map<String, String> data) {

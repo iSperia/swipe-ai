@@ -12,6 +12,7 @@ import com.pl00t.swipe_client.home.ReloadableScreen
 import com.pl00t.swipe_client.screen.map.LinkActor
 import com.pl00t.swipe_client.services.levels.FrontActModel
 import com.pl00t.swipe_client.services.levels.LevelType
+import com.pl00t.swipe_client.services.profile.Debug
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.HoverAction
 import com.pl00t.swipe_client.ux.TutorialHover
@@ -29,17 +30,18 @@ class MapWindow(
     private val onLocationClicked: (String) -> Unit,
     private val navigateParty: () -> Unit,
     private val navigateInventory: () -> Unit,
+    private val navigateAtlas: () -> Unit,
 ) : Group(), ReloadableScreen {
 
     private val mapSize = r.height - 190f
 
-    private lateinit var actWindowTitle: WindowTitleActor
     private lateinit var rootGroup: Group
     private lateinit var mapImage: Image
     private lateinit var scrollPane: ScrollPane
+    private var bottomActionPanel: BottomActionPanel? = null
+    private var windowTitle: WindowTitleActor? = null
     private lateinit var linkActor: LinkActor
     private lateinit var mapIconsGroup: Group
-    private var bottomActionPanel: BottomActionPanel? = null
     private var mapScale = 1f
     private val mapIconSize = r.height / 12f
     private val mapSmallIconSize = r.height / 15f
@@ -47,12 +49,14 @@ class MapWindow(
     lateinit var actionInventory: ActionCompositeButton
 
     init {
+        setSize(r.width, r.height)
+
         r.loadMusic("theme_global")
         r.onLoad {
             r.music("theme_global").apply {
                 volume = 0.25f
                 isLooping = true
-                play()
+                if (!Debug.NoMusic) play()
             }
             KtxAsync.launch {
                 rootGroup = Group().apply {
@@ -68,8 +72,6 @@ class MapWindow(
                 addActor(scrollPane)
 
                 reload()
-                addWindowTitle()
-
             }
         }
     }
@@ -107,7 +109,7 @@ class MapWindow(
             r.music("theme_global").apply {
                 volume = 0.25f
                 isLooping = true
-                play()
+                if (!Debug.NoMusic) play()
             }
             val actModel = r.profileService.getAct(act)
             rootGroup.clearChildren()
@@ -115,6 +117,7 @@ class MapWindow(
             loadMap(actModel)
 
             addBottomPanel()
+            addWindowTitle()
 
             checkTutorial(actModel)
         }
@@ -148,12 +151,19 @@ class MapWindow(
         addActor(bottomActionPanel)
     }
 
-    private fun addTitle(actModel: FrontActModel) {
-        actWindowTitle = WindowTitleActor(r, actModel.title.value(r.l), null, null, 4).apply {
+    private suspend fun addTitle(actModel: FrontActModel) {
+        windowTitle?.remove()
+        val actionAtlas = if (r.profileService.getProfile().atlasUnlocked) ActionCompositeButton(r, Action.Atlas, Mode.NoText).apply {
+            setSize(80f, 80f)
+            onClick {
+                navigateAtlas()
+            }
+        } else null
+        windowTitle = WindowTitleActor(r, actModel.title.value(r.l), actionAtlas, null, 4).apply {
             y = r.height - this.height
         }
 
-        addActor(actWindowTitle)
+        addActor(windowTitle)
     }
 
     private suspend fun loadMap(actModel: FrontActModel) {
@@ -171,6 +181,10 @@ class MapWindow(
         }
         rootGroup.addActor(mapIconsGroup)
 
+        val lastThreeIds = actModel.levels.takeLast(3)
+        var tix = 0f
+        var tiy = 0f
+
         actModel.levels.forEach { level ->
             val iconSize = when (level.type) {
                 LevelType.RAID -> mapIconSize
@@ -181,6 +195,11 @@ class MapWindow(
 
             val iconX = level.x * mapScale
             val iconY = level.y * mapScale
+
+            if (lastThreeIds.contains(level)) {
+                tix += iconX
+                tiy += iconY
+            }
 
             val isBoss = level.type == LevelType.BOSS && !r.profileService.isFreeRewardAvailable(act, level.locationId)
             val type = when (level.type) {
@@ -204,6 +223,10 @@ class MapWindow(
 
             mapIconsGroup.addActor(levelActor)
         }
+
+        val focusX = tix / lastThreeIds.size - scrollPane.width / 2f
+        val focusY = tiy / lastThreeIds.size - scrollPane.height / 2f
+        scrollPane.scrollTo(focusX, focusY,r.width,r.height, true, true)
     }
 
     private fun addMapImage() {

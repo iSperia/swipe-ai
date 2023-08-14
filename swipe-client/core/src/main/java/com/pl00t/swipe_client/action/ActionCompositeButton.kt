@@ -19,6 +19,7 @@ sealed class Action(val atlas: String, val icon: String) {
     object Stash: Action(Resources.ux_atlas, "action_stash")
     object Shop: Action(Resources.ux_atlas, "action_shop")
     object Party: Action(Resources.ux_atlas, "action_party")
+    object Atlas: Action(Resources.ux_atlas, "action_atlas")
     object Settings: Action(Resources.ux_atlas, "action_icon_settings")
     object Close: Action(Resources.ux_atlas, "action_icon_close")
     object FilterCurrency: Action(Resources.ux_atlas, "filter_currency")
@@ -54,7 +55,7 @@ sealed interface Mode {
 class ActionCompositeButton(
     private val r: Resources,
     private val action: Action,
-    private val mode: Mode,
+    var mode: Mode,
     private val locked: Boolean = false,
 ): Group() {
 
@@ -157,9 +158,11 @@ class ActionCompositeButton(
         }
     }
 
-    private fun getLabelText() = when (mode) {
-        is Mode.NoText -> ""
-        is Mode.SingleLine -> mode.text
-        is Mode.Purchase -> "${mode.amount}\n${mode.text}"
+    private fun getLabelText() = mode.let { mode ->
+        when (mode) {
+            is Mode.NoText -> ""
+            is Mode.SingleLine -> mode.text
+            is Mode.Purchase -> "${mode.amount}\n${mode.text}"
+        }
     }
 }

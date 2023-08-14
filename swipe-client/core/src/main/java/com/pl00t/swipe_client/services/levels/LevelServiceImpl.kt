@@ -11,7 +11,8 @@ import java.lang.IllegalArgumentException
 private data class ActFileModel(
     val title: SbText,
     val levels: List<String>,
-    val links: List<LinkModel>
+    val links: List<LinkModel>,
+    val lore: SbText,
 )
 
 class LevelServiceImpl(
@@ -67,7 +68,8 @@ class LevelServiceImpl(
         acts[act] = ActModel(
             levels = levels,
             links = actModel.links,
-            title = actModel.title
+            title = actModel.title,
+            lore = actModel.lore,
         )
         return acts[act]!!
     }

@@ -1,0 +1,36 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Valerian, can you feel it? The air is different here. We must be getting close to the heart of the Crystal Caverns.",
+        "ru": "Валериан, ты чувствуешь? Здесь воздух другой. Должно быть, мы приближаемся к сердцу Хрустальных пещер."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "You're right, Saffron. The very stones beneath our feet seem to pulse with energy. But tread cautiously, for danger could be lurking anywhere.",
+        "ru": "Ты права, Шафран. Сами камни под нашими ногами, кажется, пульсируют энергией. Действуем осторожно, опасность может таиться где угодно."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Speaking of danger, it seems we have some unwelcome guests approaching!",
+        "ru": "Говоря об опасности, кажется, к нам приближаются незваные гости!"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Get ready, Saffron. Our journey through these caverns is just beginning. Let's face these foes head-on!",
+        "ru": "Готовься, Шафран. Наше путешествие по этим пещерам только начинается. Встретимся с этими врагами лицом к лицу!"
+      },
+      "side": "left"
+    }
+  ]
+}

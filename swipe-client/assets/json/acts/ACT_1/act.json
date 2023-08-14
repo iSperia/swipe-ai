@@ -6,6 +6,10 @@
   "levels": [
     "c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8", "c9", "c10", "zephyr_shop"
   ],
+  "lore": {
+    "en": "The Verdant Groves is a lush and enchanting forest located in the heart of the Kingdom of Harmony. Its ancient trees and vibrant flora are renowned for their healing properties.",
+    "ru": "Зеленые Рощи — пышный и очаровательный лес, расположенный в самом сердце Королевства Гармонии. Его древние деревья и яркая флора славятся своими целебными свойствами."
+  },
   "links": [
     {
       "n1": "c1",
