@@ -52,7 +52,7 @@
     {
       "type": "currency",
       "currency": {
-        "amount": 500,
+        "amount": 8000,
         "type": "ETHERIUM_COIN"
       }
     }

@@ -642,7 +642,7 @@ class ProfileServiceImpl(
     }
 
     override suspend fun rerollMysteryShop() {
-        val cost = 300
+        val cost = 200
         val balance = profile.getBalance(SwipeCurrency.ARCANUM)
         if (balance >= cost) {
             profile = profile.addBalance(SwipeCurrency.ARCANUM, -cost)
@@ -697,7 +697,7 @@ class ProfileServiceImpl(
     override suspend fun upgradeMysteryShop() {
         val balance = profile.getBalance(SwipeCurrency.ETHERIUM_COIN)
         val cost = getMysteryShopUpgradeCost()
-        if (balance > cost && profile.mysteryShopLevel < 4) {
+        if (balance > cost && profile.mysteryShopLevel < 2) {
             profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -cost)
             profile = profile.copy(mysteryShopLevel = profile.mysteryShopLevel + 1)
             rerollMysteryShop()
@@ -706,8 +706,8 @@ class ProfileServiceImpl(
     }
 
     override suspend fun getMysteryShopUpgradeCost(): Int {
-        if (profile.mysteryShopLevel >= 1) return 0
-        return 5000 + profile.mysteryShopLevel * profile.mysteryShopLevel * 2000
+        if (profile.mysteryShopLevel >= 2) return 0
+        return 5000 + profile.mysteryShopLevel * profile.mysteryShopLevel * 10000
     }
 
     override suspend fun buyMysteryItem(item: FrontItemEntryModel) {

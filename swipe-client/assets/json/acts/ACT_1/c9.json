@@ -56,7 +56,7 @@
           "weight": 30
         }
       ],
-      "rewardTotal": 4000,
+      "rewardTotal": 5000,
       "rewards": [
         {
           "type": "currency",
@@ -68,22 +68,16 @@
           "weight": 400
         },
         {
-          "type": "currency",
-          "currency": {
-            "type": "ELIXIR_LAPIS",
-            "amount": 1
-          },
-          "rarity": 0,
-          "weight": 100
+          "type": "item",
+          "rarity": 1,
+          "skin": "ENCHANTED_BAND",
+          "weight": 25
         },
         {
-          "type": "currency",
-          "currency": {
-            "type": "ELIXIR_CITRINE",
-            "amount": 1
-          },
-          "rarity": 0,
-          "weight": 100
+          "type": "item",
+          "rarity": 1,
+          "skin": "VERDANT_HEART",
+          "weight": 25
         }
       ]
     },
@@ -104,6 +98,12 @@
           "weight": 160
         },
         {
+          "type": "item",
+          "rarity": 1,
+          "skin": "VERDANT_HEART",
+          "weight": 160
+        },
+        {
           "type": "currency",
           "currency": {
             "type": "SCROLL_OF_WISDOM",
@@ -120,24 +120,60 @@
           },
           "rarity": 0,
           "weight": 100
+        }
+      ]
+    },
+    {
+      "monster_pool": [
+        {
+          "skin": "MONSTER_THALENDROS",
+          "level": 30,
+          "weight": 30
+        }
+      ],
+      "rewardTotal": 75000,
+      "rewards": [
+        {
+          "type": "item",
+          "rarity": 2,
+          "skin": "ENCHANTED_BAND",
+          "weight": 160
+        },
+        {
+          "type": "item",
+          "rarity": 3,
+          "skin": "ENCHANTED_BAND",
+          "weight": 80
+        },
+        {
+          "type": "item",
+          "rarity": 2,
+          "skin": "VERDANT_HEART",
+          "weight": 160
+        },
+        {
+          "type": "item",
+          "rarity": 3,
+          "skin": "VERDANT_HEART",
+          "weight": 80
         },
         {
           "type": "currency",
           "currency": {
-            "type": "ELIXIR_LAPIS",
+            "type": "SCROLL_OF_WISDOM",
             "amount": 1
           },
           "rarity": 0,
-          "weight": 150
+          "weight": 500
         },
         {
           "type": "currency",
           "currency": {
-            "type": "ELIXIR_CITRINE",
+            "type": "TOME_OF_ENLIGHTMENT",
             "amount": 1
           },
           "rarity": 0,
-          "weight": 150
+          "weight": 100
         }
       ]
     }

@@ -25,14 +25,6 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 2,
-            "type": "TOME_OF_ENLIGHTMENT"
-          },
-          "weight": 500
-        },
-        {
-          "type": "currency",
-          "currency": {
             "amount": 1,
             "type": "ELIXIR_AMBER"
           },
@@ -77,97 +69,17 @@
             "type": "ELIXIR_AGATE"
           },
           "weight": 500
-        },
-        {
-          "type": "item",
-          "weight": 500,
-          "rarity": 0,
-          "skin": "HELM_OF_IRON_WILL"
-        },
-        {
-          "type": "item",
-          "weight": 125,
-          "rarity": 1,
-          "skin": "HELM_OF_IRON_WILL"
-        },
-        {
-          "type": "item",
-          "weight": 500,
-          "rarity": 0,
-          "skin": "RING_OF_ILLUMINATION"
-        },
-        {
-          "type": "item",
-          "weight": 125,
-          "rarity": 1,
-          "skin": "RING_OF_ILLUMINATION"
-        },
-        {
-          "type": "item",
-          "weight": 500,
-          "rarity": 0,
-          "skin": "FROSTGUARD_GAUNTLETS"
-        },
-        {
-          "type": "item",
-          "weight": 125,
-          "rarity": 1,
-          "skin": "FROSTGUARD_GAUNTLETS"
-        },
-        {
-          "type": "item",
-          "weight": 500,
-          "rarity": 0,
-          "skin": "SHADOWBANE_AMULET"
-        },
-        {
-          "type": "item",
-          "weight": 125,
-          "rarity": 1,
-          "skin": "SHADOWBANE_AMULET"
-        },
-        {
-          "type": "item",
-          "weight": 500,
-          "rarity": 0,
-          "skin": "FLAMEHEART_BELT"
-        },
-        {
-          "type": "item",
-          "weight": 125,
-          "rarity": 1,
-          "skin": "FLAMEHEART_BELT"
-        },
-        {
-          "type": "item",
-          "weight": 500,
-          "rarity": 0,
-          "skin": "THEMPERSTRIDE_BOOTS"
-        },
-        {
-          "type": "item",
-          "weight": 125,
-          "rarity": 1,
-          "skin": "THEMPERSTRIDE_BOOTS"
         }
       ]
     },
     {
-      "rewardTotal": 30000,
+      "rewardTotal": 25000,
       "monster_pool": [],
       "rewards": [
         {
           "type": "currency",
           "currency": {
             "amount": 5,
-            "type": "SCROLL_OF_WISDOM"
-          },
-          "weight": 500
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 2,
             "type": "TOME_OF_ENLIGHTMENT"
           },
           "weight": 1000
@@ -176,14 +88,6 @@
           "type": "currency",
           "currency": {
             "amount": 2,
-            "type": "CODEX_OF_ASCENDANCY"
-          },
-          "weight": 500
-        },
-        {
-          "type": "currency",
-          "currency": {
-            "amount": 1,
             "type": "ELIXIR_AMBER"
           },
           "weight": 500
@@ -191,7 +95,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
+            "amount": 2,
             "type": "ELIXIR_TURQUOISE"
           },
           "weight": 500
@@ -199,7 +103,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
+            "amount": 2,
             "type": "ELIXIR_LAPIS"
           },
           "weight": 500
@@ -207,7 +111,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
+            "amount": 2,
             "type": "ELIXIR_CITRINE"
           },
           "weight": 500
@@ -215,7 +119,7 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
+            "amount": 2,
             "type": "ELIXIR_JADE"
           },
           "weight": 500
@@ -223,82 +127,72 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 1,
+            "amount": 2,
             "type": "ELIXIR_AGATE"
+          },
+          "weight": 500
+        }
+      ]
+    },
+    {
+      "rewardTotal": 60000,
+      "monster_pool": [],
+      "rewards": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 5,
+            "type": "CODEX_OF_ASCENDANCY"
+          },
+          "weight": 1000
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 4,
+            "type": "ELIXIR_AMBER"
           },
           "weight": 500
         },
         {
-          "type": "item",
-          "weight": 500,
-          "rarity": 1,
-          "skin": "HELM_OF_IRON_WILL"
+          "type": "currency",
+          "currency": {
+            "amount": 4,
+            "type": "ELIXIR_TURQUOISE"
+          },
+          "weight": 500
         },
         {
-          "type": "item",
-          "weight": 60,
-          "rarity": 2,
-          "skin": "HELM_OF_IRON_WILL"
+          "type": "currency",
+          "currency": {
+            "amount": 4,
+            "type": "ELIXIR_LAPIS"
+          },
+          "weight": 500
         },
         {
-          "type": "item",
-          "weight": 500,
-          "rarity": 1,
-          "skin": "RING_OF_ILLUMINATION"
+          "type": "currency",
+          "currency": {
+            "amount": 4,
+            "type": "ELIXIR_CITRINE"
+          },
+          "weight": 500
         },
         {
-          "type": "item",
-          "weight": 60,
-          "rarity": 2,
-          "skin": "RING_OF_ILLUMINATION"
+          "type": "currency",
+          "currency": {
+            "amount": 4,
+            "type": "ELIXIR_JADE"
+          },
+          "weight": 500
         },
         {
-          "type": "item",
-          "weight": 500,
-          "rarity": 1,
-          "skin": "FROSTGUARD_GAUNTLETS"
-        },
-        {
-          "type": "item",
-          "weight": 65,
-          "rarity": 2,
-          "skin": "FROSTGUARD_GAUNTLETS"
-        },
-        {
-          "type": "item",
-          "weight": 500,
-          "rarity": 1,
-          "skin": "SHADOWBANE_AMULET"
-        },
-        {
-          "type": "item",
-          "weight": 65,
-          "rarity": 2,
-          "skin": "SHADOWBANE_AMULET"
-        },
-        {
-          "type": "item",
-          "weight": 500,
-          "rarity": 1,
-          "skin": "FLAMEHEART_BELT"
-        },
-        {
-          "type": "item",
-          "weight": 65,
-          "rarity": 2,
-          "skin": "FLAMEHEART_BELT"
-        },
-        {
-          "type": "item",
-          "weight": 500,
-          "rarity": 1,
-          "skin": "THEMPERSTRIDE_BOOTS"
-        },
-        {
-          "type": "item",
-          "weight": 65,
-          "rarity": 2,
-          "skin": "THEMPERSTRIDE_BOOTS"
+          "type": "currency",
+          "currency": {
+            "amount": 4,
+            "type": "ELIXIR_AGATE"
+          },
+          "weight": 500
         }
       ]
     }

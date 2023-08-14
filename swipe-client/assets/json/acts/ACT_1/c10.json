@@ -11,7 +11,7 @@
   "monsters": [],
   "tiers": [
     {
-      "rewardTotal": 2000,
+      "rewardTotal": 5000,
       "monster_pool": [
         {
           "skin": "MONSTER_THORNED_CRAWLER",
@@ -41,7 +41,7 @@
       ]
     },
     {
-      "rewardTotal": 10000,
+      "rewardTotal": 20000,
       "monster_pool": [
         {
           "skin": "MONSTER_THORNED_CRAWLER",
@@ -64,6 +64,36 @@
           "type": "currency",
           "currency": {
             "amount": 2500,
+            "type": "ETHERIUM_COIN"
+          },
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "rewardTotal": 50000,
+      "monster_pool": [
+        {
+          "skin": "MONSTER_THORNED_CRAWLER",
+          "level": 15,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_THORNSTALKER",
+          "level": 15,
+          "weight": 60
+        },
+        {
+          "skin": "MONSTER_CORRUPTED_DRYAD",
+          "level": 15,
+          "weight": 60
+        }
+      ],
+      "rewards": [
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 5000,
             "type": "ETHERIUM_COIN"
           },
           "weight": 100

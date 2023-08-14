@@ -113,10 +113,78 @@
         {
           "type": "currency",
           "currency": {
-            "amount": 2500,
-            "type": "ETHERIUM_COIN"
+            "amount": 5,
+            "type": "INFUSION_ORB"
           },
           "weight": 100
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "amount": 3,
+            "type": "INFUSION_SHARD"
+          },
+          "weight": 80
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "HELM_OF_IRON_WILL",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "RING_OF_ILLUMINATION",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "FROSTGUARD_GAUNTLETS",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "SHADOWBANE_AMULET",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "FLAMEHEART_BELT",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "rarity": 2,
+          "skin": "HELM_OF_IRON_WILL",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "rarity": 2,
+          "skin": "RING_OF_ILLUMINATION",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "rarity": 2,
+          "skin": "FROSTGUARD_GAUNTLETS",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "rarity": 2,
+          "skin": "SHADOWBANE_AMULET",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "rarity": 2,
+          "skin": "FLAMEHEART_BELT",
+          "weight": 20
         }
       ]
     }
