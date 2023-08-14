@@ -35,8 +35,8 @@ android {
     applicationId 'com.game7th.swipe_client'
     minSdkVersion 19
     targetSdkVersion 32
-    versionCode 22
-    versionName "0.1.22"
+    versionCode 23
+    versionName "0.1.23"
     multiDexEnabled true
   }
   namespace "com.game7th.swipebattles"
@@ -48,7 +48,7 @@ android {
   kotlinOptions.jvmTarget = "1.8"
   buildTypes {
     release {
-      minifyEnabled true
+      minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
