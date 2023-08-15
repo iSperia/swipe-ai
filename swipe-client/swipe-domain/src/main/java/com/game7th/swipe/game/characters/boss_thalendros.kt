@@ -82,7 +82,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.SimpleAttackEffect(
-                            THALENDROS_THORN_WHIP, characterId, target), SbSoundType.WOOSH_TREE_ATTACK))
+                            THALENDROS_THORN_WHIP, characterId, target), SbSoundType.WOOSH_ATTACK))
             }
         }
     },
@@ -96,7 +96,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                         SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             THALENDROS_EARTHQUAKE_SLAM, characterId, targetId
                         ),
-                        SbSoundType.WOOSH_TREE_ATTACK
+                        SbSoundType.BIG_DEBUFF
                     )
                 )
 
@@ -151,7 +151,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.SimpleAttackEffect(
-                            THALENDROS_DARK_AURA, characterId, targetId), SbSoundType.AOE_SPELL))
+                            THALENDROS_DARK_AURA, characterId, targetId), SbSoundType.BIG_DEBUFF))
 
                 val auraTilesCount = (balance.intAttribute(da_tiles) * koef).toInt()
                 val positions = freePositions(targetId, SbTile.LAYER_BACKGROUND, auraTilesCount)

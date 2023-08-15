@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.game7th.items.InventoryItem
 import com.game7th.swipe.SbText
+import com.game7th.swipe.game.SbSoundType
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
@@ -175,8 +176,14 @@ class InventoryItemWindow(
             ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
                 onClick {
                     KtxAsync.launch {
+                        r.playSound(SbSoundType.USE_TOME)
+                        val oldExp = SwipeCharacter.getLevel(this@InventoryItemWindow.model.item!!.experience)
                         r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
                         r.profileService.addItemExperience(this@InventoryItemWindow.model.item!!.id, model.currency!!.expBonus)
+                        val newExp = SwipeCharacter.getLevel(this@InventoryItemWindow.model.item!!.experience + model.currency!!.expBonus)
+                        if (newExp != oldExp) {
+                            r.playSound(SbSoundType.LEVELUP)
+                        }
                         loadData()
                     }
                 }

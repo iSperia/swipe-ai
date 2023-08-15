@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.game7th.swipe.game.FrontMonsterConfiguration
+import com.game7th.swipe.game.SbSoundType
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.Action
@@ -177,6 +178,7 @@ class HeroStatsContainer(
                     ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
                         onClick {
                             useElixir(model)
+                            r.playSound(SbSoundType.POISON_DRINK)
                         }
                     }
                 }
@@ -257,8 +259,17 @@ class HeroStatsContainer(
     }
 
     fun useExperienceItem(model: FrontItemEntryModel) {
-        r.profileService.addCharacterExperience(this@HeroStatsContainer.model.skin, model.currency?.expBonus ?: 0)
-        r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
-        reload()
+        KtxAsync.launch {
+            val oldLevel = SwipeCharacter.getLevel(r.profileService.getCharacters().first { it.skin == this@HeroStatsContainer.model.skin }.experience)
+            r.profileService.addCharacterExperience(this@HeroStatsContainer.model.skin, model.currency?.expBonus ?: 0)
+            r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
+            val newLevel = SwipeCharacter.getLevel(r.profileService.getCharacters().first { it.skin == this@HeroStatsContainer.model.skin }.experience)
+
+            r.playSound(SbSoundType.USE_TOME)
+            if (oldLevel != newLevel) {
+                r.playSound(SbSoundType.LEVELUP)
+            }
+            reload()
+        }
     }
 }

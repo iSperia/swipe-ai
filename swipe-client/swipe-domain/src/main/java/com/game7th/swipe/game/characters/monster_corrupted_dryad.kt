@@ -116,12 +116,13 @@ fun provideCorruptedDryadTriggers(balance: JsonObject): Map<String, SbTrigger> =
 
             val tiles = balance.intAttribute(sa_tiles)
 
+            events.add(
+                SbDisplayEvent.SbShowTarotEffect(
+                    SbBattleFieldDisplayEffect.DirectedAoeEffect(
+                        CORRUPTED_DRYAD_SHADOWED_ANNIHILATION, character.id, character.team, AoeEffectType.RAY, (0x38211cff).toInt()), SbSoundType.BIG_DEBUFF))
+
             allEnemies(characterId).forEach { target ->
                 val positions = (0 until 25).shuffled().take(tiles)
-                events.add(
-                    SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.DirectedAoeEffect(
-                            CORRUPTED_DRYAD_SHADOWED_ANNIHILATION, character.id, character.team, AoeEffectType.RAY, (0x38211cff).toInt()), SbSoundType.AOE_SPELL))
 
                 game.character(target)?.let { targetCharacter ->
                     var missedCount = 0

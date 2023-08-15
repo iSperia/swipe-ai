@@ -104,7 +104,7 @@ fun provideThornedCrawlerTriggers(balance: JsonObject): Map<String, SbTrigger> =
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
                         SbBattleFieldDisplayEffect.SimpleAttackEffect(
-                            THORNED_CRAWLER_DEBILIATING_STRIKE, characterId, target), SbSoundType.WOOSH_ATTACK))
+                            THORNED_CRAWLER_DEBILIATING_STRIKE, characterId, target), SbSoundType.WOOSH_TREE_ATTACK))
 
                 val positions = freePositions(target, SbTile.LAYER_BACKGROUND, tilesCount)
                 positions.forEach { p ->

@@ -79,9 +79,10 @@ class BattleWindow(
             r.loadAtlas(Resources.battle_atlas)
             r.loadAtlas(Resources.skills_atlas)
             r.loadMusic(decorations.music)
-            SbSoundType.values().forEach {
+            SbSoundType.values().filter { it.battle }.forEach {
                 r.loadSound(it)
             }
+
             r.onLoad {
                 r.music("theme_global").stop()
                 amLoaded()

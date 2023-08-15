@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Touchable
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
+import com.game7th.swipe.game.SbSoundType
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.SbBaseScreen
 import com.pl00t.swipe_client.atlas.AtlasWindow
@@ -39,6 +40,9 @@ class HomeScreen(
         r.loadAtlas(Resources.skills_atlas)
         r.loadSkin(Resources.SKIN)
         r.loadAtlas(Resources.atlas_atlas)
+        SbSoundType.values().filter { !it.battle }.forEach {
+            r.loadSound(it)
+        }
 
         r.onLoad {
             val background = r.image(Resources.ux_atlas, "background_solid").apply {

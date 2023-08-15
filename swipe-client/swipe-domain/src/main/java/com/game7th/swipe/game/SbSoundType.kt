@@ -1,12 +1,17 @@
 package com.game7th.swipe.game
 
-enum class SbSoundType {
+enum class SbSoundType(val battle: Boolean = true) {
     AOE_SPELL,
+    BIG_DEBUFF,
+    MAGIC_RAY,
     DEATH,
     DEATH_HERO,
     DEFEAT_MUSIC,
     FANFARE,
     HEAL_MONSTER,
+    SHORT_BLOP,
+    SHORT_BUFF,
+    HEAL_BLOP,
     HEAL_SPELL,
     HISS_POISON,
     SWORD_ATTACK,
@@ -15,4 +20,7 @@ enum class SbSoundType {
     ULTIMATE,
     WOOSH_ATTACK,
     WOOSH_TREE_ATTACK,
+    POISON_DRINK(false),
+    LEVELUP(false),
+    USE_TOME(false),
 }

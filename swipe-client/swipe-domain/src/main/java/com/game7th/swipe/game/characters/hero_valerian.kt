@@ -112,7 +112,7 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
             allEnemies(characterId).forEach { target ->
                 dealDamage(characterId, target, damage)
                 events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.DirectedAoeEffect(
-                    VALERIAN_LUMINOUS_BEAM, characterId, 0, AoeEffectType.RAY, (0xffe07aff).toInt()), SbSoundType.AOE_SPELL
+                    VALERIAN_LUMINOUS_BEAM, characterId, 0, AoeEffectType.RAY, (0xffe07aff).toInt()), SbSoundType.MAGIC_RAY
                 ))
             }
         }
@@ -144,7 +144,7 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
                 events.add(SbDisplayEvent.SbCreateTile(characterId = character.id, tile = character.tiles.last().asDisplayed()))
             }
             events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotStatic(
-                VALERIAN_SIGIL_OF_RENEWAL, characterId), SbSoundType.HEAL_MONSTER))
+                VALERIAN_SIGIL_OF_RENEWAL, characterId), SbSoundType.SHORT_BUFF))
         }
 
         context.triggerBackgroundLayerOnComplete(event, VALERIAN_SIGIL_OF_RENEWAL_BG) { characterId, tileId ->
@@ -152,6 +152,8 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
             val healAmount = balance.floatAttribute(SOR_BASE) * (1f + 0.01f * balance.intAttribute(SOR_SCALE) * character.attributes.spirit)
 
             healCharacter(character.id, healAmount.toInt())
+            events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotStatic(
+                VALERIAN_SIGIL_OF_RENEWAL, characterId), SbSoundType.HEAL_BLOP))
         }
     },
 
