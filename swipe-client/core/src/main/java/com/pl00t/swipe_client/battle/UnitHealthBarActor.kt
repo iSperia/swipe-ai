@@ -7,6 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Resources
+import ktx.actors.alpha
+import kotlin.math.max
+import kotlin.math.min
 
 class UnitHealthBarActor(
     private val r: Resources,
@@ -16,19 +19,23 @@ class UnitHealthBarActor(
     maxHealth: Int
 ): Group() {
 
-    val background: Image = Image(r.atlas(Resources.battle_atlas).createPatch("healthbar_bg")).apply {
+    val background: Image = r.image(Resources.ux_atlas, "background_error").apply {
         width = w
         height = h
-        setScaling(Scaling.stretch)
+        alpha = 0.5f
     }
-    val foregound: Image = r.image(Resources.battle_atlas, "healthbar_fg").apply {
-        width = w - 14f
-        height = h - 14f
-        setScaling(Scaling.stretch)
-        x = 7f
-        y = 7f
+    val shadow: Image = r.image(Resources.ux_atlas, "background_black").apply {
+        width = w
+        height = h
+        alpha = 0.5f
     }
-    val healthText: Label = r.regular24White(health.toString()).apply {
+    val foregound: Image = r.image(Resources.ux_atlas, "background_error").apply {
+        width = w - 4f
+        height = h - 4f
+        x = 2f
+        y = 2f
+    }
+    val healthText: Label = r.regularWhite(health.toString()).apply {
         width = w
         height = h
         setAlignment(Align.center)
@@ -42,6 +49,7 @@ class UnitHealthBarActor(
         setSize(w, h)
         addActor(background)
         addActor(foregound)
+        addActor(shadow)
         addActor(healthText)
         updateHealth(health, maxHealth)
     }
@@ -50,7 +58,7 @@ class UnitHealthBarActor(
 
     fun updateHealth(health: Int, maxHealth: Int) {
         if (this.health == health && this.maxHealth == maxHealth) return
-        this.health = health
+        this.health = min(maxHealth, max(0, health))
         this.maxHealth = maxHealth
         val progress = health.toFloat() / maxHealth
         foregound.addAction(SizeToAction().apply {

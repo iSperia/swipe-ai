@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Resources
+import com.pl00t.swipe_client.UiTexts
+import ktx.actors.alpha
 import ktx.actors.repeatForever
 
 class UltimateProgressActor(
@@ -17,48 +19,48 @@ class UltimateProgressActor(
     var imageBg: Image
     var iProgress: Image
     var description: Label
-    var foreground: Image
 
     var progress: Float = 0f
 
     init {
-        imageBg = r.image(Resources.battle_atlas, "semi_black_pixel").apply {
-            this.width = 270f
-            this.height = 45f
-            setScaling(Scaling.stretch)
+        imageBg = r.image(Resources.ux_atlas, "background_accent").apply {
+            this.width = 300f
+            this.height = 30f
+            alpha = 1f
         }
         addActor(imageBg)
-        iProgress = r.image(Resources.battle_atlas, "ult_progress").apply {
-            this.width = 0f
-            this.height = 35f
+        iProgress = r.image(Resources.ux_atlas, "background_main").apply {
+            this.width = 284f
+            this.height = 24f
             setScaling(Scaling.stretch)
-            this.x = 20f
-            this.y = 5f
-            setOrigin(Align.center)
+            this.x = 3f
+            this.y = 3f
+            setOrigin(Align.left)
+            scaleX = 0f
         }
         addActor(iProgress)
-        description = r.regular20White("Fill for ultimate").apply {
+        val shadow = r.image(Resources.ux_atlas, "background_black").apply {
+            setSize(300f, 30f)
+            alpha = 0.5f
+        }
+        addActor(shadow)
+        description = r.regular24White("${UiTexts.BattleUltProgress.value(r.l)}0%").apply {
             this.width = 270f
-            this.height = 45f
+            this.height = 30f
             setAlignment(Align.center)
             this.x = 0f
             this.y = 0f
         }
         addActor(description)
-        foreground = r.image(Resources.battle_atlas, "ult_progress_fg").apply {
-            this.width = 270f
-            this.height = 45f
-            setScaling(Scaling.stretch)
-        }
-        addActor(foreground)
     }
 
     fun updateUltimateProgress(progress: Float) {
         if (this.progress != progress) {
             this.progress = progress
+            this.iProgress.scaleX = progress
             if (progress == 1f) {
                 description.color = Color.RED
-                description.setText("Ultimate ready!")
+                description.setText(UiTexts.BattleUltReady.value(r.l))
                 description.addAction(
                     Actions.sequence(
                         Actions.color(Color.WHITE, 0.1f),
@@ -69,22 +71,21 @@ class UltimateProgressActor(
                     Actions.sequence(
                         Actions.parallel(
                             Actions.alpha(0.9f, 0.1f),
-                            Actions.scaleBy(0.02f, 0.02f, 0.2f)
+                            Actions.scaleBy(0f, 0.05f, 0.2f)
                         ),
                         Actions.parallel(
                             Actions.alpha(1f,  0.1f),
-                            Actions.scaleBy(-0.02f, -0.02f, 0.2f)
+                            Actions.scaleBy(0f, -0.05f, 0.2f)
                         )
                     ).repeatForever()
                 )
             } else {
                 description.color = Color.WHITE
-                description.setText("Fill to ultimate")
+                description.setText("${UiTexts.BattleUltProgress.value(r.l)}${"%.0f".format(progress*100)}%")
                 iProgress.clearActions()
                 description.clearActions()
             }
         }
-        val newWidth = progress * 230f
-        iProgress.addAction(Actions.sizeTo(newWidth, iProgress.height, 0.5f))
+        iProgress.addAction(Actions.scaleTo(progress, 1f, 0.5f))
     }
 }

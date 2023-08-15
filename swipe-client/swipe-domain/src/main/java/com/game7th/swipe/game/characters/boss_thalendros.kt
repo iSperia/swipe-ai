@@ -81,7 +81,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             THALENDROS_THORN_WHIP, characterId, target), SbSoundType.WOOSH_TREE_ATTACK))
             }
         }
@@ -93,7 +93,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
             allEnemies(characterId).randomOrNull()?.let { targetId ->
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             THALENDROS_EARTHQUAKE_SLAM, characterId, targetId
                         ),
                         SbSoundType.WOOSH_TREE_ATTACK
@@ -150,7 +150,7 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
             allEnemies(characterId).randomOrNull()?.let { targetId ->
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             THALENDROS_DARK_AURA, characterId, targetId), SbSoundType.AOE_SPELL))
 
                 val auraTilesCount = (balance.intAttribute(da_tiles) * koef).toInt()

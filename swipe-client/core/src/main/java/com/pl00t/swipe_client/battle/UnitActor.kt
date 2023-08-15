@@ -26,25 +26,20 @@ class UnitActor(
 ) : Group() {
 
     val characterImage: Image
-    val healthBar: UnitHealthBarActor
-    private var health: Int = health
-    private var maxHealth: Int = maxHealth
 
     var popupDelay: Float = 0f
+
+    private val k = 1.6f
 
     init {
         characterImage = r.image(Resources.units_atlas, texture).apply {
             this.scaleX = if (team == 0) 1f else -1f
-            this.width = s * w
-            this.height = s * w * 1.66f
+            this.width = s * w * k
+            this.height = s * w * 1.66f * k
+            x = if (team == 0) -(this.width - w) / 2f else this.width - (this.width - w) / 2f
         }
-        setSize(s * w, s * w * 1.66f)
+        setSize(s * w * k, s * w * 1.66f * k)
         addActor(characterImage)
-        healthBar = UnitHealthBarActor(r, w * 0.6f, w * 0.2f, health, maxHealth).apply {
-            x = if (team == 0) w * 0.2f else -w * 1.2f
-            y = -5f
-        }
-        addActor(healthBar)
         val breath = ScaleToAction().apply {
             setScale(0.99f * characterImage.scaleX, 1.01f * characterImage.scaleY)
             duration = 2f

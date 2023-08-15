@@ -81,7 +81,7 @@ fun provideStoneGolemTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             STONE_GOLEM_STONE_SMASH, characterId, target), SbSoundType.WOOSH_ATTACK))
             }
         }
@@ -98,7 +98,7 @@ fun provideStoneGolemTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             STONE_GOLEM_PETRIFYING_STRIKE, characterId, target), SbSoundType.WOOSH_TREE_ATTACK))
 
                 game.character(target)?.let { target ->
@@ -147,7 +147,7 @@ fun provideStoneGolemTriggers(balance: JsonObject): Map<String, SbTrigger> = map
                     dealDamage(characterId, target, damage.copy(phys = damage.phys + extraDamage))
                     events.add(
                         SbDisplayEvent.SbShowTarotEffect(
-                            SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                            SbBattleFieldDisplayEffect.SimpleAttackEffect(
                                 STONE_GOLEM_STONE_SMASH, characterId, target), SbSoundType.WOOSH_ATTACK))
                 }
             }

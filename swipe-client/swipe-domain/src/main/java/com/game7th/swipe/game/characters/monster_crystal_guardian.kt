@@ -80,7 +80,7 @@ fun provideCrystalGuardianTriggers(balance: JsonObject): Map<String, SbTrigger> 
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             CRYSTAL_GUARDIAN_CRYSTAL_FROSTSTRIKE, characterId, target), SbSoundType.WOOSH_ATTACK))
             }
         }
@@ -97,7 +97,7 @@ fun provideCrystalGuardianTriggers(balance: JsonObject): Map<String, SbTrigger> 
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             CRYSTAL_GUARDIAN_GLACIAL_BIND, characterId, target), SbSoundType.WOOSH_TREE_ATTACK))
 
                 game.character(target)?.let { target ->

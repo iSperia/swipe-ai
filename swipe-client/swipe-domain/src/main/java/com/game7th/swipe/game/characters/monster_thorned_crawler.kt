@@ -85,7 +85,7 @@ fun provideThornedCrawlerTriggers(balance: JsonObject): Map<String, SbTrigger> =
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             THORNED_CRAWLER_VICIOUS_PINCERS, characterId, target), SbSoundType.WOOSH_ATTACK))
             }
         }
@@ -103,7 +103,7 @@ fun provideThornedCrawlerTriggers(balance: JsonObject): Map<String, SbTrigger> =
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             THORNED_CRAWLER_DEBILIATING_STRIKE, characterId, target), SbSoundType.WOOSH_ATTACK))
 
                 val positions = freePositions(target, SbTile.LAYER_BACKGROUND, tilesCount)
@@ -149,7 +149,7 @@ fun provideThornedCrawlerTriggers(balance: JsonObject): Map<String, SbTrigger> =
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             THORNED_CRAWLER_DEBILIATING_STRIKE, characterId, target), SbSoundType.HEAL_MONSTER))
             }
 

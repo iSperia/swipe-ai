@@ -76,7 +76,7 @@ fun provideXalitharTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             XALITHAR_FROZEN_IMPACT, characterId, target), SbSoundType.WOOSH_TREE_ATTACK))
             }
         }
@@ -91,7 +91,7 @@ fun provideXalitharTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
                     val reflectedDamage = event.damage.multipledBy(balance.floatAttribute(m_percent) / 100f)
                     events.add(
                         SbDisplayEvent.SbShowTarotEffect(
-                            SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                            SbBattleFieldDisplayEffect.SimpleAttackEffect(
                                 XALITHAR_FROZEN_IMPACT, event.characterId, event.sourceId), SbSoundType.WOOSH_TREE_ATTACK))
                     dealDamage(event.characterId, event.sourceId, reflectedDamage)
                 }
@@ -110,7 +110,7 @@ fun provideXalitharTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
 
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             XALITHAR_CRYSTALINE_CATACLYSM, characterId, target), SbSoundType.AOE_SPELL))
 
                 var tilesCount = 0

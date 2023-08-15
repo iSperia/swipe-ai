@@ -1,5 +1,8 @@
 package com.game7th.swipe.game
 
+import AoeEffectType
+import SkillEffectType
+
 data class GameTutorialMetadata(
     val isFirstTutorial: Boolean,
     val firstTutorialTick: Int,
@@ -229,10 +232,10 @@ data class SbDisplayTile(
 )
 
 sealed interface SbBattleFieldDisplayEffect {
-    data class TarotSimpleAttack(val skin: String, val from: Int, val to: Int): SbBattleFieldDisplayEffect
-    data class TarotDirectedAoe(val skin: String, val from: Int, val team: Int): SbBattleFieldDisplayEffect
+    data class DirectedAoeEffect(val skin: String, val from: Int, val team: Int, val effect: AoeEffectType = AoeEffectType.RAY, val color: Int? = null): SbBattleFieldDisplayEffect
     data class TarotStatic(val skin: String, val at: Int): SbBattleFieldDisplayEffect
-    data class TarotUltimate(val skin: String): SbBattleFieldDisplayEffect
+    data class UltimateEffect(val skin: String, val color: Int): SbBattleFieldDisplayEffect
+    data class SimpleAttackEffect(val skin: String, val from: Int, val to: Int, val effect: SkillEffectType = SkillEffectType.DEFAULT_ATTACK): SbBattleFieldDisplayEffect
 }
 
 sealed interface SbTileFieldDisplayEffect {

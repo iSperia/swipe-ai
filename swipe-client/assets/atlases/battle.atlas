@@ -1,90 +1,348 @@
 
 battle.png
-size: 2048, 512
+size: 2048, 2048
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
+Air07fill
+  rotate: false
+  xy: 0, 1606
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 0
+Air07fill
+  rotate: false
+  xy: 0, 1316
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 17
+Air07fill
+  rotate: false
+  xy: 0, 1026
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 5
+Air07fill
+  rotate: false
+  xy: 0, 736
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 22
+Air07fill
+  rotate: false
+  xy: 0, 446
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 14
+Air07fill
+  rotate: false
+  xy: 0, 156
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 27
+Air07fill
+  rotate: false
+  xy: 770, 1760
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 2
+Air07fill
+  rotate: false
+  xy: 1284, 1760
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 19
+Air07fill
+  rotate: false
+  xy: 514, 1470
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 11
+Air07fill
+  rotate: false
+  xy: 514, 1180
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 7
+Air07fill
+  rotate: false
+  xy: 1028, 1470
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 24
+Air07fill
+  rotate: false
+  xy: 514, 890
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 16
+Air07fill
+  rotate: false
+  xy: 1028, 1180
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 4
+Air07fill
+  rotate: false
+  xy: 514, 600
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 21
+Air07fill
+  rotate: false
+  xy: 1028, 890
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 13
+Air07fill
+  rotate: false
+  xy: 514, 310
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 9
+Air07fill
+  rotate: false
+  xy: 1028, 600
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 26
+Air07fill
+  rotate: false
+  xy: 514, 20
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 1
+Air07fill
+  rotate: false
+  xy: 1028, 310
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 18
+Air07fill
+  rotate: false
+  xy: 1028, 20
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 10
 button_map
   rotate: false
-  xy: 540, 95
+  xy: 1800, 406
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 cold
   rotate: false
-  xy: 410, 75
+  xy: 1800, 666
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 dark
   rotate: false
-  xy: 1720, 249
+  xy: 1800, 536
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+energy26
+  rotate: false
+  xy: 1542, 728
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 14
+energy26
+  rotate: false
+  xy: 1542, 470
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 6
+energy29radial_out
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 14
+energy29radial_out
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 15
+energy29radial_out
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 12
+energy29radial_out
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 11
+energy29radial_out
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 13
+energy29radial_out
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 10
+energy29radial_out
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 18
+energy29radial_out
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 16
+energy29radial_out
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 0
+energy29radial_out
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 17
+liquid
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 1
+liquid
+  rotate: false
+  xy: 1542, 1502
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 0
+energy29radial_out
+  rotate: false
+  xy: 1542, 1244
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 1
 fire
   rotate: false
-  xy: 514, 225
+  xy: 514, 1766
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 gem_active
   rotate: false
-  xy: 1980, 446
+  xy: 644, 1816
   size: 64, 61
   orig: 64, 61
   offset: 0, 0
   index: -1
 gem_inactive
   rotate: false
-  xy: 644, 292
+  xy: 1930, 993
   size: 64, 61
   orig: 64, 61
   offset: 0, 0
   index: -1
 heal
   rotate: false
-  xy: 1850, 249
+  xy: 1800, 276
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-healthbar_bg
-  rotate: false
-  xy: 410, 48
-  size: 128, 25
-  split: 8, 8, 8, 8
-  orig: 128, 25
-  offset: 0, 0
-  index: -1
 healthbar_fg
   rotate: false
-  xy: 0, 0
+  xy: 644, 1879
   size: 118, 15
   orig: 118, 15
   offset: 0, 0
   index: -1
 icon_free_reward
   rotate: false
-  xy: 1105, 215
+  xy: 1747, 16
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 light
   rotate: false
-  xy: 1720, 379
+  xy: 1800, 926
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+liquid
+  rotate: false
+  xy: 1542, 986
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 3
+liquid
+  rotate: false
+  xy: 1542, 986
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 2
+liquid
+  rotate: false
+  xy: 1542, 212
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 16
 panelBg
   rotate: false
-  xy: 0, 17
+  xy: 1798, 1862
   size: 203, 186
   split: 31, 33, 32, 39
   orig: 203, 186
@@ -92,7 +350,7 @@ panelBg
   index: -1
 panel_border
   rotate: false
-  xy: 205, 17
+  xy: 1542, 24
   size: 203, 186
   split: 33, 34, 32, 38
   orig: 203, 186
@@ -100,7 +358,7 @@ panel_border
   index: -1
 panel_border_no_top
   rotate: false
-  xy: 770, 350
+  xy: 1800, 1703
   size: 203, 157
   split: 33, 37, 0, 157
   pad: 33, 37, -1, -1
@@ -109,93 +367,596 @@ panel_border_no_top
   index: -1
 panel_border_no_top_filled
   rotate: false
-  xy: 975, 351
+  xy: 1800, 1545
   size: 203, 156
   split: 34, 37, 3, 41
   orig: 203, 156
   offset: 0, 0
   index: -1
-physical
-  rotate: false
-  xy: 1365, 216
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
 progress_active
   rotate: false
-  xy: 1362, 346
+  xy: 1800, 1218
   size: 179, 161
   orig: 179, 161
   offset: 0, 0
   index: -1
 progress_active2
   rotate: false
-  xy: 1543, 347
+  xy: 1800, 1056
   size: 175, 160
   orig: 175, 160
   offset: 0, 0
   index: -1
 progress_inactive
   rotate: false
-  xy: 1180, 345
+  xy: 1800, 1381
   size: 180, 162
   orig: 180, 162
   offset: 0, 0
   index: -1
 semi_black_pixel
   rotate: false
-  xy: 514, 222
+  xy: 514, 1763
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 shock
   rotate: false
-  xy: 1235, 215
+  xy: 1877, 16
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 skill_progress_active
   rotate: false
-  xy: 410, 24
+  xy: 1606, 0
   size: 62, 22
   orig: 62, 22
   offset: 0, 0
   index: -1
 skill_progress_inactive
   rotate: false
-  xy: 540, 71
+  xy: 1542, 0
   size: 62, 22
   orig: 62, 22
   offset: 0, 0
   index: -1
 tile_bg
   rotate: false
-  xy: 1850, 379
+  xy: 1800, 796
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 ult_progress
   rotate: false
-  xy: 0, 205
+  xy: 0, 6
   size: 512, 148
   orig: 512, 148
   offset: 0, 0
   index: -1
 ult_progress_fg
   rotate: false
-  xy: 0, 355
+  xy: 0, 1896
   size: 768, 152
   orig: 768, 152
   offset: 0, 0
   index: -1
 weak
   rotate: false
-  xy: 975, 221
+  xy: 1800, 146
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+
+battle2.png
+size: 2048, 2048
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: none
+Air07fill
+  rotate: false
+  xy: 0, 1671
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 6
+Air07fill
+  rotate: false
+  xy: 0, 1381
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 23
+Air07fill
+  rotate: false
+  xy: 514, 1671
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 15
+Air07fill
+  rotate: false
+  xy: 0, 1091
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 3
+Air07fill
+  rotate: false
+  xy: 514, 1381
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 20
+Air07fill
+  rotate: false
+  xy: 1028, 1671
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 12
+Air07fill
+  rotate: false
+  xy: 0, 801
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 8
+Air07fill
+  rotate: false
+  xy: 514, 1091
+  size: 512, 288
+  orig: 512, 288
+  offset: 0, 0
+  index: 25
+energy26
+  rotate: false
+  xy: 1028, 1155
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 19
+energy26
+  rotate: false
+  xy: 0, 27
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 11
+energy26
+  rotate: false
+  xy: 1286, 1413
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 24
+energy26
+  rotate: false
+  xy: 1286, 1155
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 3
+energy26
+  rotate: false
+  xy: 772, 833
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 16
+energy26
+  rotate: false
+  xy: 516, 575
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 8
+energy26
+  rotate: false
+  xy: 774, 317
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 21
+energy26
+  rotate: false
+  xy: 774, 59
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 0
+energy26
+  rotate: false
+  xy: 1030, 897
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 13
+energy26
+  rotate: false
+  xy: 1288, 897
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 26
+energy26
+  rotate: false
+  xy: 1546, 929
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 5
+energy26
+  rotate: false
+  xy: 1290, 123
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 18
+energy26
+  rotate: false
+  xy: 1548, 671
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 10
+energy26
+  rotate: false
+  xy: 1548, 155
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 23
+energy29radial_out
+  rotate: false
+  xy: 1542, 1703
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 19
+energy29radial_out
+  rotate: false
+  xy: 0, 543
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 6
+energy29radial_out
+  rotate: false
+  xy: 0, 543
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 7
+energy29radial_out
+  rotate: false
+  xy: 0, 285
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 24
+energy29radial_out
+  rotate: false
+  xy: 258, 285
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 3
+energy29radial_out
+  rotate: false
+  xy: 516, 59
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 21
+energy29radial_out
+  rotate: false
+  xy: 516, 59
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 22
+energy29radial_out
+  rotate: false
+  xy: 1544, 1445
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 8
+energy29radial_out
+  rotate: false
+  xy: 1544, 1445
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 9
+energy29radial_out
+  rotate: false
+  xy: 1032, 123
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 5
+energy29radial_out
+  rotate: false
+  xy: 1548, 413
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 23
+healthbar_bg
+  rotate: false
+  xy: 0, 0
+  size: 128, 25
+  split: 8, 8, 8, 8
+  orig: 128, 25
+  offset: 0, 0
+  index: -1
+liquid
+  rotate: false
+  xy: 514, 833
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 8
+liquid
+  rotate: false
+  xy: 258, 543
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 13
+liquid
+  rotate: false
+  xy: 258, 27
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 5
+liquid
+  rotate: false
+  xy: 516, 317
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 18
+liquid
+  rotate: false
+  xy: 1544, 1187
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 10
+liquid
+  rotate: false
+  xy: 1032, 639
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 15
+liquid
+  rotate: false
+  xy: 1290, 639
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 7
+liquid
+  rotate: false
+  xy: 1290, 381
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 20
+physical
+  rotate: false
+  xy: 1800, 1831
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+sparks04
+  rotate: false
+  xy: 1028, 1413
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 1
+sparks04
+  rotate: false
+  xy: 774, 575
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 3
+sparks04
+  rotate: false
+  xy: 1032, 381
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 0
+
+battle3.png
+size: 2048, 2048
+format: RGBA8888
+filter: MipMapLinearLinear, MipMapLinearLinear
+repeat: none
+energy26
+  rotate: false
+  xy: 0, 1548
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 2
+energy26
+  rotate: false
+  xy: 258, 1290
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 15
+energy26
+  rotate: false
+  xy: 516, 1548
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 7
+energy26
+  rotate: false
+  xy: 774, 1548
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 20
+energy26
+  rotate: false
+  xy: 516, 1032
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 12
+energy26
+  rotate: false
+  xy: 774, 1290
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 25
+energy26
+  rotate: false
+  xy: 1032, 1548
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 4
+energy26
+  rotate: false
+  xy: 774, 1032
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 17
+energy26
+  rotate: false
+  xy: 1032, 1290
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 9
+energy26
+  rotate: false
+  xy: 258, 258
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 22
+energy26
+  rotate: false
+  xy: 516, 516
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 1
+energy29radial_out
+  rotate: false
+  xy: 258, 1548
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 2
+energy29radial_out
+  rotate: false
+  xy: 258, 1032
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 20
+energy29radial_out
+  rotate: false
+  xy: 258, 774
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 25
+energy29radial_out
+  rotate: false
+  xy: 258, 516
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 4
+liquid
+  rotate: false
+  xy: 0, 1290
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 12
+liquid
+  rotate: false
+  xy: 0, 1032
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 4
+liquid
+  rotate: false
+  xy: 0, 774
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 17
+liquid
+  rotate: false
+  xy: 0, 516
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 9
+liquid
+  rotate: false
+  xy: 0, 258
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 14
+liquid
+  rotate: false
+  xy: 516, 774
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 6
+liquid
+  rotate: false
+  xy: 1290, 1548
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 19
+liquid
+  rotate: false
+  xy: 774, 774
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 11
+sparks04
+  rotate: false
+  xy: 516, 1290
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 2
+sparks04
+  rotate: false
+  xy: 0, 0
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: 4

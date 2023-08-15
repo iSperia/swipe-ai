@@ -78,7 +78,7 @@ fun provideMalachiTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
             meleeTarget(characterId).forEach { target ->
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             MALACHI_ABYSSAL_WEAKNESS, characterId, target), SbSoundType.WOOSH_ATTACK))
 
                 val positions = (0 until 25).shuffled().take(tilesCount)
@@ -120,7 +120,7 @@ fun provideMalachiTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
             randomTarget(characterId)?.firstOrNull()?.let { targetId ->
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             MALACHI_UMBRAL_ENSHROUDMENT, characterId, targetId), SbSoundType.AOE_SPELL))
 
                 val auraTilesCount = (balance.intAttribute(ue_tiles) * koef).toInt()
@@ -175,7 +175,7 @@ fun provideMalachiTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             MALACHI_VOID_ESSENCE_DRAIN, characterId, target), SbSoundType.WOOSH_TREE_ATTACK))
             }
 

@@ -95,7 +95,7 @@ fun provideShadowOfChaosTriggers(balance: JsonObject): Map<String, SbTrigger> = 
             allEnemies(characterId).randomOrNull()?.let { targetId ->
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             THALENDROS_DARK_AURA, characterId, targetId), SbSoundType.AOE_SPELL))
 
                 val auraTilesCount = (balance.intAttribute(da_tiles) * koef).toInt()
@@ -142,7 +142,7 @@ fun provideShadowOfChaosTriggers(balance: JsonObject): Map<String, SbTrigger> = 
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             SHADOW_OF_CHAOS_ABYSSAL_REND, characterId, target), SbSoundType.WOOSH_ATTACK))
             }
         }

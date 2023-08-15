@@ -97,7 +97,7 @@ fun provideSaffronTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
             ).multipledBy(koef)
             rangedTarget(characterId).forEach { target ->
                 dealDamage(characterId, target, damage)
-                events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.SimpleAttackEffect(
                     SAFFRON_INFERNO_STRIKE, characterId, target), SbSoundType.AOE_SPELL))
             }
         }
@@ -113,12 +113,12 @@ fun provideSaffronTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
             val allEnemies = allEnemies(characterId)
             allEnemies(characterId).lastOrNull()?.let { target ->
                 dealDamage(characterId, target, damage)
-                events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.SimpleAttackEffect(
                     SAFFRON_INFERNO_STRIKE, characterId, target), SbSoundType.AOE_SPELL))
                 if (allEnemies.size > 1) {
                     allEnemies[allEnemies.size - 2].let { secondTarget ->
                         dealDamage(characterId, secondTarget, secondaryDamage)
-                        events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             SAFFRON_INFERNO_STRIKE, characterId, secondTarget), SbSoundType.AOE_SPELL))
                     }
                 }
@@ -134,8 +134,8 @@ fun provideSaffronTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
                     val updatedDeadCharacter = deadCharacter.copy(health = health, ultimateProgress = 0, maxUltimateProgress = (deadCharacter.maxUltimateProgress * 1.25f).toInt())
                     context.game = context.game.withUpdatedCharacter(updatedDeadCharacter)
                     context.events.add(SbDisplayEvent.SbUpdateCharacter(updatedDeadCharacter.asDisplayed()))
-                    context.events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotStatic(
-                        SAFFRON_PHOENIX_REBIRTH, deadCharacter.id), SbSoundType.ULTIMATE
+                    context.events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.UltimateEffect(
+                        SAFFRON_PHOENIX_REBIRTH, (0xffb100ff).toInt()), SbSoundType.ULTIMATE
                     ))
                 }
             }

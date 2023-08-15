@@ -13,7 +13,7 @@
     "base_health": 700,
     "luck": 5,
     "ult": 10,
-    "ult_max": 200,
+    "ult_max": 10,
     "resist": {
       "phys": 0,
       "dark": 0,

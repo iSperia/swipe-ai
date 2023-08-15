@@ -96,7 +96,7 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
             ).multipledBy(koef)
             meleeTarget(characterId).forEach { target ->
                 dealDamage(characterId, target, damage)
-                events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.SimpleAttackEffect(
                     VALERIAN_RADIANT_STRIKE, characterId, target), SbSoundType.SWORD_ATTACK))
             }
         }
@@ -111,8 +111,8 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
             ).multipledBy(koef)
             allEnemies(characterId).forEach { target ->
                 dealDamage(characterId, target, damage)
-                events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.TarotDirectedAoe(
-                    VALERIAN_LUMINOUS_BEAM, characterId, 0), SbSoundType.AOE_SPELL
+                events.add(SbDisplayEvent.SbShowTarotEffect(SbBattleFieldDisplayEffect.DirectedAoeEffect(
+                    VALERIAN_LUMINOUS_BEAM, characterId, 0, AoeEffectType.RAY, (0xffe07aff).toInt()), SbSoundType.AOE_SPELL
                 ))
             }
         }
@@ -177,8 +177,8 @@ fun provideValerianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
 
                     tiles.forEach { t -> context.destroyTile(character.id, t.id) }
 
-                    context.events.add(SbDisplayEvent.SbShowTarotEffect(effect = SbBattleFieldDisplayEffect.TarotUltimate(
-                        VALERIAN_DIVINE_CONVERGENCE), SbSoundType.ULTIMATE))
+                    context.events.add(SbDisplayEvent.SbShowTarotEffect(effect = SbBattleFieldDisplayEffect.UltimateEffect(
+                        VALERIAN_DIVINE_CONVERGENCE, (0x9893ed).toInt()), SbSoundType.ULTIMATE))
                     context.game.character(0)?.let { c ->
                         val cc = c.withUpdatedUltimateProgress(0)
                         context.game = context.game.withUpdatedCharacter(cc)

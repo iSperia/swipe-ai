@@ -33,6 +33,8 @@ object UiTexts {
 
     val BattleVictory = SbText("Victory", "Победа")
     val BattleDefeat = SbText("Defeat", "Поражение")
+    val BattleUltProgress = SbText("Ult. progress ", "Ульт. прогресс ")
+    val BattleUltReady = SbText("Ult. ready!", "Ульт. готова!")
     val ExpBoost = SbText("+$ experience", "+$ очков опыта")
     val RetryLevel = SbText("Try again", "Попробовать заново")
 

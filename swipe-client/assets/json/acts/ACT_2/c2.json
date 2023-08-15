@@ -3,6 +3,7 @@
   "y": 592,
   "type": "CAMPAIGN",
   "id": "c2",
+  "music": "theme_crystal_caverns",
   "title": {
     "en": "Crystal Coves",
     "ru": "Кристальные пещеры"

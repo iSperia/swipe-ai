@@ -79,7 +79,7 @@ fun provideShadowbladeRogueTriggers(balance: JsonObject): Map<String, SbTrigger>
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             SHADOWBLADE_ROGUE_DARKSTRIKE, characterId, target), SbSoundType.WOOSH_ATTACK))
             }
         }
@@ -97,7 +97,7 @@ fun provideShadowbladeRogueTriggers(balance: JsonObject): Map<String, SbTrigger>
                     dealDamage(characterId, target, damage)
                     events.add(
                         SbDisplayEvent.SbShowTarotEffect(
-                            SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                            SbBattleFieldDisplayEffect.SimpleAttackEffect(
                                 SHADOWBLADE_ROGUE_VENOMOUS_LUNGE, characterId, target), SbSoundType.WOOSH_ATTACK))
                 }
             }
@@ -116,7 +116,7 @@ fun provideShadowbladeRogueTriggers(balance: JsonObject): Map<String, SbTrigger>
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             SHADOWBLADE_ROGUE_ENFEEBLING_SLASH, characterId, target), SbSoundType.WOOSH_ATTACK))
 
                 val positions = freePositions(target, SbTile.LAYER_BACKGROUND, tilesCount)

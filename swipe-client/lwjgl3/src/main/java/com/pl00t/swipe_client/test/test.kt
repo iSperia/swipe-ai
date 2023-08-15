@@ -326,5 +326,5 @@ suspend fun main() {
     val levelService = LevelServiceImpl(fileService, monsterService)
     val itemService = ItemServiceImpl(Gson(), fileService)
 
-    testAct(Gson(), fileService, monsterService, itemService, levelService, SwipeAct.ACT_2)
+    testAct(Gson(), fileService, monsterService, itemService, levelService, SwipeAct.ACT_1)
 }

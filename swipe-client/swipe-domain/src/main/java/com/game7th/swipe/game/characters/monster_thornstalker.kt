@@ -68,7 +68,7 @@ fun provideThornstalkerTriggers(balance: JsonObject): Map<String, SbTrigger> = m
                 dealDamage(characterId, target, damage)
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
-                        SbBattleFieldDisplayEffect.TarotSimpleAttack(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
                             THORNSTALKER_PRIMAL_ASSAULT, characterId, target), SbSoundType.WOOSH_ATTACK))
             }
         }
