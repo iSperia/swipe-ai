@@ -45,7 +45,7 @@
     "thalendros.dark_aura"
   ],
   "balance": {
-    "base_health": 1700,
+    "base_health": 1300,
     "luck": 5,
     "ult": 10,
     "ult_max": 1000,

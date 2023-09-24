@@ -724,7 +724,7 @@ class BattleWindow(
             ignoreSwipe = true
             addActor(TutorialHover(r, locationGroup.bounds(), UiTexts.Tutorials.A1C1.T1, HoverAction.HoverClick(false) {
                 val characterActor = unitsGroup.findActor<UnitActor>("0")
-                val healthbar = unitsGroup.findActor<UnitHealthBarActor>("0")
+                val healthbar = healthbarGroup.findActor<UnitHealthBarActor>("0")
                 addActor(TutorialHover(r, characterActor.bounds(), UiTexts.Tutorials.A1C1.T2, HoverAction.HoverClick(false) {
                 addActor(TutorialHover(r, healthbar.bounds(), UiTexts.Tutorials.A1C1.T3, HoverAction.HoverClick(false) {
                 addActor(TutorialHover(r, unitsGroup.findActor<UnitActor>("1").bounds().apply { x -= width }, UiTexts.Tutorials.A1C1.T4, HoverAction.HoverClick(false) {

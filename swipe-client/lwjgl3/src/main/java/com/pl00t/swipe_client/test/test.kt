@@ -20,7 +20,6 @@ import kotlinx.html.stream.createHTML
 import java.io.File
 import java.lang.IllegalStateException
 import kotlin.math.min
-import kotlin.random.Random
 
 data class ProgressionEntry(
     val act: SwipeAct,
@@ -29,7 +28,7 @@ data class ProgressionEntry(
     val characterSkin: String,
     val characterItems: List<TestItemDescription>,
     val characterLevel: Int,
-    val targetWinrate: Float,
+    val targetSwipes: Int,
 )
 
 data class ProgressionFile(
@@ -40,8 +39,8 @@ data class TestResult(
     val act: SwipeAct,
     val level: String,
     val winrate: Float,
-    val targetWinrate: Float,
-    val delta: Float,
+    val targetSwipes: Int,
+    val deltaSwipes: Int,
     val avgSwipe: Int,
 )
 
@@ -80,7 +79,7 @@ private suspend fun createCharacter(monsterService: MonsterService, itemService:
 
 data class LevelTestResult(
     val winrate: Float,
-    val avgSwipes: Int,
+    val avgSwipes: Int
 )
 
 suspend fun testLevel(
@@ -172,7 +171,9 @@ suspend fun testLevel(
             victories++
         }
     }
-    return LevelTestResult(victories.toFloat() / ITERATIONS, avgSwipes = swipes / ITERATIONS)
+    return LevelTestResult(
+        victories.toFloat() / ITERATIONS,
+        avgSwipes = swipes / ITERATIONS)
 }
 
 suspend fun testAct(
@@ -185,16 +186,16 @@ suspend fun testAct(
 ) {
     coroutineScope {
         launch(newFixedThreadPoolContext(10, "Async")) {
-            val progressionFile = gson.fromJson(fileService.localFile("assets/json/tests/test_$act.json"), ProgressionFile::class.java)
+            val progressionFile = gson.fromJson(fileService.localFile("json/tests/test_$act.json"), ProgressionFile::class.java)
             val resultMap = mutableMapOf<String, TestResult>()
             val jobs = mutableListOf<Deferred<Unit>>()
             progressionFile.tests.forEach { entry ->
                 jobs.add(async {
                     val testResult = testLevel(levelService, monsterService, itemService, entry)
-                    val humanWinrate = testResult.winrate
                     val avgSwipes = testResult.avgSwipes
-                    println("$entry\nwinrate=$humanWinrate; avgSwipes=$avgSwipes\nthread=${Thread.currentThread().name}\n\n")
-                    resultMap[entry.level] = TestResult(entry.act, entry.level, humanWinrate, entry.targetWinrate, humanWinrate - entry.targetWinrate, avgSwipes)
+                    val totalSwipes = (avgSwipes / testResult.winrate).toInt()
+                    println("$entry\nwinrate=${testResult.winrate}; avgSwipes=$avgSwipes\nthread=${Thread.currentThread().name}\n\n")
+                    resultMap[entry.level] = TestResult(entry.act, entry.level, testResult.winrate, entry.targetSwipes, totalSwipes - entry.targetSwipes, avgSwipes)
                 })
             }
             jobs.forEach { it.await() }
@@ -241,8 +242,9 @@ suspend fun testAct(
                                     td { text("Level") }
                                     td { text("Config") }
                                     td { text("Avg. Swipes") }
+                                    td { text("Tot. Swipes") }
                                     td { text("Winrate") }
-                                    td { text("Target Winrate") }
+                                    td { text("Target Swipes") }
                                     td { text("Delta winrate") }
                                     td { text("Estimate time to complete") }
                                 }
@@ -267,22 +269,28 @@ suspend fun testAct(
                                             text("${resultMap[progression.level]?.avgSwipe ?: 0}")
                                         }
                                         td {
+                                            val avgSwipes = resultMap[progression.level]?.avgSwipe ?: 0
+                                            val winrate = resultMap[progression.level]?.winrate ?: 0f
+                                            val totalSwipes = (avgSwipes / winrate).toInt()
+                                            text("$totalSwipes")
+                                        }
+                                        td {
                                             text("${((resultMap[progression.level]?.winrate ?: 0f) * 100f).toInt()}%")
                                         }
                                         td {
-                                            text("${((resultMap[progression.level]?.targetWinrate ?: 0f) * 100f).toInt()}%")
+                                            text("${(resultMap[progression.level]?.targetSwipes ?: 0)}")
                                         }
 
-                                        val delta = ((resultMap[progression.level]?.delta ?: 0f) * 100f).toInt()
-                                        val c = if (delta >= -8 && delta <= 8) "green"
-                                        else if (delta in 6..16) "blue"
-                                        else if (delta > 16) "violet"
-                                        else if (delta >= -16 && delta < -6) "yellow"
-                                        else if (delta < -16) "red"
-                                        else "green"
-                                        td(classes = c) {
+                                        val delta = (resultMap[progression.level]?.deltaSwipes ?: 0)
+                                        val percDelta = delta.toFloat() / (resultMap[progression.level]?.targetSwipes ?: 0)
+                                        val c = if (percDelta >= -0.1f && percDelta <= 0.1f) "green"
+                                        else if (percDelta <= -0.1f && percDelta >= -0.25f) "blue"
+                                        else if (percDelta <= -0.25f) "violet"
+                                        else if (percDelta >= 0.1f && percDelta <= 0.25f) "yellow"
+                                        else "red"
 
-                                            text("$delta%")
+                                        td(classes = c) {
+                                            text("$delta")
                                         }
                                         td {
                                             resultMap[progression.level]?.let {
@@ -310,13 +318,13 @@ suspend fun testAct(
 suspend fun main() {
     val fileService = object : FileService {
         override fun localFile(name: String): String? {
-            val file = File("F:\\swipe\\swipe-ai\\swipe-client\\$name")
+            val file = File("assets\\$name")
             if (!file.exists()) return null
             return file.readText()
         }
 
         override fun internalFile(name: String): String? {
-            val file = File("F:\\swipe\\swipe-ai\\swipe-client\\assets\\$name")
+            val file = File("assets\\$name")
             if (!file.exists()) return null
             return file.readText()
         }

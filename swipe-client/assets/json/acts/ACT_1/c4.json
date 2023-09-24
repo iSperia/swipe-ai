@@ -20,35 +20,23 @@
       },
       {
         "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 2
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 2
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 2
+      }
+    ],
+    [
+      {
+        "skin": "MONSTER_THORNSTALKER",
         "level": 3
-      }
-    ],
-    [
-      {
-        "skin": "MONSTER_THORNSTALKER",
-        "level": 2
-      },
-      {
-        "skin": "MONSTER_THORNSTALKER",
-        "level": 2
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 2
-      }
-    ],
-    [
-      {
-        "skin": "MONSTER_THORNSTALKER",
-        "level": 2
-      },
-      {
-        "skin": "MONSTER_THORNSTALKER",
-        "level": 2
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 2
       }
     ]
   ],

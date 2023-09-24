@@ -7,7 +7,7 @@
       "characterItems": [],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 1,
-      "targetWinrate": 1
+      "targetSwipes": 24
     },
     {
       "act": "ACT_1",
@@ -16,7 +16,7 @@
       "characterItems": [],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 1,
-      "targetWinrate": 0.75
+      "targetSwipes": 75
     },
     {
       "act": "ACT_1",
@@ -25,7 +25,7 @@
       "characterItems": [],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 2,
-      "targetWinrate": 0.5
+      "targetSwipes": 120
     },
     {
       "act": "ACT_1",
@@ -34,7 +34,7 @@
       "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 1}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 2,
-      "targetWinrate": 0.25
+      "targetSwipes": 250
     },
     {
       "act": "ACT_1",
