@@ -20,7 +20,7 @@
       },
       {
         "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 3
+        "level": 2
       }
     ],
     [
@@ -31,10 +31,6 @@
       {
         "skin": "MONSTER_THORNED_CRAWLER",
         "level": 2
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 3
       }
     ]
   ],
