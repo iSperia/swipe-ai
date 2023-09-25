@@ -25,5 +25,133 @@
         "type": "ETHERIUM_COIN"
       }
     }
+  ],
+  "tiers": [
+    {
+      "monster_pool": [
+        {
+          "skin": "MONSTER_XALITHAR",
+          "level": 20,
+          "weight": 30
+        }
+      ],
+      "rewardTotal": 20000,
+      "rewards": [
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "CRYSTALWEAVE_LUCK",
+          "weight": 25
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "ENIGMA_HELM",
+          "weight": 25
+        }
+      ]
+    },
+    {
+      "monster_pool": [
+        {
+          "skin": "MONSTER_XALITHAR",
+          "level": 30,
+          "weight": 30
+        }
+      ],
+      "rewardTotal": 20000,
+      "rewards": [
+        {
+          "type": "item",
+          "rarity": 2,
+          "skin": "CRYSTALWEAVE_LUCK",
+          "weight": 25
+        },
+        {
+          "type": "item",
+          "rarity": 2,
+          "skin": "ENIGMA_HELM",
+          "weight": 25
+        },
+        {
+          "type": "CRYSTALWEAVE_LUCK",
+          "rarity": 1,
+          "skin": "ENCHANTED_BAND",
+          "weight": 160
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "ENIGMA_HELM",
+          "weight": 160
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "type": "SCROLL_OF_WISDOM",
+            "amount": 1
+          },
+          "rarity": 0,
+          "weight": 500
+        },
+        {
+          "type": "currency",
+          "currency": {
+            "type": "TOME_OF_ENLIGHTMENT",
+            "amount": 1
+          },
+          "rarity": 0,
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "monster_pool": [
+        {
+          "skin": "MONSTER_THALENDROS",
+          "level": 40,
+          "weight": 30
+        }
+      ],
+      "rewardTotal": 75000,
+      "rewards": [
+        {
+          "type": "item",
+          "rarity": 3,
+          "skin": "CRYSTALWEAVE_LUCK",
+          "weight": 25
+        },
+        {
+          "type": "item",
+          "rarity": 3,
+          "skin": "ENIGMA_HELM",
+          "weight": 25
+        },
+        {
+          "type": "CRYSTALWEAVE_LUCK",
+          "rarity": 2,
+          "skin": "ENCHANTED_BAND",
+          "weight": 160
+        },
+        {
+          "type": "item",
+          "rarity": 2,
+          "skin": "ENIGMA_HELM",
+          "weight": 320
+        },
+        {
+          "type": "CRYSTALWEAVE_LUCK",
+          "rarity": 1,
+          "skin": "ENCHANTED_BAND",
+          "weight": 320
+        },
+        {
+          "type": "item",
+          "rarity": 1,
+          "skin": "ENIGMA_HELM",
+          "weight": 320
+        }
+      ]
+    }
   ]
 }

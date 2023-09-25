@@ -6,126 +6,133 @@ filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
 COMMON_POISON
   rotate: false
-  xy: 776, 648
+  xy: 1034, 906
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 COMMON_STUN
   rotate: false
-  xy: 1550, 1422
+  xy: 518, 132
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 COMMON_WEAKNESS
   rotate: false
-  xy: 1034, 518
+  xy: 1292, 776
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 CORRUPTED_DRYAD_ARBOREAL_FANGS
   rotate: false
-  xy: 1034, 1422
+  xy: 1292, 1680
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 CORRUPTED_DRYAD_SHADOWED_ANNIHILATION
   rotate: false
-  xy: 518, 648
+  xy: 776, 906
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 CORRUPTED_DRYAD_VILE_SIPHON
   rotate: false
-  xy: 260, 906
+  xy: 518, 1164
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 CRYSTAL_GUARDIAN_CRYSTAL_FROSTSTRIKE
   rotate: false
-  xy: 518, 906
+  xy: 776, 1164
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 CRYSTAL_GUARDIAN_CRYSTAL_WARD
   rotate: false
-  xy: 1292, 1422
+  xy: 1550, 1680
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 CRYSTAL_GUARDIAN_GLACIAL_BIND
   rotate: false
-  xy: 1034, 906
+  xy: 1292, 1164
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 MALACHI_ABYSSAL_WEAKNESS
   rotate: false
-  xy: 2, 648
+  xy: 260, 906
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 MALACHI_UMBRAL_ENSHROUDMENT
   rotate: false
-  xy: 1550, 1680
+  xy: 260, 132
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 MALACHI_VOID_ESSENCE_DRAIN
   rotate: false
-  xy: 1292, 1164
+  xy: 1550, 1422
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+RADIANT_FUSION
+  rotate: false
+  xy: 260, 1422
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 SAFFRON_BLAZING_BACKDRAFT
   rotate: false
-  xy: 2, 132
+  xy: 260, 390
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 SAFFRON_IGINITE_INSPIRATION
   rotate: false
-  xy: 776, 1680
+  xy: 2, 648
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 SAFFRON_INFERNO_STRIKE
   rotate: false
-  xy: 1292, 906
+  xy: 1550, 1164
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 SAFFRON_PHOENIX_REBIRTH
   rotate: false
-  xy: 1034, 1680
+  xy: 2, 390
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 SHADOWBLADE_ROGUE_DARKSTRIKE
   rotate: false
-  xy: 518, 132
+  xy: 776, 390
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 SHADOWBLADE_ROGUE_ENFEEBLING_SLASH
   rotate: false
-  xy: 776, 1422
+  xy: 1034, 1680
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -139,35 +146,35 @@ SHADOWBLADE_ROGUE_VENOMOUS_LUNGE
   index: -1
 SHADOW_OF_CHAOS_ABYSSAL_REND
   rotate: false
-  xy: 260, 1164
+  xy: 518, 1422
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 SHADOW_OF_CHAOS_EVASIVE_SHADOWS
   rotate: false
-  xy: 2, 906
+  xy: 260, 1164
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 STONE_GOLEM_CRUSHING_MOMENTUM
   rotate: false
-  xy: 518, 1680
+  xy: 2, 906
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 STONE_GOLEM_PETRIFYING_STRIKE
   rotate: false
-  xy: 1292, 1680
+  xy: 2, 132
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 STONE_GOLEM_STONE_SMASH
   rotate: false
-  xy: 1034, 648
+  xy: 1292, 906
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -188,7 +195,7 @@ THALENDROS_EARTHQUAKE_SLAM
   index: -1
 THALENDROS_DARK_AURA
   rotate: false
-  xy: 260, 132
+  xy: 518, 390
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -202,28 +209,28 @@ THALENDROS_DARK_TILE
   index: -1
 THALENDROS_THORN_WHIP
   rotate: false
-  xy: 2, 390
+  xy: 260, 648
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 THORNED_CRAWLER_DEBILIATING_STRIKE
   rotate: false
-  xy: 776, 390
+  xy: 1034, 648
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 THORNED_CRAWLER_LEECHING_SHADOWS
   rotate: false
-  xy: 1034, 1164
+  xy: 1292, 1422
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 THORNED_CRAWLER_VICIOUS_PINCERS
   rotate: false
-  xy: 260, 390
+  xy: 518, 648
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -237,42 +244,42 @@ THORNSTALKER_PRIMAL_ASSAULT
   index: -1
 THORNSTALKER_RESILIENT_GROWTH
   rotate: false
-  xy: 776, 906
+  xy: 1034, 1164
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 THORNSTALKER_VENOMOUS_BARRAGE
   rotate: false
-  xy: 260, 648
+  xy: 518, 906
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 VALERIAN_DIVINE_CONVERGENCE
   rotate: false
-  xy: 776, 137
+  xy: 1034, 395
   size: 256, 251
   orig: 256, 251
   offset: 0, 0
   index: -1
 VALERIAN_LUMINOUS_BEAM
   rotate: false
-  xy: 518, 390
+  xy: 776, 648
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 VALERIAN_RADIANT_STRIKE
   rotate: false
-  xy: 260, 1422
+  xy: 518, 1680
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 VALERIAN_SIGIL_OF_RENEWAL
   rotate: false
-  xy: 1550, 1166
+  xy: 776, 134
   size: 256, 254
   orig: 256, 254
   offset: 0, 0
@@ -286,7 +293,7 @@ VALERIAN_SIGIL_OF_RENEWAL_BG
   index: -1
 XALITHAR_CRYSTALINE_CATACLYSM
   rotate: false
-  xy: 518, 1422
+  xy: 776, 1680
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
@@ -300,14 +307,14 @@ XALITHAR_FROZEN_IMPACT
   index: -1
 XALITHAR_MIRRORWEAVE
   rotate: false
-  xy: 518, 1164
+  xy: 776, 1422
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 tile_effect_freeze
   rotate: false
-  xy: 776, 1164
+  xy: 1034, 1422
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
