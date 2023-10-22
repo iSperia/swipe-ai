@@ -133,18 +133,34 @@ class BattleServiceImpl(
                     }
                     val nextSkin = nextMonster.skin
                     val nextLevel = nextMonster.level
+                    val rarityRoll = Random.nextInt(14)
+                    val nextRarity = if (levelModel.type == LevelType.BOSS) 0 else when (rarityRoll) {
+                        0,1,2,3,4 -> 0
+                        5,6,7,8 -> 1
+                        9,10,11 -> 2
+                        else -> 3
+                    }
 
                     val monsterConfig = monsterService.getMonster(nextSkin)!!
                     monsterService.loadTriggers(monsterConfig.skin)
                     triggers.addAll(monsterConfig.triggers)
-                    monsters.add(monsterService.createMonster(nextSkin, nextLevel, nextMonster.rarity))
+                    monsters.add(monsterService.createMonster(nextSkin, nextLevel, nextRarity))
                 }
                 waves.add(monsters)
             }
             this.waves = waves
         }
 
-        experienceIfWin = waves.flatMap { it }.sumOf { it.level * 10 }
+        experienceIfWin = waves.flatMap { it }.sumOf {
+            val bonusExpRarity = when (it.rarity) {
+                0 -> 0
+                1 -> 2
+                2 -> 4
+                3 -> 6
+                else -> 8
+            }
+            it.level * (10 + bonusExpRarity)
+        }
         if (levelModel.type == LevelType.BOSS) experienceIfWin *= 5
 
         context = SbContext(

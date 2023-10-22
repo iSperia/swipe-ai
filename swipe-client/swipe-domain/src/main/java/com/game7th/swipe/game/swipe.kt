@@ -139,7 +139,8 @@ fun SbContext.swipe(characterId: Int, dx: Int, dy: Int) {
     game.character(characterId)?.let { character = it }
 
     if (mergedCount > 0) {
-        val comboAmount = (Random.nextFloat() * 10f * (1f + 0.05f * character.attributes.mind)).toInt()
+        val comboBonus = character.effects.count { it.skin == CommonKeys.ULT_PROGRESS.EXTRA_ULT_PROGRESS } * 0.25f
+        val comboAmount = (Random.nextFloat() * 10f * (1f + 0.05f * character.attributes.mind + comboBonus)).toInt()
         val newUltimateProgress = min(character.maxUltimateProgress, character.ultimateProgress + comboAmount)
         character = character.withUpdatedUltimateProgress(newUltimateProgress)
         events.add(SbDisplayEvent.SbUpdateCharacter(character.asDisplayed()))
