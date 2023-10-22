@@ -106,7 +106,7 @@ class BattleServiceImpl(
                 monsterService.loadTriggers(c.skin)
                 triggers.addAll(c.triggers)
             }
-            waves = levelModel.monsters?.map { it.map { monsterService.createMonster(it.skin, it.level) } } ?: emptyList()
+            waves = levelModel.monsters?.map { it.map { monsterService.createMonster(it.skin, it.level, it.rarity) } } ?: emptyList()
             levelModel.monsters?.forEach { wave ->
                 wave.forEach { monster ->
                     monsterService.getMonster(monster.skin)?.let { c ->
@@ -137,7 +137,7 @@ class BattleServiceImpl(
                     val monsterConfig = monsterService.getMonster(nextSkin)!!
                     monsterService.loadTriggers(monsterConfig.skin)
                     triggers.addAll(monsterConfig.triggers)
-                    monsters.add(monsterService.createMonster(nextSkin, nextLevel))
+                    monsters.add(monsterService.createMonster(nextSkin, nextLevel, nextMonster.rarity))
                 }
                 waves.add(monsters)
             }

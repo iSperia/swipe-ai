@@ -26,11 +26,8 @@
     [
       {
         "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 2
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 2
+        "level": 2,
+        "rarity": 1
       }
     ]
   ],

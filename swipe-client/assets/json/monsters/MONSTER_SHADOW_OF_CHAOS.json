@@ -19,8 +19,8 @@
     "shadow_of_chaos.evasive_shadows", "shadow_of_chaos.dark_aura", "shadow_of_chaos.abyssal_rend"
   ],
   "balance": {
-    "base_health": 300,
-    "luck": 15,
+    "base_health": 320,
+    "luck": 20,
     "ult": 10,
     "ult_max": 1000,
     "resist": {
@@ -31,13 +31,13 @@
       "fire": 0,
       "cold": 0
     },
-    "ar_base": 95,
+    "ar_base": 105,
     "ar_scale": 10,
-    "es_res_base": 50,
+    "es_res_base": 60,
     "es_res_scale": 10,
     "es_duration": 5,
     "da_tiles": 3,
-    "da_base": 60,
+    "da_base": 80,
     "da_scale": 10
   },
   "scale": 0.8

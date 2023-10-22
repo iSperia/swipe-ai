@@ -37,6 +37,7 @@ data class SbMonsterPoolEntry(
     val skin: String,
     val weight: Int,
     val level: Int,
+    val rarity: Int,
 )
 
 data class LevelModel(

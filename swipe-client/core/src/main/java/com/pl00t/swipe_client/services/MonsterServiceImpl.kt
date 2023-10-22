@@ -55,7 +55,7 @@ class MonsterServiceImpl(
         loadedTriggers.add(skin)
     }
 
-    override suspend fun createMonster(skin: String, level: Int): FrontMonsterConfiguration {
+    override suspend fun createMonster(skin: String, level: Int, rarity: Int): FrontMonsterConfiguration {
         val configFile = getMonster(skin) ?: throw IllegalArgumentException("Did not find $skin monster")
         val amountOfStats = (STATS_BASE[level] * (0.34f + 0.03f * level)).toInt()
         var body = (configFile.attributes.body * 0.01f * amountOfStats).toInt()
@@ -98,10 +98,21 @@ class MonsterServiceImpl(
         val ult = (configFile.balance.intAttribute("ult") * (1f + 0.05f * mind)).toInt()
         val luck = (configFile.balance.intAttribute("luck") * (1f + 0.1f * spirit))
 
+        val rarityAffixCount = when (rarity) {
+            1 -> 2
+            2 -> 4
+            3 -> 6
+            else -> 0
+        }
+        val affixes = (0 until rarityAffixCount).map {
+            SbMonsterRarityAffix.values().random()
+        }
+
         return FrontMonsterConfiguration(
             skin = skin,
             name = configFile.name,
             level = level,
+            rarity = rarity,
             attributes = attributes,
             resist = configFile.balance.getAsJsonObject("resist").let { r ->
                 SbElemental(
@@ -121,6 +132,7 @@ class MonsterServiceImpl(
             ult = ult,
             ultMax = configFile.balance.intAttribute("ult_max"),
             ultPrefillPercent = 0,
+            rarityAffixes = affixes
         )
     }
 

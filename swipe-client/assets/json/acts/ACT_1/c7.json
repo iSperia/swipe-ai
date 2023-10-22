@@ -12,43 +12,35 @@
     [
       {
         "skin": "MONSTER_THORNSTALKER",
-        "level": 5
+        "level": 5,
+        "rarity": 2
       },
       {
         "skin": "MONSTER_THORNSTALKER",
-        "level": 5
+        "level": 5,
+        "rarity": 2
       },
       {
         "skin": "MONSTER_THORNSTALKER",
-        "level": 5
+        "level": 5,
+        "rarity": 3
       }
     ],
     [
       {
         "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 5
+        "level": 5,
+        "rarity": 2
       },
       {
         "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 5
+        "level": 5,
+        "rarity": 2
       },
       {
         "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 5
-      }
-    ],
-    [
-      {
-        "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 5
-      },
-      {
-        "skin": "MONSTER_THORNSTALKER",
-        "level": 5
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 5
+        "level": 5,
+        "rarity": 3
       }
     ]
   ],

@@ -10,6 +10,7 @@ data class FrontMonsterEntryModel(
     val skin: String,
     val name: SbText,
     val level: Int,
+    val rarity: Int,
 )
 
 class MonsterEntryActor(

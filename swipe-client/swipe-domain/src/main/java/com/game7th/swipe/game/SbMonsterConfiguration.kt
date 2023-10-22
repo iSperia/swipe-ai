@@ -35,6 +35,7 @@ data class FrontMonsterConfiguration(
     val skin: String,
     val name: SbText,
     val level: Int,
+    val rarity: Int,
     val attributes: CharacterAttributes,
     val resist: SbElemental,
     val damage: SbElemental,
@@ -45,11 +46,19 @@ data class FrontMonsterConfiguration(
     val ultMax: Int,
     val lore: SbText,
     val ultPrefillPercent: Int,
+    val rarityAffixes: List<SbMonsterRarityAffix>
 )
+
+enum class SbMonsterRarityAffix {
+    EXTRA_HP, EXTRA_LUCK, EXTRA_ULT_PROGRESS,
+    ALL_RESIST, ALL_ATTRIBUTES, ALL_DAMAGE,
+    EXTRA_BODY, EXTRA_MIND, EXTRA_SPIRIT
+}
 
 data class SbMonsterConfiguration(
     val skin: String,
     val name: SbText,
+    val rarity: Int,
     val balance: JsonObject,
     val triggers: List<String>,
     val tiles: List<SbTileTemplate>,
@@ -57,5 +66,5 @@ data class SbMonsterConfiguration(
     val scale: Float,
     val level: Int,
     val lore: SbText,
-    val abilities: List<SbMonsterAbilityConfiguration>?,
+    val abilities: List<SbMonsterAbilityConfiguration>?
 )

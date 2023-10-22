@@ -26,6 +26,14 @@ object CommonKeys {
         const val COLD = "damage.cold"
     }
 
+    object LUCK {
+        const val EXTRA_LUCK = "extra_luck"
+    }
+
+    object ULT_PROGRESS {
+        const val EXTRA_ULT_PROGRESS = "extra_ult_progress"
+    }
+
     object Vulnerability {
         const val PHYS = "vuln.phys"
         const val DARK = "vuln.dark"

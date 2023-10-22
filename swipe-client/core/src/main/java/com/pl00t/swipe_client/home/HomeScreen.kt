@@ -112,9 +112,9 @@ class HomeScreen(
                                     onClose = {
                                         stack.moveBack()
                                     },
-                                    onMonsterClicked = { skin, level ->
+                                    onMonsterClicked = { skin, level, rarity ->
                                         KtxAsync.launch {
-                                            r.monsterService.createMonster(skin, level).let { monsterModel ->
+                                            r.monsterService.createMonster(skin, level, rarity).let { monsterModel ->
                                                 val window = MonsterDetailWindow(
                                                     r = r,
                                                     model = monsterModel,

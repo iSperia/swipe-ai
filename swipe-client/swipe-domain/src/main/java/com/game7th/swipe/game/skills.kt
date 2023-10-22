@@ -27,7 +27,8 @@ fun SbContext.useOnComplete(event: SbEvent, tileSkin: String, action: SbContext.
         val tile = character?.tile(event.tileId)
         if (character != null && tile != null && tile.skin == tileSkin) {
 
-            var luckChance = 0.05f * (1f + character.attributes.spirit * 0.05f)
+            var luckBonus = character.effects.filter { it.skin == CommonKeys.LUCK.EXTRA_LUCK }.sumOf { (it.data[CommonKeys.LUCK.EXTRA_LUCK] as Float).toDouble() }.toFloat()
+            var luckChance = 0.05f * (1f + character.attributes.spirit * 0.05f) * (1f + luckBonus)
             var koef = 1f
             var roll = Random.nextFloat()
             while (roll < luckChance) {

@@ -85,7 +85,7 @@ class LevelServiceImpl(
             enabled = enabled,
             waves = l.monsters?.map { it.mapNotNull { e ->
                 monsterService.getMonster(e.skin)?.let {
-                    FrontMonsterEntryModel(it.skin, it.name, e.level)
+                    FrontMonsterEntryModel(it.skin, it.name, e.level, e.rarity)
                 }
             } } ?: emptyList(),
             act = act,

@@ -165,11 +165,12 @@ class RaidWindow(
                     val actor = MonsterTinyDetailsCell(r, FrontMonsterEntryModel(
                         skin = entry.skin,
                         name = meta.name,
-                        level = entry.level
+                        level = entry.level,
+                        rarity = entry.rarity,
                     ))
                     actor.onClick {
                         KtxAsync.launch {
-                            val monster = r.monsterService.createMonster(meta.skin, entry.level)
+                            val monster = r.monsterService.createMonster(meta.skin, entry.level, 0)
                             onMonsterClicked(monster)
                         }
                     }
@@ -255,7 +256,7 @@ class RaidWindow(
             }
             unitImage.onClick {
                 KtxAsync.launch {
-                    val meta = r.monsterService.createMonster(model.tiers[tier].monster_pool.first().skin, model.tiers[tier].monster_pool.first().level)
+                    val meta = r.monsterService.createMonster(model.tiers[tier].monster_pool.first().skin, model.tiers[tier].monster_pool.first().level, 0)
                     onMonsterClicked(meta)
                 }
             }

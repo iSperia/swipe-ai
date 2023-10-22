@@ -44,6 +44,7 @@ data class SbCharacter(
     val maxTileId: Int = 0,
     val tiles: List<SbTile> = emptyList(),
     val maxEffectId: Int = 0,
+    val rarity: Int = 0,
     val effects: List<SbEffect> = emptyList(),
 ) {
 
@@ -78,6 +79,7 @@ data class SbCharacter(
         effects = emptyList(),
         team = team,
         scale = scale,
+        rarity = rarity
     )
 }
 
@@ -155,6 +157,7 @@ data class SbDisplayCharacter(
     val skin: String,
     val health: Int,
     val maxHealth: Int,
+    val rarity: Int,
     val ultimateProgress: Int,
     val maxUltimateProgress: Int,
     val effects: List<SbCharacterDisplayEffect>

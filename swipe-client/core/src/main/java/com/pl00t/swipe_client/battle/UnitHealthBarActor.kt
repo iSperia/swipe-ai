@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
 import com.pl00t.swipe_client.Resources
+import com.pl00t.swipe_client.monster.MonsterRankActor
 import ktx.actors.alpha
 import kotlin.math.max
 import kotlin.math.min
@@ -16,7 +17,8 @@ class UnitHealthBarActor(
     val w: Float,
     val h: Float,
     health: Int,
-    maxHealth: Int
+    maxHealth: Int,
+    private val rarity: Int,
 ): Group() {
 
     val background: Image = r.image(Resources.ux_atlas, "background_error").apply {
@@ -44,13 +46,18 @@ class UnitHealthBarActor(
     private var health = health
     private var maxHealth = maxHealth
     val _maxWidth = w - 14f
+    val rarityActor: MonsterRankActor = MonsterRankActor(r, this@UnitHealthBarActor.rarity).apply {
+        setSize(h * 100f / 60f, 2f * h)
+    }
 
     init {
         setSize(w, h)
         addActor(background)
         addActor(foregound)
         addActor(shadow)
+        addActor(rarityActor)
         addActor(healthText)
+
         updateHealth(health, maxHealth)
     }
 

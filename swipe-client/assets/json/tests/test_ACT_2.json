@@ -11,7 +11,8 @@
       "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 1, "level": 2},{"skin": "HELM_OF_IRON_WILL", "rarity": 1, "level": 2},{"skin": "FLAMEHEART_BELT", "rarity": 1, "level": 2},{"skin": "FROSTGUARD_GAUNTLETS", "rarity": 1, "level": 2}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 10,
-      "targetWinrate": 0.5
+      "targetWinrate": 0.5,
+      "targetSwipes": 330
     },
     {
       "act": "ACT_2",
@@ -24,7 +25,8 @@
       "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 1, "level": 3},{"skin": "HELM_OF_IRON_WILL", "rarity": 1, "level": 5},{"skin": "FLAMEHEART_BELT", "rarity": 1, "level": 2},{"skin": "FROSTGUARD_GAUNTLETS", "rarity": 1, "level": 2}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 10,
-      "targetWinrate": 0.3
+      "targetWinrate": 0.3,
+      "targetSwipes": 700
     },
     {
       "act": "ACT_2",
@@ -37,7 +39,8 @@
       "characterItems": [{"skin": "SHADOWBANE_AMULET", "rarity": 1, "level": 5},{"skin": "RING_OF_ILLUMINATION", "rarity": 1, "level": 5},{"skin": "HELM_OF_IRON_WILL", "rarity": 1, "level": 5},{"skin": "FLAMEHEART_BELT", "rarity": 1, "level": 5},{"skin": "FROSTGUARD_GAUNTLETS", "rarity": 1, "level": 5}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 11,
-      "targetWinrate": 0.25
+      "targetWinrate": 0.25,
+      "targetSwipes": 350
     },
     {
       "act": "ACT_2",
@@ -50,7 +53,8 @@
       "characterItems": [{"skin": "SHADOWBANE_AMULET", "rarity": 1, "level": 5},{"skin": "RING_OF_ILLUMINATION", "rarity": 1, "level": 5},{"skin": "HELM_OF_IRON_WILL", "rarity": 1, "level": 5},{"skin": "FLAMEHEART_BELT", "rarity": 1, "level": 5},{"skin": "FROSTGUARD_GAUNTLETS", "rarity": 1, "level": 5}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 11,
-      "targetWinrate": 0.25
+      "targetWinrate": 0.25,
+      "targetSwipes": 320
     },
     {
       "act": "ACT_2",
@@ -63,7 +67,8 @@
       "characterItems": [{"skin": "SHADOWBANE_AMULET", "rarity": 1, "level": 10},{"skin": "RING_OF_ILLUMINATION", "rarity": 1, "level": 10},{"skin": "HELM_OF_IRON_WILL", "rarity": 1, "level": 10},{"skin": "FLAMEHEART_BELT", "rarity": 1, "level": 10},{"skin": "FROSTGUARD_GAUNTLETS", "rarity": 1, "level": 10}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 12,
-      "targetWinrate": 0.25
+      "targetWinrate": 0.25,
+      "targetSwipes": 750
     },
     {
       "act": "ACT_2",

@@ -25,7 +25,7 @@
       "characterItems": [],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 2,
-      "targetSwipes": 120
+      "targetSwipes": 100
     },
     {
       "act": "ACT_1",
@@ -34,7 +34,7 @@
       "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 1}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 2,
-      "targetSwipes": 250
+      "targetSwipes": 220
     },
     {
       "act": "ACT_1",
@@ -43,7 +43,8 @@
       "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 1},{"skin": "HELM_OF_IRON_WILL", "rarity": 0, "level": 1}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 3,
-      "targetWinrate": 0.25
+      "targetWinrate": 0.25,
+      "targetSwipes": 320
     },
     {
       "act": "ACT_1",
@@ -52,7 +53,8 @@
       "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 1},{"skin": "HELM_OF_IRON_WILL", "rarity": 0, "level": 1}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel": 4,
-      "targetWinrate": 0.25
+      "targetWinrate": 0.25,
+      "targetSwipes": 600
     },
     {
       "act": "ACT_1",
@@ -61,7 +63,8 @@
       "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 2},{"skin": "HELM_OF_IRON_WILL", "rarity": 0, "level": 2}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel":5,
-      "targetWinrate": 0.4
+      "targetWinrate": 0.4,
+      "targetSwipes": 600
     },
     {
       "act": "ACT_1",
@@ -70,7 +73,8 @@
       "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 2},{"skin": "HELM_OF_IRON_WILL", "rarity": 0, "level": 2}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel":5,
-      "targetWinrate": 0.2
+      "targetWinrate": 0.2,
+      "targetSwipes": 600
     },
     {
       "act": "ACT_1",
@@ -79,7 +83,8 @@
       "characterItems": [{"skin": "RING_OF_ILLUMINATION", "rarity": 0, "level": 3},{"skin": "HELM_OF_IRON_WILL", "rarity": 0, "level": 2}],
       "characterSkin": "CHARACTER_VALERIAN",
       "characterLevel":6,
-      "targetWinrate": 0.1
+      "targetWinrate": 0.1,
+      "targetSwipes": 1500
     }
   ]
 }

@@ -43,7 +43,7 @@ fun SbContext.randomTarget(characterId: Int): List<Int> = game.character(charact
     }.randomOrNull()?.id?.let { listOf(it) } ?: emptyList()
 } ?: emptyList()
 
-fun SbContext.createCharacter(skin: String): SbCharacter {
+fun SbContext.createCharacter(skin: String, rarity: Int = 0): SbCharacter {
     val config = balance.getMonster(skin)
     val generators = config.tiles.mapIndexed { index, tileConfig ->
         SbEffect(
@@ -67,6 +67,7 @@ fun SbContext.createCharacter(skin: String): SbCharacter {
         maxEffectId = generators.size,
         effects = generators,
         scale = config.scale,
+        rarity = rarity,
     )
 }
 
@@ -74,7 +75,7 @@ fun SbContext.initHumans(humans: List<FrontMonsterConfiguration>) {
     humans.forEach { config ->
         val maxHealth = config.health
 
-        var character = createCharacter(config.skin).copy(
+        var character = createCharacter(config.skin, config.rarity).copy(
             human = true,
             team = 0,
             attributes = config.attributes,
@@ -130,35 +131,66 @@ fun SbContext.initHumans(humans: List<FrontMonsterConfiguration>) {
 
 fun SbContext.initWave(wave: List<FrontMonsterConfiguration>) {
     wave.forEach { config ->
-        val character = createCharacter(config.skin).copy(
+        val allResBonus = (config.rarityAffixes.count { it == SbMonsterRarityAffix.ALL_RESIST }) * 0.3f
+        val allDamageBonus = (config.rarityAffixes.count { it == SbMonsterRarityAffix.ALL_DAMAGE }) * 0.07f
+        val mindBonus = (config.rarityAffixes.count { it == SbMonsterRarityAffix.EXTRA_MIND }) * 0.2f
+        val bodyBonus = (config.rarityAffixes.count { it == SbMonsterRarityAffix.EXTRA_BODY }) * 0.2f
+        val spiritBonus = (config.rarityAffixes.count { it == SbMonsterRarityAffix.EXTRA_SPIRIT }) * 0.2f
+        val allAttributesMultiplier = (config.rarityAffixes.count { it == SbMonsterRarityAffix.ALL_ATTRIBUTES }) * 0.1f
+        val hpBonus = (config.rarityAffixes.count { it == SbMonsterRarityAffix.EXTRA_HP }) * 0.25f
+        val luckBonus = (config.rarityAffixes.count { it == SbMonsterRarityAffix.EXTRA_LUCK }) * 0.25f
+        val ultBonus = (config.rarityAffixes.count { it == SbMonsterRarityAffix.EXTRA_ULT_PROGRESS }) * 0.25f
+
+        val character = createCharacter(config.skin, config.rarity).copy(
             human = false,
             team = 1,
-            attributes = config.attributes,
-            maxHealth = config.health,
-            health = config.health,
+            attributes = config.attributes.copy(
+                mind = (config.attributes.mind * (1f + allAttributesMultiplier + mindBonus)).toInt(),
+                body = (config.attributes.body * (1f + allAttributesMultiplier + bodyBonus)).toInt(),
+                spirit = (config.attributes.spirit * (1f + allAttributesMultiplier + spiritBonus)).toInt()
+            ),
+            maxHealth = (config.health * (1f + hpBonus)).toInt(),
+            health = (config.health * (1f + hpBonus)).toInt(),
         ).withAddedEffect(
             SbEffect(
                 id = 0,
                 skin = "base.resist",
                 mapOf(
-                    CommonKeys.Resist.PHYS to config.resist.phys,
-                    CommonKeys.Resist.COLD to config.resist.cold,
-                    CommonKeys.Resist.DARK to config.resist.dark,
-                    CommonKeys.Resist.LIGHT to config.resist.light,
-                    CommonKeys.Resist.FIRE to config.resist.fire,
-                    CommonKeys.Resist.SHOCK to config.resist.shock,
+                    CommonKeys.Resist.PHYS to config.resist.phys + allResBonus,
+                    CommonKeys.Resist.COLD to config.resist.cold + allResBonus,
+                    CommonKeys.Resist.DARK to config.resist.dark + allResBonus,
+                    CommonKeys.Resist.LIGHT to config.resist.light + allResBonus,
+                    CommonKeys.Resist.FIRE to config.resist.fire + allResBonus,
+                    CommonKeys.Resist.SHOCK to config.resist.shock + allResBonus,
                 )
-            )).withAddedEffect(
+            )
+        ).withAddedEffect(
             SbEffect(
                 id = 0,
                 skin = "base.damage",
                 mapOf(
-                    CommonKeys.Damage.PHYS to config.damage.phys,
-                    CommonKeys.Damage.COLD to config.damage.cold,
-                    CommonKeys.Damage.DARK to config.damage.dark,
-                    CommonKeys.Damage.LIGHT to config.damage.light,
-                    CommonKeys.Damage.FIRE to config.damage.fire,
-                    CommonKeys.Damage.SHOCK to config.damage.shock,
+                    CommonKeys.Damage.PHYS to config.damage.phys + allDamageBonus,
+                    CommonKeys.Damage.COLD to config.damage.cold + allDamageBonus,
+                    CommonKeys.Damage.DARK to config.damage.dark + allDamageBonus,
+                    CommonKeys.Damage.LIGHT to config.damage.light + allDamageBonus,
+                    CommonKeys.Damage.FIRE to config.damage.fire + allDamageBonus,
+                    CommonKeys.Damage.SHOCK to config.damage.shock + allDamageBonus,
+                )
+            )
+        ).withAddedEffect(
+            SbEffect(
+                id = 0,
+                skin = CommonKeys.LUCK.EXTRA_LUCK,
+                mapOf(
+                    CommonKeys.LUCK.EXTRA_LUCK to luckBonus
+                )
+            )
+        ).withAddedEffect(
+            SbEffect(
+                id = 0,
+                skin = CommonKeys.ULT_PROGRESS.EXTRA_ULT_PROGRESS,
+                mapOf(
+                    CommonKeys.ULT_PROGRESS.EXTRA_ULT_PROGRESS to ultBonus
                 )
             )
         )

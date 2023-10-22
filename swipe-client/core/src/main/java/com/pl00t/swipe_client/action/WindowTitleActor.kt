@@ -22,7 +22,7 @@ class WindowTitleActor(
     val background = r.image(Resources.ux_atlas, "item_background", backgroundRarity).apply {
         width = 480f
         height = 80f
-        alpha = 0.4f
+        alpha = 0.65f
     }
     val backgroundShadow = r.image(Resources.ux_atlas, "background_transparent50").apply {
         width = 480f

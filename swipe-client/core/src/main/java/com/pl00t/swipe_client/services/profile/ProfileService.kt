@@ -108,7 +108,7 @@ data class FrontAdventureModel(
     val lore: SbText,
 )
 
-suspend fun generateCharacter(monsterService: MonsterService, level: Int, skin: String, attributes: CharacterAttributes, affixes: List<ItemAffix>): FrontMonsterConfiguration {
+suspend fun generateCharacter(monsterService: MonsterService, level: Int, rarity: Int, skin: String, attributes: CharacterAttributes, affixes: List<ItemAffix>): FrontMonsterConfiguration {
     val configFile = monsterService.getMonster(skin) ?: throw IllegalArgumentException("Did not find $skin monster")
 
     val hpPercent = affixes.sumOf { if (it.affix == ItemAffixType.PERCENT_HP) it.value.toDouble() else 0.0 }.toFloat()
@@ -178,7 +178,9 @@ suspend fun generateCharacter(monsterService: MonsterService, level: Int, skin: 
         luck = luck,
         ult = ult,
         ultMax = configFile.balance.intAttribute("ult_max"),
-        ultPrefillPercent = ultPrefillPercent.toInt()
+        ultPrefillPercent = ultPrefillPercent.toInt(),
+        rarity = rarity,
+        rarityAffixes = emptyList(),
     )
 }
 
@@ -397,6 +399,7 @@ class ProfileServiceImpl(
             generateCharacter(
                 monsterService,
                 SwipeCharacter.getLevel(character.experience),
+                rarity = 4,
                 character.skin,
                 character.attributes,
                 profile.items.filter { it.equippedBy == character.skin }.flatMap { it.affixes + it.implicit }

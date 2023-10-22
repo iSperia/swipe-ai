@@ -12,31 +12,32 @@
     [
       {
         "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 2
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 2
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 2
+        "level": 2,
+        "rarity": 0
       }
     ],
     [
       {
         "skin": "MONSTER_THORNSTALKER",
-        "level": 2
+        "level": 2,
+        "rarity": 0
       },
       {
         "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 2
+        "level": 2,
+        "rarity": 1
       }
     ],
     [
       {
         "skin": "MONSTER_THORNSTALKER",
-        "level": 3
+        "level": 2,
+        "rarity": 0
+      },
+      {
+        "skin": "MONSTER_THORNSTALKER",
+        "level": 2,
+        "rarity": 0
       }
     ]
   ],

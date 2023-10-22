@@ -19,7 +19,7 @@ class BottomActionPanel(
     }
     private val background = r.image(Resources.ux_atlas, "item_background", backgroundRarity).apply {
         setSize(480f, 110f)
-        alpha = 0.5f
+        alpha = 0.65f
     }
     private val shadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(480f, 110f) }
     private val topLine = r.image(Resources.ux_atlas, "background_black").apply {

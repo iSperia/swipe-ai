@@ -16,6 +16,7 @@ data class CharacterAttributes(
 data class SbMonsterEntry(
     val skin: String,
     val level: Int,
+    val rarity: Int,
 )
 
 data class SbMonsterWaveConfiguration(

@@ -64,7 +64,7 @@ open class MonsterDetailWindow(
             onClose()
         }
         val titleText = model.name.value(r.l)
-        title = WindowTitleActor(r, titleText, closeButton, null, 2).apply {
+        title = WindowTitleActor(r, titleText, closeButton, null, model.rarity).apply {
             y = r.height - this.height
         }
 
@@ -84,7 +84,7 @@ open class MonsterDetailWindow(
         KtxAsync.launch {
             val actions = mutableListOf<ActionCompositeButton>()
             fillBottomPanelActions(actions)
-            bottomPanel = BottomActionPanel(r, actions, 2)
+            bottomPanel = BottomActionPanel(r, actions, model.rarity)
             addActor(bottomPanel)
         }
     }

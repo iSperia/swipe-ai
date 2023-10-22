@@ -2,7 +2,6 @@ package com.pl00t.swipe_client.map
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Rectangle
-import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
@@ -18,7 +17,6 @@ import com.pl00t.swipe_client.monster.MonsterShortDetailsCell
 import com.pl00t.swipe_client.services.levels.FrontLevelModel
 import com.pl00t.swipe_client.ux.HoverAction
 import com.pl00t.swipe_client.ux.TutorialHover
-import com.pl00t.swipe_client.ux.bounds
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
@@ -28,7 +26,7 @@ class CampaignLevelWindow(
     private val r: Resources,
     private val model: FrontLevelModel,
     private val onClose: () -> Unit,
-    private val onMonsterClicked: (String, Int) -> Unit,
+    private val onMonsterClicked: (String, Int, Int) -> Unit,
     private val openBattle: () -> Unit
 ) : Group() {
 
@@ -129,7 +127,7 @@ class CampaignLevelWindow(
             }
             wave.forEach { monster ->
                 content.add(MonsterShortDetailsCell(r, monster).apply {
-                    onClick { onMonsterClicked(monster.skin, monster.level) }
+                    onClick { onMonsterClicked(monster.skin, monster.level, monster.rarity) }
                 }).size(150f, 310f).colspan(1)
             }
             content.row()

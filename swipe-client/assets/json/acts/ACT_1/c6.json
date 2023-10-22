@@ -22,29 +22,18 @@
     [
       {
         "skin": "MONSTER_THORNSTALKER",
-        "level": 4
+        "level": 4,
+        "rarity": 1
       },
       {
         "skin": "MONSTER_THORNSTALKER",
-        "level": 4
+        "level": 4,
+        "rarity": 1
       },
       {
         "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 4
-      }
-    ],
-    [
-      {
-        "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 4
-      },
-      {
-        "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 4
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 4
+        "level": 4,
+        "rarity": 1
       }
     ]
   ],

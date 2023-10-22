@@ -52,9 +52,8 @@ fun SbContext.evaluateSimple(): Int {
     val heroLifeScore = game.characters.filter { it.team == 0 }.sumOf { it.health }
     if (heroLifeScore <= 0) return 0
     val heroUltimateScore = game.character(0)?.ultimateProgress ?: 0
-    val completeWavesScore = game.wave * 3000
     val enemyMonsterLifeScore = game.characters.filter { it.team == 1 }.sumOf { it.health }
-    return heroLifeScore + heroUltimateScore + completeWavesScore - enemyMonsterLifeScore
+    return heroLifeScore * (1 + game.wave) + heroUltimateScore - enemyMonsterLifeScore
 }
 
 fun SbContext.swipe(characterId: Int, dx: Int, dy: Int) {

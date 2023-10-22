@@ -18,7 +18,7 @@
     { "weight": 2, "skin": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
   ],
   "balance": {
-    "base_health": 160,
+    "base_health": 150,
     "luck": 5,
     "ult": 10,
     "ult_max": 1000,
@@ -30,13 +30,13 @@
       "fire": -0.2,
       "cold": 0
     },
-    "af_base": 25,
+    "af_base": 20,
     "af_scale": 10,
-    "vs_dmg_base": 35,
+    "vs_dmg_base": 25,
     "vs_dmg_scale": 10,
-    "vs_heal_base": 25,
+    "vs_heal_base": 20,
     "vs_heal_scale": 10,
-    "sa_base": 12,
+    "sa_base": 10,
     "sa_scale": 10,
     "sa_tiles": 5
   },

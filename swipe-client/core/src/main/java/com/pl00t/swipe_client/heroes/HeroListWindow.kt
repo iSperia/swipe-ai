@@ -81,7 +81,7 @@ class HeroListWindow(
                 val monster = r.monsterService.getMonster(character.skin)!!
                 val actor = MonsterShortDetailsCell(
                     r = r,
-                    model = FrontMonsterEntryModel(monster.skin, monster.name, SwipeCharacter.getLevel(character.experience))
+                    model = FrontMonsterEntryModel(monster.skin, monster.name, SwipeCharacter.getLevel(character.experience), 4)
                 )
                 actor.onClick { onHeroSelected(character.skin) }
                 val cell = Group().apply {

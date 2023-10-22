@@ -11,58 +11,36 @@
   "monsters": [
     [
       {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 6
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 6
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 6
-      }
-    ],
-    [
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 6
-      },
-      {
         "skin": "MONSTER_THORNSTALKER",
-        "level": 6
+        "level": 5,
+        "rarity": 0
       },
       {
         "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 6
+        "level": 5,
+        "rarity": 0
+      },
+      {
+        "skin": "MONSTER_THORNED_CRAWLER",
+        "level": 5,
+        "rarity": 0
       }
     ],
     [
       {
         "skin": "MONSTER_THORNSTALKER",
-        "level": 6
+        "level": 5,
+        "rarity": 1
       },
       {
         "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 6
-      },
-      {
-        "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 6
-      }
-    ],
-    [
-      {
-        "skin": "MONSTER_CORRUPTED_DRYAD",
-        "level": 6
+        "level": 5,
+        "rarity": 2
       },
       {
         "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 6
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 6
+        "level": 5,
+        "rarity": 1
       }
     ]
   ],

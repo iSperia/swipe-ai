@@ -50,10 +50,10 @@ data class TestItemDescription(
     val level: Int,
 )
 
-private const val ITERATIONS = 300
+private const val ITERATIONS = 500
 
 private suspend fun createCharacter(monsterService: MonsterService, itemService: ItemService, attributes: CharacterAttributes, skin: String,
-                                    items: List<TestItemDescription>, level: Int): FrontMonsterConfiguration {
+                                    items: List<TestItemDescription>, level: Int, rarity: Int): FrontMonsterConfiguration {
         val affixes = mutableListOf<ItemAffix>()
         items.forEach { item ->
             val template = itemService.getItemTemplate(item.skin)!!
@@ -74,7 +74,7 @@ private suspend fun createCharacter(monsterService: MonsterService, itemService:
             }
         }
 
-        return generateCharacter(monsterService, level, skin, attributes, affixes)
+        return generateCharacter(monsterService, level, rarity, skin, attributes, affixes)
 }
 
 data class LevelTestResult(
@@ -119,8 +119,8 @@ suspend fun testLevel(
             },
             triggers = triggers.mapNotNull { monsterService.getTrigger(it) }
         ).apply {
-            initHumans(listOf(createCharacter(monsterService, itemService, progression.characterAttributes, progression.characterSkin, progression.characterItems, progression.characterLevel)))
-            initWave(levelModel.monsters?.get(0)!!.map { monsterService.createMonster(it.skin, it.level) })
+            initHumans(listOf(createCharacter(monsterService, itemService, progression.characterAttributes, progression.characterSkin, progression.characterItems, progression.characterLevel, 0)))
+            initWave(levelModel.monsters?.get(0)!!.map { monsterService.createMonster(it.skin, it.level, it.rarity) })
         }
 
         var victory = -1
@@ -160,7 +160,7 @@ suspend fun testLevel(
                     val wavesTotal = waves.size
                     if (context.game.wave < wavesTotal - 1) {
                         context.game = context.game.copy(wave = context.game.wave + 1)
-                        context.initWave(waves[context.game.wave]!!.map { monsterService.createMonster(it.skin, it.level) })
+                        context.initWave(waves[context.game.wave]!!.map { monsterService.createMonster(it.skin, it.level, it.rarity) })
                     } else {
                         victory = 0
                     }

@@ -12,6 +12,7 @@ buildscript {
 
   }
 }
+
 if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
   apply plugin: 'org.beryx.runtime'
 }
@@ -22,6 +23,7 @@ else {
 sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
 mainClassName = 'com.pl00t.swipe_client.lwjgl3.Lwjgl3Launcher'
 eclipse.project.name = appName + '-lwjgl3'
+
 sourceCompatibility = 11
 
 dependencies {

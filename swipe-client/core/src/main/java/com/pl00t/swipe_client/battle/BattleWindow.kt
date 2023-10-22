@@ -77,6 +77,7 @@ class BattleWindow(
         KtxAsync.launch {
             decorations = r.battleService.getDecorations()
             r.loadAtlas(Resources.battle_atlas)
+            r.loadAtlas(Resources.ux_atlas)
             r.loadAtlas(Resources.skills_atlas)
             r.loadMusic(decorations.music)
             SbSoundType.values().filter { it.battle }.forEach {
@@ -653,7 +654,8 @@ class BattleWindow(
             w = 94f,
             h = 20f,
             health = event.personage.health,
-            maxHealth = event.personage.maxHealth
+            maxHealth = event.personage.maxHealth,
+            rarity = event.personage.rarity
         ).apply {
             x = unit.x + 3f
             y = unit.y + 3f

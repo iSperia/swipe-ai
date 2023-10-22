@@ -12,7 +12,7 @@ interface MonsterService {
 
     suspend fun loadTriggers(skin: String)
 
-    suspend fun createMonster(skin: String, level: Int): FrontMonsterConfiguration
+    suspend fun createMonster(skin: String, level: Int, rarity: Int): FrontMonsterConfiguration
 
     companion object {
         const val DEFAULT = "DEFAULT"
