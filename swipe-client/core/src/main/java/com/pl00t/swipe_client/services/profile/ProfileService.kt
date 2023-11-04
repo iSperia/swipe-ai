@@ -432,15 +432,22 @@ class ProfileServiceImpl(
     }
 
     override suspend fun markActComplete(act: SwipeAct, level: String) {
-        if (act == SwipeAct.ACT_1 && level == "c9") {
-            profile = profile.copy(atlasUnlocked = true)
-        }
         val actModel = levelService.getAct(act)
         val actProgress = profile.actProgress.firstOrNull { it.act == act } ?: return
         val levelsToUnlock = actModel.links
             .filter { it.n1 == level || it.n2 == level }
             .flatMap { listOf(it.n1, it.n2) }
             .filter { !actProgress.levelsAvailable.contains(it) }
+
+        val levelModel = actModel.levels.first { it.id == level }
+         if (levelModel.unlock_act != null) {
+            val newActProgress = profile.actProgress.firstOrNull { it.act == levelModel.unlock_act }
+            if (newActProgress == null) {
+                profile = profile.copy(actProgress = profile.actProgress + ActProgress(levelModel.unlock_act, listOf("c1")))
+            }
+            profile = profile.copy(atlasUnlocked = true)
+        }
+
         profile = profile.copy(actProgress = profile.actProgress.map { pap ->
             if (pap.act == act) {
                 pap.copy(levelsAvailable = pap.levelsAvailable + levelsToUnlock)

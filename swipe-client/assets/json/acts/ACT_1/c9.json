@@ -3,6 +3,7 @@
   "y": 200,
   "type": "BOSS",
   "id": "c9",
+  "unlock_act": "ACT_2",
   "title": {
     "en": "Thalendros' Lair",
     "ru": "Логово Талендроса"

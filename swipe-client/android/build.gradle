@@ -42,8 +42,8 @@ android {
   namespace "com.game7th.swipebattles"
   compileOptions {
     coreLibraryDesugaringEnabled true
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility 19
+    targetCompatibility 19
     coreLibraryDesugaringEnabled true
   }
   kotlinOptions {

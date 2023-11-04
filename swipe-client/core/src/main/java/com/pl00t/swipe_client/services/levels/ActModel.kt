@@ -2,6 +2,7 @@ package com.pl00t.swipe_client.services.levels
 
 import com.game7th.swipe.SbText
 import com.game7th.swipe.game.SbMonsterEntry
+import com.pl00t.swipe_client.services.profile.SwipeAct
 
 data class ActModel(
     val levels: List<LevelModel>,
@@ -53,4 +54,5 @@ data class LevelModel(
     val dialog: List<DialogEntryModel>?,
     val freeReward: List<LevelReward>?,
     val tiers: List<RaidTierModel>?,
+    val unlock_act: SwipeAct?
 )

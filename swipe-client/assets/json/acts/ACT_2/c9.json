@@ -3,6 +3,7 @@
   "y": 202,
   "type": "CAMPAIGN",
   "id": "c9",
+  "unlock_act": "ACT_3",
   "music": "theme_xalithar",
   "title": {
     "en": "Crystal Coves",

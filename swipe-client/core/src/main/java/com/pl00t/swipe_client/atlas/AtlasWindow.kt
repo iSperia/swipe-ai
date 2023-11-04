@@ -60,6 +60,7 @@ class AtlasWindow(
         var details: Group? = null
 
         val atlas = r.profileService.getAtlas()
+        val adventuresAvailable = r.profileService.getProfile().actProgress.map { it.act }.toSet()
         val size = atlas.size
         atlas.forEachIndexed { i, adventure ->
             val g = Group().apply {
@@ -85,20 +86,35 @@ class AtlasWindow(
             g.addActor(image)
             g.addActor(label)
 
-
-            g.onTouchDown {
-                image.addAction(Actions.scaleTo(0.8f, 0.8f, 0.2f))
-                label.addAction(Actions.moveTo(5f, 10f, 0.2f))
-            }
-            g.onExit {
-                image.addAction(Actions.scaleTo(1f, 1f, 0.2f))
-                label.addAction(Actions.moveTo(5f, 0f, 0.2f))
-            }
-            g.onClick {
-                KtxAsync.launch {
-                    selectedAct = adventure.act
-                    loadData()
+            if (adventuresAvailable.contains(adventure.act)) {
+                g.onTouchDown {
+                    image.addAction(Actions.scaleTo(0.8f, 0.8f, 0.2f))
+                    label.addAction(Actions.moveTo(5f, 10f, 0.2f))
                 }
+                g.onExit {
+                    image.addAction(Actions.scaleTo(1f, 1f, 0.2f))
+                    label.addAction(Actions.moveTo(5f, 0f, 0.2f))
+                }
+                g.onClick {
+                    KtxAsync.launch {
+                        selectedAct = adventure.act
+                        loadData()
+                    }
+                }
+            } else {
+                val shadow = r.image(Resources.ux_atlas, "background_black").apply {
+                    setSize(150f, 150f)
+                    setPosition(5f, 45f)
+                    alpha = 0.6f
+                }
+                val padLock = r.image(Resources.ux_atlas, "icon_padlock").apply {
+                    setSize(120f, 120f)
+                    setPosition(20f, 55f)
+                    setScaling(Scaling.fit)
+                    align = Align.center
+                }
+                g.addActor(shadow)
+                g.addActor(padLock)
             }
 
             content.add(g).size(160f, 200f)

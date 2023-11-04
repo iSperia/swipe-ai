@@ -161,7 +161,6 @@ class BattleServiceImpl(
             }
             it.level * (10 + bonusExpRarity)
         }
-        if (levelModel.type == LevelType.BOSS) experienceIfWin *= 5
 
         context = SbContext(
             game = game,
