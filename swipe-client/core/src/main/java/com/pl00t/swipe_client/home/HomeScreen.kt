@@ -19,6 +19,7 @@ import com.pl00t.swipe_client.items.InventoryWindow
 import com.pl00t.swipe_client.map.CampaignLevelWindow
 import com.pl00t.swipe_client.map.MapWindow
 import com.pl00t.swipe_client.map.RaidWindow
+import com.pl00t.swipe_client.mine.presentation.MineWindow
 import com.pl00t.swipe_client.monster.MonsterDetailWindow
 import com.pl00t.swipe_client.screen.zephyr_shop.ZephyrShopWindow
 import com.pl00t.swipe_client.services.levels.LevelType
@@ -58,7 +59,7 @@ class HomeScreen(
             r.skin().getFont("regular24").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             r.skin().getFont("regular24outline").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             hideSplash()
-            showMap(SwipeAct.ACT_1)
+            showMap(SwipeAct.ACT_2)
         }
 
         KtxAsync.launch {
@@ -144,6 +145,13 @@ class HomeScreen(
                             } else if (levelModel.type == LevelType.ZEPHYR_SHOP) {
                                 val window = ZephyrShopWindow(
                                     r = r,
+                                    onClose = { stack.moveBack() }
+                                )
+                                stack.showScreen(window)
+                            } else if (levelModel.type == LevelType.CRYSTAL_MINE) {
+                                val window = MineWindow(
+                                    r = r,
+                                    stack = stack,
                                     onClose = { stack.moveBack() }
                                 )
                                 stack.showScreen(window)

@@ -62,13 +62,12 @@ class HeroEquipmentActor(
             if (selectedItemId != null) {
                 val item = r.profileService.getItems().first { it.id == selectedItemId }
                 val template = r.itemService.getItemTemplate(item.skin)!!
-                val row = ItemRowActor(r, FrontItemEntryModel(
+                val row = ItemRowActor(r, FrontItemEntryModel.InventoryItemEntryModel(
                     skin = item.skin,
                     amount = 0,
                     level = SwipeCharacter.getLevel(item.experience),
                     rarity = item.rarity,
                     name = template.name,
-                    currency = null,
                     item = item
                 ),
                     action = ActionCompositeButton(
@@ -95,13 +94,12 @@ class HeroEquipmentActor(
                 val items = r.profileService.getItems().filter { it.category == selectedCategory && it.id != selectedItemId }.sortedByDescending { it.rarity * 100000 +  it.experience }
                 items.forEachIndexed { index, inventoryItem ->
                     val template = r.itemService.getItemTemplate(inventoryItem.skin)!!
-                    val row = ItemRowActor(r, FrontItemEntryModel(
+                    val row = ItemRowActor(r, FrontItemEntryModel.InventoryItemEntryModel(
                         skin = inventoryItem.skin,
                         amount = 0,
                         level = SwipeCharacter.getLevel(inventoryItem.experience),
                         rarity = inventoryItem.rarity,
                         name = template.name,
-                        currency = null,
                         item = inventoryItem
                     ),
                         action = ActionCompositeButton(
@@ -200,13 +198,12 @@ class HeroEquipmentActor(
             group
         } else {
             val template = r.itemService.getItemTemplate(item.skin)!!
-            ItemCellActor(r, FrontItemEntryModel(
+            ItemCellActor(r, FrontItemEntryModel.InventoryItemEntryModel(
                 skin = item.skin,
                 amount = 0,
                 level = SwipeCharacter.getLevel(item.experience),
                 rarity = item.rarity,
                 name = template.name,
-                currency = null,
                 item = item,
             )).apply {
                 onClick {

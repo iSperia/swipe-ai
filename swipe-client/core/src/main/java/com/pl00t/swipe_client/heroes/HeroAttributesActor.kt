@@ -91,14 +91,13 @@ class HeroAttributesActor(
             val entries = currencies.mapIndexed { i, c ->
                 balances[i] = profile.getBalance(c)
                 val meta = r.profileService.getCurrency(c)
-                FrontItemEntryModel(
+                FrontItemEntryModel.CurrencyItemEntryModel(
                     c.toString(),
                     balances[i],
                     level = 0,
                     rarity = meta.rarity,
                     name = meta.name,
                     currency = c,
-                    item = null
                 )
             }
             entries.forEachIndexed { index, model ->

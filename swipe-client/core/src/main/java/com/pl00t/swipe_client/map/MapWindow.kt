@@ -191,6 +191,7 @@ class MapWindow(
                 LevelType.CAMPAIGN -> mapSmallIconSize
                 LevelType.BOSS -> mapIconSize
                 LevelType.ZEPHYR_SHOP -> mapIconSize
+                LevelType.CRYSTAL_MINE -> mapIconSize
             }
 
             val iconX = level.x * mapScale

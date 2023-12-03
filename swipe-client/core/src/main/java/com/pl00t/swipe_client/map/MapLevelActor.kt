@@ -38,6 +38,9 @@ class MapLevelActor(
         } else if (model.type == LevelType.ZEPHYR_SHOP) {
             foregroundBoss = r.image(Resources.ux_atlas, "zephyr_shop").apply { setOrigin(Align.bottom) }
             addActor(foregroundBoss)
+        } else if (model.type == LevelType.CRYSTAL_MINE) {
+            foregroundBoss = r.image(Resources.ux_atlas, "crystal_mine").apply { setOrigin(Align.bottom) }
+            addActor(foregroundBoss)
         } else if (model.type == LevelType.RAID) {
             foregroundBoss = r.image(Resources.ux_atlas, "raid").apply { setOrigin(Align.bottom) }
             addActor(foregroundBoss)

@@ -13,6 +13,20 @@ object UiTexts {
         val Balance = SbText("Your coin balance: ", "Монет в наличии: ")
     }
 
+    object Mine {
+        val Title = SbText("Crystal Mine", "Кристальная Шахта")
+        val Upgrade = SbText("Upgrade", "Улучшить")
+        val MaxLevel = SbText("Max Level", "Макс. Уровень")
+        val Delve = SbText("Mine Stones", "Добыть Камни")
+        val Balance = SbText("Your coin balance: ", "Монет в наличии: ")
+        val CaptionLevel = SbText("Mine Lvl.", "Ур. Шахты")
+        val CaptionMaxGemTier = SbText("Max gem tier", "Макс. уровень камня")
+        val CaptionAttempts = SbText("Attempts per delve", "Попыток на добычу")
+        val CaptionGemTier = SbText("Tier: ", "Ур.: ")
+        val CaptionTriesLeft = SbText("Reveals left: ", "Попыток осталось: ")
+        val CaptionResults = SbText("Gems collected: ", "Собранные камни: ")
+    }
+
     object Atlas {
         val Title = SbText("Adventures", "Приключения")
         val Navigate = SbText("Travel", "Перейти")
@@ -20,8 +34,8 @@ object UiTexts {
 
     val NavItems = SbText("Items", "Предметы")
     val MakeActive = SbText("Make Active", "Сделать Активным")
-    val NavShop = SbText("Shop", "Лавка")
     val FilterCurrency = SbText("Currency", "Валюта")
+    val FilterGems = SbText("Gems", "Камни")
     val FilterAmulet = SbText("Amulets", "Подвески")
     val FilterBelt = SbText("Belts", "Пояса")
     val FilterBoots = SbText("Boots", "Ботинки")

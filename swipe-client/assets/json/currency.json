@@ -191,6 +191,78 @@
         "ru": "Увеличивает атрибуты тела и разума персонажа на 1, но уменьшает атрибут духа на 2."
       },
       "rarity": 3
+    },
+    {
+      "currency": "MINE_ENCHANTED_TOPAZ",
+      "name": {
+        "en": "Enchanted Topaz",
+        "ru": "Зачарованный Топаз"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases damage",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает урон"
+      },
+      "rarity": 4
+    },
+    {
+      "currency": "MINE_GLIMMERING_SAPPHIRE",
+      "name": {
+        "en": "Glimmering Sapphire",
+        "ru": "Мерцающий Сапфир"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases Mind attribute",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает атрибут Разум"
+      },
+      "rarity": 4
+    },
+    {
+      "currency": "MINE_RADIANT_RUBY",
+      "name": {
+        "en": "Radiant Ruby",
+        "ru": "Сияющий Рубин"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases Body attribute",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает атрибут Тело"
+      },
+      "rarity": 4
+    },
+    {
+      "currency": "MINE_LUMINOUS_EMERALD",
+      "name": {
+        "en": "Luminous Emerald",
+        "ru": "Светящийся Изумруд"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases Spirit attribute",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает атрибут Дух"
+      },
+      "rarity": 4
+    },
+    {
+      "currency": "MINE_PRISMATIC_DIAMOND",
+      "name": {
+        "en": "Prismatic Diamond",
+        "ru": "Призматический Бриллиант"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases all attributes",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает все атрибуты"
+      },
+      "rarity": 4
+    },
+    {
+      "currency": "MINE_SHIMMERING_OPAL",
+      "name": {
+        "en": "Shimmering Opal",
+        "ru": "Мерцающий Опал"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases experience gained",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает получаемый опыт"
+      },
+      "rarity": 4
     }
   ]
 }

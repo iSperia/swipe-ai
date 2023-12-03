@@ -59,8 +59,8 @@ class MonsterShortDetailsCell(
             wrap = true
         })
         addActor(MonsterRankActor(r, rarity).apply {
-            setSize(50f, 60f)
-            setPosition(0f, 60f)
+            setSize(50f, 50f)
+            setPosition(0f, 70f)
         })
 
         onTouchDown {

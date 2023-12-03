@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
+import com.pl00t.swipe_client.mine.data.MineItem
 import com.pl00t.swipe_client.services.items.ItemService
 import com.pl00t.swipe_client.services.levels.*
 import kotlinx.coroutines.GlobalScope
@@ -20,6 +21,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.lang.IllegalArgumentException
+import java.util.Currency
 import java.util.UUID
 import kotlin.math.max
 import kotlin.math.min
@@ -113,21 +115,21 @@ suspend fun generateCharacter(monsterService: MonsterService, level: Int, rarity
 
     val hpPercent = affixes.sumOf { if (it.affix == ItemAffixType.PERCENT_HP) it.value.toDouble() else 0.0 }.toFloat()
     val hpFlat = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_HP) it.value.toDouble() else 0.0 }.toFloat()
-    val dmgPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-    val dmgCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-    val dmgFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-    val dmgDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-    val dmgLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
-    val dmgShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_DAMAGE_INCREASE || it.affix == ItemAffixType.ALL_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_DAMAGE_INCREASE || it.affix == ItemAffixType.ALL_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_DAMAGE_INCREASE || it.affix == ItemAffixType.ALL_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_DAMAGE_INCREASE || it.affix == ItemAffixType.ALL_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_DAMAGE_INCREASE || it.affix == ItemAffixType.ALL_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
+    val dmgShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_DAMAGE_INCREASE || it.affix == ItemAffixType.ALL_DAMAGE_INCREASE) it.value.toDouble() else 0.0 }.toFloat() / 100f
     val resPhys = affixes.sumOf { if (it.affix == ItemAffixType.PHYS_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
     val resCold = affixes.sumOf { if (it.affix == ItemAffixType.COLD_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
     val resFire = affixes.sumOf { if (it.affix == ItemAffixType.FIRE_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
     val resDark = affixes.sumOf { if (it.affix == ItemAffixType.DARK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
     val resLight = affixes.sumOf { if (it.affix == ItemAffixType.LIGHT_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
     val resShock = affixes.sumOf { if (it.affix == ItemAffixType.SHOCK_RESIST_FLAT) it.value.toDouble() else 0.0 }.toFloat() / 100f
-    val attrBody = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_BODY) it.value.toDouble() else 0.0 }.toInt()
-    val attrSpirit = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_SPIRIT) it.value.toDouble() else 0.0 }.toInt()
-    val attrMind = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_MIND) it.value.toDouble() else 0.0 }.toInt()
+    val attrBody = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_BODY || it.affix == ItemAffixType.FLAT_ALL_ATTRIBUTES) it.value.toDouble() else 0.0 }.toInt()
+    val attrSpirit = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_SPIRIT || it.affix == ItemAffixType.FLAT_ALL_ATTRIBUTES) it.value.toDouble() else 0.0 }.toInt()
+    val attrMind = affixes.sumOf { if (it.affix == ItemAffixType.FLAT_MIND || it.affix == ItemAffixType.FLAT_ALL_ATTRIBUTES) it.value.toDouble() else 0.0 }.toInt()
     val luckFlat = affixes.sumOf { if (it.affix == ItemAffixType.LUCK_FLAT) it.value.toDouble() else 0.0 }.toFloat()
     val ultFlat = affixes.sumOf { if (it.affix == ItemAffixType.ULT_FLAT) it.value.toDouble() else 0.0 }.toFloat()
     val ultPrefillPercent = affixes.sumOf { if (it.affix == ItemAffixType.ULT_PREFILL) it.value.toDouble() else 0.0 }.toFloat()
@@ -184,17 +186,43 @@ suspend fun generateCharacter(monsterService: MonsterService, level: Int, rarity
     )
 }
 
-data class FrontItemEntryModel(
-    val skin: String,
-    val amount: Int,
-    val level: Int,
-    val rarity: Int,
-    val name: SbText,
-    val currency: SwipeCurrency?,
-    val item: InventoryItem?,
-) {
+sealed interface FrontItemEntryModel {
+
+    val skin: String
+    val amount: Int
+    val level: Int
+    val rarity: Int
+    val name: SbText
+    data class CurrencyItemEntryModel(
+        override val skin: String,
+        override val amount: Int,
+        override val level: Int,
+        override val rarity: Int,
+        override val name: SbText,
+        val currency: SwipeCurrency
+    ) : FrontItemEntryModel
+
+    data class InventoryItemEntryModel(
+        override val skin: String,
+        override val amount: Int,
+        override val level: Int,
+        override val rarity: Int,
+        override val name: SbText,
+        val item: InventoryItem,
+    ) : FrontItemEntryModel
+
+    data class GemItemEntryModel(
+        override val skin: String,
+        override val amount: Int,
+        override val level: Int,
+        override val rarity: Int,
+        override val name: SbText,
+        val gem: MineItem,
+    ) : FrontItemEntryModel
+
     fun getText(r: Resources) = if (level > 0) "${UiTexts.LvlShortPrefix.value(r.l)}$level" else amount.toString()
 }
+
 
 data class SbMysteryItem(
     val id: String,
@@ -235,18 +263,18 @@ data class CurrenciesMetadata(
 )
 
 object Debug {
-    val RichStart = false
-    val FastArcanum = false
-    val NoMusic = false
+    val RichStart = true
+    val FastArcanum = true
+    val NoMusic = true
 }
 
 class ProfileServiceImpl(
+    val r: Resources,
     val levelService: LevelService,
     val monsterService: MonsterService,
     val itemService: ItemService,
 ) : ProfileService {
 
-    val gson = Gson()
     val handle = Gdx.files.local("data/profile.txt")
     val currencyHandle = Gdx.files.internal("json/currency.json")
 
@@ -256,12 +284,12 @@ class ProfileServiceImpl(
     private val arcanumAddBalanceFlow = MutableSharedFlow<Int>(1)
 
     init {
-        currencyCache = gson.fromJson(currencyHandle.readString("UTF-8"), CurrenciesMetadata::class.java)
+        currencyCache = r.gson.fromJson(currencyHandle.readString("UTF-8"), CurrenciesMetadata::class.java)
 
         profile = if (handle.exists()) {
             println(handle.file().absolutePath)
             val text = handle.readString()
-            gson.fromJson(text, SwipeProfile::class.java)
+            r.gson.fromJson(text, SwipeProfile::class.java)
         } else {
             if (Debug.RichStart) {
                 SwipeProfile(
@@ -271,7 +299,7 @@ class ProfileServiceImpl(
                         CurrencyBalance(SwipeCurrency.GRIMOIRE_OF_OMNISCENCE, 100), CurrencyBalance(SwipeCurrency.INFUSION_ORB, 100),
                         CurrencyBalance(SwipeCurrency.INFUSION_SHARD, 100), CurrencyBalance(SwipeCurrency.INFUSION_CRYSTAL, 100),
                         CurrencyBalance(SwipeCurrency.ASCENDANT_ESSENCE, 100), CurrencyBalance(SwipeCurrency.ETHERIUM_COIN, 1400),
-                        CurrencyBalance(SwipeCurrency.ARCANUM, 600)
+                        CurrencyBalance(SwipeCurrency.ARCANUM, 600),
                     ),
                     actProgress = listOf(
                         ActProgress(
@@ -287,7 +315,7 @@ class ProfileServiceImpl(
                     characters = listOf(
                         SwipeCharacter(
                             skin = "CHARACTER_VALERIAN",
-                            attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                            attributes = CharacterAttributes(mind = 100, body = 100, spirit = 100),
                             experience = 0,
                         ),
                         SwipeCharacter(
@@ -462,7 +490,7 @@ class ProfileServiceImpl(
     }
 
     private fun saveProfile() {
-        val text = gson.toJson(profile)
+        val text = r.gson.toJson(profile)
         handle.writeString(text, false)
     }
 
@@ -478,26 +506,24 @@ class ProfileServiceImpl(
                 val amount = reward.currency.amount
                 profile = profile.addBalance(currency, amount)
                 val meta = getCurrency(currency)
-                result.add(FrontItemEntryModel(
+                result.add(FrontItemEntryModel.CurrencyItemEntryModel(
                     skin = meta.currency.toString(),
                     amount = amount,
                     level = 0,
                     rarity = meta.rarity,
                     name = meta.name,
                     currency = currency,
-                    item = null
                 ))
             } else if (reward.skin != null) {
                 val item = generateItem(reward.skin, reward.rarity ?: 0)
                 addItem(item)
                 val template = itemService.getItemTemplate(item.skin)!!
-                result.add(FrontItemEntryModel(
+                result.add(FrontItemEntryModel.InventoryItemEntryModel(
                     skin = item.skin,
                     amount = 1,
                     level = SwipeCharacter.getLevel(item.experience),
                     rarity = item.rarity,
                     name = template.name,
-                    currency = null,
                     item = item
                 ))
             }
@@ -532,46 +558,43 @@ class ProfileServiceImpl(
                 val amount = reward.currency.amount
                 profile = profile.addBalance(currency, amount)
                 val meta = getCurrency(currency)
-                result.add(FrontItemEntryModel(
+                result.add(FrontItemEntryModel.CurrencyItemEntryModel(
                     skin = meta.currency.toString(),
                     amount = amount,
                     level = 0,
                     rarity = meta.rarity,
                     name = meta.name,
                     currency = currency,
-                    item = null
                 ))
                 stuffLeft -= reward.currency.type.coins * amount
             } else if (reward.skin != null) {
                 val item = generateItem(reward.skin, reward.rarity ?: 0)
                 addItem(item)
                 val template = itemService.getItemTemplate(item.skin)!!
-                result.add(FrontItemEntryModel(
+                result.add(FrontItemEntryModel.InventoryItemEntryModel(
                     skin = item.skin,
                     amount = 1,
                     level = SwipeCharacter.getLevel(item.experience),
                     rarity = item.rarity,
                     name = template.name,
-                    currency = null,
                     item = item
                 ))
                 stuffLeft -= ITEM_COST[item.rarity]
             }
         }
-        val currencies = SwipeCurrency.values().map { c -> c to result.sumOf { if (it.currency == c) it.amount else 0 } }
-        result = (result.filter { it.currency == null } + currencies.mapNotNull {
+        val currencies = SwipeCurrency.values().map { c -> c to result.sumOf { if (it is FrontItemEntryModel.CurrencyItemEntryModel) it.amount else 0 } }
+        result = (result.mapNotNull { it as? FrontItemEntryModel.InventoryItemEntryModel } + currencies.mapNotNull {
             if (it.second <= 0) {
                 null
             } else {
                 val meta = getCurrency(it.first)
-                FrontItemEntryModel(
+                FrontItemEntryModel.CurrencyItemEntryModel(
                     skin = meta.currency.toString(),
                     amount = it.second,
                     level = 0,
                     rarity = meta.rarity,
                     name = meta.name,
                     currency = it.first,
-                    item = null
                 )
             }
         }).toMutableList()
@@ -675,26 +698,24 @@ class ProfileServiceImpl(
                 val amount = reward.currency.amount
                 profile = profile.addBalance(currency, amount)
                 val meta = getCurrency(currency)
-                result.add(FrontItemEntryModel(
+                result.add(FrontItemEntryModel.CurrencyItemEntryModel(
                     skin = meta.currency.toString(),
                     amount = amount,
                     level = 0,
                     rarity = meta.rarity,
                     name = meta.name,
                     currency = currency,
-                    item = null
                 ) to reward.currency.type.coins * amount)
                 costLeft -= reward.currency.type.coins * amount
             } else if (reward.skin != null) {
                 val item = generateItem(reward.skin, reward.rarity ?: 0)
                 val template = itemService.getItemTemplate(item.skin)!!
-                result.add(FrontItemEntryModel(
+                result.add(FrontItemEntryModel.InventoryItemEntryModel(
                     skin = item.skin,
                     amount = 1,
                     level = SwipeCharacter.getLevel(item.experience),
                     rarity = item.rarity,
                     name = template.name,
-                    currency = null,
                     item = item
                 ) to ITEM_COST[item.rarity])
                 costLeft -= ITEM_COST[item.rarity]
@@ -727,10 +748,11 @@ class ProfileServiceImpl(
         val balance = profile.getBalance(SwipeCurrency.ETHERIUM_COIN)
         if (balance >= cost) {
             profile = profile.addBalance(SwipeCurrency.ETHERIUM_COIN, -cost)
-            if (entry.first.currency != null) {
-                profile = profile.addBalance(entry.first.currency!!, entry.first.amount)
-            } else if (entry.first.item != null) {
-                profile = profile.addItem(entry.first.item!!)
+            val entryModel = entry.first
+            when (entryModel) {
+                is FrontItemEntryModel.CurrencyItemEntryModel -> profile = profile.addBalance(entryModel.currency, entry.first.amount)
+                is FrontItemEntryModel.InventoryItemEntryModel -> profile = profile.addItem(entryModel.item)
+                else -> Unit
             }
             val shop = profile.mysteryShop!!.toMutableList()
             shop.removeAt(entryIndex)
@@ -896,7 +918,8 @@ class ProfileServiceImpl(
             rarity = rarity,
             category = template.category,
             equippedBy = null,
-            maxExperience = SwipeCharacter.experience[max(0, (rarity + 1) * 5-1)]
+            maxExperience = SwipeCharacter.experience[max(0, (rarity + 1) * 5-1)],
+            tier = 0,
         )
     }
 
@@ -910,7 +933,7 @@ class ProfileServiceImpl(
     override suspend fun getDialogScript(key: String): DialogScript {
         return try {
             val file = Gdx.files.internal("json/dialogs/$key.json").readString("UTF-8")
-            gson.fromJson(file, DialogScript::class.java)
+            r.gson.fromJson(file, DialogScript::class.java)
         } catch (e: Throwable) {
             DialogScript(emptyList())
         }

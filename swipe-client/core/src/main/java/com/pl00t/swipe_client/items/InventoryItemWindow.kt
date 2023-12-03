@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 import ktx.actors.alpha
 import ktx.actors.onClick
 import ktx.async.KtxAsync
+import java.util.Currency
 import kotlin.math.min
 
 private enum class BrowseMode {
@@ -101,8 +102,10 @@ class InventoryItemWindow(
                     onClick {
                         KtxAsync.launch {
                             if (browseMode == BrowseMode.DUST) {
-                                r.profileService.dustItem(model.item!!.id)
-                                onClose()
+                                (model as? FrontItemEntryModel.InventoryItemEntryModel)?.let { model ->
+                                    r.profileService.dustItem(model.item.id)
+                                    onClose()
+                                }
                             } else {
                                 browseMode = BrowseMode.DUST
                                 loadData()
@@ -120,13 +123,12 @@ class InventoryItemWindow(
         content.clearChildren()
         val item = r.profileService.getItems().first { it.id == id }
         val template = r.itemService.getItemTemplate(item.skin)!!
-        model = FrontItemEntryModel(
+        model = FrontItemEntryModel.InventoryItemEntryModel(
             skin = item.skin,
             amount = 1,
             level = SwipeCharacter.getLevel(item.experience),
             rarity = item.rarity,
             name = template.name,
-            currency = null,
             item = item
         )
 
@@ -147,7 +149,7 @@ class InventoryItemWindow(
         val cs = arrayOf(SwipeCurrency.INFUSION_ORB, SwipeCurrency.INFUSION_SHARD, SwipeCurrency.INFUSION_CRYSTAL, SwipeCurrency.ASCENDANT_ESSENCE)
         val actor = ItemRowActor(
             r = r,
-            model = model.copy(name = SbText("", "")),
+            model = model,
             action = null,
             onItemClick = null
         )
@@ -159,32 +161,36 @@ class InventoryItemWindow(
         }
 
         val profile = r.profileService.getProfile()
-        val items = cs.map {
+        val items: List<FrontItemEntryModel.CurrencyItemEntryModel> = cs.map {
             val meta = r.profileService.getCurrency(it)
-            FrontItemEntryModel(
+            FrontItemEntryModel.CurrencyItemEntryModel(
                 skin = meta.currency.toString(),
                 amount = profile.getBalance(it),
                 level = 0,
                 rarity = meta.rarity,
                 name = meta.name,
                 currency = it,
-                item = null
             )
         }.filter { it.amount > 0 }
-        val itemBrowser = ItemBrowser(r, items, onItemClick = null, actionProvider = { model ->
-            currencyIndexCache = items.indexOfFirst { it.currency == model.currency }
+        val itemBrowser = ItemBrowser(r, items, onItemClick = null, actionProvider = { actionModel ->
+            currencyIndexCache = items.indexOfFirst { it.currency == (actionModel as FrontItemEntryModel.CurrencyItemEntryModel).currency }
             ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
                 onClick {
                     KtxAsync.launch {
-                        r.playSound(SbSoundType.USE_TOME)
-                        val oldExp = SwipeCharacter.getLevel(this@InventoryItemWindow.model.item!!.experience)
-                        r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
-                        r.profileService.addItemExperience(this@InventoryItemWindow.model.item!!.id, model.currency!!.expBonus)
-                        val newExp = SwipeCharacter.getLevel(this@InventoryItemWindow.model.item!!.experience + model.currency!!.expBonus)
-                        if (newExp != oldExp) {
-                            r.playSound(SbSoundType.LEVELUP)
+                        (this@InventoryItemWindow as? FrontItemEntryModel.InventoryItemEntryModel)?.let { model ->
+                            (actionModel as? FrontItemEntryModel.CurrencyItemEntryModel)?.let { actionModel ->
+                                r.playSound(SbSoundType.USE_TOME)
+                                val oldExp = SwipeCharacter.getLevel(model.item.experience)
+                                r.profileService.spendCurrency(arrayOf(actionModel.currency), arrayOf(1))
+                                r.profileService.addItemExperience(model.item.id, actionModel.currency.expBonus)
+                                val newExp = SwipeCharacter.getLevel(model.item.experience + actionModel.currency.expBonus)
+                                if (newExp != oldExp) {
+                                    r.playSound(SbSoundType.LEVELUP)
+                                }
+                                loadData()
+                            }
+
                         }
-                        loadData()
                     }
                 }
             }
@@ -209,17 +215,16 @@ class InventoryItemWindow(
         val curGroup = Group().apply {
             setSize(480f, 160f)
         }
-        val dustResult = r.profileService.previewDust(model.item!!.id).filter { it.amount > 0 }
+        val dustResult = r.profileService.previewDust((model as FrontItemEntryModel.InventoryItemEntryModel).item.id).filter { it.amount > 0 }
         dustResult.forEachIndexed { i, balance ->
             val meta = r.profileService.getCurrency(balance.currency)
-            val actor = ItemCellActor(r, FrontItemEntryModel(
+            val actor = ItemCellActor(r, FrontItemEntryModel.CurrencyItemEntryModel(
                 skin = meta.currency.toString(),
                 amount = balance.amount,
                 level = 0,
                 rarity = meta.rarity,
                 name = meta.name,
                 currency = meta.currency,
-                item = null
             )).apply {
                 setPosition(i * 120f, 0f)
             }

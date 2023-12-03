@@ -9,12 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
+import com.game7th.items.InventoryItem
+import com.game7th.items.ItemAffix
 import com.game7th.swipe.game.FrontMonsterConfiguration
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.action.*
 import com.pl00t.swipe_client.analytics.AnalyticEvents
-import com.pl00t.swipe_client.monster.MonsterShortDetailsCell
 import com.pl00t.swipe_client.monster.MonsterTinyDetailsCell
 import com.pl00t.swipe_client.screen.map.FrontMonsterEntryModel
 import com.pl00t.swipe_client.services.levels.FrontRaidModel
@@ -22,7 +23,6 @@ import com.pl00t.swipe_client.services.levels.LevelRewardType
 import com.pl00t.swipe_client.services.levels.LevelType
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeAct
-import com.pl00t.swipe_client.ux.ItemCellActor
 import com.pl00t.swipe_client.ux.TinyItemCellActor
 import kotlinx.coroutines.launch
 import ktx.actors.onClick
@@ -121,26 +121,24 @@ class RaidWindow(
                 val model = when (reward.type) {
                     LevelRewardType.item -> {
                         val meta = r.itemService.getItemTemplate(reward.skin!!)!!
-                        FrontItemEntryModel(
+                        FrontItemEntryModel.InventoryItemEntryModel(
                             skin = meta.skin,
                             amount = 1,
                             level = 1,
                             rarity = reward.rarity!!,
                             name = meta.name,
-                            currency = null,
-                            item = null
+                            item = InventoryItem.fromTemplate(meta, reward.rarity)
                         )
                     }
                     LevelRewardType.currency -> {
                         val meta = r.profileService.getCurrency(reward.currency!!.type)
-                        FrontItemEntryModel(
+                        FrontItemEntryModel.CurrencyItemEntryModel(
                             skin = meta.currency.toString(),
                             amount = reward.currency!!.amount,
                             level = 0,
                             rarity = meta.rarity,
                             name = meta.name,
                             currency = meta.currency,
-                            item = null
                         )
                     }
                 }

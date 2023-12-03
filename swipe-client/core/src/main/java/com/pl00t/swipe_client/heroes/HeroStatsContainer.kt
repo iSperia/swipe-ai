@@ -155,16 +155,15 @@ class HeroStatsContainer(
         contentTable.add(statTable).row()
 
         val profile = r.profileService.getProfile()
-        val items = listOf(SwipeCurrency.ELIXIR_AMBER, SwipeCurrency.ELIXIR_JADE, SwipeCurrency.ELIXIR_LAPIS, SwipeCurrency.ELIXIR_TURQUOISE, SwipeCurrency.ELIXIR_AGATE, SwipeCurrency.ELIXIR_CITRINE).map {
+        val items: List<FrontItemEntryModel.CurrencyItemEntryModel> = listOf(SwipeCurrency.ELIXIR_AMBER, SwipeCurrency.ELIXIR_JADE, SwipeCurrency.ELIXIR_LAPIS, SwipeCurrency.ELIXIR_TURQUOISE, SwipeCurrency.ELIXIR_AGATE, SwipeCurrency.ELIXIR_CITRINE).map {
             val meta = r.profileService.getCurrency(it)
-            FrontItemEntryModel(
+            FrontItemEntryModel.CurrencyItemEntryModel(
                 skin = meta.currency.toString(),
                 amount = profile.getBalance(meta.currency),
                 level = 0,
                 rarity = meta.rarity,
                 name = meta.name,
                 currency = meta.currency,
-                item = null
             )
         }.filter { it.amount > 0 }
 
@@ -174,12 +173,16 @@ class HeroStatsContainer(
                 items = items,
                 onItemClick = null,
                 actionProvider = { model ->
-                    cachedSelectedElixir = items.indexOfFirst { it.currency == model.currency }
-                    ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
-                        onClick {
-                            useElixir(model)
-                            r.playSound(SbSoundType.POISON_DRINK)
+                    if (model is FrontItemEntryModel.CurrencyItemEntryModel) {
+                        cachedSelectedElixir = items.indexOfFirst { it.currency == model.currency }
+                        ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
+                            onClick {
+                                useElixir(model)
+                                r.playSound(SbSoundType.POISON_DRINK)
+                            }
                         }
+                    } else {
+                        null
                     }
                 }
             ).apply {
@@ -191,7 +194,7 @@ class HeroStatsContainer(
 
     }
 
-    fun useElixir(model: FrontItemEntryModel) {
+    fun useElixir(model: FrontItemEntryModel.CurrencyItemEntryModel) {
         KtxAsync.launch {
             if (r.profileService.useElixir(this@HeroStatsContainer.model.skin, model.currency!!)) {
                 r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
@@ -225,16 +228,15 @@ class HeroStatsContainer(
         contentTable.add(statTable).row()
 
         val profile = r.profileService.getProfile()
-        val items = listOf(SwipeCurrency.SCROLL_OF_WISDOM, SwipeCurrency.TOME_OF_ENLIGHTMENT, SwipeCurrency.CODEX_OF_ASCENDANCY, SwipeCurrency.GRIMOIRE_OF_OMNISCENCE).map {
+        val items: List<FrontItemEntryModel.CurrencyItemEntryModel> = listOf(SwipeCurrency.SCROLL_OF_WISDOM, SwipeCurrency.TOME_OF_ENLIGHTMENT, SwipeCurrency.CODEX_OF_ASCENDANCY, SwipeCurrency.GRIMOIRE_OF_OMNISCENCE).map {
             val meta = r.profileService.getCurrency(it)
-            FrontItemEntryModel(
+            FrontItemEntryModel.CurrencyItemEntryModel(
                 skin = meta.currency.toString(),
                 amount = profile.getBalance(meta.currency),
                 level = 0,
                 rarity = meta.rarity,
                 name = meta.name,
                 currency = meta.currency,
-                item = null
             )
         }.filter { it.amount > 0 }
         if (items.isNotEmpty()) {
@@ -243,12 +245,14 @@ class HeroStatsContainer(
                 items = items,
                 onItemClick = null,
                 actionProvider = { model ->
-                    cachedSelectedExpCurrency = items.indexOfFirst { it.currency == model.currency }
-                    ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
-                        onClick {
-                            useExperienceItem(model)
+                    if (model is FrontItemEntryModel.CurrencyItemEntryModel) {
+                        cachedSelectedExpCurrency = items.indexOfFirst { it.currency == model.currency }
+                        ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
+                            onClick {
+                                useExperienceItem(model)
+                            }
                         }
-                    }
+                    } else null
                 }
             ).apply {
                 selectedIndex = cachedSelectedExpCurrency
@@ -258,11 +262,11 @@ class HeroStatsContainer(
         }
     }
 
-    fun useExperienceItem(model: FrontItemEntryModel) {
+    fun useExperienceItem(model: FrontItemEntryModel.CurrencyItemEntryModel) {
         KtxAsync.launch {
             val oldLevel = SwipeCharacter.getLevel(r.profileService.getCharacters().first { it.skin == this@HeroStatsContainer.model.skin }.experience)
-            r.profileService.addCharacterExperience(this@HeroStatsContainer.model.skin, model.currency?.expBonus ?: 0)
-            r.profileService.spendCurrency(arrayOf(model.currency!!), arrayOf(1))
+            r.profileService.addCharacterExperience(this@HeroStatsContainer.model.skin, model.currency.expBonus)
+            r.profileService.spendCurrency(arrayOf(model.currency), arrayOf(1))
             val newLevel = SwipeCharacter.getLevel(r.profileService.getCharacters().first { it.skin == this@HeroStatsContainer.model.skin }.experience)
 
             r.playSound(SbSoundType.USE_TOME)

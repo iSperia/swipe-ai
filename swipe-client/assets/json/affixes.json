@@ -66,6 +66,19 @@
       ]
     },
     {
+      "affix": "ALL_DAMAGE_INCREASE",
+      "valuePerTier": 10,
+      "description": {
+        "en": "Damage increase +$%",
+        "ru": "Увеличение урона +$%"
+      },
+      "weights": [
+        {
+          "weight": 0
+        }
+      ]
+    },
+    {
       "affix": "DARK_DAMAGE_INCREASE",
       "valuePerTier": 25,
       "description": {
@@ -253,6 +266,32 @@
       "description": {
         "en": "Start battle with $% of ult. progress",
         "ru": "Начните сражение с $% ульт. прогресса"
+      },
+      "weights": [
+        {
+          "weight": 0
+        }
+      ]
+    },
+    {
+      "affix": "FLAT_ALL_ATTRIBUTES",
+      "valuePerTier": 1,
+      "description": {
+        "en": "All attributes +$",
+        "ru": "Все аттрибуты +$"
+      },
+      "weights": [
+        {
+          "weight": 0
+        }
+      ]
+    },
+    {
+      "affix": "EXP_BOOST_PERCENT",
+      "valuePerTier": 5,
+      "description": {
+        "en": "Experience received +$%",
+        "ru": "Полученный опыт +$%"
       },
       "weights": [
         {

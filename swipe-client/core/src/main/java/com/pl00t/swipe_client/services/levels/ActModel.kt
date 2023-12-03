@@ -12,7 +12,7 @@ data class ActModel(
 )
 
 enum class LevelType {
-    CAMPAIGN, RAID, BOSS, ZEPHYR_SHOP
+    CAMPAIGN, RAID, BOSS, ZEPHYR_SHOP, CRYSTAL_MINE
 }
 
 data class LinkModel(

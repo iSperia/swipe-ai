@@ -1,7 +1,7 @@
 {
   "x": 808,
   "y": 202,
-  "type": "CAMPAIGN",
+  "type": "BOSS",
   "id": "c9",
   "unlock_act": "ACT_3",
   "music": "theme_xalithar",

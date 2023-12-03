@@ -23,6 +23,7 @@ sealed class Action(val atlas: String, val icon: String) {
     object Settings: Action(Resources.ux_atlas, "action_icon_settings")
     object Close: Action(Resources.ux_atlas, "action_icon_close")
     object FilterCurrency: Action(Resources.ux_atlas, "filter_currency")
+    object FilterGems: Action(Resources.ux_atlas, "MINE_GLIMMERING_SAPPHIRE")
     object FilterHelmet: Action(Resources.ux_atlas, "silh_helm")
     object FilterGloves: Action(Resources.ux_atlas, "silh_gauntlets")
     object FilterBoots: Action(Resources.ux_atlas, "silh_boots")

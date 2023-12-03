@@ -51,7 +51,9 @@ class TinyItemCellActor(
     }
 
     fun reduceCount() {
-        model = model.copy(amount = model.amount - 1)
+        model = (model as? FrontItemEntryModel.CurrencyItemEntryModel)?.let { model ->
+            model.copy(amount = model.amount - 1)
+        } ?: model
     }
 
 }

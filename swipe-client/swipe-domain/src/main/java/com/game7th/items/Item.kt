@@ -22,7 +22,10 @@ enum class ItemAffixType(val pattern: String) {
     PERCENT_HP("%.0f"),
     ULT_FLAT("%.0f"),
     LUCK_FLAT("%.1f"),
-    ULT_PREFILL("%.0f")
+    ULT_PREFILL("%.0f"),
+    ALL_DAMAGE_INCREASE("%.0f"),
+    FLAT_ALL_ATTRIBUTES("%.0f"),
+    EXP_BOOST_PERCENT("%.0f"),
 }
 
 data class ItemAffix(
@@ -30,7 +33,16 @@ data class ItemAffix(
     val value: Float,
     val level: Int,
     val scalable: Boolean,
-)
+) {
+    companion object {
+        fun fromTemplate(template: ItemTemplate): ItemAffix = ItemAffix(
+            affix = template.implicit,
+            value = 0f,
+            level = 1,
+            scalable = false
+        )
+    }
+}
 
 data class AffixGenerationConfig(
     val affix: ItemAffixType,
@@ -55,5 +67,21 @@ data class InventoryItem(
     val category: ItemCategory,
     val equippedBy: String?,
     val maxExperience: Int,
-)
+    val tier: Int,
+) {
+    companion object {
+        fun fromTemplate(t: ItemTemplate, r: Int) = InventoryItem(
+            id = "",
+            skin = t.skin,
+            implicit = ItemAffix.fromTemplate(t),
+            affixes = emptyList(),
+            experience = 0,
+            rarity = r,
+            category = t.category,
+            equippedBy = null,
+            maxExperience = 0,
+            tier = 0,
+        )
+    }
+}
 

@@ -19,6 +19,10 @@ import ktx.actors.alpha
 import ktx.actors.onClick
 import ktx.async.KtxAsync
 
+enum class FilterMode {
+    CURRENCY, GEMS, ITEMS
+}
+
 class InventoryWindow(
     protected val r: Resources,
     private val onClose: () -> Unit,
@@ -39,7 +43,7 @@ class InventoryWindow(
         setPosition(0f, 110f)
     }
 
-    private var currencyMode: Boolean = true
+    private var filterMode: FilterMode = FilterMode.CURRENCY
     private var categoryFilter: ItemCategory? = null
 
     init {
@@ -83,16 +87,23 @@ class InventoryWindow(
                     Mode.SingleLine(UiTexts.FilterCurrency.value(r.l))
                 ).apply {
                     onClick {
-                        currencyMode = true
+                        filterMode = FilterMode.CURRENCY
                         scrollPane.setSize(480f, r.height - 190f)
                         scrollPane.y = 110f
                         filterPanel.isVisible = false
                         loadData()
                     }
                 },
+                ActionCompositeButton(
+                    r,
+                    Action.FilterGems,
+                    Mode.SingleLine(UiTexts.FilterGems.value(r.l))
+                ).apply {
+
+                },
                 ActionCompositeButton(r, Action.Equipment, Mode.SingleLine(UiTexts.NavItems.value(r.l))).apply {
                     onClick {
-                        currencyMode = false
+                        filterMode = FilterMode.ITEMS
                         categoryFilter = null
                         scrollPane.setSize(480f, r.height - 300f)
                         scrollPane.y = 220f
@@ -156,10 +167,10 @@ class InventoryWindow(
     fun loadData() {
         KtxAsync.launch {
             content.clearChildren()
-            if (currencyMode) {
-                showCurrency()
-            } else {
-                showItems()
+            when (filterMode) {
+                FilterMode.CURRENCY -> showCurrency()
+                FilterMode.ITEMS -> showItems()
+                else -> Unit
             }
             content.row()
             content.add().growY()
@@ -170,20 +181,21 @@ class InventoryWindow(
         val items = r.profileService.getItems().filter { categoryFilter == null || categoryFilter == it.category }
             .sortedByDescending { it.rarity * 100000 + it.experience }.map { item ->
                 val meta = r.itemService.getItemTemplate(item.skin)!!
-                FrontItemEntryModel(
+                FrontItemEntryModel.InventoryItemEntryModel(
                     skin = meta.skin,
                     amount = 1,
                     level = SwipeCharacter.getLevel(item.experience),
                     rarity = item.rarity,
                     name = meta.name,
-                    currency = null,
                     item = item
                 )
             }
         content.add(ItemBrowser(r, items, onItemClicked) { item ->
             ActionCompositeButton(r, Action.Resistance, Mode.SingleLine(UiTexts.Details.value(r.l))).apply {
                 onClick {
-                    onItemClicked(item.item!!.id)
+                    if (item is FrontItemEntryModel.InventoryItemEntryModel) {
+                        onItemClicked(item.item.id)
+                    }
                 }
             }
         }).colspan(4).row()
@@ -196,14 +208,13 @@ class InventoryWindow(
             .map {
                 val meta = it.second
                 val balance = it.first
-                FrontItemEntryModel(
+                FrontItemEntryModel.CurrencyItemEntryModel(
                     skin = balance.currency.toString(),
                     amount = balance.amount,
                     level = 0,
                     rarity = meta.rarity,
                     name = meta.name,
                     currency = meta.currency,
-                    item = null
                 )
             }
             val actor = ItemBrowser(r, items, null, null)

@@ -42,4 +42,10 @@ object AnalyticEvents {
         val KEY_TIER = "tier"
         val KEY_COST = "cost"
     }
+
+    object MineEvent {
+        val EVENT_LAUNCH = "mine.launch"
+        val EVENT_UPGRADE = "mine.upgrade"
+        val KEY_LEVEL = "level"
+    }
 }

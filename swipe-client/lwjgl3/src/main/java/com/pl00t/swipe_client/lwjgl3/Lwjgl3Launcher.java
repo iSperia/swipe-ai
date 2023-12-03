@@ -22,6 +22,7 @@ public class Lwjgl3Launcher {
             @Override
             public void trackEvent(@NotNull String event, @NotNull Map<String, String> data) {
                 System.out.println(event);
+                System.out.println(data);
             }
 
             @Override

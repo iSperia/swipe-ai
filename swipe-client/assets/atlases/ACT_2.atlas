@@ -4,16 +4,16 @@ size: 2048, 2048
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
-crystal_corridors
-  rotate: false
-  xy: 1024, 1
-  size: 1024, 1023
-  orig: 1024, 1023
-  offset: 0, 0
-  index: -1
 crystal_coves
   rotate: false
   xy: 1024, 1024
+  size: 1024, 1024
+  orig: 1024, 1024
+  offset: 0, 0
+  index: -1
+crystal_mines
+  rotate: false
+  xy: 1024, 0
   size: 1024, 1024
   orig: 1024, 1024
   offset: 0, 0
@@ -34,27 +34,34 @@ stoneheart_confluence
   index: -1
 
 ACT_22.png
-size: 256, 256
+size: 2048, 1024
 format: RGBA8888
 filter: MipMapLinearLinear, MipMapLinearLinear
 repeat: none
+crystal_corridors
+  rotate: false
+  xy: 0, 0
+  size: 1024, 1023
+  orig: 1024, 1023
+  offset: 0, 0
+  index: -1
 crystal_corridors_preview
   rotate: false
-  xy: 128, 128
+  xy: 1024, 766
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 crystal_coves_preview
   rotate: false
-  xy: 128, 0
+  xy: 1152, 895
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 stoneheart_confluence_preview
   rotate: false
-  xy: 0, 127
+  xy: 1024, 894
   size: 128, 129
   orig: 128, 129
   offset: 0, 0

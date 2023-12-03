@@ -139,10 +139,10 @@ class HeroDetailWindow(
             delay(100)
             attrsContent = (attrs.getChild(0) as ScrollPane).getChild(0) as Table
             addActor(TutorialHover(r, attrsContent.path(2, 1, 3).bounds(), UiTexts.Tutorials.CharacterScreen.S8, HoverAction.HoverClick(true) {
-                attrs.useExperienceItem(FrontItemEntryModel(SwipeCurrency.SCROLL_OF_WISDOM.toString(), 2, 0, 0, SbText("", ""), SwipeCurrency.SCROLL_OF_WISDOM, null))
+                attrs.useExperienceItem(FrontItemEntryModel.CurrencyItemEntryModel(SwipeCurrency.SCROLL_OF_WISDOM.toString(), 2, 0, 0, SbText("", ""), SwipeCurrency.SCROLL_OF_WISDOM))
                 addActor(TutorialHover(r, attrsContent.getChild(0).bounds(), UiTexts.Tutorials.CharacterScreen.S9, HoverAction.HoverClick(false) {
                     addActor(TutorialHover(r, attrsContent.path(2, 1, 3).bounds(), UiTexts.Tutorials.CharacterScreen.S10, HoverAction.HoverClick(true) {
-                        attrs.useExperienceItem(FrontItemEntryModel(SwipeCurrency.SCROLL_OF_WISDOM.toString(), 2, 0, 0, SbText("", ""), SwipeCurrency.SCROLL_OF_WISDOM, null))
+                        attrs.useExperienceItem(FrontItemEntryModel.CurrencyItemEntryModel(SwipeCurrency.SCROLL_OF_WISDOM.toString(), 2, 0, 0, SbText("", ""), SwipeCurrency.SCROLL_OF_WISDOM))
                         addActor(TutorialHover(r, attrsContent.getChild(0).bounds(), UiTexts.Tutorials.CharacterScreen.S11, HoverAction.HoverClick(true) {
                             showSkillsTutorial()
                         }))
