@@ -177,7 +177,7 @@ class InventoryItemWindow(
             ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
                 onClick {
                     KtxAsync.launch {
-                        (this@InventoryItemWindow as? FrontItemEntryModel.InventoryItemEntryModel)?.let { model ->
+                        (this@InventoryItemWindow.model as? FrontItemEntryModel.InventoryItemEntryModel)?.let { model ->
                             (actionModel as? FrontItemEntryModel.CurrencyItemEntryModel)?.let { actionModel ->
                                 r.playSound(SbSoundType.USE_TOME)
                                 val oldExp = SwipeCharacter.getLevel(model.item.experience)
