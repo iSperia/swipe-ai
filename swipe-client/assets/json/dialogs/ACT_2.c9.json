@@ -1,0 +1,60 @@
+{
+  "replicas": [
+    {
+      "skin": "MONSTER_XALITHAR",
+      "text": {
+        "en": "Why do you intrude upon my kingdom?",
+        "ru": "Почему ты вторгаешься в мое королевство?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "We seek the truth about the cataclysm, Xalithar. Your guardians did not stop us.",
+        "ru": "Мы ищем правду о катаклизме, Ксалитар. Твои стражи нас не остановили."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "His memory is gone. He believes himself to be the king of Etheria.",
+        "ru": "Его память пропала. Он считает себя королем Этерии."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_XALITHAR",
+      "text": {
+        "en": "Etheria is my realm. Intruders must be crushed!",
+        "ru": "Этерия — мое царство. Злоумышленников необходимо раздавить!"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "We have no choice. We must break the curse, and that means defeating Xalithar.",
+        "ru": "У нас нет выбора. Мы должны снять проклятие, а это значит победить Ксалитара."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Look at the crystal within him. It pulses with the power of the shard. If we destroy it, we might free the coves from corruption.",
+        "ru": "Посмотри на кристалл внутри него. Он пульсирует силой осколка. Если мы уничтожим его, мы сможем освободить пещеру от порчи."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_XALITHAR",
+      "text": {
+        "en": "You will pay for your insolence!",
+        "ru": "Ты заплатишь за свою наглость!"
+      },
+      "side": "right"
+    }
+  ]
+}

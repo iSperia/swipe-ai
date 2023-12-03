@@ -16,7 +16,7 @@
   ],
   "triggers": ["xalithar.frozen_impact", "xalithar.mirrorweave", "xalithar.crystalline_cataclysm"],
   "balance": {
-    "base_health": 2000,
+    "base_health": 3000,
     "luck": 10,
     "ult": 10,
     "ult_max": 1000,

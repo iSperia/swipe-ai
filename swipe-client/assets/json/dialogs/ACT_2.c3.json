@@ -1,0 +1,60 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Saffron, these shadows have grown stronger. What dark force empowers them?",
+        "ru": "Шафран, эти тени стали сильнее. Какая темная сила наделяет их силой?"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "It's an ancient power, Valerian. Something from a kingdom long lost to the sands of time.",
+        "ru": "Это древняя сила, Валериан. Что-то из королевства, давно затерянного в песках времени."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_SHADOW_OF_CHAOS",
+      "text": {
+        "en": "Mortals, you tread upon the remnants of Aetheria, a kingdom lost to the cataclysmic forces that shattered its glory.",
+        "ru": "Смертные, вы наступаете на остатки Этерии, королевства, потерянного из-за катастрофических сил, разрушивших его славу."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Aetheria... the ancient kingdom. What happened here?",
+        "ru": "Этерия... древнее королевство. Что здесь случилось?"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "MONSTER_SHADOW_OF_CHAOS",
+      "text": {
+        "en": "The cataclysm tore through Aetheria, shattering its once-mighty realm. Now, only shadows and echoes remain.",
+        "ru": "Катаклизм пронесся по Этерии, разрушив ее некогда могущественное царство. Теперь остались только тени и отголоски."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "The Shard of Aetherium is linked to this tragedy, Valerian. We must uncover its connection to Aetheria's fall.",
+        "ru": "Осколок Этериума связан с этой трагедией, Валериан. Мы должны раскрыть его связь с падением Этерии."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Aetheria may be lost, but we'll find the shard and prevent further ruin.",
+        "ru": "Этерия может быть потеряна, но мы найдем осколок и предотвратим дальнейшее разрушение."
+      },
+      "side": "left"
+    }
+  ]
+}

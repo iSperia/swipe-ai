@@ -75,7 +75,7 @@
           "weight": 25
         },
         {
-          "type": "CRYSTALWEAVE_LUCK",
+          "type": "item",
           "rarity": 1,
           "skin": "ENCHANTED_BAND",
           "weight": 160
@@ -129,9 +129,9 @@
           "weight": 25
         },
         {
-          "type": "CRYSTALWEAVE_LUCK",
+          "type": "item",
           "rarity": 2,
-          "skin": "ENCHANTED_BAND",
+          "skin": "CRYSTALWEAVE_LUCK",
           "weight": 160
         },
         {
@@ -141,7 +141,7 @@
           "weight": 320
         },
         {
-          "type": "CRYSTALWEAVE_LUCK",
+          "type": "item",
           "rarity": 1,
           "skin": "ENCHANTED_BAND",
           "weight": 320

@@ -13,43 +13,35 @@
     [
       {
         "skin": "MONSTER_STONE_GOLEM",
-        "level": 13
+        "level": 13,
+        "rarity": 2
       },
       {
         "skin": "MONSTER_STONE_GOLEM",
-        "level": 13
-      },
-      {
-        "skin": "MONSTER_STONE_GOLEM",
-        "level": 13
-      }
-    ],
-    [
-      {
-        "skin": "MONSTER_STONE_GOLEM",
-        "level": 13
-      },
-      {
-        "skin": "MONSTER_STONE_GOLEM",
-        "level": 13
+        "level": 13,
+        "rarity": 2
       },
       {
         "skin": "MONSTER_CRYSTAL_GUARDIAN",
-        "level": 13
+        "level": 13,
+        "rarity": 2
       }
     ],
     [
       {
         "skin": "MONSTER_CRYSTAL_GUARDIAN",
-        "level": 13
+        "level": 13,
+        "rarity": 3
       },
       {
         "skin": "MONSTER_CRYSTAL_GUARDIAN",
-        "level": 13
+        "level": 13,
+        "rarity": 3
       },
       {
         "skin": "MONSTER_STONE_GOLEM",
-        "level": 13
+        "level": 13,
+        "rarity": 3
       }
     ]
   ],

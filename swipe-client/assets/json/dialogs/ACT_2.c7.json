@@ -1,0 +1,36 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_DRAKK",
+      "text": {
+        "en": "Hold on, mates. We're getting close to the heart of these coves. I've never ventured too close, though.",
+        "ru": "Держитесь, друзья. Мы приближаемся к сердцу этих пещер. Хотя я никогда не рисковал подходить слишком близко."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Why didn't you go closer, Drakk?",
+        "ru": "Почему ты не подошел ближе, Дракк?"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_DRAKK",
+      "text": {
+        "en": "There's an ancient magic emanating from that direction. Powerful, it is. I've got a nose for gems, but when it comes to ancient magic, I know better than to poke the bear.",
+        "ru": "С той стороны исходит древняя магия. Мощно, это так. У меня нюх на драгоценные камни, но когда дело доходит до древней магии, я знаю, что лучше не тыкать медведя."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Ancient magic? This must be where we find the source of the disturbances.",
+        "ru": "Древняя магия? Должно быть, именно здесь мы найдем источник помех."
+      },
+      "side": "right"
+    }
+  ]
+}

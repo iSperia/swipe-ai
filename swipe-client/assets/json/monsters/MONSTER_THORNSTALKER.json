@@ -58,11 +58,11 @@
       "fire": -0.2,
       "cold": 0
     },
-    "pa_base": 32,
+    "pa_base": 52,
     "pa_scale": 10,
-    "vb_base": 8,
+    "vb_base": 11,
     "vb_scale": 10,
-    "rg_base": 60,
+    "rg_base": 70,
     "rg_scale": 10
   },
   "affixes": {

@@ -1,0 +1,60 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Hold, Crystal Guardians! We mean no harm. Etheria is no more.",
+        "ru": "Держитесь, Кристальные Стражи! Мы не имеем в виду никакого вреда. Этерии больше нет."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "The cataclysm has changed everything. There is no Etheria king to protect.",
+        "ru": "Катаклизм изменил всё. Нет короля Этерии, которого нужно защищать."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_CRYSTAL_GUARDIAN",
+      "text": {
+        "en": "Intruders! Threats to Etheria's king must be eliminated.",
+        "ru": "Злоумышленники! Угрозы королю Этерии должны быть устранены."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "There is no Etheria king. The kingdom is lost to time.",
+        "ru": "Короля Этерии не существует. Королевство потеряно во времени."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "MONSTER_CRYSTAL_GUARDIAN",
+      "text": {
+        "en": "Protectorate protocol engaged. Intruders detected. Eliminate threat.",
+        "ru": "Включен протокол Протектората. Обнаружены злоумышленники. Устранить угрозу."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Valerian, they're not listening. We have no choice.",
+        "ru": "Валериан, они не слушают. У нас нет выбора."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "We'll face them with respect, but we won't yield. Etheria or not, our quest continues.",
+        "ru": "Мы встретим их с уважением, но не сдадимся. Этерия или нет, наши поиски продолжаются."
+      },
+      "side": "left"
+    }
+  ]
+}

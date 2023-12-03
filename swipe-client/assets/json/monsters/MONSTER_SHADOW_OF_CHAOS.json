@@ -19,7 +19,7 @@
     "shadow_of_chaos.evasive_shadows", "shadow_of_chaos.dark_aura", "shadow_of_chaos.abyssal_rend"
   ],
   "balance": {
-    "base_health": 320,
+    "base_health": 350,
     "luck": 20,
     "ult": 10,
     "ult_max": 1000,

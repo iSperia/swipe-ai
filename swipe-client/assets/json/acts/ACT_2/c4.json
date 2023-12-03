@@ -26,8 +26,9 @@
     ],
     [
       {
-        "skin": "MONSTER_SHADOW_OF_CHAOS",
-        "level": 11
+        "skin": "MONSTER_CRYSTAL_GUARDIAN",
+        "level": 11,
+        "rarity": 1
       },
       {
         "skin": "MONSTER_CRYSTAL_GUARDIAN",

@@ -1,0 +1,36 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_DRAKK",
+      "text": {
+        "en": "Hoooold on! What have I unleashed? Brace yourselves!",
+        "ru": "Дерррржись! Что я выпустил на волю? Готовьтесь!"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Stone Golems! We need to stand our ground!",
+        "ru": "Каменные големы! Нам нужно выстоять!"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Drakk, what did you do down here?",
+        "ru": "Дракк, что ты здесь делаешь?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_DRAKK",
+      "text": {
+        "en": "I may have dug a bit too deep... but we've got a bigger problem now. Prepare for battle!",
+        "ru": "Возможно, я копнул слишком глубоко... но теперь у нас возникла более серьезная проблема. Приготовьтесь к битве!"
+      },
+      "side": "right"
+    }
+  ]
+}

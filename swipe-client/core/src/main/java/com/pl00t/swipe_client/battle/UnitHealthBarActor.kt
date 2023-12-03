@@ -48,6 +48,7 @@ class UnitHealthBarActor(
     val _maxWidth = w - 14f
     val rarityActor: MonsterRankActor = MonsterRankActor(r, this@UnitHealthBarActor.rarity).apply {
         setSize(2f * h, 2f * h)
+        setPosition(0f, h)
     }
 
     init {

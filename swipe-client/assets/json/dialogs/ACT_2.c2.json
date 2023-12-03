@@ -1,0 +1,60 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Saffron, these shadows seem to be everywhere. Do you sense that dark aura?",
+        "ru": "Шафран, кажется, эти тени повсюду. Вы чувствуете эту темную ауру?"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Indeed, Valerian. There's a malevolence in the air. Shadows of Chaos, ancient entities drawn to places of great power.",
+        "ru": "Действительно, Валериан. В воздухе витает злоба. Тени Хаоса, древние существа, привлечённые местами великой силы."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_SHADOW_OF_CHAOS",
+      "text": {
+        "en": "(speaking in a haunting whisper) Mortals, you tread where you are not welcome. These caverns hold secrets beyond your comprehension.",
+        "ru": "(говорит призрачным шепотом) Смертные, вы идете туда, где вас не ждут. Эти пещеры хранят тайны, недоступные вашему пониманию."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Who are you? Why do you linger in the shadows?",
+        "ru": "Кто ты? Почему ты задерживаешься в тени?"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "MONSTER_SHADOW_OF_CHAOS",
+      "text": {
+        "en": "We are the Shadows of Chaos, bound to this place by the echoes of ancient turmoil. The crystal's power is a beacon that draws us near.",
+        "ru": "Мы — Тени Хаоса, привязанные к этому месту отголосками древних потрясений. Сила кристалла — это маяк, который приближает нас."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Shadows, we seek the Shard of Aetherium. Stand aside, or face the consequences.",
+        "ru": "Тени, мы ищем Осколок Этерия. Отойди в сторону или столкнись с последствиями."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "MONSTER_SHADOW_OF_CHAOS",
+      "text": {
+        "en": "Mortals seeking power. You know not the price of meddling in forces beyond your ken.",
+        "ru": "Смертные ищут власти. Вы не знаете цену вмешательства в силы, находящиеся за пределами вашего понимания."
+      },
+      "side": "right"
+    }
+  ]
+}

@@ -16,34 +16,6 @@
         "level": 10
       },
       {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 10
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 10
-      }
-    ],
-    [
-      {
-        "skin": "MONSTER_SHADOW_OF_CHAOS",
-        "level": 10
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 10
-      },
-      {
-        "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 10
-      }
-    ],
-    [
-      {
-        "skin": "MONSTER_SHADOW_OF_CHAOS",
-        "level": 10
-      },
-      {
         "skin": "MONSTER_SHADOW_OF_CHAOS",
         "level": 10
       },
@@ -55,15 +27,18 @@
     [
       {
         "skin": "MONSTER_SHADOW_OF_CHAOS",
-        "level": 10
+        "level": 10,
+        "rarity": 1
       },
       {
         "skin": "MONSTER_SHADOW_OF_CHAOS",
-        "level": 10
+        "level": 10,
+        "rarity": 1
       },
       {
         "skin": "MONSTER_THORNED_CRAWLER",
-        "level": 10
+        "level": 10,
+        "rarity": 1
       }
     ]
   ],

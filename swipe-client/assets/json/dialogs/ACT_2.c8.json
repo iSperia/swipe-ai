@@ -1,0 +1,36 @@
+{
+  "replicas": [
+    {
+      "skin": "MONSTER_SHADOW_OF_CHAOS",
+      "text": {
+        "en": "(laughs) You think you can save these Crystal Guardians, don't you?",
+        "ru": "(смеется) Ты думаешь, что сможешь спасти этих Кристальных Стражей, не так ли?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "We need to make them understand, Valerian. They're being deceived.",
+        "ru": "Нам нужно заставить их понять, Валериан. Их обманывают."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Hold! We don't want to harm you. You're being corrupted by ancient magic!",
+        "ru": "Подождите! Мы не хотим причинить вам вред. Вас развращает древняя магия!"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "MONSTER_SHADOW_OF_CHAOS",
+      "text": {
+        "en": "Powerless, Valerian. Your words can't break through the veil of corruption.",
+        "ru": "Бессильный, Валериан. Ваши слова не могут прорваться сквозь завесу разложения."
+      },
+      "side": "right"
+    }
+  ]
+}

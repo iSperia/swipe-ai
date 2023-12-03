@@ -13,35 +13,35 @@
     [
       {
         "skin": "MONSTER_SHADOW_OF_CHAOS",
-        "level": 12
+        "level": 12,
+        "rarity": 2
       },
       {
         "skin": "MONSTER_CRYSTAL_GUARDIAN",
-        "level": 12
+        "level": 12,
+        "rarity": 2
       },
       {
         "skin": "MONSTER_CRYSTAL_GUARDIAN",
-        "level": 12
+        "level": 12,
+        "rarity": 2
       }
     ],
     [
       {
         "skin": "MONSTER_SHADOW_OF_CHAOS",
-        "level": 12
+        "level": 12,
+        "rarity": 3
       },
       {
         "skin": "MONSTER_CRYSTAL_GUARDIAN",
-        "level": 12
+        "level": 12,
+        "rarity": 3
       },
       {
         "skin": "MONSTER_CRYSTAL_GUARDIAN",
-        "level": 12
-      }
-    ],
-    [
-      {
-        "skin": "MONSTER_CRYSTAL_GUARDIAN",
-        "level": 12
+        "level": 12,
+        "rarity": 3
       }
     ]
   ],

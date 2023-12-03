@@ -1,0 +1,68 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Look at them, Valerian. There's something corrupting their allegiance. They fight as if Etheria is still intact.",
+        "ru": "Посмотри на них, Валериан. Есть что-то, что подрывает их преданность. Они сражаются так, как будто Этерия все еще цела."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "How can that be? Etheria was shattered in the cataclysm.",
+        "ru": "Как такое возможно? Этерия была разрушена во время катаклизма."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "They won't stop until we make them see the truth. But first, let's understand what binds them to this illusion.",
+        "ru": "Они не остановятся, пока мы не заставим их увидеть правду. Но сначала давайте разберемся, что привязывает их к этой иллюзии."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Why do you fight? Etheria fell centuries ago. There is no king to protect.",
+        "ru": "Почему ты сражаешься? Этерия пала много веков назад. Нет короля, которого нужно защищать."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "MONSTER_CRYSTAL_GUARDIAN",
+      "text": {
+        "en": "Etheria lives. The king must be safeguarded. Intruders must be vanquished.",
+        "ru": "Этерия жива. Король должен быть защищен. Злоумышленники должны быть побеждены."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "They're stuck in a loop, reciting a long-forgotten script.",
+        "ru": "Они застряли в петле, декламируя давно забытый сценарий."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "The corruption is deep-rooted. We need to break the illusion, make them see the reality of their kingdom's fate.",
+        "ru": "Проклятие имеет глубокие корни. Нам нужно разрушить иллюзию, заставить их увидеть реальность судьбы их королевства."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Let's end this cycle. For Etheria and for these lost guardians.",
+        "ru": "Давайте закончим этот цикл. За Этерию и за этих потерянных стражей."
+      },
+      "side": "left"
+    }
+  ]
+}

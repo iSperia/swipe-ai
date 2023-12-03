@@ -16,7 +16,7 @@
   ],
   "triggers": ["crystal_guardian.crystal_froststrike", "crystal_guardian.glacial_bind", "crystal_guardian.crystal_ward"],
   "balance": {
-    "base_health": 280,
+    "base_health": 320,
     "luck": 5,
     "ult": 10,
     "ult_max": 500,

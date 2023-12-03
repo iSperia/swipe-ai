@@ -16,7 +16,7 @@
   ],
   "triggers": ["stone_golem.stone_smash", "stone_golem.petrifying_strike", "stone_golem.crushing_momentum", "common.stun"],
   "balance": {
-    "base_health": 500,
+    "base_health": 600,
     "luck": 3,
     "ult": 10,
     "ult_max": 1000,

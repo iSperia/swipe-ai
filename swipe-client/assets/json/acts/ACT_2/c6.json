@@ -12,21 +12,17 @@
   "monsters": [
     [
       {
-        "skin": "MONSTER_CRYSTAL_GUARDIAN",
+        "skin": "MONSTER_STONE_GOLEM",
         "level": 12
       },
       {
-        "skin": "MONSTER_CRYSTAL_GUARDIAN",
+        "skin": "MONSTER_STONE_GOLEM",
         "level": 12
       }
     ],
     [
       {
-        "skin": "MONSTER_CRYSTAL_GUARDIAN",
-        "level": 12
-      },
-      {
-        "skin": "MONSTER_CRYSTAL_GUARDIAN",
+        "skin": "MONSTER_STONE_GOLEM",
         "level": 12
       },
       {

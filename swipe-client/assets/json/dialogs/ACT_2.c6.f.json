@@ -1,0 +1,36 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_DRAKK",
+      "text": {
+        "en": "Well, that was a blast! Not bad, not bad at all!",
+        "ru": "Что ж, это было здорово! Не плохо, совсем не плохо!"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Drakk, what were those Golems guarding?",
+        "ru": "Дракк, что охраняли эти големы?"
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_DRAKK",
+      "text": {
+        "en": "Oh, just a little place where I dig for magical stones. You two did well in the fight. Fancy trying your hand at some mining?",
+        "ru": "О, это маленькое местечко, где я копаю магические камни. Вы двое хорошо справились с боем. Хотите попробовать свои силы в добыче?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "Mining? That's not exactly our usual quest, but why not?",
+        "ru": "Горное дело? Это не совсем наша задача, но почему бы и нет?"
+      },
+      "side": "right"
+    }
+  ]
+}
