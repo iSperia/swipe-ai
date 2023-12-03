@@ -42,7 +42,11 @@
     regular_white: {
       font: regular
       fontColor: white
-    }
+    },
+    regular_error: {
+      font: regular
+      fontColor: error_color
+    },
     regular_main: {
       font: regular
       fontColor: main_color

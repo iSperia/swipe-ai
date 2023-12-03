@@ -46,6 +46,7 @@ object UiTexts {
     val Tarot = SbText("Fate Deck", "Колода Судьбы")
 
     val BattleVictory = SbText("Victory", "Победа")
+    val MineResult = SbText("Delve results", "Результат добычи")
     val BattleDefeat = SbText("Defeat", "Поражение")
     val BattleUltProgress = SbText("Ult. progress ", "Ульт. прогресс ")
     val BattleUltReady = SbText("Ult. ready!", "Ульт. готова!")
@@ -58,6 +59,7 @@ object UiTexts {
     val RaidRichRewards = SbText("Rewards collected:", "Полученные награды:")
     val RaidCollectRewards = SbText("Collect Rewards", "Собрать Награды")
     val RaidLittleArcanum = SbText("You have no enough arcane essence to collect the rewards!", "У вас недостаточно чародейской эссенции для сбора наград!")
+    val MineNoGemsFound = SbText("You have mined no gems! Good luck next time!", "Вы не добыли ни одного камня! Удачи в следующий раз!")
 
     val LevelUpApply = SbText("Apply", "Применить")
     val Details = SbText("Details", "Детали")

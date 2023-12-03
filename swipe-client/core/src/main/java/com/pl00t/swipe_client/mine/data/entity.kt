@@ -1,10 +1,13 @@
 package com.pl00t.swipe_client.mine.data
 
 import com.game7th.items.ItemAffixType
+import com.game7th.swipe.SbText
 
 data class MineItemConfig(
     val skin: String,
-    val affix: ItemAffixType
+    val affix: ItemAffixType,
+    val name: SbText,
+    val description: SbText,
 )
 
 data class MineItem(

@@ -1,5 +1,7 @@
 package com.pl00t.swipe_client.mine.data
 
+import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
+
 interface MineService {
 
     suspend fun getMineProgress(): MineProgressFile
@@ -16,5 +18,11 @@ interface MineService {
 
     suspend fun getMaxTier(): Int
 
+    suspend fun getGemTemplate(skin: String): MineItemConfig
+
+    suspend fun addGems(gems: List<MineItem>)
+
+    suspend fun listGems(): List<MineItem>
+    suspend fun spendGem(skin: String, level: Int)
 
 }

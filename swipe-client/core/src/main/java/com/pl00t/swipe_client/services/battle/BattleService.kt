@@ -10,7 +10,6 @@ import com.pl00t.swipe_client.services.profile.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
-import ktx.app.profile
 import java.lang.IllegalStateException
 import kotlin.random.Random
 
@@ -20,22 +19,29 @@ data class ExperienceResult(
     val expBoost: Int,
 )
 
-data class BattleResult(
-    val victory: Boolean,
-    val act: SwipeAct,
-    val level: String,
-    val tier: Int,
-    val exp: ExperienceResult?,
-    val freeRewards: List<FrontItemEntryModel>,
-    val extraRewardsCost: Int,
-)
+sealed interface EncounterResultModel {
+    data class BattleResult(
+        val victory: Boolean,
+        val act: SwipeAct,
+        val level: String,
+        val tier: Int,
+        val exp: ExperienceResult?,
+        val freeRewards: List<FrontItemEntryModel>,
+        val extraRewardsCost: Int,
+    ) : EncounterResultModel
+
+    data class MineResult(
+        val gems: List<FrontItemEntryModel.GemItemEntryModel>,
+        val level: Int,
+    ) : EncounterResultModel
+}
 
 interface BattleService {
     suspend fun createBattle(act: SwipeAct, level: String, tier: Int)
     suspend fun events(): Flow<SbDisplayEvent>
     suspend fun processSwipe(dx: Int, dy: Int)
     suspend fun processUltimate()
-    suspend fun battleEnd(): Flow<BattleResult>
+    suspend fun battleEnd(): Flow<EncounterResultModel.BattleResult>
     suspend fun getDecorations(): BattleDecorations
     suspend fun getActId(): SwipeAct
     suspend fun getLevelId(): String
@@ -50,7 +56,7 @@ class BattleServiceImpl(
     lateinit var context: SbContext
     lateinit var waves: List<List<FrontMonsterConfiguration>>
     lateinit var events: MutableSharedFlow<SbDisplayEvent>
-    lateinit var endBattle: MutableSharedFlow<BattleResult>
+    lateinit var endBattle: MutableSharedFlow<EncounterResultModel.BattleResult>
     private var processEnabled = false
 
     private var actId = SwipeAct.ACT_1
@@ -205,7 +211,7 @@ class BattleServiceImpl(
 
     private suspend fun handleContext() {
         if (!context.game.teamAlive(0)) {
-            endBattle.emit(BattleResult(victory = false, actId, level, tier, null, emptyList(), 0))
+            endBattle.emit(EncounterResultModel.BattleResult(victory = false, actId, level, tier, null, emptyList(), 0))
             processEnabled = false
         } else if (!context.game.teamAlive(1)) {
             val wavesTotal = waves.size
@@ -224,7 +230,7 @@ class BattleServiceImpl(
                 }
                 profileService.addCharacterExperience(profileService.getActiveCharacter(), experienceIfWin)
                 val monster = monsterService.getMonster(profileService.getActiveCharacter())!!
-                endBattle.emit(BattleResult(
+                endBattle.emit(EncounterResultModel.BattleResult(
                     victory = true,
                     act = actId,
                     level = level,

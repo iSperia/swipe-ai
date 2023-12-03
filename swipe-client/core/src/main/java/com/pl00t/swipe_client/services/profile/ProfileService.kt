@@ -97,6 +97,7 @@ interface ProfileService {
     suspend fun getDialogScript(key: String): DialogScript
 
     suspend fun getAtlas(): List<FrontAdventureModel>
+    suspend fun updateItem(updatedItem: InventoryItem)
 
     data class DustItemResult(
         val rewards: List<CurrencyReward>
@@ -218,7 +219,11 @@ sealed interface FrontItemEntryModel {
         override val rarity: Int,
         override val name: SbText,
         val gem: MineItem,
-    ) : FrontItemEntryModel
+    ) : FrontItemEntryModel {
+        override fun getText(r: Resources): String {
+            return "${UiTexts.Mine.CaptionGemTier.value(r.l)} ${gem.tier + 1}"
+        }
+    }
 
     fun getText(r: Resources) = if (level > 0) "${UiTexts.LvlShortPrefix.value(r.l)}$level" else amount.toString()
 }
@@ -430,7 +435,10 @@ class ProfileServiceImpl(
                 rarity = 4,
                 character.skin,
                 character.attributes,
-                profile.items.filter { it.equippedBy == character.skin }.flatMap { it.affixes + it.implicit }
+                profile.items
+                    .filter { it.equippedBy == character.skin }
+                    .flatMap { it.affixes + it.implicit + it.enchant }
+                    .filterNotNull()
             )
         } ?: throw IllegalArgumentException("No hero $skin")
     }
@@ -846,6 +854,17 @@ class ProfileServiceImpl(
         saveProfile()
     }
 
+    override suspend fun updateItem(updatedItem: InventoryItem) {
+        profile = profile.copy(items = profile.items.map { item ->
+            if (item.id == updatedItem.id) {
+                updatedItem
+            } else {
+                item
+            }
+        })
+        saveProfile()
+    }
+
     override suspend fun previewDust(id: String): List<CurrencyBalance> {
         return profile.items.firstOrNull { it.id == id }?.let { item ->
             val currencies = arrayOf(SwipeCurrency.INFUSION_ORB, SwipeCurrency.INFUSION_SHARD, SwipeCurrency.INFUSION_CRYSTAL, SwipeCurrency.ASCENDANT_ESSENCE)
@@ -914,6 +933,7 @@ class ProfileServiceImpl(
                 true
             ),
             affixes = affixesMapped,
+            enchant = null,
             experience = 0,
             rarity = rarity,
             category = template.category,

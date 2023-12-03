@@ -1,28 +1,75 @@
 {
   "stones": [
     {
-      "name": "MINE_ENCHANTED_TOPAZ",
-      "AFFIX": "ALL_DAMAGE_INCREASE"
+      "skin": "MINE_ENCHANTED_TOPAZ",
+      "affix": "ALL_DAMAGE_INCREASE",
+      "name": {
+        "en": "Enchanted Topaz",
+        "ru": "Зачарованный Топаз"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases damage",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает урон"
+      }
     },
     {
-      "name": "MINE_GLIMMERING_SAPPHIRE",
-      "AFFIX": "FLAT_MIND"
+      "skin": "MINE_GLIMMERING_SAPPHIRE",
+      "affix": "FLAT_MIND",
+      "name": {
+        "en": "Glimmering Sapphire",
+        "ru": "Мерцающий Сапфир"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases Mind attribute",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает атрибут Разум"
+      }
     },
     {
-      "name": "MINE_LUMINOUS_EMERALD",
-      "AFFIX": "FLAT_SPIRIT"
+      "skin": "MINE_LUMINOUS_EMERALD",
+      "affix": "FLAT_SPIRIT",
+      "name": {
+        "en": "Luminous Emerald",
+        "ru": "Светящийся Изумруд"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases Spirit attribute",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает атрибут Дух"
+      }
     },
     {
-      "name": "MINE_PRISMATIC_DIAMOND",
-      "AFFIX": "FLAT_ALL_ATTRIBUTES"
+      "skin": "MINE_PRISMATIC_DIAMOND",
+      "affix": "FLAT_ALL_ATTRIBUTES",
+      "name": {
+        "en": "Prismatic Diamond",
+        "ru": "Призматический Бриллиант"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases all attributes",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает все атрибуты"
+      }
     },
     {
-      "name": "MINE_RADIANT_RUBY",
-      "AFFIX": "FLAT_BODY"
+      "skin": "MINE_RADIANT_RUBY",
+      "affix": "FLAT_BODY","name": {
+      "en": "Radiant Ruby",
+      "ru": "Сияющий Рубин"
+    },
+      "description": {
+        "en": "Enchants ring or amulet: increases Body attribute",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает атрибут Тело"
+      }
     },
     {
-      "name": "MINE_SHIMMERING_OPAL",
-      "AFFIX": "EXP_BOOST_PERCENT"
+      "skin": "MINE_SHIMMERING_OPAL",
+      "affix": "EXP_BOOST_PERCENT",
+      "name": {
+        "en": "Shimmering Opal",
+        "ru": "Мерцающий Опал"
+      },
+      "description": {
+        "en": "Enchants ring or amulet: increases experience gained",
+        "ru": "Зачаровывает кольцо или амулет: увеличивает получаемый опыт"
+      }
     }
   ],
   "attempts": [6, 7, 7, 8, 8, 9, 9, 10, 10],

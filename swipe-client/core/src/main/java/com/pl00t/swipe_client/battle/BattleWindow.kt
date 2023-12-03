@@ -19,7 +19,7 @@ import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.animation.AnimationActor
 import com.pl00t.swipe_client.services.battle.BattleDecorations
-import com.pl00t.swipe_client.services.battle.BattleResult
+import com.pl00t.swipe_client.services.battle.EncounterResultModel
 import com.pl00t.swipe_client.services.profile.Debug
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import com.pl00t.swipe_client.ux.HoverAction
@@ -35,7 +35,7 @@ import ktx.async.KtxAsync
 
 class BattleWindow(
     private val r: Resources,
-    private val hideBattleScreen: (BattleResult) -> Unit
+    private val hideBattleScreen: (EncounterResultModel.BattleResult) -> Unit
 ) : Group(), SimpleDirectionGestureDetector.DirectionListener {
     lateinit var decorations: BattleDecorations
 
@@ -198,7 +198,7 @@ class BattleWindow(
         }
     }
 
-    private fun processBattleEvent(event: BattleResult) {
+    private fun processBattleEvent(event: EncounterResultModel.BattleResult) {
         println("battle end: $event")
 
         addAction(Actions.sequence(
@@ -695,7 +695,7 @@ class BattleWindow(
         }
     }
 
-    fun dispose(result: BattleResult) {
+    fun dispose(result: EncounterResultModel.BattleResult) {
         hideBattleScreen(result)
         music.stop()
         r.inputMultiplexer.removeProcessor(gestureDetector)

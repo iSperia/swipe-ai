@@ -99,7 +99,13 @@ class InventoryWindow(
                     Action.FilterGems,
                     Mode.SingleLine(UiTexts.FilterGems.value(r.l))
                 ).apply {
-
+                    onClick {
+                        filterMode = FilterMode.GEMS
+                        scrollPane.setSize(480f, r.height - 190f)
+                        scrollPane.y = 110f
+                        filterPanel.isVisible = false
+                        loadData()
+                    }
                 },
                 ActionCompositeButton(r, Action.Equipment, Mode.SingleLine(UiTexts.NavItems.value(r.l))).apply {
                     onClick {
@@ -170,7 +176,7 @@ class InventoryWindow(
             when (filterMode) {
                 FilterMode.CURRENCY -> showCurrency()
                 FilterMode.ITEMS -> showItems()
-                else -> Unit
+                FilterMode.GEMS -> showGems()
             }
             content.row()
             content.add().growY()
@@ -219,5 +225,22 @@ class InventoryWindow(
             }
             val actor = ItemBrowser(r, items, null, null)
             content.add(actor).colspan(4).row()
+    }
+
+    private suspend fun showGems() {
+        val items = r.mineService.listGems()
+            .sortedByDescending { it.tier }
+            .map { gem ->
+                FrontItemEntryModel.GemItemEntryModel(
+                    skin = gem.skin,
+                    amount = 0,
+                    level = gem.tier,
+                    rarity = gem.tier,
+                    name = r.mineService.getGemTemplate(gem.skin).name,
+                    gem = gem
+                )
+            }
+        val actor = ItemBrowser(r, items, null, null)
+        content.add(actor).colspan(4).row()
     }
 }

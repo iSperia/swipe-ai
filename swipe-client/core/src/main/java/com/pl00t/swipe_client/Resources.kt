@@ -118,6 +118,7 @@ class Resources {
     fun regular20Focus(text: String) = Label(text, skin(), "regular20_focus").apply { wrap = true }
     fun regular20White(text: String) = Label(text, skin(), "regular20_white").apply { wrap = true }
     fun regularWhite(text: String) = Label(text, skin(), "regular_white").apply { wrap = true }
+    fun regularError(text: String) = Label(text, skin(), "regular_error").apply { wrap = true }
     fun regularMain(text: String) = Label(text, skin(), "regular_main").apply { wrap = true }
     fun regularBlack(text: String) = Label(text, skin(), "regular_black").apply { wrap = true }
     fun regularFocus(text: String) = Label(text, skin(), "regular_focus").apply { wrap = true }

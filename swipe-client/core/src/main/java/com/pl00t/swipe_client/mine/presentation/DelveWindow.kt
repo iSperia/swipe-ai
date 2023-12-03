@@ -5,9 +5,14 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Scaling
+import com.game7th.swipe.SbText
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
+import com.pl00t.swipe_client.battle.EncounterResultDialog
+import com.pl00t.swipe_client.home.StackDelegate
 import com.pl00t.swipe_client.mine.data.MineItem
+import com.pl00t.swipe_client.services.battle.EncounterResultModel
+import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import com.pl00t.swipe_client.services.profile.SwipeAct
 import kotlinx.coroutines.launch
 import ktx.actors.alpha
@@ -17,6 +22,8 @@ import kotlin.random.Random
 
 class DelveWindow(
     private val r: Resources,
+    private val stack: StackDelegate,
+    private val onClose: () -> Unit
 ) : Group() {
 
     val background = r.image(Resources.actAtlas(SwipeAct.ACT_2), "crystal_mines").apply {
@@ -31,6 +38,8 @@ class DelveWindow(
     }
 
     private val field = mutableMapOf<Int, MineItem>()
+
+    private val rewards = mutableListOf<MineItem>()
 
     private var openedPosition: Int = -1
     private var triesLeft = 0
@@ -132,6 +141,8 @@ class DelveWindow(
     }
 
     private fun onItemClicked(p: Int) {
+        if (triesLeft <= 0) return
+
         val back = backLayer.findActor<Actor>(p.toString())
         val gem = gemLayer.findActor<MineItemActor>(p.toString())
 
@@ -225,6 +236,8 @@ class DelveWindow(
                 val rx = col * rsize
                 val ry = -(row + 1) * rsize
 
+                rewards.add(oldItem)
+
                 val ractor = MineItemActor(r, oldItem).apply {
                     setPosition(rx, ry)
                     setSize(rsize, rsize)
@@ -261,6 +274,41 @@ class DelveWindow(
                 )
             } else {
 
+            }
+
+            if (triesLeft <= 0) {
+                addAction(Actions.sequence(
+                    Actions.delay(4f),
+                    Actions.run {
+                        KtxAsync.launch {
+                            val rewardEntities = rewards.map { gem ->
+                                val template = r.mineService.getGemTemplate(gem.skin)
+                                FrontItemEntryModel.GemItemEntryModel(
+                                    skin = gem.skin,
+                                    amount = 0,
+                                    level = 0,
+                                    rarity = gem.tier,
+                                    name = template.name,
+                                    gem = gem
+                                )
+                            }
+                            r.mineService.addGems(rewards)
+
+                            val resultActor = EncounterResultDialog(
+                                r,
+                                result = EncounterResultModel.MineResult(
+                                    gems = rewardEntities,
+                                    level = r.mineService.level()
+                                ),
+                                onClose = { stack.moveBack(); onClose() },
+                                onItemClick = { Unit },
+                                onStartLevel = { _ -> Unit }
+                            )
+
+                            stack.showScreen(resultActor)
+                        }
+                    }
+                ))
             }
 
             openedPosition = -1

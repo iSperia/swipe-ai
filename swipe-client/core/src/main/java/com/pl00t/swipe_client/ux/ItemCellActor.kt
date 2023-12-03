@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.pl00t.swipe_client.Resources
+import com.pl00t.swipe_client.UiTexts
 import com.pl00t.swipe_client.services.profile.FrontItemEntryModel
 import ktx.actors.alpha
 import ktx.actors.onExit
@@ -59,7 +60,6 @@ class ItemCellActor(
         addActor(starGroup)
 
         addActor(amountLabel)
-
 
         val padding = (72f - (model.rarity + 1) * 12f)/2f
         (0..model.rarity).forEach { index ->

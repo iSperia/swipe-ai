@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import com.game7th.items.InventoryItem
+import com.game7th.items.ItemAffix
+import com.game7th.items.ItemCategory
 import com.game7th.swipe.SbText
 import com.game7th.swipe.game.SbSoundType
 import com.pl00t.swipe_client.Resources
@@ -36,7 +38,7 @@ class InventoryItemWindow(
     private val onClose: () -> Unit
 ) : Group() {
 
-    private lateinit var model: FrontItemEntryModel
+    private lateinit var model: FrontItemEntryModel.InventoryItemEntryModel
 
     private val content = Table().apply {
         width = 480f
@@ -54,6 +56,7 @@ class InventoryItemWindow(
     lateinit protected var backgroundShadow: Image
 
     private var currencyIndexCache: Int? = null
+    private var gemIndexCache: Int? = null
 
     init {
         setSize(r.width, r.height)
@@ -61,8 +64,10 @@ class InventoryItemWindow(
         KtxAsync.launch {
             loadData()
 
-            background = r.image(Resources.ux_atlas, "texture_screen").apply { setSize(r.width, r.height); alpha = 0.5f; color = r.skin().getColor("rarity_${model.rarity}") }
-            backgroundShadow = r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
+            background = r.image(Resources.ux_atlas, "texture_screen")
+                .apply { setSize(r.width, r.height); alpha = 0.5f; color = r.skin().getColor("rarity_${model.rarity}") }
+            backgroundShadow =
+                r.image(Resources.ux_atlas, "background_transparent50").apply { setSize(r.width, r.height) }
             addActor(background)
             addActor(backgroundShadow)
 
@@ -136,6 +141,7 @@ class InventoryItemWindow(
             BrowseMode.DETAILS -> {
                 showDetails(item)
             }
+
             BrowseMode.DUST -> {
                 showDust()
             }
@@ -146,7 +152,12 @@ class InventoryItemWindow(
     }
 
     private suspend fun showDetails(item: InventoryItem) {
-        val cs = arrayOf(SwipeCurrency.INFUSION_ORB, SwipeCurrency.INFUSION_SHARD, SwipeCurrency.INFUSION_CRYSTAL, SwipeCurrency.ASCENDANT_ESSENCE)
+        val cs = arrayOf(
+            SwipeCurrency.INFUSION_ORB,
+            SwipeCurrency.INFUSION_SHARD,
+            SwipeCurrency.INFUSION_CRYSTAL,
+            SwipeCurrency.ASCENDANT_ESSENCE
+        )
         val actor = ItemRowActor(
             r = r,
             model = model,
@@ -157,7 +168,15 @@ class InventoryItemWindow(
             val nowExp = SwipeCharacter.experience[SwipeCharacter.getLevel(item.experience) - 1]
             val newExp = SwipeCharacter.experience[SwipeCharacter.getLevel(item.experience)]
 
-            setState(SwipeCharacter.getLevel(item.experience), 0, 0, item.experience - nowExp, item.experience - nowExp, newExp - nowExp, SwipeCharacter.getLevel(item.maxExperience))
+            setState(
+                SwipeCharacter.getLevel(item.experience),
+                0,
+                0,
+                item.experience - nowExp,
+                item.experience - nowExp,
+                newExp - nowExp,
+                SwipeCharacter.getLevel(item.maxExperience)
+            )
         }
 
         val profile = r.profileService.getProfile()
@@ -173,7 +192,8 @@ class InventoryItemWindow(
             )
         }.filter { it.amount > 0 }
         val itemBrowser = ItemBrowser(r, items, onItemClick = null, actionProvider = { actionModel ->
-            currencyIndexCache = items.indexOfFirst { it.currency == (actionModel as FrontItemEntryModel.CurrencyItemEntryModel).currency }
+            currencyIndexCache =
+                items.indexOfFirst { it.currency == (actionModel as FrontItemEntryModel.CurrencyItemEntryModel).currency }
             ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
                 onClick {
                     KtxAsync.launch {
@@ -183,7 +203,8 @@ class InventoryItemWindow(
                                 val oldExp = SwipeCharacter.getLevel(model.item.experience)
                                 r.profileService.spendCurrency(arrayOf(actionModel.currency), arrayOf(1))
                                 r.profileService.addItemExperience(model.item.id, actionModel.currency.expBonus)
-                                val newExp = SwipeCharacter.getLevel(model.item.experience + actionModel.currency.expBonus)
+                                val newExp =
+                                    SwipeCharacter.getLevel(model.item.experience + actionModel.currency.expBonus)
                                 if (newExp != oldExp) {
                                     r.playSound(SbSoundType.LEVELUP)
                                 }
@@ -202,6 +223,58 @@ class InventoryItemWindow(
         content.add(actor).size(actor.width, actor.height).row()
         content.add(levelProgressActor).padTop(10f).padBottom(10f).row()
         content.add(itemBrowser).padTop(10f).row()
+
+        if (model.item.category == ItemCategory.RING || model.item.category == ItemCategory.AMULET) {
+            val allGems = r.mineService.listGems()
+            if (allGems.isNotEmpty()) {
+                val gemItems = allGems.mapIndexed { index, gem ->
+                    FrontItemEntryModel.GemItemEntryModel(
+                        skin = gem.skin,
+                        amount = 0,
+                        level = gem.tier,
+                        rarity = gem.tier,
+                        name = r.mineService.getGemTemplate(gem.skin).name,
+                        gem = gem
+                    )
+                }
+                val gemBrowser = ItemBrowser(
+                    r = r,
+                    items = gemItems,
+                    onItemClick = { null },
+                    actionProvider = { gemModel ->
+                        currencyIndexCache = null
+                        ActionCompositeButton(r, Action.Complete, Mode.SingleLine(UiTexts.UseItem.value(r.l))).apply {
+                            onClick {
+                                KtxAsync.launch {
+                                    val template = r.mineService.getGemTemplate(gemModel.skin)
+                                    val affix = r.itemService.getAffix(template.affix)!!
+
+                                    val item = r.profileService.getItems().first { it.id == this@InventoryItemWindow.id }
+                                    val enchantedItem = item.copy(
+                                        enchant = ItemAffix(
+                                            affix = template.affix,
+                                            value = affix.valuePerTier * (1f + gemModel.level),
+                                            scalable = true,
+                                            level = gemModel.level + 1
+                                        )
+                                    )
+                                    r.profileService.updateItem(enchantedItem)
+                                    r.playSound(SbSoundType.LEVELUP)
+
+                                    r.mineService.spendGem(gemModel.skin, gemModel.level)
+                                    loadData()
+                                }
+                            }
+                        }
+                    }
+                ).apply {
+                    selectedIndex = gemIndexCache
+                    drawItems()
+                }
+
+                content.add(gemBrowser).padTop(10f).row()
+            }
+        }
     }
 
     private suspend fun showDust() {
@@ -215,17 +288,20 @@ class InventoryItemWindow(
         val curGroup = Group().apply {
             setSize(480f, 160f)
         }
-        val dustResult = r.profileService.previewDust((model as FrontItemEntryModel.InventoryItemEntryModel).item.id).filter { it.amount > 0 }
+        val dustResult = r.profileService.previewDust((model as FrontItemEntryModel.InventoryItemEntryModel).item.id)
+            .filter { it.amount > 0 }
         dustResult.forEachIndexed { i, balance ->
             val meta = r.profileService.getCurrency(balance.currency)
-            val actor = ItemCellActor(r, FrontItemEntryModel.CurrencyItemEntryModel(
-                skin = meta.currency.toString(),
-                amount = balance.amount,
-                level = 0,
-                rarity = meta.rarity,
-                name = meta.name,
-                currency = meta.currency,
-            )).apply {
+            val actor = ItemCellActor(
+                r, FrontItemEntryModel.CurrencyItemEntryModel(
+                    skin = meta.currency.toString(),
+                    amount = balance.amount,
+                    level = 0,
+                    rarity = meta.rarity,
+                    name = meta.name,
+                    currency = meta.currency,
+                )
+            ).apply {
                 setPosition(i * 120f, 0f)
             }
             curGroup.addActor(actor)

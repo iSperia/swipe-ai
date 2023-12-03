@@ -154,7 +154,9 @@ class MineWindow(
                         KtxAsync.launch {
                             r.analytics.trackEvent(AnalyticEvents.MineEvent.EVENT_LAUNCH, mapOf(AnalyticEvents.MineEvent.KEY_LEVEL to r.mineService.level().toString()))
                             stack.showScreen(DelveWindow(
-                                r = r
+                                r = r,
+                                stack = stack,
+                                onClose = { stack.moveBack() }
                             ))
                             loadData()
                         }

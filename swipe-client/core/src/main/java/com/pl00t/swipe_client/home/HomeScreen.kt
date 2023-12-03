@@ -10,7 +10,7 @@ import com.game7th.swipe.game.SbSoundType
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.SbBaseScreen
 import com.pl00t.swipe_client.atlas.AtlasWindow
-import com.pl00t.swipe_client.battle.BattleResultDialog
+import com.pl00t.swipe_client.battle.EncounterResultDialog
 import com.pl00t.swipe_client.battle.BattleWindow
 import com.pl00t.swipe_client.heroes.HeroDetailWindow
 import com.pl00t.swipe_client.heroes.HeroListWindow
@@ -195,7 +195,7 @@ class HomeScreen(
         if (popStack) stack.moveBack()
         stack.showScreen(BattleWindow(r, { result ->
             stack.moveBack()
-            stack.showScreen(BattleResultDialog(r, result, onClose = {
+            stack.showScreen(EncounterResultDialog(r, result, onClose = {
                 stack.moveBack()
             }, onItemClick = {
                 stack.showScreen(InventoryItemWindow(

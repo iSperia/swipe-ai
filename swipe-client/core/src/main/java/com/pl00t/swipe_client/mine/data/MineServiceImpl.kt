@@ -14,7 +14,7 @@ class MineServiceImpl(
     private val handle = Gdx.files.local("data/mine.txt")
     private val gson = Gson()
 
-    private val config: MineConfigurationFile = gson.fromJson(configFile.readString(), MineConfigurationFile::class.java)
+    private val config: MineConfigurationFile = gson.fromJson(configFile.readString("UTF-8"), MineConfigurationFile::class.java)
     private var progress: MineProgressFile = if (handle.exists()) {
         gson.fromJson(handle.readString(), MineProgressFile::class.java)
     } else {
@@ -36,6 +36,8 @@ class MineServiceImpl(
     override suspend fun getMineProgress(): MineProgressFile {
         return progress
     }
+
+    override suspend fun getGemTemplate(skin: String) = config.stones.first { it.skin == skin }
 
     override suspend fun getUpgradeCost(): Int {
         return config.upgradeCosts[progress.level]
@@ -68,6 +70,26 @@ class MineServiceImpl(
 
     override suspend fun getMaxTier(): Int {
         return config.maxTiers[progress.level]
+    }
+
+    override suspend fun addGems(gems: List<MineItem>) {
+        progress = progress.copy(items = progress.items + gems)
+        saveProgress()
+    }
+
+    override suspend fun listGems(): List<MineItem> = progress.items
+
+    override suspend fun spendGem(skin: String, level: Int) {
+        var found = false
+        progress = progress.copy(items = progress.items.mapNotNull { gem ->
+            if (found) gem else if (gem.skin == skin && gem.tier == level) {
+                found = true
+                null
+            } else {
+                gem
+            }
+        })
+        saveProgress()
     }
 }
 

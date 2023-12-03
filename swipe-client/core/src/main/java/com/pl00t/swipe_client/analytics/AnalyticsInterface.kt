@@ -30,6 +30,24 @@ object AnalyticEvents {
         )
     }
 
+    object MineEvent {
+        val EVENT_RESULT = "mine.result"
+        val EVENT_LAUNCH = "mine.launch"
+        val EVENT_UPGRADE = "mine.upgrade"
+
+        val KEY_LEVEL = "level"
+        val KEY_GEM_AMOUNT = "gem_amount"
+
+        fun createLaunch(level: Int) = mapOf(
+            KEY_LEVEL to level
+        )
+
+        fun createResult(level: Int, gemAmount: Int) = mapOf(
+            KEY_LEVEL to level.toString(),
+            KEY_GEM_AMOUNT to gemAmount.toString()
+        )
+    }
+
     object EquipEvent {
         val EVENT_EQUIP = "item.equip"
         val EVENT_UNEQUIP = "item.unequip"
@@ -41,11 +59,5 @@ object AnalyticEvents {
         val EVENT_PURCHASE = "mysteryshop.purchase"
         val KEY_TIER = "tier"
         val KEY_COST = "cost"
-    }
-
-    object MineEvent {
-        val EVENT_LAUNCH = "mine.launch"
-        val EVENT_UPGRADE = "mine.upgrade"
-        val KEY_LEVEL = "level"
     }
 }
