@@ -1,5 +1,6 @@
 package com.pl00t.swipe_client.services.battle
 
+import com.game7th.items.ItemAffixType
 import com.game7th.swipe.SbText
 import com.game7th.swipe.game.*
 import com.pl00t.swipe_client.services.levels.LevelService
@@ -157,7 +158,19 @@ class BattleServiceImpl(
             this.waves = waves
         }
 
-        experienceIfWin = waves.flatMap { it }.sumOf {
+        val expBoostCoef = profileService.getItems()
+            .filter { it.equippedBy == profileService.getActiveCharacter() }
+            .flatMap { it.affixes + it.enchant + it.implicit }
+            .filterNotNull()
+            .sumOf {
+                if (it.affix == ItemAffixType.EXP_BOOST_PERCENT) {
+                    it.value.toDouble()
+                } else {
+                    0.0
+                }
+            }.toFloat() / 100f + 1f
+
+        experienceIfWin = (waves.flatMap { it }.sumOf {
             val bonusExpRarity = when (it.rarity) {
                 0 -> 0
                 1 -> 2
@@ -166,7 +179,8 @@ class BattleServiceImpl(
                 else -> 8
             }
             it.level * (10 + bonusExpRarity)
-        }
+        }.toFloat() * expBoostCoef).toInt()
+
 
         context = SbContext(
             game = game,
