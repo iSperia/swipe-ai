@@ -396,7 +396,7 @@ class ProfileServiceImpl(
                             skin = "CHARACTER_SAFFRON",
                             attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
                             experience = 0,
-                            unlocked = true
+                            unlocked = false
                         ),
                         SwipeCharacter(
                             skin = "CHARACTER_ZEPHYR",
@@ -852,13 +852,13 @@ class ProfileServiceImpl(
                 val newLevel = SwipeCharacter.getLevel(character.experience + boostExp)
                 val attributes = (oldLevel until newLevel).sumOf { l -> 3 + l / 5 }
                 val isLv1Valerian = skin == "CHARACTER_VALERIAN" && oldLevel == 1
-                val rolls = (0 until attributes).map { Random.nextFloat() }.let {
-                    if (isLv1Valerian) {
-                        listOf(0.15f, 0.15f, 0.45f) + it.subList(3, it.size)
+                val rolls = if (attributes > 0) (0 until attributes).map { Random.nextFloat() }.let {
+                    if (isLv1Valerian && attributes == 3) {
+                        listOf(0.15f, 0.15f, 0.45f)
                     } else {
                         it
                     }
-                }
+                } else emptyList()
                 val boostBody = rolls.count { it < 0.33f }
                 val boostSpirit = rolls.count { it >= 0.33f && it < 0.66f }
                 val boostMind = rolls.count { it >= 0.66f }

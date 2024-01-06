@@ -27,7 +27,7 @@ class MonsterShortDetailsCell(
 
     init {
         addActor(background)
-        setSize(150f, 310f)
+        setSize(150f, 320f)
         val rarity = model.rarity
         addActor(r.image(Resources.units_atlas, model.skin).apply {
             setSize(150f, 250f)
