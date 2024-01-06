@@ -271,9 +271,9 @@ data class CurrenciesMetadata(
 )
 
 object Debug {
-    val RichStart = true
-    val FastArcanum = true
-    val NoMusic = true
+    val RichStart = false
+    val FastArcanum = false
+    val NoMusic = false
 }
 
 class ProfileServiceImpl(
