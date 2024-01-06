@@ -45,6 +45,7 @@ data class SwipeCharacter(
     val skin: String,
     val attributes: CharacterAttributes,
     val experience: Int,
+    val unlocked: Boolean,
 ) {
     companion object {
         val experience = mutableListOf<Int>()
@@ -101,7 +102,8 @@ data class SwipeProfile(
     val inventoryUnlocked: Boolean = false,
     val shopUnlocked: Boolean = false,
     val atlasUnlocked: Boolean = false,
-    val lastArcanumReplenished: Long
+    val lastArcanumReplenished: Long,
+    val lastViewedAct: SwipeAct = SwipeAct.ACT_1,
 ) {
     private fun getRewardsCollectedOrEmpty() = rewardsCollected ?: emptyList()
 

@@ -59,7 +59,9 @@ class HomeScreen(
             r.skin().getFont("regular24").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             r.skin().getFont("regular24outline").getRegion().texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
             hideSplash()
-            showMap(SwipeAct.ACT_2)
+            KtxAsync.launch {
+                showMap(r.profileService.getProfile().lastViewedAct)
+            }
         }
 
         KtxAsync.launch {
@@ -100,6 +102,9 @@ class HomeScreen(
 
     private fun showMap(act: SwipeAct) {
         stack.moveBack()
+        KtxAsync.launch {
+            r.profileService.saveLastViewedAct(act)
+        }
         r.loadAtlas(Resources.actAtlas(act))
         r.onLoad {
             val mapActor = MapWindow(r, act, onLocationClicked =  { locationId ->

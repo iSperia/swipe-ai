@@ -81,9 +81,12 @@ class HeroListWindow(
                 val monster = r.monsterService.getMonster(character.skin)!!
                 val actor = MonsterShortDetailsCell(
                     r = r,
-                    model = FrontMonsterEntryModel(monster.skin, monster.name, SwipeCharacter.getLevel(character.experience), 4)
+                    model = FrontMonsterEntryModel(monster.skin, monster.name, SwipeCharacter.getLevel(character.experience), 4),
+                    unlocked = character.unlocked,
                 )
-                actor.onClick { onHeroSelected(character.skin) }
+                if (character.unlocked) {
+                    actor.onClick { onHeroSelected(character.skin) }
+                }
                 val cell = Group().apply {
                     setSize(actor.width, actor.height)
                 }

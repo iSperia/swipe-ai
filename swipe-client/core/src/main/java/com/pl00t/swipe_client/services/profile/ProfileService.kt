@@ -37,6 +37,8 @@ interface ProfileService {
 
     suspend fun createCharacter(skin: String): FrontMonsterConfiguration
 
+    suspend fun unlockCharacter(skin: String)
+
     suspend fun createActiveCharacter(): FrontMonsterConfiguration
 
     suspend fun markActComplete(act: SwipeAct, level: String)
@@ -98,6 +100,7 @@ interface ProfileService {
 
     suspend fun getAtlas(): List<FrontAdventureModel>
     suspend fun updateItem(updatedItem: InventoryItem)
+    suspend fun saveLastViewedAct(act: SwipeAct)
 
     data class DustItemResult(
         val rewards: List<CurrencyReward>
@@ -322,12 +325,26 @@ class ProfileServiceImpl(
                             skin = "CHARACTER_VALERIAN",
                             attributes = CharacterAttributes(mind = 100, body = 100, spirit = 100),
                             experience = 0,
+                            unlocked = true
                         ),
                         SwipeCharacter(
                             skin = "CHARACTER_SAFFRON",
                             attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
-                            experience = 0
-                        )
+                            experience = 0,
+                            unlocked = false
+                        ),
+                        SwipeCharacter(
+                            skin = "CHARACTER_ZEPHYR",
+                            attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                            experience = 0,
+                            unlocked = false
+                        ),
+                        SwipeCharacter(
+                            skin = "CHARACTER_DRAKK",
+                            attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                            experience = 0,
+                            unlocked = false
+                        ),
                     ),
                     items = runBlocking {
                         listOf(
@@ -373,12 +390,26 @@ class ProfileServiceImpl(
                             skin = "CHARACTER_VALERIAN",
                             attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
                             experience = 0,
+                            unlocked = true
                         ),
                         SwipeCharacter(
                             skin = "CHARACTER_SAFFRON",
                             attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
-                            experience = 0
-                        )
+                            experience = 0,
+                            unlocked = true
+                        ),
+                        SwipeCharacter(
+                            skin = "CHARACTER_ZEPHYR",
+                            attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                            experience = 0,
+                            unlocked = false
+                        ),
+                        SwipeCharacter(
+                            skin = "CHARACTER_DRAKK",
+                            attributes = CharacterAttributes(mind = 1, body = 1, spirit = 1),
+                            experience = 0,
+                            unlocked = false
+                        ),
                     ),
                     items = emptyList(),
                     tiersUnlocked = emptyList(),
@@ -425,6 +456,15 @@ class ProfileServiceImpl(
     override suspend fun getProfile(): SwipeProfile = profile
 
     override suspend fun createActiveCharacter() = createCharacter(getActiveCharacter())
+
+    override suspend fun unlockCharacter(skin: String) {
+        profile = profile.copy(characters = profile.characters.map { c ->
+            if (c.skin == skin) {
+                c.copy(unlocked = true)
+            } else c
+        })
+        saveProfile()
+    }
 
     override suspend fun createCharacter(skin: String): FrontMonsterConfiguration {
         return profile.characters.firstOrNull { it.skin == skin }?.let { character ->
@@ -862,6 +902,11 @@ class ProfileServiceImpl(
                 item
             }
         })
+        saveProfile()
+    }
+
+    override suspend fun saveLastViewedAct(act: SwipeAct) {
+        profile = profile.copy(lastViewedAct = act)
         saveProfile()
     }
 

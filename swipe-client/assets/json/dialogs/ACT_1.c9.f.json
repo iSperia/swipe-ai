@@ -1,0 +1,52 @@
+{
+  "replicas": [
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "(exhausted but relieved) It's over. Thalendros won't threaten Etheria anymore.",
+        "ru": "(устало, но с облегчением) Все кончено. Талендрос больше не будет угрожать Этерии."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "(enthusiastic) That was quite a brawl! And look, the groves are healing.",
+        "ru": "(с энтузиазмом) Это была настоящая драка! И посмотри, рощи исцеляются."
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "(smiles) Saffron, your skills were impressive. We make a formidable team.",
+        "ru": "(улыбается) Шафран, твои навыки впечатляют. Мы составляем грозную команду."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "(playful) Of course! Who else would save your royal behind?",
+        "ru": "(игриво) Конечно! Кто еще спасет вашу королевскую семью?"
+      },
+      "side": "right"
+    },
+    {
+      "skin": "CHARACTER_VALERIAN",
+      "text": {
+        "en": "Welcome to the team, Saffron. Together, we'll face whatever challenges lie ahead.",
+        "ru": "Добро пожаловать в команду, Шафран. Вместе мы справимся с любыми трудностями, которые ждут нас впереди."
+      },
+      "side": "left"
+    },
+    {
+      "skin": "CHARACTER_SAFFRON",
+      "text": {
+        "en": "(grinning) That's the spirit! Let's go, Valerian. The adventure has just begun!",
+        "ru": "(усмехаясь) Вот это дух! Пойдем, Валериан. Приключение только началось!"
+      },
+      "side": "right"
+    }
+  ]
+}

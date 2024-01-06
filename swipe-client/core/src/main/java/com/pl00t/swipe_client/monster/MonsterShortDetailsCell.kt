@@ -15,11 +15,12 @@ import kotlin.random.Random
 
 class MonsterShortDetailsCell(
     private val r: Resources,
-    private val model: FrontMonsterEntryModel
+    private val model: FrontMonsterEntryModel,
+    private val unlocked: Boolean,
 ) : Group() {
 
     private val background = r.image(Resources.ux_atlas, "background_transparent50").apply {
-        setSize(150f, 310f)
+        setSize(150f, 320f)
         alpha = 0f
     }
     lateinit var unitImage: Image
@@ -30,7 +31,7 @@ class MonsterShortDetailsCell(
         val rarity = model.rarity
         addActor(r.image(Resources.units_atlas, model.skin).apply {
             setSize(150f, 250f)
-            setPosition(0f, 60f)
+            setPosition(0f, 70f)
             color = Color.BLACK
             setOrigin(Align.center)
             setScale(1.05f)
@@ -38,17 +39,25 @@ class MonsterShortDetailsCell(
         })
         addActor(r.image(Resources.units_atlas, model.skin).apply {
             setSize(150f, 250f)
-            setPosition(0f, 60f)
+            setPosition(0f, 70f)
             setOrigin(Align.bottom)
+            alpha = if (unlocked) 1f else 0.3f
         }.also { unitImage = it })
+        if (!unlocked) {
+            addActor(r.image(Resources.ux_atlas, "icon_padlock").apply {
+                setSize(100f, 100f)
+                setPosition(25f, 145f)
+                setOrigin(Align.center)
+            })
+        }
         addActor(r.image(Resources.ux_atlas, "texture_row").apply {
-            setSize(148f, 68f)
+            setSize(148f, 78f)
             setPosition(1f, 1f)
             color = r.skin().getColor("rarity_${rarity}")
             alpha = 0.5f
         })
         addActor(r.regular20Focus(model.name.value(r.l)).apply {
-            setSize(150f, 35f)
+            setSize(150f, 45f)
             setAlignment(Align.center)
             wrap = true
             setPosition(0f, 30f)
@@ -63,13 +72,15 @@ class MonsterShortDetailsCell(
             setPosition(0f, 70f)
         })
 
-        onTouchDown {
-            background.addAction(Actions.alpha(1f, 0.2f))
-            unitImage.addAction(Actions.scaleTo(0.9f, 0.9f, 0.2f))
-        }
-        onExit {
-            background.addAction(Actions.alpha(0f, 0.2f))
-            unitImage.addAction(Actions.scaleTo(1f, 1f, 0.2f))
+        if (unlocked) {
+            onTouchDown {
+                background.addAction(Actions.alpha(1f, 0.2f))
+                unitImage.addAction(Actions.scaleTo(0.9f, 0.9f, 0.2f))
+            }
+            onExit {
+                background.addAction(Actions.alpha(0f, 0.2f))
+                unitImage.addAction(Actions.scaleTo(1f, 1f, 0.2f))
+            }
         }
     }
 }

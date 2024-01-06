@@ -253,6 +253,9 @@ class BattleServiceImpl(
                     freeRewards = freeRewards,
                     extraRewardsCost = if (tier == -1) 0 else rewardCollectCost))
                 profileService.markActComplete(actId, level)
+                if (actId == SwipeAct.ACT_1 && level == "c9") {
+                    profileService.unlockCharacter("CHARACTER_SAFFRON")
+                }
                 if (tier >= 0) {
                     profileService.unlockTier(actId, level, tier + 1)
                 }

@@ -126,9 +126,9 @@ class CampaignLevelWindow(
                 }).size(480f, 30f).colspan(3).row()
             }
             wave.forEach { monster ->
-                content.add(MonsterShortDetailsCell(r, monster).apply {
+                content.add(MonsterShortDetailsCell(r, monster, true).apply {
                     onClick { onMonsterClicked(monster.skin, monster.level, monster.rarity) }
-                }).size(150f, 310f).colspan(1)
+                }).size(150f, 320f).colspan(1)
             }
             content.row()
         }
