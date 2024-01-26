@@ -630,7 +630,7 @@ class ProfileServiceImpl(
                 stuffLeft -= ITEM_COST[item.rarity]
             }
         }
-        val currencies = SwipeCurrency.values().map { c -> c to result.sumOf { if (it is FrontItemEntryModel.CurrencyItemEntryModel) it.amount else 0 } }
+        val currencies = SwipeCurrency.values().map { c -> c to result.sumOf { if (it is FrontItemEntryModel.CurrencyItemEntryModel && it.currency == c) it.amount else 0 } }
         result = (result.mapNotNull { it as? FrontItemEntryModel.InventoryItemEntryModel } + currencies.mapNotNull {
             if (it.second <= 0) {
                 null

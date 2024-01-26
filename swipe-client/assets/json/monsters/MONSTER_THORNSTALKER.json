@@ -46,7 +46,7 @@
     "common.poison"
   ],
   "balance": {
-    "base_health": 330,
+    "base_health": 300,
     "luck": 5,
     "ult": 10,
     "ult_max": 1000,
@@ -60,13 +60,13 @@
     },
     "pa_base": 52,
     "pa_scale": 10,
-    "vb_base": 11,
+    "vb_base": 9,
     "vb_scale": 10,
     "rg_base": 70,
     "rg_scale": 10
   },
   "affixes": {
-    "RESIST_PHYSICAL": 20
+    "RESIST_PHYSICAL": 15
   },
   "scale": 0.88
 }
