@@ -69,8 +69,8 @@ fun provideShadowOfChaosAbilities(balance: JsonObject, attributes: CharacterAttr
 
 fun provideShadowOfChaosTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
     "shadow_of_chaos.evasive_shadows" to { context, event ->
-        context.useOnComplete(event, SHADOW_OF_CHAOS_EVASIVE_SHADOWS) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, SHADOW_OF_CHAOS_EVASIVE_SHADOWS) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
 
             val resistBuffs = (koef * balance.intAttribute(es_res_base) * (1f + 0.01f * balance.floatAttribute(
                 es_res_scale) * character.attributes.spirit) / 100f).toInt()
@@ -90,8 +90,8 @@ fun provideShadowOfChaosTriggers(balance: JsonObject): Map<String, SbTrigger> = 
     },
 
     "shadow_of_chaos.dark_aura" to  { context, event ->
-        context.useOnComplete(event, THALENDROS_DARK_AURA) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, THALENDROS_DARK_AURA) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             allEnemies(characterId).randomOrNull()?.let { targetId ->
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
@@ -132,8 +132,8 @@ fun provideShadowOfChaosTriggers(balance: JsonObject): Map<String, SbTrigger> = 
     },
 
     "shadow_of_chaos.abyssal_rend" to { context, event ->
-        context.useOnComplete(event, SHADOW_OF_CHAOS_ABYSSAL_REND) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, SHADOW_OF_CHAOS_ABYSSAL_REND) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 dark = balance.floatAttribute(ar_base) * (1f + 0.01f * balance.intAttribute(ar_scale) * character.attributes.spirit),
             ).multipledBy(koef)

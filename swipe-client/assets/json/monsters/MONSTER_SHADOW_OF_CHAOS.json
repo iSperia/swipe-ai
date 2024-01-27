@@ -15,6 +15,23 @@
     { "weight": 3, "skin": "SHADOW_OF_CHAOS_EVASIVE_SHADOWS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 3 },
     { "weight": 2, "skin": "THALENDROS_DARK_AURA", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
   ],
+  "abilities": [
+    {
+      "id": "SHADOW_OF_CHAOS_ABYSSAL_REND",
+      "weight": 5,
+      "timeout": 4
+    },
+    {
+      "id": "SHADOW_OF_CHAOS_EVASIVE_SHADOWS",
+      "weight": 2,
+      "timeout": 2
+    },
+    {
+      "id": "THALENDROS_DARK_AURA",
+      "weight": 1,
+      "timeout": 5
+    }
+  ],
   "triggers": [
     "shadow_of_chaos.evasive_shadows", "shadow_of_chaos.dark_aura", "shadow_of_chaos.abyssal_rend"
   ],

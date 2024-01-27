@@ -4,6 +4,7 @@ import com.game7th.swipe.SbText
 import com.game7th.swipe.game.floatAttribute
 import com.game7th.swipe.game.intAttribute
 import com.game7th.swipe.game.*
+import com.game7th.swipe.monsters.MonsterService
 import com.google.gson.JsonObject
 import kotlin.random.Random
 
@@ -66,8 +67,8 @@ fun provideXalitharAbilities(balance: JsonObject, attributes: CharacterAttribute
 fun provideXalitharTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
 
     "xalithar.frozen_impact" to { context, event ->
-        context.useOnComplete(event, XALITHAR_FROZEN_IMPACT) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, XALITHAR_FROZEN_IMPACT) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 phys = balance.floatAttribute(fi_phys_base) * (1f + 0.01f * balance.intAttribute(fi_phys_scale) * character.attributes.body),
                 cold = balance.floatAttribute(fi_cold_base) * (1f + 0.01f * balance.intAttribute(fi_cold_scale) * character.attributes.mind)
@@ -84,24 +85,21 @@ fun provideXalitharTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf
 
     "xalithar.mirrorweave" to { context, event ->
         context.onDamage(event) { event ->
-            if (event.sourceId != null) {
-                val fullMirrorWeaveTile = game.character(event.characterId)?.tiles?.filter { it.progress == it.maxProgress && it.skin == XALITHAR_MIRRORWEAVE }?.randomOrNull()
-                fullMirrorWeaveTile?.let { tile ->
-                    destroyTile(event.characterId, tile.id)
-                    val reflectedDamage = event.damage.multipledBy(balance.floatAttribute(m_percent) / 100f)
-                    events.add(
-                        SbDisplayEvent.SbShowTarotEffect(
-                            SbBattleFieldDisplayEffect.SimpleAttackEffect(
-                                XALITHAR_FROZEN_IMPACT, event.characterId, event.sourceId), SbSoundType.WOOSH_TREE_ATTACK))
-                    dealDamage(event.characterId, event.sourceId, reflectedDamage)
-                }
+            val target = context.game.character(event.characterId) ?: return@onDamage
+            if (target.skin == MonsterService.MONSTER_XALITHAR && event.sourceId != null) {
+                val reflectedDamage = event.damage.multipledBy(balance.floatAttribute(m_percent) / 100f)
+                events.add(
+                    SbDisplayEvent.SbShowTarotEffect(
+                        SbBattleFieldDisplayEffect.SimpleAttackEffect(
+                            XALITHAR_FROZEN_IMPACT, event.characterId, event.sourceId), SbSoundType.WOOSH_TREE_ATTACK))
+                dealDamage(event.characterId, event.sourceId, reflectedDamage)
             }
         }
     },
 
     "xalithar.crystalline_cataclysm" to { context, event ->
-        context.useOnComplete(event, XALITHAR_CRYSTALINE_CATACLYSM) { characterId, tileId, koef ->
-            val character= game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, XALITHAR_CRYSTALINE_CATACLYSM) { characterId, koef ->
+            val character= game.character(characterId) ?: return@useMonsterAbility
 
             rangedTarget(characterId).forEach { target ->
                 val position = Random.nextInt(25)

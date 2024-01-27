@@ -97,7 +97,7 @@ class Resources {
 
     fun atlas(name: String) = assetManager.get<TextureAtlas>(name)
 
-    fun region(atlas: String, name: String) = atlas(atlas).findRegion(name).let { it ?: throw IllegalStateException("No texture $name") }
+    fun region(atlas: String, name: String) = atlas(atlas).findRegion(name).let { it ?: throw IllegalStateException("No texture <$name>") }
     fun region(atlas: String, name: String, index: Int) = atlas(atlas).findRegion(name, index).let { it ?: throw IllegalStateException("No texture $name") }
 
     fun image(atlas: String, name: String) = Image(region(atlas, name))

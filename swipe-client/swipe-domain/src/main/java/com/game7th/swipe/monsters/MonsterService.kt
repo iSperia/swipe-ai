@@ -30,9 +30,3 @@ interface MonsterService {
         const val MONSTER_MALACHI = "MONSTER_MALACHI"
     }
 }
-
-data class MonsterConfigurationFile(
-    val monsters: List<SbMonsterConfiguration>
-)
-
-

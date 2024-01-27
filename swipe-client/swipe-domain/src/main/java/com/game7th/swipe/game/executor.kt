@@ -1,6 +1,5 @@
 package com.game7th.swipe.game
 
-import com.game7th.items.ItemAffixType
 import kotlin.math.min
 import kotlin.random.Random
 
@@ -45,13 +44,15 @@ fun SbContext.randomTarget(characterId: Int): List<Int> = game.character(charact
 
 fun SbContext.createCharacter(skin: String, rarity: Int = 0): SbCharacter {
     val config = balance.getMonster(skin)
-    val generators = config.tiles.mapIndexed { index, tileConfig ->
-        SbEffect(
-            id = index,
-            skin = "COMMON_GENERATOR",
-            mapOf(CommonKeys.Generator.GENERATOR to tileConfig)
-        )
-    }
+    val generators = if (config.tiles != null) {
+        config.tiles.mapIndexed { index, tileConfig ->
+            SbEffect(
+                id = index,
+                skin = "COMMON_GENERATOR",
+                mapOf(CommonKeys.Generator.GENERATOR to tileConfig)
+            )
+        }
+    } else emptyList()
     return SbCharacter(
         id = 0,
         skin = skin,
@@ -68,6 +69,7 @@ fun SbContext.createCharacter(skin: String, rarity: Int = 0): SbCharacter {
         effects = generators,
         scale = config.scale,
         rarity = rarity,
+        cap = config.cap,
     )
 }
 
@@ -193,12 +195,51 @@ fun SbContext.initWave(wave: List<FrontMonsterConfiguration>) {
                     CommonKeys.ULT_PROGRESS.EXTRA_ULT_PROGRESS to ultBonus
                 )
             )
+        ).withAddedEffect(
+            SbEffect(
+                id = 0,
+                skin = CommonKeys.MONSTER_COMMON.ABILITY_POOL,
+                mapOf(
+                    CommonKeys.MONSTER_COMMON.ABILITY_POOL to config.abilities,
+                    CommonKeys.MONSTER_COMMON.ACTIVE_ABILITY_TICKS to 0,
+                    CommonKeys.MONSTER_COMMON.ACTIVE_ABILITY to ""
+                )
+            )
         )
         game = game.withAddedCharacter(character)
+        checkMonsterIntent(game.characters.last().id)
         events.add(SbDisplayEvent.SbCreateCharacter(
             personage = game.characters.last().asDisplayed()
         ))
-        generateTiles(game.characters.last().id, 5)
+    }
+}
+
+fun SbContext.checkMonsterIntent(id: Int) {
+    val monster = game.character(id) ?: return
+    if (!monster.human) {
+        val abilityConfig: SbEffect = monster.effects.firstOrNull { it.skin == CommonKeys.MONSTER_COMMON.ABILITY_POOL } ?: return
+
+        val ticks = (abilityConfig.data[CommonKeys.MONSTER_COMMON.ACTIVE_ABILITY_TICKS] as? Int) ?: 0
+
+        if (ticks <= 0) {
+            //ok, we have no active ability to go, so please generate new one
+            val config = monster.collect<List<SbMonsterAbilityConfiguration>>(CommonKeys.MONSTER_COMMON.ABILITY_POOL).firstOrNull() ?: return
+            val totalWeight = config.sumOf { it.weight }
+            val roll = Random.nextInt(totalWeight)
+            var sum = 0
+            val ability = config.firstOrNull {
+                sum += it.weight
+                sum > roll
+            } ?: return
+
+            val newData = abilityConfig.data.toMutableMap()
+            newData[CommonKeys.MONSTER_COMMON.ACTIVE_ABILITY_TICKS] = ability.timeout
+            newData[CommonKeys.MONSTER_COMMON.ACTIVE_ABILITY] = ability.id
+
+            val newCharacter = monster.withUpdatedEffect(abilityConfig.copy(data = newData))
+            events.add(SbDisplayEvent.SbUpdateCharacter(newCharacter.asDisplayed()))
+            game = game.withUpdatedCharacter(newCharacter)
+        }
     }
 }
 

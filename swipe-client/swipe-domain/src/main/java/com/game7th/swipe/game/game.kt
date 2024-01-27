@@ -37,6 +37,7 @@ data class SbCharacter(
     val health: Int,
     val maxHealth: Int,
     val scale: Float,
+    val cap: Float,
     val attributes: CharacterAttributes,
     val ultimateProgress: Int,
     val maxUltimateProgress: Int,
@@ -53,7 +54,9 @@ data class SbCharacter(
     fun withAddedTile(tile: SbTile) = copy(maxTileId = maxTileId + 1, tiles = tiles + tile.copy(id = maxTileId))
     fun tileAt(x: Int, y: Int, z: Int) = tiles.firstOrNull { it.x == x && it.y == y && it.z == z }
     fun withRemovedTile(tileId: Int) = copy(tiles = tiles.filter { it.id != tileId })
-    fun withAddedEffect(effect: SbEffect) = copy(maxEffectId = maxEffectId + 1, effects = effects + effect.copy(id = maxEffectId))
+    fun withAddedEffect(effect: SbEffect) =
+        copy(maxEffectId = maxEffectId + 1, effects = effects + effect.copy(id = maxEffectId))
+
     fun withRemovedEffect(effectId: Int) = copy(effects = effects.filter { it.id != effectId })
     fun withUpdatedEffect(effect: SbEffect) = copy(effects = effects.map { e -> if (e.id == effect.id) effect else e })
     fun removeEffects(skin: String) = copy(effects = effects.filter { it.skin != skin })
@@ -69,19 +72,37 @@ data class SbCharacter(
     }
 
     fun withUpdatedUltimateProgress(ultimateProgress: Int) = copy(ultimateProgress = ultimateProgress)
-    fun asDisplayed() = SbDisplayCharacter(
-        id = id,
-        skin = skin,
-        health = health,
-        maxHealth = maxHealth,
-        ultimateProgress = ultimateProgress,
-        maxUltimateProgress = maxUltimateProgress,
-        effects = emptyList(),
-        team = team,
-        scale = scale,
-        rarity = rarity
-    )
+
+    fun asDisplayed(): SbDisplayCharacter {
+
+        val intentAbility = collect<String>(CommonKeys.MONSTER_COMMON.ACTIVE_ABILITY).firstOrNull()
+        val intentTicks = collect<Int>(CommonKeys.MONSTER_COMMON.ACTIVE_ABILITY_TICKS).firstOrNull()
+
+        val intent = if (intentAbility != null && intentTicks != null) {
+            SbCharacterDisplayIntent(
+                monsterSkin = skin,
+                skin = intentAbility,
+                ticks = intentTicks
+            )
+        } else null
+
+        return SbDisplayCharacter(
+            id = id,
+            skin = skin,
+            health = health,
+            maxHealth = maxHealth,
+            ultimateProgress = ultimateProgress,
+            maxUltimateProgress = maxUltimateProgress,
+            effects = emptyList(),
+            team = team,
+            scale = scale,
+            cap = cap,
+            rarity = rarity,
+            intent = intent,
+        )
+    }
 }
+
 
 enum class SbTileMergeStrategy {
     SIMPLE, NONE, KEEP_MAX
@@ -154,19 +175,27 @@ data class SbDisplayCharacter(
     val id: Int,
     val team: Int,
     val scale: Float,
+    val cap: Float,
     val skin: String,
     val health: Int,
     val maxHealth: Int,
     val rarity: Int,
     val ultimateProgress: Int,
     val maxUltimateProgress: Int,
-    val effects: List<SbCharacterDisplayEffect>
+    val effects: List<SbCharacterDisplayEffect>,
+    val intent: SbCharacterDisplayIntent?
 ) {
 
 }
 
 data class SbCharacterDisplayEffect(
     val skin: String
+)
+
+data class SbCharacterDisplayIntent(
+    val monsterSkin: String,
+    val skin: String,
+    val ticks: Int,
 )
 
 data class SbElemental(

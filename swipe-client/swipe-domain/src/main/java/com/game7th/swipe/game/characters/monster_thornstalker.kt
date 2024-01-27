@@ -59,8 +59,8 @@ fun provideThornstalkerAbilities(balance: JsonObject, attributes: CharacterAttri
 
 fun provideThornstalkerTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
     "thornstalker.primal_assault" to { context, event ->
-        context.useOnComplete(event, THORNSTALKER_PRIMAL_ASSAULT) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, THORNSTALKER_PRIMAL_ASSAULT) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 phys = balance.floatAttribute(pa_base) * (1f + 0.01f * balance.intAttribute(pa_scale) * character.attributes.body)
             ).multipledBy(koef)
@@ -75,7 +75,7 @@ fun provideThornstalkerTriggers(balance: JsonObject): Map<String, SbTrigger> = m
     },
 
     "thornstalker.resilient_growth" to { context, event ->
-        context.useOnComplete(event, THORNSTALKER_RESILIENT_GROWTH) { characterId, tileId, koef ->
+        context.useMonsterAbility(event, THORNSTALKER_RESILIENT_GROWTH) { characterId, koef ->
             game.character(characterId)?.let { character ->
                 val amount = balance.floatAttribute(rg_base) * (1f + 0.01f * balance.intAttribute(rg_scale) * character.attributes.spirit) * koef
                 healCharacter(characterId, amount.toInt())
@@ -86,7 +86,7 @@ fun provideThornstalkerTriggers(balance: JsonObject): Map<String, SbTrigger> = m
     },
 
     "thornstalker.venomous_barrage" to { context, event ->
-        context.useOnComplete(event, THORNSTALKER_VENOMOUS_BARRAGE) { characterId, tileId, koef ->
+        context.useMonsterAbility(event, THORNSTALKER_VENOMOUS_BARRAGE) { characterId, koef ->
             game.character(characterId)?.let { character ->
                 val poisonAmount = balance.floatAttribute(vb_base) * (1f + 0.01f * balance.intAttribute(vb_scale) * character.attributes.spirit) * koef
                 meleeTarget(characterId).forEach { targetId ->

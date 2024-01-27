@@ -7,7 +7,6 @@ import com.game7th.items.ItemAffixType
 import com.game7th.swipe.SbText
 import com.game7th.swipe.game.*
 import com.game7th.swipe.game.characters.*
-import com.google.gson.Gson
 import com.game7th.swipe.monsters.MonsterService
 import com.pl00t.swipe_client.Resources
 import com.pl00t.swipe_client.UiTexts
@@ -21,7 +20,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.lang.IllegalArgumentException
-import java.util.Currency
 import java.util.UUID
 import kotlin.math.max
 import kotlin.math.min
@@ -178,7 +176,7 @@ suspend fun generateCharacter(monsterService: MonsterService, level: Int, rarity
             fire = dmgFire,
             cold = dmgCold
         ),
-        abilities = abilities,
+        frontAbilities = abilities,
         lore = configFile.lore,
         health = health,
         luck = luck,
@@ -187,6 +185,7 @@ suspend fun generateCharacter(monsterService: MonsterService, level: Int, rarity
         ultPrefillPercent = ultPrefillPercent.toInt(),
         rarity = rarity,
         rarityAffixes = emptyList(),
+        abilities = emptyList(),
     )
 }
 
@@ -366,7 +365,8 @@ class ProfileServiceImpl(
                     mysteryShop = null,
                     activeCharacter = "CHARACTER_VALERIAN",
                     tutorial = TutorialState(true, true, true, true, true, true, true, true, true, true ),
-                    lastArcanumReplenished = System.currentTimeMillis()
+                    lastArcanumReplenished = System.currentTimeMillis(),
+                    atlasUnlocked = true
                 )
             } else {
                 SwipeProfile(

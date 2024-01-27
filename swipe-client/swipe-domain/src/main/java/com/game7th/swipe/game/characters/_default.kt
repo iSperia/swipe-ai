@@ -40,5 +40,14 @@ fun provideDefaultTriggers(): Map<String, SbTrigger> = mapOf(
                 game = game.withUpdatedCharacter(character.withRemovedEffect(effect.id))
             }
         }
+    },
+
+    /**
+     * Common monster stuff
+     */
+    "common.monster_abilities" to { context, event ->
+        if (event is SbEvent.MonsterTick) {
+
+        }
     }
 )

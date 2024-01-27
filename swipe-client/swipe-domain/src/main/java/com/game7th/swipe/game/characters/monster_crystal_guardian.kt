@@ -69,8 +69,8 @@ fun provideCrystalGuardianAttributes(balance: JsonObject, attributes: CharacterA
 
 fun provideCrystalGuardianTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
     "crystal_guardian.crystal_froststrike" to { context, event ->
-        context.useOnComplete(event, CRYSTAL_GUARDIAN_CRYSTAL_FROSTSTRIKE) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, CRYSTAL_GUARDIAN_CRYSTAL_FROSTSTRIKE) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 cold = balance.floatAttribute(cf_base) * (1f + 0.01f * balance.intAttribute(cf_scale) * (character.attributes.body + character.attributes.mind)),
                 phys = balance.floatAttribute(cf_base) * (1f + 0.01f * balance.intAttribute(cf_scale) * (character.attributes.body + character.attributes.mind))
@@ -87,8 +87,8 @@ fun provideCrystalGuardianTriggers(balance: JsonObject): Map<String, SbTrigger> 
     },
 
     "crystal_guardian.glacial_bind" to  { context, event ->
-        context.useOnComplete(event, CRYSTAL_GUARDIAN_GLACIAL_BIND) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, CRYSTAL_GUARDIAN_GLACIAL_BIND) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 cold = balance.floatAttribute(gb_dmg_base) * (1f + 0.01f * balance.intAttribute(gb_dmg_scale) * character.attributes.mind)
             ).multipledBy(koef)
@@ -118,8 +118,8 @@ fun provideCrystalGuardianTriggers(balance: JsonObject): Map<String, SbTrigger> 
     },
 
     "crystal_guardian.crystal_ward" to { context, event ->
-        context.useOnComplete(event, CRYSTAL_GUARDIAN_CRYSTAL_WARD) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, CRYSTAL_GUARDIAN_CRYSTAL_WARD) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
 
             val resistBuffs = (koef * balance.intAttribute(cw_res_base) * (1f + 0.01f * balance.floatAttribute(cw_res_scale) * character.attributes.mind) / 100f).toInt()
             val duration = (balance.intAttribute(cw_duration) * koef).toInt()

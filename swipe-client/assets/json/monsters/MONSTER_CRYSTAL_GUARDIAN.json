@@ -14,6 +14,23 @@
     { "weight": 4, "skin": "CRYSTAL_GUARDIAN_GLACIAL_BIND", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 },
     { "weight": 3, "skin": "CRYSTAL_GUARDIAN_CRYSTAL_WARD", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
   ],
+  "abilities": [
+    {
+      "id": "CRYSTAL_GUARDIAN_CRYSTAL_FROSTSTRIKE",
+      "weight": 5,
+      "timeout": 4
+    },
+    {
+      "id": "CRYSTAL_GUARDIAN_GLACIAL_BIND",
+      "weight": 4,
+      "timeout": 6
+    },
+    {
+      "id": "CRYSTAL_GUARDIAN_CRYSTAL_WARD",
+      "weight": 3,
+      "timeout": 5
+    }
+  ],
   "triggers": ["crystal_guardian.crystal_froststrike", "crystal_guardian.glacial_bind", "crystal_guardian.crystal_ward"],
   "balance": {
     "base_health": 320,

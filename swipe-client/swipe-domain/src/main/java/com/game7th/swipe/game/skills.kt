@@ -53,6 +53,33 @@ fun SbContext.useOnComplete(event: SbEvent, tileSkin: String, action: SbContext.
     }
 }
 
+fun SbContext.useMonsterAbility(event: SbEvent, ability: String, action: SbContext.(characterId: Int, koef: Float) -> Unit) {
+    if (event is SbEvent.MonsterUseAbility && event.ability == ability) {
+        val character = game.character(event.characterId) ?: return
+
+        var luckBonus = character.effects.filter { it.skin == CommonKeys.LUCK.EXTRA_LUCK }.sumOf { (it.data[CommonKeys.LUCK.EXTRA_LUCK] as Float).toDouble() }.toFloat()
+        var luckChance = 0.05f * (1f + character.attributes.spirit * 0.05f) * (1f + luckBonus)
+        var koef = 1f
+        var roll = Random.nextFloat()
+        while (roll < luckChance) {
+            koef += 0.5f
+            luckChance -= roll
+            roll = Random.nextFloat()
+        }
+        val isLucky = koef > 1f
+
+        if (isLucky) {
+            events.add(SbDisplayEvent.SbShowPopup(
+                characterId = character.id,
+                text = "Lucky (+${((koef - 1)*100).toInt()}%)",
+                icons = emptyList()
+            ))
+        }
+
+        action(event.characterId, koef)
+    }
+}
+
 fun SbContext.onEndOfTurn(event: SbEvent, action: SbContext.(characterId: Int) -> Unit) {
     if (event is SbEvent.EndOfTick) {
         action(event.characterId)

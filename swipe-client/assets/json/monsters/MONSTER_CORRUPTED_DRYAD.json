@@ -17,6 +17,23 @@
     { "weight": 4, "skin": "CORRUPTED_DRYAD_VILE_SIPHON", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
     { "weight": 2, "skin": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 }
   ],
+  "abilities": [
+    {
+      "id": "CORRUPTED_DRYAD_ARBOREAL_FANGS",
+      "weight": 4,
+      "timeout": 3
+    },
+    {
+      "id": "CORRUPTED_DRYAD_VILE_SIPHON",
+      "weight": 4,
+      "timeout": 4
+    },
+    {
+      "id": "CORRUPTED_DRYAD_SHADOWED_ANNIHILATION",
+      "weight": 2,
+      "timeout": 6
+    }
+  ],
   "balance": {
     "base_health": 150,
     "luck": 5,

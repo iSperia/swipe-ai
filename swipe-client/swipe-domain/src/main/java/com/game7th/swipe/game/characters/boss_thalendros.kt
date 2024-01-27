@@ -72,8 +72,8 @@ fun provideThalendrosAbilities(balance: JsonObject, attributes: CharacterAttribu
 fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
 
     "thalendros.thorn_whip" to { context, event ->
-        context.useOnComplete(event, THALENDROS_THORN_WHIP) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, THALENDROS_THORN_WHIP) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 phys = balance.floatAttribute(tw_base) * (1f + 0.01f * balance.intAttribute(tw_scale) * character.attributes.body)
             ).multipledBy(koef)
@@ -88,8 +88,8 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
     },
 
     "thalendros.earthquake_slam" to { context, event ->
-        context.useOnComplete(event, THALENDROS_EARTHQUAKE_SLAM) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, THALENDROS_EARTHQUAKE_SLAM) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             allEnemies(characterId).randomOrNull()?.let { targetId ->
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(
@@ -145,8 +145,8 @@ fun provideThalendrosTriggers(balance: JsonObject): Map<String, SbTrigger> = map
     },
 
     "thalendros.dark_aura" to { context, event ->
-        context.useOnComplete(event, THALENDROS_DARK_AURA) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, THALENDROS_DARK_AURA) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             allEnemies(characterId).randomOrNull()?.let { targetId ->
                 events.add(
                     SbDisplayEvent.SbShowTarotEffect(

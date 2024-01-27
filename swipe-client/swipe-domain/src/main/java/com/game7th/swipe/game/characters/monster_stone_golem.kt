@@ -71,8 +71,8 @@ fun provideStoneGolemAbilities(balance: JsonObject, attributes: CharacterAttribu
 
 fun provideStoneGolemTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
     "stone_golem.stone_smash" to { context, event ->
-        context.useOnComplete(event, STONE_GOLEM_STONE_SMASH) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, STONE_GOLEM_STONE_SMASH) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 phys = balance.floatAttribute(ss_base) * (1f + 0.01f * balance.intAttribute(ss_scale) * character.attributes.body)
             ).multipledBy(koef)
@@ -88,8 +88,8 @@ fun provideStoneGolemTriggers(balance: JsonObject): Map<String, SbTrigger> = map
     },
 
     "stone_golem.petrifying_strike" to  { context, event ->
-        context.useOnComplete(event, STONE_GOLEM_PETRIFYING_STRIKE) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, STONE_GOLEM_PETRIFYING_STRIKE) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 cold = balance.floatAttribute(ps_base) * (1f + 0.01f * balance.intAttribute(ps_scale) * character.attributes.body)
             ).multipledBy(koef)
@@ -132,8 +132,8 @@ fun provideStoneGolemTriggers(balance: JsonObject): Map<String, SbTrigger> = map
     },
 
     "stone_golem.crushing_momentum" to { context, event ->
-        context.useOnComplete(event, STONE_GOLEM_CRUSHING_MOMENTUM) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, STONE_GOLEM_CRUSHING_MOMENTUM) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 phys = balance.floatAttribute(cm_base) * (1f + 0.01f * balance.intAttribute(cm_scale) * character.attributes.body)
             ).multipledBy(koef)

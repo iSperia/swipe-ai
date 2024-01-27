@@ -14,6 +14,23 @@
     { "weight": 4, "skin": "STONE_GOLEM_PETRIFYING_STRIKE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 5 },
     { "weight": 2, "skin": "STONE_GOLEM_CRUSHING_MOMENTUM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
   ],
+  "abilities": [
+    {
+      "id": "STONE_GOLEM_STONE_SMASH",
+      "weight": 4,
+      "timeout": 4
+    },
+    {
+      "id": "STONE_GOLEM_PETRIFYING_STRIKE",
+      "weight": 4,
+      "timeout": 5
+    },
+    {
+      "id": "STONE_GOLEM_CRUSHING_MOMENTUM",
+      "weight": 2,
+      "timeout": 6
+    }
+  ],
   "triggers": ["stone_golem.stone_smash", "stone_golem.petrifying_strike", "stone_golem.crushing_momentum", "common.stun"],
   "balance": {
     "base_health": 600,

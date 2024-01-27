@@ -125,14 +125,15 @@ class MonsterServiceImpl(
                 )
             },
             damage = SbElemental(),
-            abilities = abilities,
+            frontAbilities = abilities,
             lore = configFile.lore,
             health = health,
             luck = luck,
             ult = ult,
             ultMax = configFile.balance.intAttribute("ult_max"),
             ultPrefillPercent = 0,
-            rarityAffixes = affixes
+            rarityAffixes = affixes,
+            abilities = configFile.abilities ?: emptyList()
         )
     }
 

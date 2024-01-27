@@ -70,8 +70,8 @@ fun provideCorruptedDryadAbilities(balance: JsonObject, attributes: CharacterAtt
 
 fun provideCorruptedDryadTriggers(balance: JsonObject): Map<String, SbTrigger> = mapOf(
     "corrupted_dryad.arboreal_fangs" to { context, event ->
-        context.useOnComplete(event, CORRUPTED_DRYAD_ARBOREAL_FANGS) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, CORRUPTED_DRYAD_ARBOREAL_FANGS) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 phys = balance.floatAttribute(af_base) * (1f + 0.01f * balance.intAttribute(af_scale) * character.attributes.body)
             ).multipledBy(koef)
@@ -87,8 +87,8 @@ fun provideCorruptedDryadTriggers(balance: JsonObject): Map<String, SbTrigger> =
     },
 
     "corrupted_dryad.vile_siphon" to  { context, event ->
-        context.useOnComplete(event, CORRUPTED_DRYAD_VILE_SIPHON) { characterId, tileId, koef ->
-            val character = game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, CORRUPTED_DRYAD_VILE_SIPHON) { characterId, koef ->
+            val character = game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 dark = balance.floatAttribute(vs_dmg_base) * (1f + 0.01f * balance.intAttribute(vs_dmg_scale) * character.attributes.spirit)
             ).multipledBy(koef)
@@ -108,8 +108,8 @@ fun provideCorruptedDryadTriggers(balance: JsonObject): Map<String, SbTrigger> =
     },
 
     "corrupted_dryad.shadowed_annihilation" to { context, event ->
-        context.useOnComplete(event, CORRUPTED_DRYAD_SHADOWED_ANNIHILATION) { characterId, tileId, koef ->
-            val character= game.character(characterId) ?: return@useOnComplete
+        context.useMonsterAbility(event, CORRUPTED_DRYAD_SHADOWED_ANNIHILATION) { characterId, koef ->
+            val character= game.character(characterId) ?: return@useMonsterAbility
             val damage = SbElemental(
                 dark = balance.floatAttribute(sa_base) * (1f + 0.01f * balance.intAttribute(sa_scale) * character.attributes.spirit)
             ).multipledBy(koef)

@@ -9,13 +9,18 @@
     "ru": "Под лесной подстилкой обитают шипастые ползуны, их панцири плавно сливаются с тенями. Эти грозные существа могут похвастаться бронированным экзоскелетом, украшенным острыми как бритва шипами, которые служат как защитой, так и оружием. Их движения стремительны и расчетливы, они часто подстерегают свою добычу, вырываясь из подлеска. Обладая огромной силой и ловкостью, они являются грозными противниками в ближнем бою. Легенды говорят об их способности ощущать вибрации земли, что дает им сверхъестественную способность перемещаться даже по самым темным подземным переходам"
   },
   "attributes": {"mind":  30, "spirit":  30, "body":  40},
-  "tiles": [
-    { "weight": 5, "skin": "THORNED_CRAWLER_VICIOUS_PINCERS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
-    { "weight": 2, "skin": "THORNED_CRAWLER_DEBILIATING_STRIKE", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 },
-    { "weight": 3, "skin": "THORNED_CRAWLER_LEECHING_SHADOWS", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 4 }
-  ],
-  "triggers": [
-    "thorned_crawler.vicious_pincers", "thorned_crawler.debiliating_stirke", "thorned_crawler.leeching_shadows", "common.weakness"
+  "triggers": ["thorned_crawler.vicious_pincers", "thorned_crawler.leeching_shadows", "common.weakness" ],
+  "abilities": [
+    {
+      "id": "THORNED_CRAWLER_VICIOUS_PINCERS",
+      "weight": 5,
+      "timeout": 4
+    },
+    {
+      "id": "THORNED_CRAWLER_LEECHING_SHADOWS",
+      "weight": 3,
+      "timeout": 5
+    }
   ],
   "balance": {
     "base_health": 150,
@@ -42,5 +47,6 @@
     "ls_heal_base": 25,
     "ls_heal_scale": 10
   },
-  "scale": 1
+  "scale": 1,
+  "cap": 0.5
 }

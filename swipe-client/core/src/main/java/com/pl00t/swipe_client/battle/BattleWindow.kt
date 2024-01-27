@@ -43,6 +43,7 @@ class BattleWindow(
     lateinit var locationGroup: Group
     lateinit var unitsGroup: Group
     lateinit var healthbarGroup: Group
+    lateinit var intentGroup: Group
     lateinit var tarotEffectsGroup: Group
     lateinit var ultimateEffectsGroup: Group
     lateinit var popupsGroup: Group
@@ -96,6 +97,7 @@ class BattleWindow(
         locationGroup = Group().apply { setSize(r.width, r.height - 510f) }
         unitsGroup = Group()
         healthbarGroup = Group()
+        intentGroup = Group()
         tarotEffectsGroup = Group()
         ultimateEffectsGroup = Group()
         popupsGroup = Group()
@@ -149,6 +151,7 @@ class BattleWindow(
             locationGroup.addActor(popupsGroup)
             locationGroup.addActor(ultimateEffectsGroup)
             locationGroup.addActor(healthbarGroup)
+            locationGroup.addActor(intentGroup)
 
             addTileBackgrounds()
 
@@ -279,6 +282,9 @@ class BattleWindow(
                     healthbarGroup.findActor<UnitHealthBarActor>(personage.id.toString())?.let { healthBar ->
                         healthBar.updateHealth(personage.health, personage.maxHealth)
                     }
+                    intentGroup.findActor<UnitIntentActor>(personage.id.toString())?.let { actor ->
+                        event.personage.intent?.let { intent -> actor.updateConfig(intent) }
+                    }
                     if (personage.id == 0) {
                         ultimateActor.updateUltimateProgress(personage.ultimateProgress.toFloat() / personage.maxUltimateProgress)
                     }
@@ -313,6 +319,12 @@ class BattleWindow(
             is SbDisplayEvent.SbDestroyCharacter -> {
                 unitsGroup.findActor<UnitActor>(event.id.toString())?.let { actor ->
                     healthbarGroup.findActor<UnitHealthBarActor>(event.id.toString())?.let {
+                        it.addAction(Actions.sequence(
+                            Actions.alpha(0f, 0.4f),
+                            Actions.removeActor()
+                        ))
+                    }
+                    intentGroup.findActor<UnitIntentActor>(event.id.toString())?.let {
                         it.addAction(Actions.sequence(
                             Actions.alpha(0f, 0.4f),
                             Actions.removeActor()
@@ -664,6 +676,22 @@ class BattleWindow(
 
         unitsGroup.addActor(unit)
         healthbarGroup.addActor(healthBar)
+
+        event.personage.intent?.let { intent ->
+            print(intent.toString())
+            val intentActor = UnitIntentActor(
+                r = r,
+                w = 94f,
+                config = intent
+            ).apply {
+                x = unit.x + 3f
+                y = unit.y + event.personage.scale * 1.66f * characterWidth * 1.6f * (1f - event.personage.cap)
+                name = unit.name
+            }
+
+            intentGroup.addActor(intentActor)
+        }
+
         unit.animateAppear()
     }
 

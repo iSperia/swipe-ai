@@ -34,6 +34,12 @@ object CommonKeys {
         const val EXTRA_ULT_PROGRESS = "extra_ult_progress"
     }
 
+    object MONSTER_COMMON {
+        const val ABILITY_POOL = "abilities"
+        const val ACTIVE_ABILITY = "active_ability"
+        const val ACTIVE_ABILITY_TICKS = "active_ability_ticks"
+    }
+
     object Vulnerability {
         const val PHYS = "vuln.phys"
         const val DARK = "vuln.dark"

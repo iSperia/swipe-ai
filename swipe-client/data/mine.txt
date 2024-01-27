@@ -1,1 +1,1 @@
-{"items":[{"skin":"MINE_LUMINOUS_EMERALD","tier":0},{"skin":"MINE_LUMINOUS_EMERALD","tier":0}],"level":3}
+{"items":[{"skin":"MINE_LUMINOUS_EMERALD","tier":0},{"skin":"MINE_LUMINOUS_EMERALD","tier":0},{"skin":"MINE_RADIANT_RUBY","tier":1}],"level":3}

@@ -14,6 +14,18 @@
     { "weight": 4, "skin": "XALITHAR_MIRRORWEAVE", "z": 2, "mobility": 100, "mergeStrategy": "KEEP_MAX", "maxProgress": 4 },
     { "weight": 3, "skin": "XALITHAR_CRYSTALINE_CATACLYSM", "z": 2, "mobility": 100, "mergeStrategy": "SIMPLE", "maxProgress": 6 }
   ],
+  "abilities": [
+    {
+      "id": "XALITHAR_FROZEN_IMPACT",
+      "weight": 6,
+      "timeout": 4
+    },
+    {
+      "id": "XALITHAR_CRYSTALINE_CATACLYSM",
+      "weight": 2,
+      "timeout": 6
+    }
+  ],
   "triggers": ["xalithar.frozen_impact", "xalithar.mirrorweave", "xalithar.crystalline_cataclysm"],
   "balance": {
     "base_health": 3000,
@@ -32,7 +44,7 @@
     "fi_cold_base": 42,
     "fi_phys_scale": 11,
     "fi_cold_scale": 11,
-    "m_percent": 40,
+    "m_percent": 2,
     "cc_per_tile_base": 45,
     "cc_per_tile_scale": 10
   },

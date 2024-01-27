@@ -39,6 +39,23 @@
       "maxProgress": 4
     }
   ],
+  "abilities": [
+    {
+      "id": "THORNSTALKER_PRIMAL_ASSAULT",
+      "weight": 5,
+      "timeout": 4
+    },
+    {
+      "id": "THORNSTALKER_RESILIENT_GROWTH",
+      "weight": 3,
+      "timeout": 6
+    },
+    {
+      "id": "THORNSTALKER_VENOMOUS_BARRAGE",
+      "weight": 3,
+      "timeout": 4
+    }
+  ],
   "triggers": [
     "thornstalker.primal_assault",
     "thornstalker.resilient_growth",

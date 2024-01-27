@@ -177,31 +177,36 @@ fun SbContext.swipe(characterId: Int, dx: Int, dy: Int) {
     handleEvent(SbEvent.EndOfSwipe(character.id))
     handleEvent(SbEvent.EndOfTick(character.id))
 
-    var swipes = game.ticksUntilNpc
     if (character.human) {
-        swipes = game.ticksUntilNpc - 1
+        var swipes = game.ticksUntilNpc - 1
         if (swipes <= 0) {
             swipes = game.characters.count { it.human }
-            val bots = game.characters.filter { !it.human }.toList()
-            bots.forEach { botUnit ->
-                game.character(botUnit.id)?.let { bot ->
-                    val directions = when (Random.nextInt(4)) {
-                        0 -> -1 to 0
-                        1 -> 1 to 0
-                        2 -> 0 to 1
-                        else -> 0 to -1
-                    }
-                    swipe(bot.id, directions.first, directions.second)
-                }
+            game.characters.filter { !it.human }.forEach { processMonsterTick(it.id) }
+        }
+
+        game = game.copy(ticksUntilNpc = swipes)
+    }
+}
+
+fun SbContext.processMonsterTick(characterId: Int) {
+    game.character(characterId)?.let { character ->
+        if (!character.human) {
+            val effect = character.effects.first { it.skin == CommonKeys.MONSTER_COMMON.ABILITY_POOL }
+            val ticks = (effect.data[CommonKeys.MONSTER_COMMON.ACTIVE_ABILITY_TICKS] as? Int) ?: 0
+            //TODO: add effects handling on the unit
+            val newTicks = ticks - 1
+            val newData = effect.data.toMutableMap()
+            newData[CommonKeys.MONSTER_COMMON.ACTIVE_ABILITY_TICKS] = newTicks
+            val newCharacter = character.withUpdatedEffect(effect.copy(data = newData))
+            game = game.withUpdatedCharacter(newCharacter)
+            events.add(SbDisplayEvent.SbUpdateCharacter(newCharacter.asDisplayed()))
+
+            if (newTicks <= 0) {
+                //we have to trigger the stuff
+                handleEvent(SbEvent.MonsterUseAbility(characterId, effect.data[CommonKeys.MONSTER_COMMON.ACTIVE_ABILITY] as String))
+                checkMonsterIntent(characterId)
             }
         }
     }
 }
 
-fun SbContext.processUltimate(characterId: Int) {
-    game.character(characterId)?.let { character ->
-        if (character.ultimateProgress >= character.maxUltimateProgress) {
-            handleEvent(SbEvent.UltimateUse(characterId))
-        }
-    }
-}

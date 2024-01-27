@@ -29,7 +29,7 @@ class MonsterAbiltiesActor(
     }
 
     init {
-        val actions = model.abilities.mapIndexed { index, ability ->
+        val actions = model.frontAbilities.mapIndexed { index, ability ->
             ActionCompositeButton(
                 r = r,
                 action = Action.SkillDetails(ability.skin),
@@ -52,11 +52,11 @@ class MonsterAbiltiesActor(
     }
 
     fun selectIndex(index: Int) {
-        if (index >= model.abilities.size) return
+        if (index >= model.frontAbilities.size) return
         focusIndex = index
         contentTable.clearChildren()
 
-        model.abilities[index].let { ability ->
+        model.frontAbilities[index].let { ability ->
             contentTable.add(r.labelFocusedCaption(ability.title.value(r.l))).height(60f).colspan(2).row()
             contentTable.add(r.regular20White(ability.description.value(r.l)).apply { wrap = true }).colspan(2).width(460f).pad(10f).row()
             contentTable.add(r.image(Resources.ux_atlas, "background_white").apply { setSize(460f, 1f); alpha = 0.3f }).width(460f).colspan(2).row()
