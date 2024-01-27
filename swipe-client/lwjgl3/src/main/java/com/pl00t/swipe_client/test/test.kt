@@ -19,6 +19,7 @@ import kotlinx.html.*
 import kotlinx.html.stream.createHTML
 import java.io.File
 import java.lang.IllegalStateException
+import kotlin.math.max
 import kotlin.math.min
 
 data class ProgressionEntry(
@@ -61,7 +62,7 @@ private suspend fun createCharacter(monsterService: MonsterService, itemService:
             val implicitAffix = itemService.getAffix(template.implicit)!!
             affixes.add(ItemAffix(implicitAffix.affix, implicitAffix.valuePerTier * implicitLevel, implicitLevel, true))
 
-            val affixCount = min(4, item.rarity + 1)
+            val affixCount = max(4, item.rarity + 1)
             val guaranteedTiers = (item.level - 1) / affixCount
             val extraTiers = (item.level - 1) % affixCount
             val affixesFilled = mutableListOf<ItemAffixType>()
@@ -334,5 +335,5 @@ suspend fun main() {
     val levelService = LevelServiceImpl(fileService, monsterService)
     val itemService = ItemServiceImpl(Gson(), fileService)
 
-    testAct(Gson(), fileService, monsterService, itemService, levelService, SwipeAct.ACT_2)
+    testAct(Gson(), fileService, monsterService, itemService, levelService, SwipeAct.ACT_1)
 }
